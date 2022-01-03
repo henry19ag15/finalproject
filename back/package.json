@@ -1,5 +1,15 @@
 {
   "dependencies": {
     "express": "^4.17.2"
-  }
+  },
+  "name": "back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "g15",
+  "license": "ISC",
+  "description": ""
 }
