@@ -1,35 +1,15 @@
-
 const initialState = {
-    estadoTest: 'Hola',
-
-    
-}
-
-
-
-
+  estadoTest: "Hola",
+};
 
 export default function rootReducer(state = initialState, action) {
+  switch (action.type) {
+    case "POST_USER":
+      return {
+        ...state,
+      };
 
-
-
-
-    switch (action.type) {
-
-      
-
-
-
-        default: return state;
-
-    }
-
-
-
-
-
-
-
-
-
+    default:
+      return state;
+  }
 }

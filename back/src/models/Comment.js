@@ -11,10 +11,10 @@ module.exports = (sequelize) => {
       },
       data: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      post: {
-        type: DataTypes.STRING,
+      date: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
       creator: {
