@@ -1,5 +1,5 @@
 const server = require ('express').Router();
-const {Post} = require('../db.js')
+const {Post} = require('../../api/src/db.js')
 
 //crear post 
 server.post ('/:id', (req, res) => {
