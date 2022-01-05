@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e8f0fe;
+  // background-color: #e8f0fe;
   *:focus {
     outline: none;
   }
@@ -20,6 +20,8 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 5px black;
+    width: 20rem;
+    border-radius: 5px;
     form {
       // background-color: red;
       display: flex;
@@ -36,9 +38,11 @@
         width: 100%;
         border: none;
         background: transparent;
-        margin-bottom: 0.5rem;
         border: solid 1px $main-color;
         border-radius: 3px;
+      }
+      input:-webkit-autofill{
+        -webkit-box-shadow:0 0 0 50px white inset;
       }
       label {
         position: relative;
@@ -46,23 +50,37 @@
         left: 2px;
         background: white;
         margin-left: 0.4rem;
-        padding: 0 0.3rem;
-        background-color: #e8f0fe;
+        padding: 0 0.1rem;
+        // background-color: #e8f0fe;
         font-size: 0.8rem;
         color: gray;
+        // height: 5px;
+        // border-radius: 15px;
+        
       }
-
+      .inputError{
+        border:solid 1px red
+      }
+      span{
+        margin: 0 0;
+        font-size: 0.7rem;
+        color: red;
+      }
       .labelInputEmailBox {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 90%;
+        margin-bottom: 0.5rem;
+       
       }
       .labelInputPassBox {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 90%;
+        margin-bottom: 0.5rem;
+
       }
       .forgetPass {
         color: gray;
@@ -76,12 +94,14 @@
         height: 1.5rem;
         transition: 0.1s;
         margin: 1rem 0;
+        width: 5rem;
+        letter-spacing: 1px;
         font-family: Arial, Helvetica, sans-serif;
       }
       
       .btnLogin:hover {
-        letter-spacing: 1px;
-        box-shadow: 0px 0px 2px $main-color;
+        
+        box-shadow: 0px 0px 3px $main-color inset;
       }
       .btnLogin:active {
         transform: scale(0.99);
@@ -105,6 +125,7 @@
         font-size: 0.8rem;
         color: #3f3f3f;
         margin: 0 0;
+       
       }
     }
   }
