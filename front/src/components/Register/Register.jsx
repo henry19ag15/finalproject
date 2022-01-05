@@ -1,12 +1,16 @@
 import app from "../../firebase/firebaseConfig.js";
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux"
+import { postUser } from "../../Redux/02-actions/index.js";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 
 
 export default function Register() {
+
+    const dispatch = useDispatch()
 
     const [input, setInput] = useState({ email: "", contraseña: "" })
 
@@ -21,6 +25,7 @@ export default function Register() {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
+                dispatch(postUser(userCredential));
                 // ...
             })
             .catch((error) => {

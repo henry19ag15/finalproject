@@ -41,8 +41,8 @@ const { User, Comment, Post, Community } = sequelize.models; //creo que deberia 
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-User.belongsTo(Community);
-Community.hasMany(User);
+// User.belongsTo(Community);
+// Community.hasMany(User);
 
 User.belongsToMany(Post, { through: "User_Post" });
 Post.belongsToMany(User, { through: "User_Post" });
