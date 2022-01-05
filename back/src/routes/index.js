@@ -1,41 +1,25 @@
-const { Router } = require('express');
-const {User} = require('../db.js');
+const { Router } = require("express");
+const { User } = require("../db.js");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
+<<<<<<< HEAD
 //import all routers;
 const Admin = require('./admin')
 const Posts = require('./posts')
 const User = require('../../api/src/routes/user')
 
+=======
+>>>>>>> 12cdee9fa39978140d9bf4d29f1820878bebd0be
 const router = Router();
 
 router.use('/admin', Admin);
 router.use('./posts', Posts);
 rotuer.use('./user', User)
 
-router.post("/register", async function (req, res) {
-
-    console.log(req.body)
-
-    try {
-        const { uid,email} = req.body.payload.user;
-        await User.create({
-            id:uid,
-            email,
-        })
-        res.status(200).send("Usuario creado correctamente")
-
-    } catch (error) {
-        console.log(error)
-
-    }
-    
-
-
-})
-
-
-
+router.use("/user", User);
+router.use("/admin", Admin);
+router.use("/post", Post);
+router.use("/comment", Comment);
 
 module.exports =router;
