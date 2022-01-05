@@ -47,9 +47,8 @@ const { User, Comment, Post, Community } = sequelize.models; //creo que deberia 
 User.belongsToMany(Post, { through: "User_Post" });
 Post.belongsToMany(User, { through: "User_Post" });
 
-Comment.belongsToMany(Post, { through: "User_Post" });
-Post.belongsToMany(Comment, { through: "User_Post" });
-
+Comment.belongsToMany(Post, { through: "Post_Comment" });
+Post.belongsToMany(Comment, { through: "Post_Comment" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
