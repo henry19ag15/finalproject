@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "user",
+    "post",
     {
       id: {
         type: DataTypes.UUID,
@@ -11,13 +11,13 @@ module.exports = (sequelize) => {
       },
       data: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      post: {
+      creator: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      creator: {
+      like: {
         type: DataTypes.STRING,
         allowNull: true,
       },
