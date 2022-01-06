@@ -3,7 +3,7 @@ const { User } = require("../db");
 
 // crear usuario
 server.post("/register", async function (req, res) {
-  console.log(req.body);
+
   try {
     const { uid, email, displayname } = req.body.payload.user;
     await User.create({
@@ -44,13 +44,13 @@ server.get("/", async function (req, res) {
 });
 
 //Buscar usuario por id
-server.get("/user/:id", (req, res) => {
+server.get("/user/:id", async function (req, res){
   try {
     let user = User.findOne({
       where: { id: req.params.id },
     });
     res.status(200).send(user);
-  } catch (error) {
+  } catch(error) {
     res.status(400).json({
       error: true,
       message: "Error al buscar el usuario",
