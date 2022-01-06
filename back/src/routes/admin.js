@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const{User}= require('../db')
+const { User } = require("../db");
 const {isAdmin,isAuthenticated} = require('./helpers')
 
 //rutas para ver usuarios, modificar usuarios, borrar usuarios.
@@ -20,7 +20,7 @@ server.get('/user', async function(req, res){
 //Buscar usuario por id
 server.get('/user/:id', async function(req,res){
   try {
-      let user = User.finOne({
+      let user = User.findOne({
           where:{id:req.params.id},
       })
       res.status(200).send(user)
