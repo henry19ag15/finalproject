@@ -97,6 +97,7 @@
         width: 5rem;
         letter-spacing: 1px;
         font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
       }
       
       .btnLogin:hover {
@@ -107,6 +108,10 @@
         transform: scale(0.99);
       }
     }
+    .registrate{  
+      color:gray;
+      cursor: pointer;
+    }
     .googleLog {
       height: 2.5rem;
       width: 13rem;
@@ -116,6 +121,7 @@
       align-items: center;
       justify-content: space-evenly;
       box-shadow: 1px 1px 2px gray;
+      cursor: pointer;
       img {
         height: 60%;
       }

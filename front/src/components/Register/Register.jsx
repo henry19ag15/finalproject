@@ -21,14 +21,16 @@ export default function Register() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        dispatch(postUser(userCredential));
-        // ...
+        // dispatch(postUser(userCredential));
+                // ...
+                console.log("Se registro satisfactoriamente")
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error);
         // ..
+        console.log("pasaron cosas")
       });
   }
 

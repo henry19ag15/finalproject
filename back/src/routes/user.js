@@ -33,7 +33,7 @@ server.delete("/user/destroy/:id", async function (req, res) {
 //Me traigo los usuarios de la db
 server.get("/", async function (req, res) {
   try {
-    let users = User.findAll();
+    let users = await User.findAll();
     res.send(users);
   } catch (error) {
     res.status(400).json({
@@ -44,9 +44,9 @@ server.get("/", async function (req, res) {
 });
 
 //Buscar usuario por id
-server.get("/user/:id", (req, res) => {
+server.get("/user/:id",async (req, res) => {
   try {
-    let user = User.findOne({
+    let user =await User.findOne({
       where: { id: req.params.id },
     });
     res.status(200).send(user);

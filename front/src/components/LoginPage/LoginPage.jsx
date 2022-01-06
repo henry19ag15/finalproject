@@ -12,7 +12,7 @@ import {
 
 export default function LoginPage() {
   const auth = getAuth();
-
+  console.log(auth.currentUser);
   const [inputs, setInputs] = useState({ email: "", pass: "" });
 
   const [inputError, setInputError] = useState({
@@ -86,7 +86,7 @@ export default function LoginPage() {
           <div className={style.labelInputEmailBox}>
             <label htmlFor="email">E-mail</label>
             <input
-              className={inputError.email1[0] ? style.inputError : false}
+              className={inputError.email1[0] ? style.inputError : ``}
               onChange={(e) => handleChange(e)}
               type="text"
               name="email"
@@ -98,7 +98,7 @@ export default function LoginPage() {
           <div className={style.labelInputPassBox}>
             <label htmlFor="pass">Contraseña</label>
             <input
-              className={inputError.pass1[0] ? style.inputError : false}
+              className={inputError.pass1[0] ? style.inputError : ``}
               onChange={(e) => handleChange(e)}
               type="password"
               name="pass"
@@ -113,7 +113,9 @@ export default function LoginPage() {
             Entrar
           </button>
         </form>
-
+        <Link className={style.registrate} to="/register">
+          Registrate aqui!
+        </Link>
         <div className={style.googleLog}>
           <img src={googleImg} alt="" />
           <p>Sign in with Google</p>
