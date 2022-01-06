@@ -30,10 +30,12 @@ module.exports = (sequelize) => {
       },
       followers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       following: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
     }
