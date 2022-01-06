@@ -1,9 +1,9 @@
 const server = require ('express').Router();
-const {Post} = require('../../api/src/db.js')
+const {Post} = require('../db.js')
 
 //crear post 
 server.post ('/:id', (req, res) => {
-    const { id, data, creator, like}
+    const { id, data, creator, like}=req.body
     Post.create({
         id,
         data,
@@ -14,3 +14,4 @@ server.post ('/:id', (req, res) => {
     .catch(err => {res.status(404).send(err)})
     
 })
+module.exports = server;
