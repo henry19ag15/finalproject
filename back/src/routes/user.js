@@ -3,13 +3,14 @@ const { User } = require("../db");
 
 // crear usuario
 server.post("/register", async function (req, res) {
+  console.log(req.body)
 
   try {
-    const { uid, email, displayname } = req.body.payload.user;
+    const { uid, email, displayName } = req.body.payload;
     await User.create({
       id: uid,
       email,
-      username: displayname,
+      username: displayName,
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
