@@ -36,6 +36,17 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
       },
+      //roles de usuario y administrador
+      rol:{
+        type:DataTypes.ENUM,
+        values:['user', 'admin'],
+        defaultValue:'user'
+      },
+      active:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true,
+        allowNull:true
+      }
     }
     // {
     //   timestamps: false,
