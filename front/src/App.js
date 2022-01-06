@@ -1,3 +1,4 @@
+import logo from './logo.svg';
 import './App.css';
 import LoginPage from './Components/LoginPage/LoginPage';
 import Register from './Components/Register/Register';
