@@ -32,8 +32,9 @@ server.delete("/user/destroy/:id", async function (req, res) {
 
 server.get("/", async function (req, res) {
   try {
-    let users = User.findAll();
-    res.send(users);
+    let users = await User.findAll();
+   res.send(users);
+   
   } catch (error) {
     res.status(400).json({
       error: true,
