@@ -30,7 +30,6 @@ server.delete("/user/destroy/:id", async function (req, res) {
   }
 });
 
-//Me traigo los usuarios de la db
 server.get("/", async function (req, res) {
   try {
     let users = User.findAll();
@@ -41,6 +40,7 @@ server.get("/", async function (req, res) {
       message: "Error al buscar los usuarios",
     });
   }
+
 });
 
 //Buscar usuario por id
@@ -58,4 +58,7 @@ server.get("/user/:id", async function (req, res){
   }
 });
 
+
+
 module.exports = server;
+
