@@ -172,7 +172,6 @@
 
    .header{
        background: none;
-       margin-top: 20px;
        & h1{
             width: 100%;
             display: flex;
@@ -185,7 +184,7 @@
         height: 100vh;
         background: none;
         box-shadow: none;
-        margin-top: -80px;
+        margin-top: 0px;
     }
 
     .rigth-continer{

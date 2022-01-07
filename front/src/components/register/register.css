@@ -213,7 +213,6 @@
   }
   .header {
     background: none;
-    margin-top: 20px;
   }
   .header h1 {
     width: 100%;
@@ -230,7 +229,7 @@
     background: none;
     -webkit-box-shadow: none;
             box-shadow: none;
-    margin-top: -80px;
+    margin-top: 0px;
   }
   .rigth-continer {
     display: none;
