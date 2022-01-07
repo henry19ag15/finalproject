@@ -29,7 +29,7 @@ export const validateForm =(form) =>{
     }
 
     if (!form.password.trim()) {
-        errors.password = "El campo 'Password' es requerido";
+        errors.password = "El campo 'Contraseña' es requerido";
       } else if (!expresiones.password.test(form.password.trim())) {
         errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
       }

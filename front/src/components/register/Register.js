@@ -30,6 +30,7 @@ const Register = () =>{
             <div className='big-continer'>
                 <div className='form-continer'>
                     <form className='form' onSubmit={handleSubmit}>
+
                         <input type='text'
                             className='input'
                             name='displayname'
@@ -38,35 +39,33 @@ const Register = () =>{
                             onBlur={handleBlur}
                             placeholder='Nombre'
                             autoComplete='off'
-                            required
                         />
                         {errors.nombre && <p className='error'>{errors.nombre}</p>}
-
-                        <input type='email'
-                            className='input'
-                            name='email'
-                            value={form.email}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            placeholder='Email'
-                            autoComplete='off'
-                            required
-                        />
+                        
+                            <input type='email'
+                                className='input'
+                                name='email'
+                                value={form.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder='Email'
+                                autoComplete='off'
+                            />
                         {errors.email && <p className='error'>{errors.email}</p>}
 
-                        <input type='password'
-                            className='input'
-                            name='password'
-                            value={form.password}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            placeholder='Contraseña'
-                            required
-                        />
+
+                            <input type='password'
+                                className='input'
+                                name='password'
+                                value={form.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder='Contraseña'
+                            />
                         {errors.password && <p className='error'>{errors.password}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-                        <p>Ya posees una cuenta? <a href='http://localhost:3001'>Click aquí</a></p>
+                        <p className='footer-text'>Ya posees una cuenta? <a className='back' href='http://localhost:3000/login'>Click aquí</a></p>
                     </form>
                 </div>
                 <div className='rigth-continer'>
