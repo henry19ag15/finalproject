@@ -7,7 +7,11 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 export const validateForm =(form) =>{
-    let errors = {}
+    let errors = {
+        displayname: '',
+        email: '',
+        password: ''
+    }
 
     const expresiones = {
         nombre: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/, // Letras y espacios, pueden llevar acentos.
@@ -16,21 +20,15 @@ export const validateForm =(form) =>{
     }
 
     //PARA SETEAR EL ESTADO DE LOS ERRORES
-    if (!form.displayname.trim()) {
-        errors.nombre = "El campo 'Nombre' es requerido";
-    } else if (!expresiones.nombre.test(form.displayname.trim())) {
-        errors.nombre = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
+    if (!expresiones.nombre.test(form.displayname.trim())) {
+        errors.displayname = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
     }
 
-    if (!form.email.trim()) {
-        errors.email = "El campo 'Email' es requerido";
-    } else if (!expresiones.email.test(form.email.trim())) {
+     if (!expresiones.email.test(form.email.trim())) {
         errors.email = "Debe ser un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
 
-    if (!form.password.trim()) {
-        errors.password = "El campo 'Contraseña' es requerido";
-      } else if (!expresiones.password.test(form.password.trim())) {
+    if (!expresiones.password.test(form.password.trim())) {
         errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
       }
 
@@ -62,21 +60,26 @@ export const useForm = (initialState) => {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        if(errors){
-            console.error(errors)
-        }else{
+       
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, form.email, form.password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
+            fetch('http://localhost:3001/recipes',{
+            method:'POST',
+            body: JSON.stringify(form),
+            headers: {"Content-Type": "application/json"}  
+            })
+            
+            console.log('Usuario registrado')
                 
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
             });
-        } 
+        
 
         handleReset()
     }

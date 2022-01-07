@@ -1,6 +1,7 @@
 import React from 'react';
 import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
+import app from '../../firebase/firebaseConfig';
 
 const initialState ={
     displayname: '',
@@ -39,8 +40,9 @@ const Register = () =>{
                             onBlur={handleBlur}
                             placeholder='Nombre'
                             autoComplete='off'
+                            required
                         />
-                        {errors.nombre && <p className='error'>{errors.nombre}</p>}
+                        {errors.displayname && <p className='error'>{errors.displayname}</p>}
                         
                             <input type='email'
                                 className='input'
@@ -50,6 +52,7 @@ const Register = () =>{
                                 onBlur={handleBlur}
                                 placeholder='Email'
                                 autoComplete='off'
+                                required
                             />
                         {errors.email && <p className='error'>{errors.email}</p>}
 
@@ -61,6 +64,7 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Contraseña'
+                                required
                             />
                         {errors.password && <p className='error'>{errors.password}</p>}
 
@@ -70,11 +74,14 @@ const Register = () =>{
                 </div>
                 <div className='rigth-continer'>
                     <h2>BIENVENIDO!</h2>
-                    <p>Encantado de verte</p>
+                    <ul>
+                        <li>El campo 'Nombre' sólo acepta letras y espacios en blanco.</li>
+                        <li>Debe ingresar un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo.</li>
+                        <li>La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial.</li>
+                    </ul>
                 </div>
             </div>
-
-
+            
      </div>
     )
 }
