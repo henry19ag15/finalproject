@@ -1,0 +1,184 @@
+@import "../../sass/variables";
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 90px 20px 0;
+}
+
+.NavBar {
+    background-color: white ;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.Nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 992px;
+    margin: 0 auto;
+}
+
+.logo {
+    height: 70px;
+    width: 80px;
+    margin: 4px;
+    padding: 3px;
+    border-radius: 80px;
+}
+
+.NavMenu {
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+
+}
+
+/** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
+.searchBar {
+    line-height: 80px;
+    width: 500px;
+} 
+
+.input {
+    background-color: rgba(228, 222, 222, 0.945);
+    width: 400px;
+    height: 30px;
+    border-radius: 5em 0 0 5em;
+    border: none;
+    padding-left: 20px;
+} 
+
+.btn {
+    padding: 0.3em 0.5em 0.5em 0 ;
+    margin-top: .05px;
+    height: 30px;
+    border-radius: 0 5em 5em 0;
+    border: none;
+    background-color: rgba(223, 228, 222, 0.945);
+
+    cursor: pointer;
+
+}
+/** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
+
+/*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
+.menuItem {
+    /* color: hotpink; */
+    font-size: 40px;
+    padding: 10px 5px 5px 5px;
+    margin: 5px;
+    width: 70px;
+
+    /* border: solid; */
+    /* border-color: honeydew; */
+    border-radius: 80px;
+
+    cursor: pointer;
+}
+
+.menuItem:active{
+    background-color: rgba(172, 232, 255, 0.781);
+
+}
+
+.menuItem:hover {
+    background-color: $main-color;
+    transition: 0.5s;
+}
+
+
+
+.btn_toogle {
+    /* color: cornsilk; */
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    cursor: pointer;
+
+    display: none;
+}
+/*? ----------------------------------------      MenuItem Fin   --------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 70px;
+    }
+    
+    .NavBar {
+        height: 40px;
+        position: absolute;
+        z-index: 2;
+    }
+    
+    .logo {
+        font-size: 2100px;
+        padding: 0 20px;
+        line-height: 60px;
+    }
+    
+    .NavMenu {
+        /* position: fixed; */
+        position: absolute;
+        z-index: 8;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 20px;
+        color: rgb(8, 8, 8);
+        background-color: white;
+        left: 215px;
+        top: 85px;
+        padding: 20px 0;
+
+        height: calc(100% + 800px);
+        /* height: 100%; */
+        width: 180px;
+        overflow-y: auto;
+
+        transition: 0.3s;
+    }
+
+    .disable {
+        left: 100vw;
+    }
+
+    .searchBar {
+        width: 90%;
+    } 
+
+    .input {
+        width: 130px;
+        height: 30px;
+    } 
+    
+    
+    .menuItem {
+        padding: 10px 5px 5px 5px;
+    }
+    
+    .menuItem:hover {
+        background-color: $main-color;
+        transition: 0.5s;
+    }
+    
+    .btn_toogle {
+        /* position: absolute;
+        z-index: 8; */
+        display: block;
+    }
+
+    /* .menuItem_visible {
+        left: 0;
+    } */
+}
+

@@ -1,20 +1,18 @@
+import { useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import Card from "./Card";
+import styles from "./Home.module.css";
 
-export default function Home () {
-
+export default function Home() {
+    //const [picsPerPage, setPicsPerPage] = useState(8);
 
     return (
-        
-        <div className='{styles.home}'>
+    <div className={styles.home}>
+        <NavBar />
 
-            <NavBar/>   
-
-            <div className='{styles.container}'>
-                <h1>Home</h1>
-                <Card/>
-            </div>
-
+        <div className={styles.container}>
+        <Card />
         </div>
+    </div>
     );
-};
+}
