@@ -1,11 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import LoginPage from './Components/LoginPage/LoginPage';
-import Register from './Components/Register/Register';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import MyPerfil from './Components/MyPerfil/MyPerfil';
-import { useEffect, useState } from 'react';
-import loading from '../src/sass/loading.gif'
+import Register from './components/Register/Register.js';
 
 function App() {
   const [log, setLog] = useState(0)
