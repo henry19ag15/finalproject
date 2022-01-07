@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 //El nombre solo puede contener letras 
 //El apellido solo puede contener letras 
 //La contraseña tiene que ser de 6 a 14 dígitos.
@@ -7,15 +8,17 @@ import { useState } from "react"
 
 export const validateForm =(form) =>{
     let errors = {}
+
     const expresiones = {
         nombre: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/, // Letras y espacios, pueden llevar acentos.
         password: /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/, // 6 a 14 digitos.
         email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     }
 
-    if (!form.nombre.trim()) {
+    //PARA SETEAR EL ESTADO DE LOS ERRORES
+    if (!form.displayname.trim()) {
         errors.nombre = "El campo 'Nombre' es requerido";
-    } else if (!expresiones.nombre.test(form.nombre.trim())) {
+    } else if (!expresiones.nombre.test(form.displayname.trim())) {
         errors.nombre = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
     }
 
@@ -57,28 +60,40 @@ export const useForm = (initialState) => {
         setErrors(validateForm(form))
     }
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = (e) =>{
         e.preventDefault()
         if(errors){
             console.error(errors)
         }else{
-            await fetch('http://localhost:3001/register',{
-            method:'POST',
-            body: JSON.stringify(form),
-            headers: {"Content-Type": "application/json"}  
-        })
-            console.log(form)
-            console.log(errors.length)
-        }
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, form.email, form.password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+        } 
 
         handleReset()
     }
+
+    const handleClickShowPassword = () => {
+        setForm({
+          ...form,
+          showPassword: !form.showPassword,
+        });
+      };
 
     return{
         form,
         errors,
         handleBlur,
         handleSubmit,
-        handleChange
+        handleChange,
+        handleClickShowPassword
     }
 }
