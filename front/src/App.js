@@ -5,9 +5,10 @@ import Register from './Components/Register/Register';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MyPerfil from './Components/MyPerfil/MyPerfil';
 import { useEffect, useState } from 'react';
+import loading from '../src/sass/loading.gif'
 
 function App() {
-  const [log, setLog] = useState(false)
+  const [log, setLog] = useState(0)
   const auth = getAuth();
 
 
@@ -17,22 +18,28 @@ function App() {
       // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       // ...
-      setLog(true)
+      setLog(1)
     } else {
       // User is signed out
       // ...
-      setLog(false)
+      setLog(2)
 
     }
   });
 
-
+  function render() {
+    if (log === 1) {
+      return <MyPerfil  />
+    } else if (log === 2) {
+      return <LoginPage />
+    }
+  }
 
 
   return (
     <div className="App">
-      <Register />
-      {log ? <MyPerfil /> : <LoginPage />}
+      {/* <Register /> */}
+      {log !== 0 ? render() : <img className='loading' src={loading} alt=''/>}
     </div>
   );
 }

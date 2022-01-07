@@ -1,7 +1,44 @@
-.allMyPerfil{
-    width: 100%;
-    // height: ;
+@import "../../sass/variables";
+
+* {
+  outline: red;
 }
-.photoProfile{
-height:5rem;
+
+.allMyPerfil {
+  width: 100%;
+  // height: ;
+  header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      h3{
+          margin-left: 0.5rem;
+          margin-bottom: 0;
+      }
+      h4{
+          margin: 0 0;
+          margin-left: 0.5rem;
+          color: gray;
+
+      }
+    .imgFollBox {
+      display: flex;
+      //   align-items: center;
+      justify-content: flex-start;
+      margin-left: 0.3rem;
+      width: 100%;
+      .photoProfile {
+        height: 6rem;
+        border-radius: 50%;
+        border: solid 1px $main-color;
+      }
+      .followBox {
+        //   border: black solid 1px;
+        display: flex;
+        justify-content: space-evenly;
+        width: 15rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
 }
