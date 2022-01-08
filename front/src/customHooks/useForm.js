@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import {useHistory} from 'react-router-dom'
 //El nombre solo puede contener letras 
 //El apellido solo puede contener letras 
 //La contraseña tiene que ser de 6 a 14 dígitos.
@@ -9,10 +9,9 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export const validateForm = (form) => {
     let errors = {
-        displayname: '',
-        email: '',
-        password: ''
+        displayError: ''
     }
+
 
     const expresiones = {
         nombre: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/, // Letras y espacios, pueden llevar acentos.
@@ -22,16 +21,16 @@ export const validateForm = (form) => {
 
     //PARA SETEAR EL ESTADO DE LOS ERRORES
     if (!expresiones.nombre.test(form.displayname.trim())) {
-        errors.displayname = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
+        errors.displayError = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
     }
 
-    if (!expresiones.email.test(form.email.trim())) {
-        errors.email = "Debe ser un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo";
+     if (!expresiones.email.test(form.email.trim())) {
+        errors.displayError = "Debe ser un correo valido y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
 
     if (!expresiones.password.test(form.password.trim())) {
-        errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
-    }
+        errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+      }
 
 
     return errors
@@ -41,6 +40,8 @@ export const validateForm = (form) => {
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
     const [errors, setErrors] = useState({})
+
+    const history = useHistory()
 
 
     const handleChange = (e) => {
@@ -64,28 +65,40 @@ export const useForm = (initialState) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, form.email, form.password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                fetch('http://localhost:3001/recipes', {
-                    method: 'POST',
-                    body: JSON.stringify(form),
-                    headers: { "Content-Type": "application/json" }
+            if(errors.displayError){
+                return console.error(errors.displayError)
+            } else{
+                const auth = getAuth();
+                createUserWithEmailAndPassword(auth, form.email, form.password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                fetch('http://localhost:3001/recipes',{
+                method:'POST',
+                body: JSON.stringify(form),
+                headers: {"Content-Type": "application/json"}  
                 })
-
-                console.log('Usuario registrado')
-
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-
-                console.log(errorCode)
-
-            });
+                setErrors({
+                    succes: 'Usuario registrado correctamente'
+                })
+                
+                    history.push('/')
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode)
+                    console.log(errorMessage)
+                    if(error){
+                       setErrors({
+                           displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'                       }
+                           
+                       )
+                    }
+                });
+            }
+       
+        
 
 
         // handleReset()
