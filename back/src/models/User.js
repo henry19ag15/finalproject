@@ -49,7 +49,7 @@ module.exports = (sequelize) => {
       active:{
         type:DataTypes.BOOLEAN,
         defaultValue:true,
-        allowNull:true
+        allowNull:false
       },
       detail:{
         type:DataTypes.STRING,

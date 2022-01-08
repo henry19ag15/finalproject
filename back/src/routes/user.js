@@ -25,7 +25,8 @@ server.put("/inactive/:id",  (req, res) =>{
    where:{
      id:req.params.id
    }
- }).then(post => {
+   }).then(post => {
+   
    post.active =false
    post.save().then(post => res.status(201).send(post))
  }).catch(err => res.status(404).send(err))
@@ -33,6 +34,16 @@ server.put("/inactive/:id",  (req, res) =>{
    res.status(200).send("Usuario Inactivo");
     
 });
+//Traer todos los usuarios activos
+server.get("/active", (req, res) =>{
+  User.findAll({
+    where:{
+      active:true,
+
+    }
+  }).then(post => res.status(200).send(post))
+    .catch(err => res.status(404).send('No se encontraron usuarios activos'))
+})
 
 
    //Traer todos los usuarios
