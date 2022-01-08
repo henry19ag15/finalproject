@@ -1,12 +1,12 @@
 import './App.css';
-import Register from './Components/Register/Register';
-import NavBar from './Components/NavBar/NavBar';
-import Home from './Components/Home/Home'
+import Register from './components/Register/Register';
+import NavBar from './components/NavBar/NavBar';
+import Home from './components/Home/Home'
 import loading from './sass/loading.gif'
 import { useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import MyPerfil from './Components/MyPerfil/MyPerfil'
-import LoginPage from './Components/LoginPage/LoginPage'
+import MyPerfil from './components/MyPerfil/MyPerfil'
+import LoginPage from './components/LoginPage/LoginPage'
 import { Switch, Route, Link } from "react-router-dom";
 
 function App() {

@@ -26,10 +26,12 @@ module.exports = (sequelize) => {
       }, // para poder modificar
       subscribers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       subscribed: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       followers: {
@@ -55,7 +57,8 @@ module.exports = (sequelize) => {
       },
       detail:{
         type:DataTypes.STRING,
-        allowNull:false
+        defaultValue:"",
+        allowNull:true
       },
     }
     // {

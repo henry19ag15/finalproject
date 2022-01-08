@@ -3,10 +3,10 @@ const { User } = require("../db");
 
 // crear usuario
 server.post("/register", async function (req, res) {
-  console.log(req.body)
+  console.log("este es el body:",req.body)
 
   try {
-    const { uid, email, displayname,detail} = req.body.payload.user;
+    const { uid, email, displayname,detail} = req.body;
     
     await User.create({
       id: uid,
@@ -114,7 +114,21 @@ server.put('/setting/:id',(req, res, next)=>{
  })
 })
 
-
+server.delete("/destroy/:id", async function (req, res) {
+  try {
+    //falta foto
+    const { id } = req.params;
+    await User.destroy({
+      where:{
+        id
+      }
+      
+    });
+    res.status(200).send("Usuario eliminado correctamente");
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = server;
 

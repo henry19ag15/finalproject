@@ -3,13 +3,17 @@ import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
 import {Link} from 'react-router-dom'
 import app from '../../firebase/firebaseConfig';
-import { Link } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+
+// const auth = 
+
 
 const initialState ={
     displayname: '',
     email: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+id:""
 }
 
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import style from "./MyPerfil.module.scss";
 import noImg from "../../sass/noimg.png";
-import { getAuth, signOut } from "firebase/auth";
+import axios from "axios";
+import { getAuth, signOut, deleteUser } from "firebase/auth";
 import { getMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 import myProfile from "./perfilSimulator.json";
@@ -11,8 +12,10 @@ import { useHistory } from "react-router-dom";
 export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
-  const history = useHistory();
   const user = auth.currentUser;
+
+  const history = useHistory();
+
   const [configNav, setConfigNav] = useState(false);
   const [inputsConfig, setInputsConfig] = useState({
     details: "",
@@ -47,10 +50,33 @@ export default function MyPerfil() {
     });
   }
 
+  function handleDelete(e) {
+    deleteUser(user)
+      .then(() => {
+        // User deleted.
+        axios.delete(`http://localhost:3001/user/destroy/:${user.uid}`);
+        history.push("/");
+      })
+      .catch((error) => {
+        // An error ocurred
+        // ...
+      });
+  }
+
   ////////// Logica de configurar perfil ///////////
+  function handleChangeInputsConfig(e) {
+    setInputsConfig({
+      ...inputsConfig,
+      [e.target.name]: e.target.value,
+    });
+  }
 
   function handleChangeDetails(e) {
-    // axion.put('./',{id:uid,details:"asdjkasd"})
+    e.preventDefault();
+console.log("llega aca?")
+    axios.put("http://localhost:3001/user/setting/"+user.uid, {
+      payload: { user: { detail: inputsConfig.details } },
+    });
   }
 
   function handleCancel(e) {
@@ -63,7 +89,11 @@ export default function MyPerfil() {
     if (configOptions.details) {
       return (
         <div className={style.inputsConfigBox}>
-          <input type="text" />
+          <input
+            name="details"
+            onChange={(e) => handleChangeInputsConfig(e)}
+            type="text"
+          />
           <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
           <button onClick={(e) => handleCancel(e)}>Cancelar</button>
         </div>
@@ -99,8 +129,8 @@ export default function MyPerfil() {
     <div className={style.allMyPerfil}>
       <header>
         <div className={style.imgFollBox}>
-          {noImg ? (
-            <img className={style.photoProfile} src={noImg} alt="" />
+          {user.photoURL ? (
+            <img className={style.photoProfile} src={user.photoURL} alt="" />
           ) : (
             <img className={style.photoProfile} src={noImg} alt="" />
           )}
@@ -149,6 +179,10 @@ export default function MyPerfil() {
           <button name="details" onClick={(e) => handleClickConfig(e)}>
             Cambiar detalles
           </button>
+          <button onClick={() => console.log("este es yser", user.uid)}>
+            {" "}
+            ver user
+          </button>
           <button name="img" onClick={(e) => handleClickConfig(e)}>
             Cambiar foto de perfil
           </button>
@@ -159,9 +193,10 @@ export default function MyPerfil() {
             Cambiar contraseña
           </button>
           <button onClick={(e) => handleLogout(e)}>Cerrar sesion</button>
+          <button onClick={(e) => handleDelete(e)}>Borrar Cuenta</button>
         </div>
         {renderConfig()}
-<span>Hola si </span>
+        <span>Hola si </span>
       </body>
     </div>
   );
