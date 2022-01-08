@@ -1,0 +1,110 @@
+@import "../../sass/variables";
+
+.body {
+    padding: 0;
+    margin: 0;
+}
+
+.cardbody {
+    position: relative;
+    z-index: 1;
+    left: 10px;
+    right:10px;
+    background-color: $main-color;
+    border: solid;
+    border-color: darkolivegreen;
+    z-index: 1;
+    width: 200px;
+    height: 360px;
+    border-radius: 10px;
+    margin: 0 ;
+}
+
+
+
+.img {
+    border-radius: 10px; 
+    width: 195px; 
+    height:310px;
+}
+
+.over {
+	// content:'';
+	background-color: rgba(0,0,0,0.6);
+    display: none;
+}
+
+.cardData:hover {
+    .over{
+        //content:'';
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        bottom: 45px;
+        left: 0;
+        right: 0;
+        display:flex;
+        background-color: rgba(0,0,0,0.6);
+    }
+    .btnCommit, .btnShare{
+        bottom: 10px;
+    }    
+    
+}
+
+.btn {
+    position: absolute;
+    z-index: 3;
+    right: 12px;
+    top: 5px;
+    font-size: 20px;
+    color: white;
+    border-radius: 100px;
+    width: 80px;
+    height: 40px;
+    background-color: rgb(207, 30, 10);
+    border: none;
+
+    cursor: pointer;
+}
+
+.btnShare, .btnCommit {
+    position: absolute;
+    z-index: 3;
+    bottom: 55px;
+    right: 45px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.btnCommit {right: 8px;}
+
+.cardText {
+    text-align: left;
+    padding: 5px;
+
+}
+
+/** -------------------------------------------------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+    .cardbody {
+        border: solid;
+        border-color: rgb(20, 100, 220);
+        width: 370px;
+        height: 360px;
+        border-radius: 10px;
+        margin: 0 ;
+    }
+
+    .img {
+        border-radius: 10px; 
+        width: 360px; 
+        height:310px;
+    }
+
+}
+

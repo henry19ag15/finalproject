@@ -1,0 +1,41 @@
+
+* {
+    margin: 0;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 83px 5px 0;
+}
+
+.home {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* position: relative;
+    z-index: 1; */
+}
+
+.container {
+    padding: 2px;
+    border: solid;
+    /* position: absolute; */
+    /* z-index: 3; */
+    border-color: rgb(41, 40, 40);
+    width: 100%;
+    height: auto;
+    /* left: 0; */
+    /* top: 0; */
+}
+
+/** -------------------------------------------------------------------------------------------------------------------- */
+@media (max-width: 412px) {
+    .container {
+        padding: 2px;
+        border: solid;
+        border-color: rgb(41, 40, 40);
+        width: 100%;
+        height: auto;
+    }
+}
