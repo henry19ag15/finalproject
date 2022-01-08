@@ -1,13 +1,10 @@
 import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useHistory} from 'react-router-dom'
-//El nombre solo puede contener letras 
-//El apellido solo puede contener letras 
-//La contraseña tiene que ser de 6 a 14 dígitos.
-//El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.
 
 
-export const validateForm =(form) =>{
+
+export const validateForm = (form) => {
     let errors = {
         displayError: ''
     }
@@ -32,6 +29,15 @@ export const validateForm =(form) =>{
         errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
       }
 
+    if (!expresiones.email.test(form.email.trim())) {
+        errors.email = "Debe ser un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo";
+    }
+
+    if (!expresiones.password.test(form.password.trim())) {
+        errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+    }
+
+
 
     return errors
 }
@@ -43,23 +49,28 @@ export const useForm = (initialState) => {
 
     const history = useHistory()
 
-    const handleChange = (e) =>{
+
+
+
+    const handleChange = (e) => {
         setForm({
             ...form,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
-    const handleReset =() =>{
+    const handleReset = () => {
         setForm(initialState)
     }
 
-    const handleBlur = (e) =>{
+    const handleBlur = (e) => {
         handleChange(e)
         setErrors(validateForm(form))
     }
 
-    const handleSubmit = (e) =>{
+
+
+    const handleSubmit = (e) => {
         e.preventDefault()
 
             if(errors.displayError){
@@ -93,21 +104,19 @@ export const useForm = (initialState) => {
                        )
                     }
                 });
-            }
-       
-        
 
-        handleReset()
+                handleReset()
+            }
     }
 
     const handleClickShowPassword = () => {
         setForm({
-          ...form,
-          showPassword: !form.showPassword,
+            ...form,
+            showPassword: !form.showPassword,
         });
-      };
+    };
 
-    return{
+    return {
         form,
         errors,
         handleBlur,
@@ -115,4 +124,5 @@ export const useForm = (initialState) => {
         handleChange,
         handleClickShowPassword
     }
+
 }

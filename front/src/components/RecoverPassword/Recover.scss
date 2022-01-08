@@ -1,0 +1,48 @@
+.Recover{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100vh;
+}
+
+.recover-form{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 15%;
+    align-items: center;
+    justify-content: space-between;
+    input{
+        width: 50%;
+        height: 30px;
+        padding-left: 10px;
+    }
+    button{
+        width: 120px;
+        height: 40px;
+        border-radius: 7px;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(90deg, rgba(45,204,230,1) 0%, rgba(80,164,223,1) 38%, rgba(3,115,182,1) 96%);
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        &:hover{
+            transform: scale(1.1, 1.1);
+        }
+        &:active{
+            transform: scale(1.0, 1.0);
+        }
+    }
+}
+
+.title-recover{
+    margin-top: 70px;
+}
+
+.errors-email{
+    margin-top: 30px;
+}

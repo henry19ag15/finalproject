@@ -3,13 +3,14 @@ const { User } = require("../db");
 
 // crear usuario
 server.post("/register", async function (req, res) {
-  console.log(req.body);
+  console.log(req.body)
+
   try {
-    const { uid, email, displayname } = req.body.payload.user;
+    const { uid, email, displayName } = req.body.payload;
     await User.create({
       id: uid,
       email,
-      username: displayname,
+      username: displayName,
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
@@ -30,27 +31,28 @@ server.delete("/user/destroy/:id", async function (req, res) {
   }
 });
 
-//Me traigo los usuarios de la db
 server.get("/", async function (req, res) {
   try {
-    let users = User.findAll();
-    res.send(users);
+    let users = await User.findAll();
+   res.send(users);
+   
   } catch (error) {
     res.status(400).json({
       error: true,
       message: "Error al buscar los usuarios",
     });
   }
+
 });
 
 //Buscar usuario por id
-server.get("/user/:id", (req, res) => {
+server.get("/user/:id", async function (req, res){
   try {
-    let user = User.findOne({
+    let user =await User.findOne({
       where: { id: req.params.id },
     });
     res.status(200).send(user);
-  } catch (error) {
+  } catch(error) {
     res.status(400).json({
       error: true,
       message: "Error al buscar el usuario",
@@ -58,4 +60,7 @@ server.get("/user/:id", (req, res) => {
   }
 });
 
+
+
 module.exports = server;
+

@@ -48,8 +48,14 @@
   width: 15rem;
 }
 
+.allLoginPage .contentBox form .logo {
+  height: 8rem;
+  position: relative;
+  left: 1rem;
+}
+
 .allLoginPage .contentBox form .titleText {
-  border-bottom: solid 1px yellow;
+  border-bottom: solid 1px #24c8e1;
   color: #242424;
   text-shadow: 0px 0px 10px gray;
 }
@@ -59,7 +65,7 @@
   width: 100%;
   border: none;
   background: transparent;
-  border: solid 1px yellow;
+  border: solid 1px #24c8e1;
   border-radius: 3px;
 }
 
@@ -124,10 +130,10 @@
 }
 
 .allLoginPage .contentBox form .btnLogin {
-  border: groove 1px yellow;
+  border: groove 1px #24c8e1;
   border-radius: 3px;
   background: transparent;
-  color: yellow;
+  color: #24c8e1;
   height: 1.5rem;
   -webkit-transition: 0.1s;
   transition: 0.1s;
@@ -135,16 +141,22 @@
   width: 5rem;
   letter-spacing: 1px;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox form .btnLogin:hover {
-  -webkit-box-shadow: 0px 0px 3px yellow inset;
-          box-shadow: 0px 0px 3px yellow inset;
+  -webkit-box-shadow: 0px 0px 3px #24c8e1 inset;
+          box-shadow: 0px 0px 3px #24c8e1 inset;
 }
 
 .allLoginPage .contentBox form .btnLogin:active {
   -webkit-transform: scale(0.99);
           transform: scale(0.99);
+}
+
+.allLoginPage .contentBox .registrate {
+  color: gray;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox .googleLog {
@@ -163,6 +175,7 @@
           justify-content: space-evenly;
   -webkit-box-shadow: 1px 1px 2px gray;
           box-shadow: 1px 1px 2px gray;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox .googleLog img {

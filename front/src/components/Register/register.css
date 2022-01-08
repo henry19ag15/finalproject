@@ -47,7 +47,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   width: 70%;
-  height: 80%;
+  height: 25rem;
   margin-top: 30px;
   -webkit-box-shadow: 5px 5px 20px 5px #2dcce6;
           box-shadow: 5px 5px 20px 5px #2dcce6;
@@ -123,8 +123,8 @@
 .buttons {
   margin-top: 40px;
   width: 120px;
-  height: 35px;
-  border-radius: 50px;
+  height: 40px;
+  border-radius: 7px;
   border: none;
   cursor: pointer;
   background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
@@ -150,6 +150,7 @@
   color: #000;
   font-weight: 500;
   max-width: 60%;
+  margin-top: 20px;
 }
 
 .header {
@@ -185,10 +186,16 @@
 .footer-text {
   font-size: 16px;
   font-weight: 700;
+  margin-top: 10px;
 }
 
 .footer-text a {
   text-decoration: none;
+}
+
+.succes {
+  color: #0ABC0A;
+  font-weight: 700;
 }
 
 @media (max-width: 800px) {
@@ -214,7 +221,7 @@
         -ms-flex-align: center;
             align-items: center;
     width: 60%;
-    height: 90%;
+    height: 15rem;
     margin-top: -5px;
   }
   .form-continer {

@@ -30,12 +30,25 @@ module.exports = (sequelize) => {
       },
       followers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       following: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
+      //roles de usuario y administrador
+      rol:{
+        type:DataTypes.ENUM,
+        values:['user', 'admin'],
+        defaultValue:'user'
+      },
+      active:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true,
+        allowNull:true
+      }
     }
     // {
     //   timestamps: false,

@@ -1,0 +1,124 @@
+@import "../../sass/variables";
+
+.allMyPerfil {
+  * {
+    // outline: solid 1px red;
+  }
+  width: 100%;
+  // height: ;
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    // position: relative;
+    // z-index: 1000;
+    background-color: white;
+    border:solid 1px black;
+    padding-top: 0.5rem;
+
+    .imgFollBox {
+      display: flex;
+      //   align-items: center;
+      justify-content: space-between;
+      // padding-left: 0.3rem;
+      width: 95%;
+      .photoProfile {
+        height: 6rem;
+        border-radius: 50%;
+        border: solid 1px $main-color;
+      }
+      .followBox {
+        //   border: black solid 1px;
+        display: flex;
+        justify-content: space-evenly;
+        // width: 15rem;
+        font-size: 0.9rem;
+        div {
+          padding: 0 0.3rem;
+          p {
+            margin: 0.5rem 0;
+          }
+        }
+      }
+    }
+    .nameConfigBox {
+      width: 95%;
+      // background-color: red;
+      height: 4rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .nameBox {
+        h3 {
+          // margin-left: 0.5rem;
+          margin-bottom: 0;
+        }
+        h4 {
+          margin: 0 0;
+          // margin-left: 0.5rem;
+          color: gray;
+        }
+      }
+      .menuPerfil {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        // background-color: red;
+        align-items: flex-end;
+        // width: 10px;
+        .btnConfig {
+          background-color: transparent;
+          border: none;
+          display: flex;
+          justify-content: center;
+
+          font-size: 1.8rem;
+          transition: 0.5s;
+        }
+        .btnRotate {
+          transform: rotate(-360deg);
+        }
+      }
+    }
+  }
+  body {
+    height: 50vh;
+    width: 100%;
+
+    .inputsConfigBox {
+      width: 100%;
+      // height: 8rem;
+    }
+span{
+  // position: absolute;
+}
+    .menuConfig {
+      width: 100%;
+      background-color: $main-color;
+      position: fixed;
+      left: 0;
+      transition: 0.5s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // z-index: -1;
+
+      button {
+        background-color: transparent;
+        border: none;
+        width: 90%;
+        height: 3rem;
+        border-bottom: solid 1px black;
+        margin: 0.3rem 0;
+      }
+    }
+    .menuConfigOff {
+      // position: relative;
+      left:-150vw;
+      // left: 150vw;
+      transition:0.5s
+    }
+  }
+}

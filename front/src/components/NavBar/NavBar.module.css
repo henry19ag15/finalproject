@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+* {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 90px 20px 0;
+}
+
+.NavBar {
+  background-color: white;
+  height: 80px;
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-box-shadow: 0px 0px 3px black;
+          box-shadow: 0px 0px 3px black;
+  z-index: 5000;
+}
+
+.Nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  margin-left: 1rem;
+}
+
+.logo img {
+  height: 90%;
+}
+
+.NavMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 0 0;
+  width: 80%;
+  list-style: none;
+  z-index: 5500;
+}
+
+/** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
+.searchBar {
+  line-height: 80px;
+  width: inherit;
+}
+
+.input {
+  background-color: rgba(228, 222, 222, 0.945);
+  width: 90%;
+  height: 30px;
+  border-radius: 5em 0 0 5em;
+  border: none;
+  padding-left: 20px;
+}
+
+.btn {
+  padding: 0.3em 0.5em 0.5em 0;
+  margin-top: 0.05px;
+  height: 30px;
+  border-radius: 0 5em 5em 0;
+  border: none;
+  background-color: rgba(223, 228, 222, 0.945);
+  cursor: pointer;
+}
+
+/** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
+/*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
+.menuItem {
+  /* color: hotpink; */
+  font-size: 40px;
+  width: 70px;
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  /* border: solid; */
+  /* border-color: honeydew; */
+  border-radius: 80px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.menuItem img {
+  width: 60%;
+  border: solid 2px grey;
+  border-radius: 50%;
+}
+
+.menuItem img:hover {
+  border: solid 2px #24c8e1;
+}
+
+.menuItem:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+.menuItem:hover {
+  color: #24c8e1;
+}
+
+.btn_toogle {
+  /* color: cornsilk; */
+  background: none;
+  border: none;
+  font-size: 30px;
+  padding: 0 20px;
+  line-height: 60px;
+  cursor: pointer;
+  display: none;
+}
+
+/*? ----------------------------------------      MenuItem Fin   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  body {
+    padding: 70px;
+  }
+  .NavBar {
+    z-index: 2;
+  }
+  .NavMenu {
+    /* position: fixed; */
+    position: fixed;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 0;
+    color: #080808;
+    background-color: white;
+    right: 0;
+    top: 80px;
+    padding: 20px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    height: calc(100% + 800px);
+    /* height: 100%; */
+    width: 180px;
+    border-left: solid 1px black;
+    z-index: 6501;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  .disable {
+    right: -100vw;
+  }
+  .searchBar {
+    width: 5rem;
+    display: none;
+  }
+  .input {
+    width: 130px;
+    height: 30px;
+  }
+  .menuItem {
+    padding: 10px 5px 5px 5px;
+  }
+  .btn_toogle {
+    /* position: absolute;
+        z-index: 8; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  /* .menuItem_visible {
+        left: 0;
+    } */
+}
+/*# sourceMappingURL=NavBar.module.css.map */

@@ -24,11 +24,12 @@
     flex-direction: row;
     justify-content: center;
     width: 70%;
-    height: 80%;
+    height: 25rem;
     margin-top: 30px;
     box-shadow: 5px 5px 20px 5px #2dcce6;
     border: none;
     border-radius: 15px;
+   
 }
 .form-continer{
     width: 60%;
@@ -82,8 +83,8 @@
 .buttons{
     margin-top: 40px;
     width: 120px;
-    height: 35px;
-    border-radius: 50px;
+    height: 40px;
+    border-radius: 7px;
     border: none;
     cursor: pointer;
     background: linear-gradient(90deg, rgba(45,204,230,1) 0%, rgba(80,164,223,1) 38%, rgba(3,115,182,1) 96%);
@@ -104,6 +105,7 @@
     color: #000;
     font-weight: 500;
     max-width: 60%;
+    margin-top: 20px;
 }
 
 .header{
@@ -126,6 +128,7 @@
 .footer-text{
     font-size: 16px;
     font-weight: 700;
+    margin-top: 10px;
     & a{
         text-decoration: none;
     }
@@ -153,7 +156,7 @@
     justify-content: center;
     align-items: center;
     width: 60%;
-    height: 90%;
+    height: 15rem;
     margin-top: -5px;
   } 
 
