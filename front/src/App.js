@@ -1,5 +1,11 @@
 import './App.css';
-import Register from './components/Register/Register.js';
+// import Register from './components/Register/Register.js';
+import loading from './sass/loading.gif'
+import { useState } from 'react';
+import {getAuth ,onAuthStateChanged} from 'firebase/auth'
+import MyPerfil from './Components/MyPerfil/MyPerfil'
+import LoginPage from './Components/LoginPage/LoginPage'
+
 
 function App() {
   const [log, setLog] = useState(0)
@@ -23,7 +29,7 @@ function App() {
 
   function render() {
     if (log === 1) {
-      return <MyPerfil  />
+      return <MyPerfil/>
     } else if (log === 2) {
       return <LoginPage />
     }
