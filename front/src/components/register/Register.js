@@ -1,6 +1,7 @@
 import React from 'react';
 import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
+import {Link} from 'react-router-dom'
 import app from '../../firebase/firebaseConfig';
 
 const initialState ={
@@ -42,7 +43,6 @@ const Register = () =>{
                             autoComplete='off'
                             required
                         />
-                        {errors.displayname && <p className='error'>{errors.displayname}</p>}
                         
                             <input type='email'
                                 className='input'
@@ -54,7 +54,6 @@ const Register = () =>{
                                 autoComplete='off'
                                 required
                             />
-                        {errors.email && <p className='error'>{errors.email}</p>}
 
 
                             <input type='password'
@@ -66,10 +65,11 @@ const Register = () =>{
                                 placeholder='Contraseña'
                                 required
                             />
-                        {errors.password && <p className='error'>{errors.password}</p>}
+                        {errors.displayError && <p className='error'>{errors.displayError}</p>}
+                        {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-                        <p className='footer-text'>Ya posees una cuenta? <a className='back' href='http://localhost:3000/login'>Click aquí</a></p>
+                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' href='http://localhost:3000/login'>Click aquí</Link></p>
                     </form>
                 </div>
                 <div className='rigth-continer'>
