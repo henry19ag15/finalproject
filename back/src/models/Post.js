@@ -9,18 +9,27 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      data: {
-        type: DataTypes.STRING,
+      post: {
+        type: DataTypes.TEXT,
         allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
       creator: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       like: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
+      active:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true,
+        allowNull:true
+      }
     }
     // {
     //   timestamps: false,

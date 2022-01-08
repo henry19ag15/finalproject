@@ -1,34 +1,24 @@
-
 const initialState = {
-    estadoTest: 'Hola',
-
-    
-}
-
-
-
-
+  estadoTest: "Hola",
+  myProfile:null
+};
 
 export default function rootReducer(state = initialState, action) {
+  switch (action.type) {
+    case "POST_USER":
+      return {
+        ...state,
+      };
 
+    case 'GET_MY_PROFILE':
+      return {
+        ...state,
+        myProfile: action.payload
+      }
 
-
-
-    switch (action.type) {
-
-      
-
-
-
-        default: return state;
-
-    }
-
-
-
-
-
-
+    default:
+      return state;
+  }
 
 
 
