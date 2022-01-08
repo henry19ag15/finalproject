@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+.allLoginPage {
+  height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allLoginPage *:focus {
+  outline: none;
+}
+
+.allLoginPage .contentBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0px 0px 5px black;
+          box-shadow: 0px 0px 5px black;
+  width: 20rem;
+  border-radius: 5px;
+}
+
+.allLoginPage .contentBox form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 15rem;
+}
+
+.allLoginPage .contentBox form .titleText {
+  border-bottom: solid 1px yellow;
+  color: #242424;
+  text-shadow: 0px 0px 10px gray;
+}
+
+.allLoginPage .contentBox form input {
+  height: 1.8em;
+  width: 100%;
+  border: none;
+  background: transparent;
+  border: solid 1px yellow;
+  border-radius: 3px;
+}
+
+.allLoginPage .contentBox form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
+.allLoginPage .contentBox form label {
+  position: relative;
+  bottom: -8px;
+  left: 2px;
+  background: white;
+  margin-left: 0.4rem;
+  padding: 0 0.1rem;
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.allLoginPage .contentBox form .inputError {
+  border: solid 1px red;
+}
+
+.allLoginPage .contentBox form span {
+  margin: 0 0;
+  font-size: 0.7rem;
+  color: red;
+}
+
+.allLoginPage .contentBox form .labelInputEmailBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 90%;
+  margin-bottom: 0.5rem;
+}
+
+.allLoginPage .contentBox form .labelInputPassBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 90%;
+  margin-bottom: 0.5rem;
+}
+
+.allLoginPage .contentBox form .forgetPass {
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.allLoginPage .contentBox form .btnLogin {
+  border: groove 1px yellow;
+  border-radius: 3px;
+  background: transparent;
+  color: yellow;
+  height: 1.5rem;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  margin: 1rem 0;
+  width: 5rem;
+  letter-spacing: 1px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.allLoginPage .contentBox form .btnLogin:hover {
+  -webkit-box-shadow: 0px 0px 3px yellow inset;
+          box-shadow: 0px 0px 3px yellow inset;
+}
+
+.allLoginPage .contentBox form .btnLogin:active {
+  -webkit-transform: scale(0.99);
+          transform: scale(0.99);
+}
+
+.allLoginPage .contentBox .googleLog {
+  height: 2.5rem;
+  width: 13rem;
+  background-color: white;
+  margin: 1rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-shadow: 1px 1px 2px gray;
+          box-shadow: 1px 1px 2px gray;
+}
+
+.allLoginPage .contentBox .googleLog img {
+  height: 60%;
+}
+
+.allLoginPage .contentBox .googleLog p {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: #3f3f3f;
+  margin: 0 0;
+}
+/*# sourceMappingURL=LoginPage.module.css.map */
