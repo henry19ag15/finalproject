@@ -8,10 +8,20 @@ export default function Home() {
 
     return (
     <div className={styles.home}>
-        <NavBar />
+        {/* <NavBar /> */}
 
         <div className={styles.container}>
         <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+
+
         </div>
     </div>
     );

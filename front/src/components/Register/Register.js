@@ -2,6 +2,7 @@ import React from 'react';
 import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
 import app from '../../firebase/firebaseConfig';
+import { Link } from 'react-router-dom';
 
 const initialState ={
     displayname: '',
@@ -69,7 +70,7 @@ const Register = () =>{
                         {errors.password && <p className='error'>{errors.password}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-                        <p className='footer-text'>Ya posees una cuenta? <a className='back' href='http://localhost:3000/login'>Click aquí</a></p>
+                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/' >Click aquí</Link></p>
                     </form>
                 </div>
                 <div className='rigth-continer'>

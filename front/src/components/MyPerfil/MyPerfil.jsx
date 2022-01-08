@@ -6,10 +6,12 @@ import { getMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 import myProfile from "./perfilSimulator.json";
 import { AiFillSetting } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
+  const history = useHistory();
   const user = auth.currentUser;
   const [configNav, setConfigNav] = useState(false);
   const [inputsConfig, setInputsConfig] = useState({
@@ -18,82 +20,83 @@ export default function MyPerfil() {
     email: "",
     pass: "",
   });
-  const [configOptions, setConfigOptions] = useState({
-   
-  });
+  const [configOptions, setConfigOptions] = useState({});
   //   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
   }, []);
-
+  console.log();
   function handleLogout(e) {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
         console.log("deslogueaste");
+        history.push("/");
       })
       .catch((error) => {
         // An error happened.
       });
   }
 
-function handleClickConfig(e){
-  e.preventDefault()
-  setConfigNav(false)
-  setConfigOptions({
-[e.target.name]:true
-  })
-}
+  function handleClickConfig(e) {
+    e.preventDefault();
+    setConfigNav(false);
+    setConfigOptions({
+      [e.target.name]: true,
+    });
+  }
 
-////////// Logica de configurar perfil ///////////
+  ////////// Logica de configurar perfil ///////////
 
-function handleChangeDetails(e){
+  function handleChangeDetails(e) {
+    // axion.put('./',{id:uid,details:"asdjkasd"})
+  }
 
-// axion.put('./',{id:uid,details:"asdjkasd"})
-
-
-}
-
-function handleCancel(e){
-setConfigOptions({})
-setConfigNav(true)
-}
-//////////////////////////////////////////////////
-
+  function handleCancel(e) {
+    setConfigOptions({});
+    setConfigNav(true);
+  }
+  //////////////////////////////////////////////////
 
   function renderConfig() {
     if (configOptions.details) {
-      return <div className={style.inputsConfigBox}>
-        <input type="text" />
-        <button onClick={e=>handleChangeDetails(e)}>Aceptar</button>
-        <button onClick={(e)=>handleCancel(e)}>Cancelar</button>
-      </div>;
+      return (
+        <div className={style.inputsConfigBox}>
+          <input type="text" />
+          <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
+          <button onClick={(e) => handleCancel(e)}>Cancelar</button>
+        </div>
+      );
     } else if (configOptions.img) {
-      return <div className={style.inputsConfigBox}>
-         <input type="text" />
-        <button onClick={e=>handleChangeDetails(e)}>Aceptar</button>
-        <button onClick={(e)=>handleCancel(e)}>Cancelar</button>
-      </div>;
+      return (
+        <div className={style.inputsConfigBox}>
+          <input type="text" />
+          <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
+          <button onClick={(e) => handleCancel(e)}>Cancelar</button>
+        </div>
+      );
     } else if (configOptions.email) {
-      return <div className={style.inputsConfigBox}>
-         <input type="text" />
-        <button onClick={e=>handleChangeDetails(e)}>Aceptar</button>
-        <button onClick={(e)=>handleCancel(e)}>Cancelar</button>
-      </div>;
+      return (
+        <div className={style.inputsConfigBox}>
+          <input type="text" />
+          <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
+          <button onClick={(e) => handleCancel(e)}>Cancelar</button>
+        </div>
+      );
     } else if (configOptions.pass) {
-      return <div className={style.inputsConfigBox}>
-         <input type="text" />
-        <button onClick={e=>handleChangeDetails(e)}>Aceptar</button>
-        <button onClick={(e)=>handleCancel(e)}>Cancelar</button>
-      </div>;
+      return (
+        <div className={style.inputsConfigBox}>
+          <input type="text" />
+          <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
+          <button onClick={(e) => handleCancel(e)}>Cancelar</button>
+        </div>
+      );
     }
   }
 
   return (
     <div className={style.allMyPerfil}>
-      <button onClick={(e) => handleLogout(e)}>Cerrar sesion</button>
-
       <header>
         <div className={style.imgFollBox}>
           {noImg ? (
@@ -143,13 +146,22 @@ setConfigNav(true)
               : `${style.menuConfig} ${style.menuConfigOff}`
           }
         >
-          <button name="details" onClick={e=>handleClickConfig(e)}>Cambiar detalles</button>
-          <button name="img" onClick={e=>handleClickConfig(e)}>Cambiar foto de perfil</button>
-          <button name="email" onClick={e=>handleClickConfig(e)}>Cambiar e-mail</button>
-          <button name="pass" onClick={e=>handleClickConfig(e)}>Cambiar contraseña</button>
+          <button name="details" onClick={(e) => handleClickConfig(e)}>
+            Cambiar detalles
+          </button>
+          <button name="img" onClick={(e) => handleClickConfig(e)}>
+            Cambiar foto de perfil
+          </button>
+          <button name="email" onClick={(e) => handleClickConfig(e)}>
+            Cambiar e-mail
+          </button>
+          <button name="pass" onClick={(e) => handleClickConfig(e)}>
+            Cambiar contraseña
+          </button>
+          <button onClick={(e) => handleLogout(e)}>Cerrar sesion</button>
         </div>
-
-       {renderConfig()}
+        {renderConfig()}
+<span>Hola si </span>
       </body>
     </div>
   );

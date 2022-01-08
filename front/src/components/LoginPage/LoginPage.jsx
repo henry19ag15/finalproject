@@ -9,6 +9,7 @@ import {
   passwordValidation,
   validateForm,
 } from "./validations";
+import logo from '../../Components/NavBar/imgs/logo2.png'
 
 export default function LoginPage() {
   const auth = getAuth();
@@ -82,6 +83,7 @@ export default function LoginPage() {
     <div className={style.allLoginPage}>
       <div className={style.contentBox}>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <img className={style.logo} src={logo} alt="" />
           <h3 className={style.titleText}>Iniciar sesion</h3>
           <div className={style.labelInputEmailBox}>
             <label htmlFor="email">E-mail</label>

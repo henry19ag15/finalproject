@@ -28,6 +28,13 @@
       flex-direction: column;
       align-items: center;
       width: 15rem;
+
+      .logo {
+        height: 8rem;
+        position: relative;
+      left:1rem;
+      }
+
       .titleText {
         border-bottom: solid 1px $main-color;
         color: rgb(36, 36, 36);
@@ -41,8 +48,8 @@
         border: solid 1px $main-color;
         border-radius: 3px;
       }
-      input:-webkit-autofill{
-        -webkit-box-shadow:0 0 0 50px white inset;
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 50px white inset;
       }
       label {
         position: relative;
@@ -56,12 +63,11 @@
         color: gray;
         // height: 5px;
         // border-radius: 15px;
-        
       }
-      .inputError{
-        border:solid 1px red
+      .inputError {
+        border: solid 1px red;
       }
-      span{
+      span {
         margin: 0 0;
         font-size: 0.7rem;
         color: red;
@@ -72,7 +78,6 @@
         align-items: flex-start;
         width: 90%;
         margin-bottom: 0.5rem;
-       
       }
       .labelInputPassBox {
         display: flex;
@@ -80,7 +85,6 @@
         align-items: flex-start;
         width: 90%;
         margin-bottom: 0.5rem;
-
       }
       .forgetPass {
         color: gray;
@@ -99,17 +103,16 @@
         font-family: Arial, Helvetica, sans-serif;
         cursor: pointer;
       }
-      
+
       .btnLogin:hover {
-        
         box-shadow: 0px 0px 3px $main-color inset;
       }
       .btnLogin:active {
         transform: scale(0.99);
       }
     }
-    .registrate{  
-      color:gray;
+    .registrate {
+      color: gray;
       cursor: pointer;
     }
     .googleLog {
@@ -131,7 +134,6 @@
         font-size: 0.8rem;
         color: #3f3f3f;
         margin: 0 0;
-       
       }
     }
   }

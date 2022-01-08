@@ -1,12 +1,13 @@
 import './App.css';
 import Register from './Components/Register/Register';
+import NavBar from './Components/NavBar/NavBar';
+import Home from './Components/Home/Home'
 import loading from './sass/loading.gif'
 import { useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import MyPerfil from './Components/MyPerfil/MyPerfil'
 import LoginPage from './Components/LoginPage/LoginPage'
-import { Route, Routes } from 'react-router-dom';
-
+import { Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [log, setLog] = useState(0)
@@ -30,9 +31,35 @@ function App() {
 
   function render() {
     if (log === 1) {
-      return <MyPerfil />
+      return <Switch>
+
+
+      <Route exact path='/'>
+        <NavBar />
+        <Home />
+      </Route>
+
+      <Route path='/profile'>
+        <NavBar />
+        <MyPerfil />
+      </Route>
+
+    </Switch>
     } else if (log === 2) {
-      return <LoginPage />
+      return <Switch >
+
+      <Route exact path="/">
+        <LoginPage />
+      </Route>
+      <Route path="/register">
+        <Register />
+      </Route>
+      <Route path="/recovery">
+        {/* <LoginPage /> */}
+      <h2>Aca se re cupera la password</h2>
+      </Route>
+
+    </Switch>
     }
   }
 
@@ -41,14 +68,12 @@ function App() {
     <div className="App">
 
 
-
-      {/* <Route path='/'> */}
-      {/* <Register /> */}
-      {/* {log !== 0 ? render() : <img className='loading' src={loading} alt='' />} */}
-      {/* </Route> */}
+     
+       {log !== 0 ? render() : <img className='loading' src={loading} alt='' />} 
+      
 
 
-      <Register />
+
 
 
 
