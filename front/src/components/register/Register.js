@@ -69,7 +69,7 @@ const Register = () =>{
                         {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' href='http://localhost:3000/login'>Click aquí</Link></p>
+                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/'>Click aquí</Link></p>
                     </form>
                 </div>
                 <div className='rigth-continer'>
