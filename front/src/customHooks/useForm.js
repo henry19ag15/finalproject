@@ -1,8 +1,9 @@
 import { useState } from "react"
-import app from "../firebase/firebaseConfig"
+import { app } from "../firebase/firebaseConfig"
 import { useDispatch } from "react-redux";
 import { postUser } from "../Redux/02-actions/index.js";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 //El nombre solo puede contener letras 
 //El apellido solo puede contener letras 
 //La contraseña tiene que ser de 6 a 14 dígitos.
@@ -53,6 +54,19 @@ export const useForm = (initialState) => {
         })
     }
 
+    let file = {}
+
+    const handlePhoto = (e) => {
+        file = e.target.files[0]
+        console.log(file)
+    }
+    const handlePhotoSubmit = async (uid) => {
+        const filePath = await app.storage().ref('users/' + uid + '/profile.jpg').put(file).getDownloadURL()
+        const url = await filePath.getDownloadURL()
+        console.log(file)
+        console.log(url)
+    }
+
     const handleReset = () => {
         setForm(initialState)
     }
@@ -72,10 +86,11 @@ export const useForm = (initialState) => {
         createUserWithEmailAndPassword(auth, form.email, form.password)
             .then((userCredential) => {
                 // Signed in
+
                 const user = userCredential.user;
                 user.displayName = form.nombre
-                const data = (({ email,displayName,uid }) => ({ email, displayName,uid }))(user);
-                console.log(data)
+                const data = (({ email, displayName, uid }) => ({ email, displayName, uid }))(user);
+                handlePhotoSubmit(user.uid)
                 dispatch(postUser(data));
 
             })
@@ -83,28 +98,16 @@ export const useForm = (initialState) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(error);
-                // ..
             });
-        // if (errors) {
-        //     console.error(errors)
-        // } else {
-        //     await fetch('http://localhost:3001/register', {
-        //         method: 'POST',
-        //         body: JSON.stringify(form),
-        //         headers: { "Content-Type": "application/json" }
-        //     })
-        //     console.log(form)
-        //     console.log(errors.length)
-        // }
-
-        // handleReset()
     }
+
 
     return {
         form,
         errors,
         handleBlur,
         handleSubmit,
-        handleChange
+        handleChange,
+        handlePhoto,
     }
 }

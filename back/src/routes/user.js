@@ -18,18 +18,20 @@ server.post("/register", async function (req, res) {
   }
 });
 
-server.delete("/user/destroy/:id", async function (req, res) {
+server.get("/destroy/:id", async function (req, res) {
   try {
     //falta foto
     const { id } = req.params;
     await User.destroy({
-      id,
+      where: { id: id },
     });
     res.status(200).send("Usuario eliminado correctamente");
   } catch (error) {
     console.log(error);
   }
 });
+
+
 
 server.get("/", async function (req, res) {
   try {
@@ -45,13 +47,13 @@ server.get("/", async function (req, res) {
 });
 
 //Buscar usuario por id
-server.get("/user/:id", async function (req, res){
+server.get("/:id", async function (req, res) {
   try {
     let user = User.findOne({
       where: { id: req.params.id },
     });
     res.status(200).send(user);
-  } catch(error) {
+  } catch (error) {
     res.status(400).json({
       error: true,
       message: "Error al buscar el usuario",
@@ -62,4 +64,5 @@ server.get("/user/:id", async function (req, res){
 
 
 module.exports = server;
+
 
