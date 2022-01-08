@@ -171,8 +171,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 60px;
-  padding-left: 20px;
+  margin-left: 20px;
   font-size: 27px;
   color: #fff;
   -webkit-box-align: center;
@@ -240,7 +239,7 @@
 
 @media (max-width: 600px) {
   .Register {
-    height: 100vh;
+    height: 100%;
     background: -webkit-gradient(linear, left top, left bottom, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
     background: linear-gradient(180deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
   }
@@ -264,6 +263,7 @@
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    margin-left: -10px;
   }
   .big-continer {
     width: 100%;
@@ -271,7 +271,7 @@
     background: none;
     -webkit-box-shadow: none;
             box-shadow: none;
-    margin-top: 0px;
+    margin-top: -100px;
   }
   .rigth-continer {
     display: none;
