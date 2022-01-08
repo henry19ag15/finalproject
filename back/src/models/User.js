@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
+        validate:{
+          isEmail:true
+        }
       },
       username: {
         type: DataTypes.STRING,
@@ -47,8 +51,12 @@ module.exports = (sequelize) => {
       active:{
         type:DataTypes.BOOLEAN,
         defaultValue:true,
-        allowNull:true
-      }
+        allowNull:false
+      },
+      detail:{
+        type:DataTypes.STRING,
+        allowNull:false
+      },
     }
     // {
     //   timestamps: false,
