@@ -1,10 +1,11 @@
 import './App.css';
-// import Register from './components/Register/Register.js';
+import Register from './Components/Register/Register';
 import loading from './sass/loading.gif'
 import { useState } from 'react';
-import {getAuth ,onAuthStateChanged} from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import MyPerfil from './Components/MyPerfil/MyPerfil'
 import LoginPage from './Components/LoginPage/LoginPage'
+import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
   function render() {
     if (log === 1) {
-      return <MyPerfil/>
+      return <MyPerfil />
     } else if (log === 2) {
       return <LoginPage />
     }
@@ -38,8 +39,19 @@ function App() {
 
   return (
     <div className="App">
+
+
+
+      {/* <Route path='/'> */}
       {/* <Register /> */}
-      {log !== 0 ? render() : <img className='loading' src={loading} alt=''/>}
+      {/* {log !== 0 ? render() : <img className='loading' src={loading} alt='' />} */}
+      {/* </Route> */}
+
+
+      <Register />
+
+
+
     </div>
   );
 }

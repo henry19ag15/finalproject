@@ -55,7 +55,7 @@ export default function LoginPage() {
             console.log(errorCode);
             setInputError({
               ...inputError,
-              email1: [true, "Usuario no Encontrado!"],
+              email1: [true, "Usuario no encontrado!"],
             });
           } else if (errorCode === "auth/wrong-password") {
             console.log(errorCode);

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 //El nombre solo puede contener letras 
 //El apellido solo puede contener letras 
 //La contraseña tiene que ser de 6 a 14 dígitos.
@@ -57,52 +58,53 @@ export const useForm = (initialState) => {
         handleChange(e)
         setErrors(validateForm(form))
     }
-    const dispatch = useDispatch()
 
-    const handleSubmit = async (e) => {
 
-        console.log(form.email, form.password);
 
-        const handleSubmit = (e) => {
-            e.preventDefault()
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, form.email, form.password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    fetch('http://localhost:3001/recipes', {
-                        method: 'POST',
-                        body: JSON.stringify(form),
-                        headers: { "Content-Type": "application/json" }
-                    })
-
-                    console.log('Usuario registrado')
-
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, form.email, form.password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                fetch('http://localhost:3001/recipes', {
+                    method: 'POST',
+                    body: JSON.stringify(form),
+                    headers: { "Content-Type": "application/json" }
                 })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                });
+
+                console.log('Usuario registrado')
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
 
 
-            // handleReset()
-        }
+                console.log(errorCode)
 
-        const handleClickShowPassword = () => {
-            setForm({
-                ...form,
-                showPassword: !form.showPassword,
             });
-        };
 
-        return {
-            form,
-            errors,
-            handleBlur,
-            handleSubmit,
-            handleChange,
-            handleClickShowPassword
-        }
+
+        // handleReset()
     }
+
+    const handleClickShowPassword = () => {
+        setForm({
+            ...form,
+            showPassword: !form.showPassword,
+        });
+    };
+
+    return {
+        form,
+        errors,
+        handleBlur,
+        handleSubmit,
+        handleChange,
+        handleClickShowPassword
+    }
+
 }
