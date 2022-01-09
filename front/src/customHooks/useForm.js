@@ -61,6 +61,7 @@ export const useForm = (initialState) => {
         })
     }
 
+
     const handleReset = () => {
         setForm(initialState)
     }
@@ -83,8 +84,6 @@ export const useForm = (initialState) => {
                 .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-
-
 
                     axios.post('http://localhost:3001/user/register', {
                         email: form.email,

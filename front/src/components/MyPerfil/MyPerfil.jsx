@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "./MyPerfil.module.scss";
 import noImg from "../../sass/noimg.png";
 import axios from "axios";
-import { getAuth, signOut, deleteUser } from "firebase/auth";
+import { app } from "../../firebase/firebaseConfig"
+import { getAuth, signOut, deleteUser, updateProfile } from "firebase/auth";
 import { getMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 import myProfile from "./perfilSimulator.json";
@@ -51,6 +52,7 @@ export default function MyPerfil() {
   }
 
   function handleDelete(e) {
+    // app.storage().ref('users/' + user.uid).delete().then(() => { console.log("foto borrada") }).catch((error) => { console.log(error) })
     deleteUser(user)
       .then(() => {
         // User deleted.
@@ -73,8 +75,8 @@ export default function MyPerfil() {
 
   function handleChangeDetails(e) {
     e.preventDefault();
-console.log("llega aca?")
-    axios.put("http://localhost:3001/user/setting/"+user.uid, {
+    console.log("llega aca?")
+    axios.put("http://localhost:3001/user/setting/" + user.uid, {
       payload: { user: { detail: inputsConfig.details } },
     });
   }
@@ -82,6 +84,22 @@ console.log("llega aca?")
   function handleCancel(e) {
     setConfigOptions({});
     setConfigNav(true);
+  }
+
+  let file = {}
+  function handlePhoto(e) {
+    e.preventDefault()
+    file = e.target.files[0]
+  }
+
+  async function handlePhotoSubmit(e) {
+    e.preventDefault()
+    const storageRef = await app.storage().ref('users/' + user.uid + '/profile.jpg')
+    await storageRef.put(file)
+    const url = await storageRef.getDownloadURL()
+    await updateProfile(auth.currentUser, {
+      photoURL: url
+    })
   }
   //////////////////////////////////////////////////
 
@@ -101,8 +119,8 @@ console.log("llega aca?")
     } else if (configOptions.img) {
       return (
         <div className={style.inputsConfigBox}>
-          <input type="text" />
-          <button onClick={(e) => handleChangeDetails(e)}>Aceptar</button>
+          <input type="file" onChange={e => handlePhoto(e)} />
+          <button onClick={(e) => handlePhotoSubmit(e)}>Aceptar</button>
           <button onClick={(e) => handleCancel(e)}>Cancelar</button>
         </div>
       );

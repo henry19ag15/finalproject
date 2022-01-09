@@ -38,29 +38,29 @@ function App() {
   function render() {
     if (log === 1) {
       return <Switch>
-      <Route exact path='/'>
-        <NavBar />
-        <Home />
-      </Route>
+        <Route exact path='/'>
+          <NavBar />
+          <Home />
+        </Route>
 
-      <Route path='/profile'>
-        <NavBar />
-        <MyPerfil />
-      </Route>
-    </Switch>
+        <Route path='/profile'>
+          <NavBar />
+          <MyPerfil />
+        </Route>
+      </Switch>
 
     } else if (log === 2) {
       return <Switch >
-      <Route exact path="/">
-        <LoginPage />
-      </Route>
-      <Route exact path="/register">
-        <Register />
-      </Route>
-      <Route path="/recovery">
-        <RecoverPassword />
-      </Route>
-    </Switch>
+        <Route exact path="/">
+          <LoginPage />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route path="/recovery">
+          <RecoverPassword />
+        </Route>
+      </Switch>
     }
   }
 
@@ -69,9 +69,9 @@ function App() {
     <div className="App">
 
 
-     
-       {log !== 0 ? render() : <img className='loading' src={loading} alt='' />} 
-      
+
+      {log !== 0 ? render() : <img className='loading' src={loading} alt='' />}
+
 
 
 
