@@ -29,6 +29,7 @@ export default function MyPerfil() {
     img: "",
     email: "",
     pass: "",
+    displayName:""
   });
   const [configOptions, setConfigOptions] = useState({});
   //   const myProfile = useSelector((state) => state.myProfile);
@@ -104,16 +105,33 @@ export default function MyPerfil() {
       });
   }
 
+
+  function handleChangeDisplayName (e){
+e.preventDefault()
+axios.put("http://localhost:3001/user/setting/" + user.uid, {
+  payload: { user: { displayname: inputsConfig.displayName } },
+}).then(
+  dispatch(getMyProfile(user.uid))
+);
+
+  }
+
+
   function handleCancel(e) {
     setConfigOptions({});
     setConfigNav(true);
   }
+  
+
 
   let file = {};
   function handlePhoto(e) {
     e.preventDefault();
     file = e.target.files[0];
   }
+
+
+
 
   async function handlePhotoSubmit(e) {
     e.preventDefault();
@@ -158,6 +176,18 @@ export default function MyPerfil() {
             onChange={(e) => handleChangeInputsConfig(e)}
           />
           <button onClick={(e) => handleChangePass(e)}>Aceptar</button>
+          <button onClick={(e) => handleCancel(e)}>Cancelar</button>
+        </div>
+      );
+    }else if (configOptions.displayName) {
+      return (
+        <div className={style.inputsConfigBox}>
+          <input
+            name="displayName"
+            type="text"
+            onChange={(e) => handleChangeInputsConfig(e)}
+          />
+          <button onClick={(e) => handleChangeDisplayName(e)}>Aceptar</button>
           <button onClick={(e) => handleCancel(e)}>Cancelar</button>
         </div>
       );
@@ -232,6 +262,9 @@ export default function MyPerfil() {
 
           <button name="pass" onClick={(e) => handleClickConfig(e)}>
             Cambiar contraseña
+          </button>
+          <button name="displayName" onClick={(e) => handleClickConfig(e)}>
+            Cambiar nombre de usuario
           </button>
           <button onClick={(e) => handleLogout(e)}>Cerrar sesion</button>
           <button onClick={(e) => handleDelete(e)}>Borrar Cuenta</button>
