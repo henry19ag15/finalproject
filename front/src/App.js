@@ -4,10 +4,11 @@ import NavBar from './components/NavBar/NavBar';
 import Home from './components/Home/Home'
 import loading from './sass/loading.gif'
 import { useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import MyPerfil from './components/MyPerfil/MyPerfil'
-import LoginPage from './components/LoginPage/LoginPage'
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import MyPerfil from './components/MyPerfil/MyPerfil';
+import LoginPage from './components/LoginPage/LoginPage';
+import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 
 function App() {
   const [log, setLog] = useState(0)
@@ -32,8 +33,6 @@ function App() {
   function render() {
     if (log === 1) {
       return <Switch>
-
-
         <Route exact path='/'>
           <NavBar />
           <Home />
@@ -43,22 +42,19 @@ function App() {
           <NavBar />
           <MyPerfil />
         </Route>
-
       </Switch>
+
     } else if (log === 2) {
       return <Switch >
-
         <Route exact path="/">
           <LoginPage />
         </Route>
-        <Route path="/register">
+        <Route exact path="/register">
           <Register />
         </Route>
         <Route path="/recovery">
-          {/* <LoginPage /> */}
-          <h2>Aca se re cupera la password</h2>
+          <RecoverPassword />
         </Route>
-
       </Switch>
     }
   }

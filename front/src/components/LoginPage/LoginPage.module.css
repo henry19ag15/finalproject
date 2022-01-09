@@ -5,12 +5,17 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background: #f6f6f6;
 }
 
 .allLoginPage *:focus {
@@ -25,13 +30,15 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-top: 20vh;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-shadow: 0px 0px 5px black;
           box-shadow: 0px 0px 5px black;
   width: 20rem;
-  border-radius: 5px;
+  border-radius: 7px;
+  background: #fff;
 }
 
 .allLoginPage .contentBox form {
@@ -46,12 +53,18 @@
       -ms-flex-align: center;
           align-items: center;
   width: 15rem;
+  padding: 7% 0;
+}
+
+.allLoginPage .contentBox form .logo {
+  height: 8rem;
+  position: relative;
+  left: 1rem;
 }
 
 .allLoginPage .contentBox form .titleText {
-  border-bottom: solid 1px yellow;
+  border-bottom: solid 1px #24c8e1;
   color: #242424;
-  text-shadow: 0px 0px 10px gray;
 }
 
 .allLoginPage .contentBox form input {
@@ -59,7 +72,7 @@
   width: 100%;
   border: none;
   background: transparent;
-  border: solid 1px yellow;
+  border: solid 1px #24c8e1;
   border-radius: 3px;
 }
 
@@ -124,33 +137,40 @@
 }
 
 .allLoginPage .contentBox form .btnLogin {
-  border: groove 1px yellow;
-  border-radius: 3px;
-  background: transparent;
-  color: yellow;
-  height: 1.5rem;
+  border: groove 1px #24c8e1;
+  border-radius: 7px;
+  background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
+  background: linear-gradient(90deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
+  color: #fff;
+  height: 2rem;
   -webkit-transition: 0.1s;
   transition: 0.1s;
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   width: 5rem;
   letter-spacing: 1px;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox form .btnLogin:hover {
-  -webkit-box-shadow: 0px 0px 3px yellow inset;
-          box-shadow: 0px 0px 3px yellow inset;
+  -webkit-box-shadow: 0px 0px 3px #24c8e1 inset;
+          box-shadow: 0px 0px 3px #24c8e1 inset;
 }
 
 .allLoginPage .contentBox form .btnLogin:active {
-  -webkit-transform: scale(0.99);
-          transform: scale(0.99);
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
+}
+
+.allLoginPage .contentBox .registrate {
+  color: gray;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox .googleLog {
   height: 2.5rem;
   width: 13rem;
-  background-color: white;
+  background-color: #f6f6f6;
   margin: 1rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -163,6 +183,7 @@
           justify-content: space-evenly;
   -webkit-box-shadow: 1px 1px 2px gray;
           box-shadow: 1px 1px 2px gray;
+  cursor: pointer;
 }
 
 .allLoginPage .contentBox .googleLog img {

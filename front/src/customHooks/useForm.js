@@ -25,13 +25,22 @@ export const validateForm = (form) => {
         errors.displayError = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
     }
 
-    if (!expresiones.email.test(form.email.trim())) {
+     if (!expresiones.email.test(form.email.trim())) {
         errors.displayError = "Debe ser un correo valido y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
 
     if (!expresiones.password.test(form.password.trim())) {
         errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+      }
+
+    if (!expresiones.email.test(form.email.trim())) {
+        errors.email = "Debe ser un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
+
+    if (!expresiones.password.test(form.password.trim())) {
+        errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+    }
+
 
 
     return errors
@@ -101,12 +110,15 @@ export const useForm = (initialState) => {
                         )
                     }
                 });
-        }
+                
+                    setErrors({
+                        succes: 'Usuario registrado correctamente'
+                    })
+             
+                
 
-
-
-
-        // handleReset()
+                handleReset()
+            }
     }
 
     const handleClickShowPassword = () => {
