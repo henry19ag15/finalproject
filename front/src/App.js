@@ -5,14 +5,9 @@ import Home from './components/Home/Home'
 import loading from './sass/loading.gif'
 import { useState } from 'react';
 import { Switch, Route } from "react-router-dom";
-import loading from './sass/loading.gif'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import Register from './components/Register/Register';
-import NavBar from './components/NavBar/NavBar';
-import { Switch, Route, Link } from "react-router-dom";
-import Home from './components/Home/Home'
-import MyPerfil from './components/MyPerfil/MyPerfil'
-import LoginPage from './components/LoginPage/LoginPage'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import MyPerfil from './components/MyPerfil/MyPerfil';
+import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 
 function App() {
