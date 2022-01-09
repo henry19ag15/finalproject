@@ -9,11 +9,11 @@ import {
   passwordValidation,
   validateForm,
 } from "./validations";
-import logo from '../../Components/NavBar/imgs/logo2.png'
+import logo from '../../components/NavBar/imgs/logo2.png'
+import Header from "../Header/Header";
 
 export default function LoginPage() {
   const auth = getAuth();
-  console.log(auth.currentUser);
   const [inputs, setInputs] = useState({ email: "", pass: "" });
 
   const [inputError, setInputError] = useState({
@@ -81,9 +81,9 @@ export default function LoginPage() {
 
   return (
     <div className={style.allLoginPage}>
+      <Header />
       <div className={style.contentBox}>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <img className={style.logo} src={logo} alt="" />
+        <form className='form-login' onSubmit={(e) => handleSubmit(e)}>
           <h3 className={style.titleText}>Iniciar sesion</h3>
           <div className={style.labelInputEmailBox}>
             <label htmlFor="email">E-mail</label>

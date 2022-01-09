@@ -161,7 +161,7 @@ export default function MyPerfil() {
           <button onClick={(e) => handleLogout(e)}>Cerrar sesion</button>
         </div>
         {renderConfig()}
-<span>Hola si </span>
+<span>Hola Mundo </span>
       </body>
     </div>
   );
