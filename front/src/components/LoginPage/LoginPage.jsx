@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import style from "./LoginPage.module.scss";
 import { Link } from "react-router-dom";
 import googleImg from "../../sass/googleIcon.png";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import axios from 'axios'
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import app from "../../firebase/firebaseConfig";
 import {
   emailValidation,
   passwordValidation,
   validateForm,
 } from "./validations";
-import logo from '../../components/NavBar/imgs/logo2.png'
+import logo from "../NavBar/imgs/logo2.png";
 import Header from "../Header/Header";
-
 export default function LoginPage() {
   const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  // console.log(auth.currentUser);
   const [inputs, setInputs] = useState({ email: "", pass: "" });
 
   const [inputError, setInputError] = useState({
@@ -31,6 +38,36 @@ export default function LoginPage() {
 
   function handleChange(e) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
+  }
+
+  function handleGoogle(e) {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        
+
+
+        axios.post("http://localhost:3001/user/register", {
+          email: user.email,          
+          displayname: user.displayName,
+          uid: user.uid,
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   }
 
   function handleSubmit(e) {
@@ -118,10 +155,10 @@ export default function LoginPage() {
         <Link className={style.registrate} to="/register">
           Registrate aqui!
         </Link>
-        <div className={style.googleLog}>
+        <button onClick={(e) => handleGoogle(e)} className={style.googleLog}>
           <img src={googleImg} alt="" />
           <p>Sign in with Google</p>
-        </div>
+        </button>
       </div>
     </div>
   );
