@@ -47,10 +47,6 @@ export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
     const [errors, setErrors] = useState({})
 
-    const history = useHistory()
-
-
-
 
     const handleChange = (e) => {
         setForm({
@@ -80,17 +76,12 @@ export const useForm = (initialState) => {
                 createUserWithEmailAndPassword(auth, form.email, form.password)
                 .then((userCredential) => {
                     // Signed in
-                    const user = userCredential.user;
-                fetch('http://localhost:3001/recipes',{
+                const user = userCredential.user;
+                fetch('http://localhost:3001/user/register',{
                 method:'POST',
                 body: JSON.stringify(form),
                 headers: {"Content-Type": "application/json"}  
-                })
-                setErrors({
-                    succes: 'Usuario registrado correctamente'
-                })
-                
-                    history.push('/')
+                });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -104,6 +95,12 @@ export const useForm = (initialState) => {
                        )
                     }
                 });
+                
+                    setErrors({
+                        succes: 'Usuario registrado correctamente'
+                    })
+             
+                
 
                 handleReset()
             }

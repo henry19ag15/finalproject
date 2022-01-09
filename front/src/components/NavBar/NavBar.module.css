@@ -46,7 +46,9 @@ body {
 }
 
 .logo img {
-  height: 90%;
+  height: 70%;
+  width: 90%;
+  margin-left: 10%;
 }
 
 .NavMenu {

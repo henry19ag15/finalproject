@@ -14,7 +14,6 @@ import Header from "../Header/Header";
 
 export default function LoginPage() {
   const auth = getAuth();
-  console.log(auth.currentUser);
   const [inputs, setInputs] = useState({ email: "", pass: "" });
 
   const [inputError, setInputError] = useState({

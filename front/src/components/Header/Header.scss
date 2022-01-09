@@ -26,28 +26,26 @@
 @media (max-width: 600px) {
     .Header{
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         background: none;
         box-shadow: none;
-        height: 25px;
+        height: 40px;
         margin-top: 40px;
         & h1{
-             width: 100%;
              display: flex;
              justify-content: center;
-             margin-left: 0px;
          }
          & img{
              width: 55px;
              height: 40px;
-             margin-top: 10px;
              margin-left: 0px;
+             margin-top: 60px;
          }
     }
 
     .logo{
-        margin-top: 10%;
+        margin-top: 15%;
     }
 }

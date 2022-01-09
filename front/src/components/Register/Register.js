@@ -3,7 +3,6 @@ import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
 import {Link} from 'react-router-dom'
 import app from '../../firebase/firebaseConfig';
-import logo from '../../assets/logo.png'
 import Header from '../Header/Header';
 
 const initialState ={

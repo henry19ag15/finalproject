@@ -1,8 +1,10 @@
 import {React, useState} from 'react';
 import './Recover.css';
+import {Link} from 'react-router-dom';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import app from '../../firebase/firebaseConfig';
 import Header from '../Header/Header';
+import { FaArrowLeft } from "react-icons/fa";
 
 const RecoverPassword = () =>{
     const [recover, setRecover] = useState({email:''})
@@ -51,6 +53,10 @@ const RecoverPassword = () =>{
     return(
         <div className='Recover'>
             <Header />
+            <div className='arrow-container'>
+                <Link to='/'><FaArrowLeft className='back-arrow'/></Link>
+                <p>Volver</p>
+            </div>
             <h1 className='title-recover'>Recuperar contraseña</h1>
             <form className='recover-form' onSubmit={handleSubmit}>
                 <input type='email'

@@ -33,8 +33,6 @@ function App() {
   function render() {
     if (log === 1) {
       return <Switch>
-
-
       <Route exact path='/'>
         <NavBar />
         <Home />
@@ -44,22 +42,19 @@ function App() {
         <NavBar />
         <MyPerfil />
       </Route>
-
     </Switch>
+
     } else if (log === 2) {
       return <Switch >
-
       <Route exact path="/">
         <LoginPage />
       </Route>
-      <Route path="/register">
+      <Route exact path="/register">
         <Register />
       </Route>
       <Route path="/recovery">
-        {/* <LoginPage /> */}
         <RecoverPassword />
       </Route>
-
     </Switch>
     }
   }

@@ -40,10 +40,10 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
@@ -53,27 +53,25 @@
     background: none;
     -webkit-box-shadow: none;
             box-shadow: none;
-    height: 25px;
+    height: 40px;
     margin-top: 40px;
   }
   .Header h1 {
-    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    margin-left: 0px;
   }
   .Header img {
     width: 55px;
     height: 40px;
-    margin-top: 10px;
     margin-left: 0px;
+    margin-top: 60px;
   }
   .logo {
-    margin-top: 10%;
+    margin-top: 15%;
   }
 }
 /*# sourceMappingURL=Header.css.map */
