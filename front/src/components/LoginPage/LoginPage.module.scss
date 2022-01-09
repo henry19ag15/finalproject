@@ -1,33 +1,36 @@
 @import "../../sass/variables";
 
+
 .allLoginPage {
   //   background-color: aqua;
   height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  background: $background-a;
   // background-color: #e8f0fe;
   *:focus {
     outline: none;
   }
 
-  * {
-    //   outline: solid 1px red;
-  }
   .contentBox {
     display: flex;
     flex-direction: column;
+    margin-top: 20vh;
     align-items: center;
     box-shadow: 0px 0px 5px black;
     width: 20rem;
-    border-radius: 5px;
+    border-radius: 7px;
+    background: #fff;
     form {
       // background-color: red;
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 15rem;
+      padding: 7% 0;
 
       .logo {
         height: 8rem;
@@ -38,7 +41,7 @@
       .titleText {
         border-bottom: solid 1px $main-color;
         color: rgb(36, 36, 36);
-        text-shadow: 0px 0px 10px gray;
+        
       }
       input {
         height: 1.8em;
@@ -92,12 +95,12 @@
       }
       .btnLogin {
         border: groove 1px $main-color;
-        border-radius: 3px;
-        background: transparent;
-        color: $main-color;
-        height: 1.5rem;
+        border-radius: 7px;
+        background: $background-horizontal;
+        color: #fff;
+        height: 2rem;
         transition: 0.1s;
-        margin: 1rem 0;
+        margin: 1rem 0 0 0;
         width: 5rem;
         letter-spacing: 1px;
         font-family: Arial, Helvetica, sans-serif;
@@ -108,7 +111,7 @@
         box-shadow: 0px 0px 3px $main-color inset;
       }
       .btnLogin:active {
-        transform: scale(0.99);
+        transform: scale(0.9, 0.9);
       }
     }
     .registrate {
@@ -118,7 +121,7 @@
     .googleLog {
       height: 2.5rem;
       width: 13rem;
-      background-color: white;
+      background-color: $background-a;
       margin: 1rem 0;
       display: flex;
       align-items: center;

@@ -1,0 +1,53 @@
+.Header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 65px;
+    box-shadow: 1px 1px 6px #091238;
+    background: #fff;
+    top: 0;
+    & h1{
+        display: flex;
+        margin-left: 20px;
+        font-size: 27px;
+        color: #000;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.img{
+    width: 55px;
+    height: 40px;
+    margin-left: 150px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .Header{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        box-shadow: none;
+        height: 25px;
+        margin-top: 40px;
+        & h1{
+             width: 100%;
+             display: flex;
+             justify-content: center;
+             margin-left: 0px;
+         }
+         & img{
+             width: 55px;
+             height: 40px;
+             margin-top: 10px;
+             margin-left: 0px;
+         }
+    }
+
+    .logo{
+        margin-top: 10%;
+    }
+}
