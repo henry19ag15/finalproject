@@ -49,10 +49,8 @@ export const validateForm = (form) => {
 
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({displayError:'', succes:''})
     const history = useHistory();
-
-    const history = useHistory()
 
 
     const handleChange = (e) => {
@@ -95,7 +93,7 @@ export const useForm = (initialState) => {
                     setErrors({
                         succes: 'Usuario registrado correctamente'
                     })
-
+                    handleReset()
                     history.push('/')
                 })
                 .catch((error) => {
@@ -105,19 +103,12 @@ export const useForm = (initialState) => {
                     console.log(errorMessage)
                     if (error) {
                         setErrors({
-                            displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'
+                            displayError: 'El email con el que se intenta registrar ya esta siendo utilizado'
                         }
 
                         )
                     }
                 });
-                
-                    setErrors({
-                        succes: 'Usuario registrado correctamente'
-                    })
-                    
-                handleReset()
-                history.push('/')
              
             }
     }
