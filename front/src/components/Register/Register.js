@@ -1,12 +1,19 @@
 import React from 'react';
 import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
+import { Link } from 'react-router-dom'
+import app from '../../firebase/firebaseConfig';
+import { getAuth } from 'firebase/auth';
+
+// const auth = 
+
 
 const initialState = {
-    nombre: '',
+    displayname: '',
     email: '',
     password: '',
-    password2: ''
+    showPassword: false,
+    id: ""
 }
 
 
@@ -24,22 +31,24 @@ const Register = () => {
 
     return (
         <div className='Register'>
+            <div className='header'>
+                <h1 className='logo'>ShareIT</h1>
+            </div>
             <h2 className='title'>Registro de Usuario</h2>
             <div className='big-continer'>
                 <div className='form-continer'>
                     <form className='form' onSubmit={handleSubmit}>
+
                         <input type='text'
                             className='input'
-                            name='nombre'
-                            value={form.nombre}
+                            name='displayname'
+                            value={form.displayname}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             placeholder='Nombre'
                             autoComplete='off'
                             required
-                        ></input>
-
-                        {errors.nombre && <p className='error'>{errors.nombre}</p>}
+                        />
 
                         <input type='email'
                             className='input'
@@ -50,8 +59,8 @@ const Register = () => {
                             placeholder='Email'
                             autoComplete='off'
                             required
-                        ></input>
-                        {errors.email && <p className='error'>{errors.email}</p>}
+                        />
+
 
                         <input type='password'
                             className='input'
@@ -61,40 +70,25 @@ const Register = () => {
                             onBlur={handleBlur}
                             placeholder='Contraseña'
                             required
-                        ></input>
-                        {errors.password && <p className='error'>{errors.password}</p>}
-
-                        <input type='password'
-                            className='input'
-                            name='password2'
-                            value={form.password2}
-                            onChange={handleChange}
-                            placeholder='Repetir contraseña'
-                            required
-                        ></input>
-
-                        <section>
-                            <img src='https://via.placeholder.com/150' alt='a'></img>
-                            <input type="file" onChange={e => handlePhoto(e)}></input>
-                        </section>
-
-
+                        />
+                        {errors.displayError && <p className='error'>{errors.displayError}</p>}
+                        {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-                        <p>Ya posees una cuenta? <a href='http://localhost:3001'>Click aquí</a></p>
-
-
-
-                    </form>
-                </div>
+                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/'>Click aquí</Link></p>
+                    </form >
+                </div >
                 <div className='rigth-continer'>
                     <h2>BIENVENIDO!</h2>
-                    <p>Encantado de verte</p>
+                    <ul>
+                        <li>El campo 'Nombre' sólo acepta letras y espacios en blanco.</li>
+                        <li>Debe ingresar un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo.</li>
+                        <li>La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial.</li>
+                    </ul>
                 </div>
             </div>
-
-
-        </div>
+            
+     </div>
     )
 }
 

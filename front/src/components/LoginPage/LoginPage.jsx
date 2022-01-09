@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import style from "./LoginPage.module.scss";
 import { Link } from "react-router-dom";
 import googleImg from "../../sass/googleIcon.png";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import axios from 'axios'
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import app from "../../firebase/firebaseConfig";
 import {
   emailValidation,
   passwordValidation,
   validateForm,
 } from "./validations";
+import logo from "../NavBar/imgs/logo2.png";
 
 export default function LoginPage() {
   const auth = getAuth();
-
+  const provider = new GoogleAuthProvider();
+  console.log(auth.currentUser);
   const [inputs, setInputs] = useState({ email: "", pass: "" });
 
   const [inputError, setInputError] = useState({
@@ -30,6 +38,36 @@ export default function LoginPage() {
 
   function handleChange(e) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
+  }
+
+  function handleGoogle(e) {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        
+
+
+        axios.post("http://localhost:3001/user/register", {
+          email: user.email,          
+          displayname: user.displayName,
+          uid: user.uid,
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   }
 
   function handleSubmit(e) {
@@ -55,7 +93,7 @@ export default function LoginPage() {
             console.log(errorCode);
             setInputError({
               ...inputError,
-              email1: [true, "Usuario no Encontrado!"],
+              email1: [true, "Usuario no encontrado!"],
             });
           } else if (errorCode === "auth/wrong-password") {
             console.log(errorCode);
@@ -82,11 +120,12 @@ export default function LoginPage() {
     <div className={style.allLoginPage}>
       <div className={style.contentBox}>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <img className={style.logo} src={logo} alt="" />
           <h3 className={style.titleText}>Iniciar sesion</h3>
           <div className={style.labelInputEmailBox}>
             <label htmlFor="email">E-mail</label>
             <input
-              className={inputError.email1[0] ? style.inputError : false}
+              className={inputError.email1[0] ? style.inputError : ``}
               onChange={(e) => handleChange(e)}
               type="text"
               name="email"
@@ -98,7 +137,7 @@ export default function LoginPage() {
           <div className={style.labelInputPassBox}>
             <label htmlFor="pass">Contraseña</label>
             <input
-              className={inputError.pass1[0] ? style.inputError : false}
+              className={inputError.pass1[0] ? style.inputError : ``}
               onChange={(e) => handleChange(e)}
               type="password"
               name="pass"
@@ -113,11 +152,13 @@ export default function LoginPage() {
             Entrar
           </button>
         </form>
-
-        <div className={style.googleLog}>
+        <Link className={style.registrate} to="/register">
+          Registrate aqui!
+        </Link>
+        <button onClick={(e) => handleGoogle(e)} className={style.googleLog}>
           <img src={googleImg} alt="" />
           <p>Sign in with Google</p>
-        </div>
+        </button>
       </div>
     </div>
   );

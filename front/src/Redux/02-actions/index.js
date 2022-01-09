@@ -8,3 +8,20 @@ export function postUser(payload) {
     };
   };
 }
+
+export function getMyProfile(id) {
+  return async function (dispatch) {
+    try {
+      const myProfile = await axios.get(`http://localhost:3001/user/user/asdjdjerk458`)
+      return  dispatch( {
+        type: 'GET_MY_PROFILE',
+        payload: myProfile.data
+      })
+    } catch (error) {
+      return dispatch({
+        type: 'GET_MY_PROFILE',
+        payload: error
+      })
+    }
+  }
+}
