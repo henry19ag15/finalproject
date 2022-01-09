@@ -1,6 +1,6 @@
 const initialState = {
   estadoTest: "Hola",
-  myProfile:null
+  myProfile:{}
 };
 
 export default function rootReducer(state = initialState, action) {

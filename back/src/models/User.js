@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
+        validate:{
+          isEmail:true
+        }
       },
       username: {
         type: DataTypes.STRING,
@@ -22,10 +26,12 @@ module.exports = (sequelize) => {
       }, // para poder modificar
       subscribers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       subscribed: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
         allowNull: true,
       },
       followers: {
@@ -47,8 +53,13 @@ module.exports = (sequelize) => {
       active:{
         type:DataTypes.BOOLEAN,
         defaultValue:true,
+        allowNull:false
+      },
+      detail:{
+        type:DataTypes.STRING,
+        defaultValue:"",
         allowNull:true
-      }
+      },
     }
     // {
     //   timestamps: false,

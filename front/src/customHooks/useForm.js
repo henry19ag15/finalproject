@@ -1,7 +1,11 @@
 import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {useHistory} from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom'
+import axios from 'axios';
+//El nombre solo puede contener letras 
+//El apellido solo puede contener letras 
+//La contraseña tiene que ser de 6 a 14 dígitos.
+//El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.
 
 
 export const validateForm = (form) => {
@@ -48,6 +52,8 @@ export const useForm = (initialState) => {
     const [errors, setErrors] = useState({})
     const history = useHistory();
 
+    const history = useHistory()
+
 
     const handleChange = (e) => {
         setForm({
@@ -55,6 +61,7 @@ export const useForm = (initialState) => {
             [e.target.name]: e.target.value
         })
     }
+
 
     const handleReset = () => {
         setForm(initialState)
@@ -65,35 +72,43 @@ export const useForm = (initialState) => {
         setErrors(validateForm(form))
     }
 
-
+    // console.log("form :",form)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-            if(errors.displayError){
-                return console.error(errors.displayError)
-            } else{
-                const auth = getAuth();
-                createUserWithEmailAndPassword(auth, form.email, form.password)
+        if (errors.displayError) {
+            return console.error(errors.displayError)
+        } else {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, form.email, form.password)
                 .then((userCredential) => {
                     // Signed in
-                const user = userCredential.user;
-                fetch('http://localhost:3001/user/register',{
-                method:'POST',
-                body: JSON.stringify(form),
-                headers: {"Content-Type": "application/json"}  
-                });
+                    const user = userCredential.user;
+
+                    axios.post('http://localhost:3001/user/register', {
+                        email: form.email,
+                        password: form.password,
+                        displayname: form.displayname,
+                        uid: user.uid
+                    })
+                    setErrors({
+                        succes: 'Usuario registrado correctamente'
+                    })
+
+                    history.push('/')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode)
                     console.log(errorMessage)
-                    if(error){
-                       setErrors({
-                           displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'                       }
-                           
-                       )
+                    if (error) {
+                        setErrors({
+                            displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'
+                        }
+
+                        )
                     }
                 });
                 
