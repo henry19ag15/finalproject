@@ -46,6 +46,7 @@ export const validateForm = (form) => {
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
     const [errors, setErrors] = useState({})
+    const history = useHistory();
 
 
     const handleChange = (e) => {
@@ -99,10 +100,10 @@ export const useForm = (initialState) => {
                     setErrors({
                         succes: 'Usuario registrado correctamente'
                     })
-             
-                
-
+                    
                 handleReset()
+                history.push('/')
+             
             }
     }
 
