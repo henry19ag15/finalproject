@@ -12,7 +12,7 @@ export function postUser(payload) {
 export function getMyProfile(id) {
   return async function (dispatch) {
     try {
-      const myProfile = await axios.get(`http://localhost:3001/user/user/asdjdjerk458`)
+      const myProfile = await axios.get(`http://localhost:3001/user/${id}`)
       return  dispatch( {
         type: 'GET_MY_PROFILE',
         payload: myProfile.data

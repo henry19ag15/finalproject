@@ -14,7 +14,7 @@ export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
-
+const perfil = useSelector(state=> state.myProfile)
   const history = useHistory();
 
   const [configNav, setConfigNav] = useState(false);
@@ -29,6 +29,7 @@ export default function MyPerfil() {
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
+    console.log(perfil)
   }, []);
   console.log();
   function handleLogout(e) {
@@ -167,7 +168,7 @@ export default function MyPerfil() {
         </div>
         <div className={style.nameConfigBox}>
           <div className={style.nameBox}>
-            <h3>{user.displayName}Nombre de usuario</h3>
+            <h3>{perfil.username}</h3>
             <h4>{user.email}</h4>
           </div>
 
@@ -197,7 +198,7 @@ export default function MyPerfil() {
           <button name="details" onClick={(e) => handleClickConfig(e)}>
             Cambiar detalles
           </button>
-          <button onClick={() => console.log("este es yser", user.uid)}>
+          <button onClick={() => console.log("este es user",perfil)}>
             {" "}
             ver user
           </button>
