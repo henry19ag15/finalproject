@@ -1,32 +1,30 @@
 import React from 'react';
 import './register.css'
 import { useForm, validateForm } from '../../customHooks/useForm';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import app from '../../firebase/firebaseConfig';
 import Header from '../Header/Header';
 
-const initialState = {
+const initialState ={
     displayname: '',
     email: '',
     password: '',
-    showPassword: false,
-    id: ""
+    showPassword: false
 }
 
 
-const Register = () => {
+const Register = () =>{
 
     const {
         form,
         errors,
         handleBlur,
         handleSubmit,
-        handleChange,
-        handlePhoto
+        handleChange
     } = useForm(initialState, validateForm)
 
 
-    return (
+    return(
         <div className='Register'>
             <Header />
             <h2 className='title'>Registro de Usuario</h2>
@@ -34,17 +32,17 @@ const Register = () => {
                 <div className='form-continer'>
                     <form className='form' onSubmit={handleSubmit}>
                         <div className='input-group'>
-                            <input type='text'
-                                className='input'
-                                name='displayname'
-                                value={form.displayname}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder='Nombre'
-                                autoComplete='off'
-                                required
-                            />
-
+                        <input type='text'
+                            className='input'
+                            name='displayname'
+                            value={form.displayname}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            placeholder='Nombre'
+                            autoComplete='off'
+                            required
+                        />
+                        
                             <input type='email'
                                 className='input'
                                 name='email'
@@ -66,15 +64,16 @@ const Register = () => {
                                 placeholder='Contraseña'
                                 required
                             />
-                            </div >
-                            {errors.displayError && <p className='error'>{errors.displayError}</p>}
-                            {errors.succes && <p className='succes'>{errors.succes}</p>}
+                        </div>
+                        {errors.displayError && <p className='error'>{errors.displayError}</p>}
+                        {errors.succes && <p className='succes'>{errors.succes}</p>}
 
-                            <button type='submit' className='buttons'>CREAR USUARIO</button>
+                        <button type='submit' className='buttons'>CREAR USUARIO</button>
 
-                            <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/'>Click aquí</Link></p>
-                    </form >
-                </div >
+                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/'>Click aquí</Link></p>
+
+                    </form>
+                </div>
                 <div className='rigth-continer'>
                     <h2 className='rigth-h2'>BIENVENIDO!</h2>
                     <ul>
@@ -84,8 +83,8 @@ const Register = () => {
                     </ul>
                 </div>
             </div>
-
-        </div>
+            
+     </div>
     )
 }
 
