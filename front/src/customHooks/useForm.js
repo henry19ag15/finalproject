@@ -1,11 +1,22 @@
 import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+<<<<<<< HEAD
+import {useHistory} from 'react-router-dom'
+<<<<<<< HEAD
+=======
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
 //El nombre solo puede contener letras 
 //El apellido solo puede contener letras 
 //La contraseña tiene que ser de 6 a 14 dígitos.
 //El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.
+<<<<<<< HEAD
+=======
+
+>>>>>>> b961a12609d9d3bf83a0689d1a7cf1493912924f
+=======
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
 
 
 export const validateForm = (form) => {
@@ -28,6 +39,15 @@ export const validateForm = (form) => {
      if (!expresiones.email.test(form.email.trim())) {
         errors.displayError = "Debe ser un correo valido y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+    if (!expresiones.password.test(form.password.trim())) {
+        errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+      }
+=======
+=======
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
 
     if (!expresiones.password.test(form.password.trim())) {
         errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
@@ -41,6 +61,10 @@ export const validateForm = (form) => {
         errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
     }
 
+<<<<<<< HEAD
+>>>>>>> b961a12609d9d3bf83a0689d1a7cf1493912924f
+=======
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
 
 
     return errors
@@ -49,9 +73,26 @@ export const validateForm = (form) => {
 
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
-    const [errors, setErrors] = useState({displayError:'', succes:''})
-    const history = useHistory();
+<<<<<<< HEAD
+    const [errors, setErrors] = useState({})
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+    const history = useHistory()
+=======
+=======
+    const [errors, setErrors] = useState({displayError:'', succes:''})
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
+    const history = useHistory();
+>>>>>>> b961a12609d9d3bf83a0689d1a7cf1493912924f
+=======
+
+<<<<<<< HEAD
+    const history = useHistory()
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
+
+=======
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
 
     const handleChange = (e) => {
         setForm({
@@ -109,8 +150,32 @@ export const useForm = (initialState) => {
                         )
                     }
                 });
+<<<<<<< HEAD
+                
+                    setErrors({
+                        succes: 'Usuario registrado correctamente'
+                    })
+<<<<<<< HEAD
+                    
+=======
+             
+                
+
+>>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
+                handleReset()
+                history.push('/')
+=======
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
              
             }
+<<<<<<< HEAD
+       
+        
+
+
+        // handleReset()
+=======
+>>>>>>> b961a12609d9d3bf83a0689d1a7cf1493912924f
     }
 
     const handleClickShowPassword = () => {
