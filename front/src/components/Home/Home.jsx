@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NavBar from "../NavBar/NavBar";
-import Card from "./Card";
+import Card from "../Card/Card";
 import styles from "./Home.module.css";
 
 export default function Home() {
