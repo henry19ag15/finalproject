@@ -29,6 +29,7 @@ body {
   justify-content: space-between;
   width: 100%;
   //   margin: 0 auto;
+  background: white;
 }
 
 .logo {
@@ -50,38 +51,64 @@ body {
 .NavMenu {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   //   margin-right: 40px;
   padding: 0 0;
   width: 80%;
   list-style: none;
   z-index: 5500;
-
 }
 
 /** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
 .searchBar {
   line-height: 80px;
   width: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // background: green;
+  border-radius: 3rem;
+  border: solid 1px $main-color;
+}
+.searchBar:hover{
+  // background-color :red;
+  transition: .2s;
+  box-shadow: 0px 0px 5px $main-color;
+
 }
 
 .input {
   background-color: rgba(228, 222, 222, 0.945);
-  width: 90%;
+  background:transparent ;
+  width: 100%;
   height: 30px;
-  border-radius: 5em 0 0 5em;
+  // border-radius: 5em 0 0 5em;
   border: none;
-  padding-left: 20px;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  color: $main-color;
+}
+.input:focus {
+  outline: none;
 }
 
 .btn {
-  padding: 0.3em 0.5em 0.5em 0;
-  margin-top: 0.05px;
+  // padding: 0.3em 0.5em 0.5em 0;
+  // margin-top: 0.05px;
   height: 30px;
   border-radius: 0 5em 5em 0;
   border: none;
-  background-color: rgba(223, 228, 222, 0.945);
-
+  // background-color: rgba(223, 228, 222, 0.945);
+  background: transparent;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover{
+  color: $main-color;
 }
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
 
@@ -103,8 +130,8 @@ body {
 
   cursor: pointer;
   img {
-    height: 2.8rem;
-    width: 2.8rem;
+    height: 2.5rem;
+    width: 2.5rem;
     object-fit: cover;
     border: solid 2px grey;
     border-radius: 50%;
@@ -127,9 +154,9 @@ body {
   /* color: cornsilk; */
   background: none;
   border: none;
-  font-size: 30px;
-  padding: 0 20px;
-  line-height: 60px;
+  // font-size: 30px;
+  padding: 0 0;
+  // line-height: 60px;
   cursor: pointer;
 
   display: none;
@@ -164,7 +191,7 @@ body {
     color: rgb(8, 8, 8);
     background-color: white;
     right: 0;
-    top: 80px;
+    top: 79px;
     padding: 20px 0;
     display: flex;
     justify-content: flex-end;
@@ -206,6 +233,7 @@ body {
     /* position: absolute;
         z-index: 8; */
     display: flex;
+    margin-right: 0.5rem;
     align-items: center;
   }
 
