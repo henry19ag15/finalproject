@@ -9,8 +9,7 @@ const initialState ={
     displayname: '',
     email: '',
     password: '',
-    showPassword: false,
-id:""
+    showPassword: false
 }
 
 

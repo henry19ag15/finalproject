@@ -5,14 +5,9 @@ import Home from './components/Home/Home'
 import loading from './sass/loading.gif'
 import { useState } from 'react';
 import { Switch, Route } from "react-router-dom";
-import loading from './sass/loading.gif'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import Register from './components/Register/Register';
-import NavBar from './components/NavBar/NavBar';
-import { Switch, Route, Link } from "react-router-dom";
-import Home from './components/Home/Home'
-import MyPerfil from './components/MyPerfil/MyPerfil'
-import LoginPage from './components/LoginPage/LoginPage'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import MyPerfil from './components/MyPerfil/MyPerfil';
+import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 
 function App() {
@@ -38,29 +33,29 @@ function App() {
   function render() {
     if (log === 1) {
       return <Switch>
-      <Route exact path='/'>
-        <NavBar />
-        <Home />
-      </Route>
+        <Route exact path='/'>
+          <NavBar />
+          <Home />
+        </Route>
 
-      <Route path='/profile'>
-        <NavBar />
-        <MyPerfil />
-      </Route>
-    </Switch>
+        <Route path='/profile'>
+          <NavBar />
+          <MyPerfil />
+        </Route>
+      </Switch>
 
     } else if (log === 2) {
       return <Switch >
-      <Route exact path="/">
-        <LoginPage />
-      </Route>
-      <Route exact path="/register">
-        <Register />
-      </Route>
-      <Route path="/recovery">
-        <RecoverPassword />
-      </Route>
-    </Switch>
+        <Route exact path="/">
+          <LoginPage />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route path="/recovery">
+          <RecoverPassword />
+        </Route>
+      </Switch>
     }
   }
 
@@ -69,9 +64,9 @@ function App() {
     <div className="App">
 
 
-     
-       {log !== 0 ? render() : <img className='loading' src={loading} alt='' />} 
-      
+
+      {log !== 0 ? render() : <img className='loading' src={loading} alt='' />}
+
 
 
 

@@ -49,9 +49,8 @@ export const validateForm = (form) => {
 
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
-    const [errors, setErrors] = useState({})
-
-    const history = useHistory()
+    const [errors, setErrors] = useState({displayError:'', succes:''})
+    const history = useHistory();
 
 
     const handleChange = (e) => {
@@ -60,6 +59,7 @@ export const useForm = (initialState) => {
             [e.target.name]: e.target.value
         })
     }
+
 
     const handleReset = () => {
         setForm(initialState)
@@ -84,8 +84,6 @@ export const useForm = (initialState) => {
                     // Signed in
                     const user = userCredential.user;
 
-
-
                     axios.post('http://localhost:3001/user/register', {
                         email: form.email,
                         password: form.password,
@@ -95,7 +93,7 @@ export const useForm = (initialState) => {
                     setErrors({
                         succes: 'Usuario registrado correctamente'
                     })
-
+                    handleReset()
                     history.push('/')
                 })
                 .catch((error) => {
@@ -105,20 +103,13 @@ export const useForm = (initialState) => {
                     console.log(errorMessage)
                     if (error) {
                         setErrors({
-                            displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'
+                            displayError: 'El email con el que se intenta registrar ya esta siendo utilizado'
                         }
 
                         )
                     }
                 });
-                
-                    setErrors({
-                        succes: 'Usuario registrado correctamente'
-                    })
              
-                
-
-                handleReset()
             }
     }
 

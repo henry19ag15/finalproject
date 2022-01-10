@@ -71,7 +71,7 @@ server.get("/:id", async function(req, res)  {
       where: { id: req.params.id },
     });
     res.status(200).send(user);
-  } catch(error) {
+  } catch (error) {
     res.status(400).json({
       error: true,
       message: "Error al buscar el usuario",
@@ -131,4 +131,5 @@ server.delete("/destroy/:id", async function (req, res) {
 });
 
 module.exports = server;
+
 
