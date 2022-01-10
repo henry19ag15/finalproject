@@ -1,4 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+.arrow-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
 .input-group {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -214,65 +234,6 @@
 
 @media (max-width: 850px) {
   .Register {
-    height: 100vh;
-    top: 0;
-  }
-  .title {
-    font-size: 30px;
-    font-weight: 700;
-  }
-  .big-continer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 60%;
-    height: 70%;
-    margin-top: 60px;
-  }
-  .form-continer {
-    width: 80%;
-    height: 90%;
-    padding-top: 5px;
-  }
-  .rigth-continer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 100%;
-    margin-top: 0px;
-  }
-  .rigth-continer ul li {
-    display: none;
-  }
-  .rigth-h2 {
-    height: 70px;
-    border-radius: 7px;
-  }
-  .input {
-    width: 80%;
-    font-size: 16px;
-    text-align: center;
-  }
-}
-
-@media (max-width: 600px) {
-  .Register {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -327,6 +288,13 @@
   }
   .form {
     background: #f6f6f6;
+  }
+  .arrow-container {
+    margin-top: 3%;
+    margin-left: 8%;
+  }
+  .arrow-container p {
+    display: none;
   }
 }
 /*# sourceMappingURL=Register.css.map */

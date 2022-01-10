@@ -1,6 +1,17 @@
 @import '../../sass/variables';
 
 
+.arrow-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 2%;
+    margin-left: 3%;
+}
+
 .input-group{
     display: flex;
     flex-direction: column;
@@ -149,58 +160,8 @@
 
 
 
-//MEDIA PARA TRABLETS
-@media (max-width: 850px) {
-    .Register{
-        height: 100vh;
-        top: 0;
-    }
-  .title{
-        font-size: 30px;
-        font-weight: 700;
-    }
-  .big-continer{
-    display: flex;
-    flex-direction: column-reverse; 
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    height: 70%;
-    margin-top: 60px;
-  } 
-
-  .form-continer{
-      width: 80%;
-      height: 90%;
-      padding-top: 5px;
-  }
-
-  .rigth-continer{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-top: 0px;
-      & ul li{
-          display: none;
-      }
-  }
-
-  .rigth-h2{
-    height: 70px;
-    border-radius: 7px;
-  }
-
-  .input{
-      width: 80%;
-      font-size: 16px;
-      text-align: center;
-  }
-}
-
-
-//MEDIA PARA DISPOSITIVOS PEQUEÑOS
-@media (max-width: 600px){
+//MEDIA PARA DISPOSITIVOS TABLETS Y TELEFONOS
+@media (max-width: 850px){
 
     .Register{
         display: flex;
@@ -247,6 +208,14 @@
 
     .form{
         background: $background-a;
+    }
+
+    .arrow-container{
+        margin-top: 3%;
+        margin-left: 8%;
+        p{
+            display: none;
+        }
     }
 
 }
