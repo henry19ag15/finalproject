@@ -73,19 +73,26 @@ export const validateForm = (form) => {
 
 export const useForm = (initialState) => {
     const [form, setForm] = useState(initialState)
+<<<<<<< HEAD
     const [errors, setErrors] = useState({})
 <<<<<<< HEAD
 <<<<<<< HEAD
 
     const history = useHistory()
 =======
+=======
+    const [errors, setErrors] = useState({displayError:'', succes:''})
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
     const history = useHistory();
 >>>>>>> b961a12609d9d3bf83a0689d1a7cf1493912924f
 =======
 
+<<<<<<< HEAD
     const history = useHistory()
 >>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
 
+=======
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
 
     const handleChange = (e) => {
         setForm({
@@ -127,7 +134,7 @@ export const useForm = (initialState) => {
                     setErrors({
                         succes: 'Usuario registrado correctamente'
                     })
-
+                    handleReset()
                     history.push('/')
                 })
                 .catch((error) => {
@@ -137,12 +144,13 @@ export const useForm = (initialState) => {
                     console.log(errorMessage)
                     if (error) {
                         setErrors({
-                            displayname: 'El email con el que se intenta registrar ya esta siendo utilizado'
+                            displayError: 'El email con el que se intenta registrar ya esta siendo utilizado'
                         }
 
                         )
                     }
                 });
+<<<<<<< HEAD
                 
                     setErrors({
                         succes: 'Usuario registrado correctamente'
@@ -156,6 +164,8 @@ export const useForm = (initialState) => {
 >>>>>>> e4b55e368ed29c92cb281d73f3bba195f21bec0d
                 handleReset()
                 history.push('/')
+=======
+>>>>>>> 05fcc39568e80e2b5be9f26a008a31be8b65a220
              
             }
 <<<<<<< HEAD
