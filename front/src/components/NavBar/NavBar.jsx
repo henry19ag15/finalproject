@@ -9,6 +9,7 @@ import noimg from "../../sass/noimg.png";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
+import { Sling as Hamburger } from 'hamburger-react'
 
 const NavBar = () => {
   const auth = getAuth();
@@ -68,7 +69,7 @@ const NavBar = () => {
           className={styles.btn_toogle}
           onClick={() => setNavActive(!navActive)}
         >
-          <GoThreeBars />
+          <Hamburger  size={30}toggled={navActive} toggle={setNavActive} />
         </button>
       </nav>
     </div>
