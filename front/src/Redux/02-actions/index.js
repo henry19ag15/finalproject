@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function postUser(payload) {
   return async function () {
-    await axios.post("http://localhost:3001/user/register", { payload });
+    await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/user/register", { payload });
     return {
       type: "POST_USER",
     };
@@ -12,7 +12,7 @@ export function postUser(payload) {
 export function getMyProfile(id) {
   return async function (dispatch) {
     try {
-      const myProfile = await axios.get(`http://localhost:3001/user/${id}`)
+      const myProfile = await axios.get(`https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`)
       return  dispatch( {
         type: 'GET_MY_PROFILE',
         payload: myProfile.data
