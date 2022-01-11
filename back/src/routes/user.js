@@ -105,13 +105,8 @@ server.put('/setting/:id',(req, res, next)=>{
     .then(newUser =>{
       newUser.save()
       res.status(200).send('Usuario modificado con exito')
-<<<<<<< HEAD
-     return res.json(newUser)
-    }).catch(error =>{
-=======
       return res.json(newUser)
     }).catch(error=>{
->>>>>>> 4609ec6d3cace9d249c49bb71edabd8d5ced0cdb
       console.log(error)
     })
     
