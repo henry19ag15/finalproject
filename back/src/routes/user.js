@@ -99,19 +99,25 @@ server.put('/setting/:id',(req, res, next)=>{
   User.findOne({
     where:{
       id:req.params.id
-    
-  }
+    }
   }).then(user => {
     user.update(usermod)
     .then(newUser =>{
       newUser.save()
       res.status(200).send('Usuario modificado con exito')
-    }).catch(error=>{
-      console.log(error)
+      return res.json(newUser)
+    })
+    
+ }).catch(err => {
+   console.log(err)
+   res.status(404).send('Usuario no encontrado')
+ })
 })
 
+server.delete("/destroy/:id", async function (req, res) {
   try {
-     const { id } = req.params;
+    //falta foto
+    const { id } = req.params;
     await User.destroy({
       where:{
         id
@@ -122,9 +128,7 @@ server.put('/setting/:id',(req, res, next)=>{
   } catch (error) {
     console.log(error);
   }
-})
-
 });
-module.exports = server;
 
+module.exports = server;
 
