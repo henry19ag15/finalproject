@@ -19,7 +19,7 @@
 }
 
 .recover-form {
-  margin-top: 10%;
+  margin-top: 5%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -28,13 +28,13 @@
       -ms-flex-direction: column;
           flex-direction: column;
   width: 50%;
-  height: 20%;
+  height: 40%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .recover-form button {
@@ -42,6 +42,7 @@
   height: 40px;
   border-radius: 7px;
   border: none;
+  margin-top: 10%;
   cursor: pointer;
   background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
   background: linear-gradient(90deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
@@ -50,14 +51,9 @@
   color: #fff;
 }
 
-.recover-form button:hover {
-  -webkit-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
-}
-
 .recover-form button:active {
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
 }
 
 .title-recover {
@@ -122,6 +118,9 @@
 @media (max-width: 600px) {
   .recover-form {
     width: 100%;
+  }
+  .recover-form button {
+    height: 40px;
   }
   .title-recover {
     margin-top: 30%;
