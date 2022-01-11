@@ -4,6 +4,7 @@ import { useForm, validateForm } from '../../customHooks/useForm';
 import {Link} from 'react-router-dom'
 import app from '../../firebase/firebaseConfig';
 import Header from '../Header/Header';
+import { FaArrowLeft } from "react-icons/fa";
 
 const initialState ={
     displayname: '',
@@ -27,6 +28,10 @@ const Register = () =>{
     return(
         <div className='Register'>
             <Header />
+            <div className='arrow-container'>
+                <Link to='/'><FaArrowLeft className='back-arrow'/></Link>
+                <p>Volver</p>
+            </div>
             <h2 className='title'>Registro de Usuario</h2>
             <div className='big-continer'>
                 <div className='form-continer'>
@@ -70,7 +75,7 @@ const Register = () =>{
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
 
-                        <p className='footer-text'>Ya posees una cuenta? <Link className='back' to='/'>Click aquí</Link></p>
+                        
 
                     </form>
                 </div>

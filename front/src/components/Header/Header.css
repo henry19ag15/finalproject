@@ -31,7 +31,7 @@
 .img {
   width: 55px;
   height: 40px;
-  margin-left: 150px;
+  margin-left: 100px;
   cursor: pointer;
 }
 
@@ -54,7 +54,6 @@
     -webkit-box-shadow: none;
             box-shadow: none;
     height: 40px;
-    margin-top: 40px;
   }
   .Header h1 {
     display: -webkit-box;
