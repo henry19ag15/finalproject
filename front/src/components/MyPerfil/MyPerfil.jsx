@@ -104,7 +104,7 @@ export default function MyPerfil() {
           swal("Su cuenta fue eliminada", {
             icon: "success",
           });
-          axios.delete(`http://localhost:3001/user/destroy/:${user.uid}`);
+          axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/:${user.uid}`);
           history.push("/");
         })
         .catch((error) => {
@@ -146,7 +146,7 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("http://localhost:3001/user/setting/" + user.uid, {
+          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
             payload: { user: { detail: inputsConfig.details } },
           })
           .then(() => {
@@ -217,7 +217,7 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("http://localhost:3001/user/setting/" + user.uid, {
+          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
             payload: { user: { displayname: inputsConfig.displayName } },
           })
           .then(() => {
