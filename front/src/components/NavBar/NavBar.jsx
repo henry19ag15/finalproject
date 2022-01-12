@@ -4,12 +4,13 @@ import { GoThreeBars } from "react-icons/go";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import { Sling as Hamburger } from 'hamburger-react'
+import Post from "../Post/Post";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -26,8 +27,7 @@ const NavBar = () => {
     <div className={styles.NavBar}>
       <nav className={styles.Nav}>
         <Link className={styles.logo} to="/">
-          {" "}
-          <img src={logo} />
+          <img src={logo} alt='logo' />
         </Link>
         <ul
           className={
@@ -52,6 +52,9 @@ const NavBar = () => {
             {" "}
             <BiMessageRoundedDetail />{" "}
           </li>
+          <li className={styles.add}>
+            <Post/>
+          </li>
           <Link
             to="/profile"
             onClick={()=>setNavActive(false)}
@@ -59,9 +62,9 @@ const NavBar = () => {
           >
             {" "}
             {user.photoURL ? (
-              <img src={user.photoURL} alt="" />
+              <img  className='user-img' src={user.photoURL} alt="" />
             ) : (
-              <img src={noimg} alt="" />
+              <img className='user-img' src={noimg} alt="" />
             )}
           </Link>
         </ul>

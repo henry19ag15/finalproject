@@ -10,6 +10,7 @@ import MyPerfil from './components/MyPerfil/MyPerfil';
 import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 
+
 function App() {
   const [log, setLog] = useState(0)
   const auth = getAuth();
