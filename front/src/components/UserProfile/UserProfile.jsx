@@ -28,9 +28,9 @@ export default function MyPerfil() {
   //   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
-  const newStr = URLactual.slice(1, URLactual.length);
+  const newStr = URLactual.slice(6, URLactual.length);
   useEffect(() => {
-    // dispatch(getUserProfile(newStr));
+    dispatch(getUserProfile(newStr));
     // console.log(newStr);
     // console.log(perfil);
   }, []);
