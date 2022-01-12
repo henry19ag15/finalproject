@@ -1,0 +1,224 @@
+@import '../../sass/variables';
+
+
+.arrow-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 2%;
+    margin-left: 3%;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-top: 80px;
+}
+
+.Register{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: $background-a;
+}
+
+.big-continer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
+    height: 25rem;
+    margin-top: 30px;
+    box-shadow: 0px 0px 5px black;
+    border: none;
+    border-radius: 7px;
+    background:#fff
+   
+}
+.form-continer{
+    width: 60%;
+    height: 90%;
+    font-family: $content-font;
+    padding-top: 10px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.input{
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    margin-top: 25px;
+    box-shadow: 2px 2px 10px 1px #2dcce6;
+    font-size: 16px;
+    &:focus{
+        border: 1px solid #0373b6;
+    }
+}
+
+.input-tag{
+    margin: 10px 0px 5px -180px
+}
+
+.rigth-continer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $background-vertical;
+    color: #fff;
+    width: 40%;
+    border-radius: 0px 7px 7px 0px;
+    
+    & ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        width: 80%;
+
+        & li{
+            margin-bottom: 10px;
+        }
+    }
+} 
+
+.buttons{
+    margin-top: 30px;
+    width: 120px;
+    height: 40px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    background: $background-horizontal;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    &:hover{
+        transform: scale(1.1, 1.1);
+    }
+    &:active{
+        transform: scale(1.0, 1.0);
+    }
+}
+
+.error{
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+    max-width: 60%;
+    margin-top: 20px;
+}
+
+
+.footer-text{
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 10px;
+    & a{
+        text-decoration: none;
+    }
+}
+
+.succes{
+    color: #0ABC0A;
+    font-weight: 700;
+}
+
+.rigth-h2{
+    margin-top: 50px;
+}
+
+
+
+//MEDIA PARA DISPOSITIVOS TABLETS Y TELEFONOS
+@media (max-width: 850px){
+
+    .Register{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100vh;
+        background: $background-a;
+    }
+
+    .title{
+        font-size: 26px;
+        color: #000;
+        
+    }
+
+    .big-continer{
+        width: 100%;
+        height: 80vh;
+        background: none;
+        box-shadow: none;
+    }
+
+    .rigth-continer{
+        display: none;
+    }
+
+    .form-continer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 70%;
+        height: 90%;
+    }
+
+    .buttons{
+        box-shadow: 0.3px 0.3px 5px rgb(20, 27, 66);
+        height: 10%;
+    }
+
+    .footer-text{
+        margin-top: 50px;
+    }
+
+    .form{
+        background: $background-a;
+    }
+
+    .arrow-container{
+        margin-top: 3%;
+        margin-left: 8%;
+        p{
+            display: none;
+        }
+    }
+
+}
+
+
+
