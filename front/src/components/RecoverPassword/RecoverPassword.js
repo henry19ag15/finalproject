@@ -23,7 +23,6 @@ const RecoverPassword = () =>{
     }
     const handleSubmit = (e) =>{
         e.preventDefault()
-
         const auth = getAuth();
         sendPasswordResetEmail(auth, recover.email)
         .then(() => {
@@ -37,8 +36,12 @@ const RecoverPassword = () =>{
             const errorCode = error.code;
             const errorMessage = error.message;
             // ..
-
-            if(error){
+            if(!recover.email){
+                setError({
+                    errors: 'Debe ingresar un correo valido'
+                }) 
+            }
+            else if(error){
                 setError({
                     errors: 'El email no se encuentra registrado'
                 }) 
