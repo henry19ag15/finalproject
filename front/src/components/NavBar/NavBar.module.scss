@@ -113,8 +113,7 @@ body {
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
 
 /*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
-.menuItem {
-  /* color: hotpink; */
+.menuItem, .menuImg {
   font-size: 40px;
   // padding: 10px 5px 5px 5px;
   // margin: 5px;
@@ -123,8 +122,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: solid; */
-  /* border-color: honeydew; */
   border-radius: 80px;
   transition: 0.2s;
 
@@ -141,6 +138,11 @@ body {
   }
 }
 
+.menuImg{
+  margin-top: 5.5rem;
+  flex-direction: column;
+}
+
 .menuItem:active {
   // background-color: rgba(172, 232, 255, 0.781);
   transform: scale(0.9);
@@ -148,6 +150,37 @@ body {
 
 .menuItem:hover {
   color: $main-color;
+}
+
+.containerSubMenu {
+  width: 100%;
+
+}
+.containerSubMenu, .subMenu {
+  padding: 0;
+  margin: 0;
+}
+
+.subMenu {
+  margin-top: 1rem;
+  background-color: red;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.subMenuLink {
+
+  display: block;
+  padding: 5px;
+  color: black;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding-left: 10px;
+}
+
+.mostrar {
+  width: 100%;
 }
 
 .btn_toogle {
@@ -224,11 +257,31 @@ body {
     padding: 10px 5px 5px 5px;
   }
 
-  .menuItem:hover {
-    // background-color: $main-color;
-    // transition: 0.5s;
+  .menuImg{
+    margin-top: 0;
+    flex-direction: column;
   }
 
+  .subMenu {
+    width: 100%;
+    height: 100%;
+    //overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .mosrtar {
+    height: 100%;
+  }
+  
+  .subMenuLink {
+
+    display: block;
+    padding: 5px;
+    color: black;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding-left: 10px;
+  }
   .btn_toogle {
     /* position: absolute;
         z-index: 8; */

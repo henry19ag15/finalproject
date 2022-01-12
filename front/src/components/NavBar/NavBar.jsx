@@ -17,6 +17,16 @@ const NavBar = () => {
   const user = auth.currentUser;
   const [navActive, setNavActive] = useState(false);
 
+  // const btnMenu = document.querySelector('styles.menuImg');
+  // const menu = document.querySelector('containerSubMenu');
+
+  // const handleClick = () => {
+  //   btnMenu.addEventListener('click', function (){
+  //     menu.classList.toggle('mostrar')
+  //   })
+  // }
+
+
   function handleGoProfile(e) {
     e.prenventDefault();
     setNavActive(false);
@@ -52,18 +62,35 @@ const NavBar = () => {
             {" "}
             <BiMessageRoundedDetail />{" "}
           </li>
-          <Link
-            to="/profile"
-            onClick={()=>setNavActive(false)}
-            className={styles.menuItem}
-          >
-            {" "}
-            {user.photoURL ? (
-              <img src={user.photoURL} alt="" />
-            ) : (
-              <img src={noimg} alt="" />
-            )}
-          </Link>
+
+
+            <div
+              //to="/profile"
+              // onClick={()=>setNavActive(false)}
+              className={styles.menuImg}
+              onClick={() => setNavActive(!navActive)}
+            >
+              {" "}
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="" size={30}toggled={navActive} toggle={setNavActive} />
+              ) : (
+                <img src={noimg} alt="" />
+                )} 
+
+                <li className={styles.containerSubMenu}>
+                  <ul className={
+                    navActive ? styles.subMenu : `${styles.subMenu} ${styles.mostrar}`
+                  }
+                  /* {styles.subMenu} */ >
+                    <a href={'/profile'} className={styles.subMenuLink}> Perfil </a>
+                    <a href={'/profile'} className={styles.subMenuLink}> Perfil2 </a>
+                    <a href={'/profile'} className={styles.subMenuLink}> Perfil2 </a>
+                  </ul>
+                </li>
+            </div>
+          
+
+
         </ul>
         <button
           className={styles.btn_toogle}
