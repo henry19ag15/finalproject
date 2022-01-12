@@ -9,6 +9,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import MyPerfil from './components/MyPerfil/MyPerfil';
 import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
+import UserProfile from './components/UserProfile/UserProfile'
+
 
 function App() {
   const [log, setLog] = useState(0)
@@ -37,11 +39,17 @@ function App() {
           <NavBar />
           <Home />
         </Route>
-
         <Route path='/profile'>
           <NavBar />
           <MyPerfil />
         </Route>
+        <Route exact path="/user/:id">
+
+          <NavBar />
+          <UserProfile />
+        </Route>
+
+
       </Switch>
 
     } else if (log === 2) {
