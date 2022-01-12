@@ -86,6 +86,7 @@ export const useForm = (initialState) => {
 
                     axios.post('https://pruebaconbackreal-pg15.herokuapp.com/user/register', {
                         email: form.email,
+                        photoURL:user.photoURL,
                         password: form.password,
                         displayname: form.displayname,
                         uid: user.uid

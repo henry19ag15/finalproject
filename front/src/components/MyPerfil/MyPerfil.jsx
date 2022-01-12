@@ -39,6 +39,8 @@ export default function MyPerfil() {
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
     console.log(perfil);
+    console.log(user);
+
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -104,7 +106,7 @@ export default function MyPerfil() {
           swal("Su cuenta fue eliminada", {
             icon: "success",
           });
-          axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/:${user.uid}`);
+          axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/${user.uid}`);
           history.push("/");
         })
         .catch((error) => {
@@ -264,6 +266,14 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+
+
+            axios
+            .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
+              payload: { user: { profilephoto: user.photoURL } },
+            })
+
+
             swal("En unos segundos vas a ver los cambios!", {
               icon: "success",
             });

@@ -6,13 +6,14 @@ server.post("/register", async function (req, res) {
   console.log("este es el body:",req.body)
 
   try {
-    const { uid, email, displayname,detail} = req.body;
+    const { uid, email, displayname,detail,photoURL} = req.body;
     
     await User.create({
       id: uid,
       email,
       username: displayname,
-      detail
+      detail,
+      profilephoto:photoURL
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
@@ -105,9 +106,7 @@ server.put('/setting/:id',(req, res, next)=>{
     .then(newUser =>{
       newUser.save()
       res.status(200).send('Usuario modificado con exito')
-     return res.json(newUser)
-    }).catch(error =>{
-      console.log(error)
+      return res.json(newUser)
     })
     
  }).catch(err => {
@@ -133,5 +132,4 @@ server.delete("/destroy/:id", async function (req, res) {
 });
 
 module.exports = server;
-
 
