@@ -5,7 +5,7 @@ import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { getAllUser } from "../../Redux/02-actions/index";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
