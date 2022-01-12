@@ -6,7 +6,7 @@ import useModal  from '../../customHooks/useModal';
 import { GrCamera } from "react-icons/gr";
 
 const Post = () =>{
-    const [isOpenModal, openModal, closeModal, fileUrl, noFile, processImage] = useModal();  
+    const [isOpenModal, openModal, closeModal, fileUrl, processImage] = useModal();  
 
 
     return(
@@ -18,7 +18,7 @@ const Post = () =>{
                     <form className='form-post'>
                         <div className={fileUrl ? 'img-container' : 'no-image' }>
                               <GrCamera className='camera-icon'/>
-                              <img src={fileUrl ? fileUrl : noFile} alt=''/>
+                              <img src={fileUrl} alt=''/>
                         </div>
                         <div className='btn-upload'>
                             <input name='file'
