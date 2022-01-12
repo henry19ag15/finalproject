@@ -86,7 +86,7 @@
       -ms-flex-align: center;
           align-items: center;
   width: 50vw;
-  height: 70vh;
+  height: 75vh;
   background-color: #fff;
   border-radius: 7px;
 }
@@ -106,14 +106,14 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 80%;
-  height: 90%;
-  margin-top: 5%;
+  width: 90%;
+  height: 100%;
 }
 
 .btn-upload {
@@ -132,7 +132,7 @@
           align-items: center;
   position: relative;
   width: 25%;
-  height: 10%;
+  height: 8%;
   padding: 10px;
   background-color: #24B3D6;
   border-radius: 5px;
