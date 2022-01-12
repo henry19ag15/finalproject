@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { Sling as Hamburger } from "hamburger-react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
+import Post from "../Post/Post";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -65,8 +66,7 @@ const NavBar = () => {
     <div className={styles.NavBar}>
       <nav className={styles.Nav}>
         <Link className={styles.logo} to="/">
-          {" "}
-          <img src={logo} />
+          <img src={logo} alt='logo' />
         </Link>
         <ul
           className={
@@ -95,6 +95,9 @@ const NavBar = () => {
             {" "}
             <BiMessageRoundedDetail />{" "}
           </li>
+          <li className={styles.add}>
+            <Post/>
+          </li>
           <Link
             to="/profile"
             onClick={() => setNavActive(false)}
@@ -102,9 +105,9 @@ const NavBar = () => {
           >
             {" "}
             {user.photoURL ? (
-              <img src={user.photoURL} alt="" />
+              <img  className='user-img' src={user.photoURL} alt="" />
             ) : (
-              <img src={noimg} alt="" />
+              <img className='user-img' src={noimg} alt="" />
             )}
           </Link>
         </ul>

@@ -1,0 +1,19 @@
+.Post{
+    cursor: pointer;
+}
+
+.img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 85%;
+    border: 2px dashed #000;
+    border-radius: 7px;
+    cursor: default;
+
+}
+
+.btn-upload:active{
+    transform: scale(0.95, 0.95);
+}

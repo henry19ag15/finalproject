@@ -1,0 +1,151 @@
+@import '../../sass/variables';
+
+.modal{
+    display: none !important;
+}
+
+.modal-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.close{
+    display: flex;
+    justify-content: center;
+    right: 0;
+    width: 3.5%;
+    height: 4%;
+    font-size: 40px;
+    cursor: pointer;
+    margin-left: 90%;
+    margin-top: -5%;
+    margin-bottom: 5%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    opacity: 0.5;
+    &:hover{
+        transform: scale(1.1, 1.1);
+        opacity: 1;
+    }
+}
+
+.isOpen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.75);
+}
+
+.post-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50vw;
+    height: 70vh;
+    background-color: #fff;
+    border-radius: 7px;
+    & h2{
+        font-size: 18px;
+        margin-top: 1%;
+        width: 100%;
+        border-bottom: 0.5px solid #6F6F6F;
+    }
+}
+
+.form-post{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    height: 90%;
+    margin-top: 5%;
+}
+
+.btn-upload{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 25%;
+    height: 10%;
+    padding: 10px;
+    background-color: #24B3D6;
+    border-radius: 5px;
+    cursor: pointer;
+    & label{
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    & input{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+}
+
+.description{
+    display: flex;
+    align-items: left;
+    justify-content: flex-start;
+    width: 90%;
+    height: 25%;
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+.post-btn{
+    width: 90%;
+    height: 10%;
+    background-color: #24B3D6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+
+
+@media (max-width: 850px){
+    .post-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 70vh;
+        background-color: #fff;
+        border-radius: 7px;
+        & h2{
+            width: 100%;
+            font-size: 18px;
+            margin-top: 1%;
+            border-bottom: .5px solid #000;
+        }
+    }
+
+    .close{
+        margin-left: 90%;  
+    }
+}
