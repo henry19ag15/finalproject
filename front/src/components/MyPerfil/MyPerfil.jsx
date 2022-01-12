@@ -264,6 +264,14 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+
+
+            axios
+            .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
+              payload: { user: { profilephoto: user.photoURL } },
+            })
+
+
             swal("En unos segundos vas a ver los cambios!", {
               icon: "success",
             });
