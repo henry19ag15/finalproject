@@ -36,10 +36,10 @@ export default function Card () {
                     {" "}
                     {user.photoURL?(<img src={user.photoURL} alt="" />):(<img src={noimg} alt="" />)}
                 </Link>
-                <div className={styles.profileName}> 
+                <Link className={styles.profileName}> 
                     {" "}
                     {user.displayName?(<h4>{user.displayName}</h4>): (<h2>User</h2>)}
-                 </div>
+                </Link>
             </header>
 
 

@@ -1,5 +1,4 @@
 @import "../../sass/variables";
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital@1&display=swap");
 
 * {
   margin: 0;
@@ -71,15 +70,16 @@ body {
   border-radius: 3rem;
   border: solid 1px $main-color;
 }
-.searchBar:hover {
+.searchBar:hover{
   // background-color :red;
-  transition: 0.2s;
+  transition: .2s;
   box-shadow: 0px 0px 5px $main-color;
+
 }
 
 .input {
   background-color: rgba(228, 222, 222, 0.945);
-  background: transparent;
+  background:transparent ;
   width: 100%;
   height: 30px;
   // border-radius: 5em 0 0 5em;
@@ -111,62 +111,14 @@ body {
 .btn:hover{
   color: $main-color;
 }
-
-.renderSearched {
-  position: fixed;
-  top: 0;
-  // left: 0;
-  // height: auto;
-  // background: red;
-  padding: 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 80px;
-  width: 100%;
-  li {
-    // height: auto;
-    background: white;
-    width: 60%;
-    list-style: none;
-    display: flex;
-    border: solid 1px $main-color;
-    button {
-    padding: 0.5rem ;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      background: transparent;
-      border: none;
-      font-family: "Nunito", sans-serif;
-      font-size: 1.2rem;
-      transition: 0.2s;
-      img {
-        height: 2.5rem;
-        width: 2.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 0.5rem;
-      }
-    }
-    button:hover{
-      background-color: $main-color;
-      color: White;
-    }
-  }
-}
-
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
 
 /*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
-<<<<<<< HEAD
-.menuItem, .menuImg {
-=======
 .add{
-  margin-top: 7px;
+  margin-top: 0;
+
+
+  top: 2rem;
   font-size: 36px;
   width: 70px;
   color: black;
@@ -179,9 +131,14 @@ body {
 
 
 
-.menuItem {
+.menuItem, .dropBtn {
+  margin-top: 0.5rem;
+
+
+  background-color: white  !important;
+   border: solid !important;
+   border-color: white !important;
   /* color: hotpink; */
->>>>>>> f9ed19cf1838d0e4a2a5a61c6a74fdf5b3ba0289
   font-size: 40px;
   // padding: 10px 5px 5px 5px;
   // margin: 5px;
@@ -204,6 +161,27 @@ body {
   img:hover {
     border: solid 2px $main-color;
   }
+}
+
+.dropMenu {
+  // position: absolute;
+  // z-index: 1000;
+  // display: none;
+  // min-width: 10rem;
+  // padding: 0.5rem 0;
+  margin: 1rem -1.3rem 0 0 !important;
+  // font-size: 1rem;
+  // color: #212529;
+  // text-align: left;
+  // list-style: none;
+  // background-color: #fff;
+  // background-clip: padding-box;
+  // border: 1px solid rgba(0,0,0,.15);
+  // border-radius: 0.25rem;
+}
+
+.textMenu {
+  font-size: 1.3rem;
 }
 
 .menuImg{
@@ -325,13 +303,6 @@ body {
     padding: 10px 5px 5px 5px;
   }
 
-<<<<<<< HEAD
-  .menuImg{
-    margin-top: 0;
-    flex-direction: column;
-  }
-=======
->>>>>>> f9ed19cf1838d0e4a2a5a61c6a74fdf5b3ba0289
 
   .subMenu {
     width: 100%;

@@ -1,75 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./NavBar.module.scss";
 import { GoThreeBars } from "react-icons/go";
+import { Link } from "react-router-dom";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { getAuth, signOut } from "firebase/auth";
 import { CgProfile } from "react-icons/cg";
-import { getAllUser } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
-import { Link } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import swal from "sweetalert";
+
 import { useHistory } from "react-router-dom";
-import { Sling as Hamburger } from "hamburger-react";
-import { useSelector, useDispatch } from "react-redux";
-import { getUserProfile } from "../../Redux/02-actions";
+import { Sling as Hamburger } from 'hamburger-react'
 import Post from "../Post/Post";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 const NavBar = () => {
   const auth = getAuth();
-  const dispatch = useDispatch();
   const history = useHistory();
   const user = auth.currentUser;
-  const allUser = useSelector((state) => state.allUser);
   const [navActive, setNavActive] = useState(false);
-  const [inputSearch, setInputSearch] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchToRender, setSearchToRender] = useState([]);
-  console.log(allUser);
 
-  useEffect(() => {
-    dispatch(getAllUser());
-  }, []);
+  const [dropDown, setDropDown] = useState(false);
 
-  // const btnMenu = document.querySelector('styles.menuImg');
-  // const menu = document.querySelector('containerSubMenu');
+  const openDropDown = () => {
+    setDropDown(!dropDown)
+  }
 
-  // const handleClick = () => {
-  //   btnMenu.addEventListener('click', function (){
-  //     menu.classList.toggle('mostrar')
-  //   })
-  // }
-
+  function handleLogout(e) {
+    swal({
+      title: "Cerrar sesion",
+      text: "¿Seguro que quieres cerrar sesion?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        signOut(auth)
+          .then(() => {
+            // Sign-out successful.
+            console.log("deslogueaste");
+            history.push("/");
+          })
+          .catch((error) => {
+            // An error happened.
+          });
+      } else {
+        return;
+      }
+    });
+  }
 
   function handleGoProfile(e) {
     e.prenventDefault();
     setNavActive(false);
-  }
-  // let searchToRender = [];
-  function handleChangeInput(e) {
-    setInputSearch(e.target.value);
-    setSearchToRender(
-      allUser.filter((user) =>
-        user.username.toLowerCase().includes(inputSearch.toLowerCase())
-      )
-    );
-    console.log("esto se renderiza", searchToRender);
-  }
-
-  function handleSelectUser(e, uid) {
-    // e.preventDefault()
-
-    if (uid === user.uid) {
-      history.push(`/profile`);
-    } else {
-      dispatch(getUserProfile(uid));
-      history.push(`/user/${uid}`);
-    }
-  }
-  function handleBlur() {
-    setTimeout(() => {
-      setShowSearch(false);
-    }, 200);
   }
 
   return (
@@ -88,11 +74,7 @@ const NavBar = () => {
               className={styles.input}
               type="text"
               placeholder="Buscar..."
-              onChange={(e) => handleChangeInput(e)}
-              onBlur={() => handleBlur()}
-              onFocus={() => setShowSearch(true)}
             ></input>
-
             <button className={styles.btn} type="submit">
               <BiSearchAlt />
             </button>
@@ -105,43 +87,12 @@ const NavBar = () => {
             {" "}
             <BiMessageRoundedDetail />{" "}
           </li>
-<<<<<<< HEAD
-
-
-            <div
-              //to="/profile"
-              // onClick={()=>setNavActive(false)}
-              className={styles.menuImg}
-              onClick={() => setNavActive(!navActive)}
-            >
-              {" "}
-              {user.photoURL ? (
-                <img src={user.photoURL} alt="" size={30}toggled={navActive} toggle={setNavActive} />
-              ) : (
-                <img src={noimg} alt="" />
-                )} 
-
-                <li className={styles.containerSubMenu}>
-                  <ul className={
-                    navActive ? styles.subMenu : `${styles.subMenu} ${styles.mostrar}`
-                  }
-                  /* {styles.subMenu} */ >
-                    <a href={'/profile'} className={styles.subMenuLink}> Perfil </a>
-                    <a href={'/profile'} className={styles.subMenuLink}> Perfil2 </a>
-                    <a href={'/profile'} className={styles.subMenuLink}> Perfil2 </a>
-                  </ul>
-                </li>
-            </div>
-          
-
-
-=======
           <li className={styles.add}>
             <Post/>
           </li>
-          <Link
+          {/* <Link
             to="/profile"
-            onClick={() => setNavActive(false)}
+            onClick={()=>setNavActive(false)}
             className={styles.menuItem}
           >
             {" "}
@@ -150,32 +101,38 @@ const NavBar = () => {
             ) : (
               <img className='user-img' src={noimg} alt="" />
             )}
-          </Link>
->>>>>>> f9ed19cf1838d0e4a2a5a61c6a74fdf5b3ba0289
+          </Link> */}
+
+
+          <Dropdown isOpen={dropDown} toggle={openDropDown}>
+            <DropdownToggle
+              className={styles.dropBtn}
+              //to="/profile"
+              onClick={()=>setNavActive(false)}
+              //className={styles.dropBtn}
+            >
+              {" "}
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="" />
+              ) : (
+                <img src={noimg} alt="" />
+              )}
+
+              {/* <div className={styles.hiddenMenu}></div> */}
+            </DropdownToggle >
+              <DropdownMenu className={styles.dropMenu}>
+                <DropdownItem href="/profile" className={styles.textMenu} >Perfil</DropdownItem>
+                <DropdownItem className={styles.textMenu} onClick={(e) => handleLogout(e)} >Cerrar Sesión</DropdownItem>
+              </DropdownMenu>
+          </Dropdown>
         </ul>
         <button
           className={styles.btn_toogle}
           onClick={() => setNavActive(!navActive)}
         >
-          <Hamburger size={30} toggled={navActive} toggle={setNavActive} />
+          <Hamburger  size={30}toggled={navActive} toggle={setNavActive} />
         </button>
       </nav>
-      <ul className={styles.renderSearched}>
-        {showSearch && inputSearch.length > 1
-          ? searchToRender.map((user) => (
-              <li key={user.id}>
-                <button onClick={(e) => handleSelectUser(e, user.id)}>
-                  {user.profilephoto ? (
-                    <img src={user.profilephoto} alt="" />
-                  ) : (
-                    <img src={noimg} alt="" />
-                  )}
-                  {user.username}
-                </button>
-              </li>
-            ))
-          : false}
-      </ul>
     </div>
   );
 };
