@@ -1,5 +1,9 @@
 @import '../../sass/variables';
-
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 
 .arrow-container{
     display: flex;
@@ -27,7 +31,7 @@
     align-items: center;
     font-size: 40px;
     font-weight: 500;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .Register{
@@ -175,6 +179,7 @@
     .title{
         font-size: 26px;
         color: #000;
+        margin-top: 80px;
         
     }
 
