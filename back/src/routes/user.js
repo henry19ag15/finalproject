@@ -137,64 +137,71 @@ server.put("/follow", async (req, res) => {
   idTwo = el usuario que se sigue o se deja de seguir
   req.body porque no se por donde lo van a mandar todavia
   */
-  const { idOne, idTwo } = req.body;
+  console.log("Esto es el body: ", req.body);
+  const idOne = req.body[0];
+  const idTwo = req.body[1];
 
-  try {
-    let userOne = await User.findByPk({
-      idOne,
-    });
-    let userTwo = await User.findByPk({
-      idTwo,
-    });
+  let userOne = await User.findOne({
+    where: { id: idOne },
+  });
+  let userTwo = await User.findOne({
+    where: { id: idTwo },
+  });
 
-    if (userOne && userTwo) {
-      if (!userOne.following.includes(userTwo.id)) {
-        let first = userOne.following.push(userFollowing.id);
-        userOne
-          .update(first)
-          .then((newFollow) => {
-            newFollow.save();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+  console.log("1: ", userOne.dataValues);
+  console.log("2: ", userTwo.dataValues);
 
-        let second = userTwo.follower.push(userOne.id);
-        userTwo
-          .update(second)
-          .then((newFollow) => {
-            newFollow.save();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        let posOne = userOne.following.indexOf(userTwo.id);
-        let third = userOne.following.splice(posOne, 1);
-        userOne
-          .update(third)
-          .then((newUnFollow) => {
-            newUnFollow.save();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+  if (userOne && userTwo) {
+    if (!userOne.following.includes(idTwo)) {
+      let first = userOne.following.push(idTwo);
+      let second = userTwo.followers.push(idOne);
 
-        let posTwo = userTwo.follower.indexOf(userOne.id);
-        let fourth = userOne.follower.splice(posTwo, 1);
-        userTwo
-          .update(fourth)
-          .then((newUnFollow) => {
-            newUnFollow.save();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+      userOne
+        .update(first)
+        .then((newFollow) => {
+          newFollow.save();
+          // console.log(newFollow.dataValues);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      userTwo
+        .update(second)
+        .then((newFollow) => {
+          newFollow.save();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      res.status(200).send("Follow");
+    } else {
+      let posOne = userOne.following.indexOf(idTwo);
+      let third = userOne.following.splice(posOne, 1);
+      userOne
+        .update(third)
+        .then((newUnFollow) => {
+          newUnFollow.save();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      let posTwo = userTwo.followers.indexOf(idOne);
+      let fourth = userOne.followers.splice(posTwo, 1);
+      userTwo
+        .update(fourth)
+        .then((newUnFollow) => {
+          newUnFollow.save();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      res.status(200).send("Unfollow");
     }
-    res.status(200).send("Accion completada exitosamente");
-  } catch (err) {
-    console.log(err);
+  } else {
+    res.status(404).send("Usuario no encontrado");
   }
 });
 
