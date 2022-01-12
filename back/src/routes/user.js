@@ -65,7 +65,7 @@ server.get("/", async function (req, res) {
 
 });
 
-//Buscar usuario por id
+///Buscar usuario por id
 server.get("/:id", async function(req, res)  {
   try {
     let user = await User.findOne({
