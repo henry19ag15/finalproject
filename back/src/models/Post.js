@@ -13,23 +13,20 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      creator: {
-        type: DataTypes.STRING,
+      media: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
       },
       like: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
         allowNull: true,
       },
-      active:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:true,
-        allowNull:true
-      }
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
     }
     // {
     //   timestamps: false,

@@ -10,11 +10,11 @@ module.exports = (sequelize) => {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique:true,
-        validate:{
-          isEmail:true
-        }
+        allowNull: true,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
       },
       username: {
         type: DataTypes.STRING,
@@ -26,39 +26,39 @@ module.exports = (sequelize) => {
       }, // para poder modificar
       subscribers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue:[],
+        defaultValue: [],
         allowNull: true,
       },
       subscribed: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue:[],
+        defaultValue: [],
         allowNull: true,
       },
       followers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue:[],
+        defaultValue: [],
         allowNull: true,
       },
       following: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue:[],
+        defaultValue: [],
         allowNull: true,
       },
       //roles de usuario y administrador
-      rol:{
-        type:DataTypes.ENUM,
-        values:['user', 'admin'],
-        defaultValue:'user'
+      rol: {
+        type: DataTypes.ENUM,
+        values: ["user", "admin"],
+        defaultValue: "user",
       },
-      active:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:true,
-        allowNull:false
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
       },
-      detail:{
-        type:DataTypes.STRING,
-        defaultValue:"",
-        allowNull:true
+      detail: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+        allowNull: true,
       },
     }
     // {
