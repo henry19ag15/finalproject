@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { User } = require("../db");
+const sequelize = require("sequelize")
 
 // crear usuario
 server.post("/register", async function (req, res) {
