@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { User } = require("../db");
+const sequelize = require("sequelize")
 
 // crear usuario
 server.post("/register", async function (req, res) {
@@ -153,54 +154,45 @@ server.put("/follow", async (req, res) => {
 
   if (userOne && userTwo) {
     if (!userOne.following.includes(idTwo)) {
-      let first = userOne.following.push(idTwo);
-      let second = userTwo.followers.push(idOne);
+      try {
+        await userOne.update(
+          { 'following': sequelize.fn('array_append', sequelize.col('following'), idTwo) },
+        );
+  
+        console.log("UserOneUpdate", userOne)
+        await userTwo.update(
+          { 'followers': sequelize.fn('array_append', sequelize.col('followers'), idOne) },
+        );
+  
+        console.log("UserTwoUpdate", userTwo)
 
-      userOne
-        .update(first)
-        .then((newFollow) => {
-          newFollow.save();
-          // console.log(newFollow.dataValues);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      userTwo
-        .update(second)
-        .then((newFollow) => {
-          newFollow.save();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      res.status(200).send("Follow");
-    } else {
-      let posOne = userOne.following.indexOf(idTwo);
-      let third = userOne.following.splice(posOne, 1);
-      userOne
-        .update(third)
-        .then((newUnFollow) => {
-          newUnFollow.save();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      let posTwo = userTwo.followers.indexOf(idOne);
-      let fourth = userOne.followers.splice(posTwo, 1);
-      userTwo
-        .update(fourth)
-        .then((newUnFollow) => {
-          newUnFollow.save();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      res.status(200).send("Unfollow");
+        res.status(200).send("Follow");
+        
+      } catch (error) {
+        console.log(error)
+        
+      }
     }
-  } else {
+    else {
+      try {
+        await userOne.update(
+          { 'following': sequelize.fn('array_remove', sequelize.col('following'), idTwo) }
+        )
+  
+        await userTwo.update(
+          { 'followers': sequelize.fn('array_remove', sequelize.col('followers'), idOne) }
+        );
+        res.status(200).send("Unfollow");
+        
+      } catch (error) {
+        console.log(error)
+        
+      }
+  
+    }
+  
+  }
+  else {
     res.status(404).send("Usuario no encontrado");
   }
 });
