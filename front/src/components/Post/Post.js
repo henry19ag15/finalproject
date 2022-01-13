@@ -10,7 +10,12 @@ import { FaArrowLeft } from "react-icons/fa";
 
 
 const Post = () =>{
-    const [isOpenModal, openModal, closeModal, fileUrl, processImage, form, handleChange, handleSubmit, counter,  handleCounter, back] = useModal();
+    const [isOpenModal, openModal,
+        closeModal, fileUrl,
+        processImage, form,
+        handleChange, handleSubmit,
+        counter,  handleCounter,
+        back] = useModal();
 
 
     return(
@@ -23,26 +28,32 @@ const Post = () =>{
                         <h2>Crear Publicación</h2>
                     </div>
                         <form className={fileUrl ? 'form-post' : 'without-button'} onSubmit={handleSubmit}>
-                            <div className={fileUrl ? 'img-container' : 'no-image' }>
-                                <GrCamera className='camera-icon'/>
-                                <img src={fileUrl} alt=''/>
-                                <div className='btn-upload'>
-                                    <input name='file'
-                                        type='file'
-                                        className='upload-file'
-                                        accept='image/*'
-                                        onChange={processImage}
-                                    />
-                                    <label htmlFor='file'>Seleccionar foto</label>
+                            <div className={fileUrl ? 'form-wrapper' : 'form-noimage'}>
+                                <div className={ fileUrl ? 'img-container' : 'no-image' }>
+                                    <GrCamera className='camera-icon'/>
+                                    <img src={fileUrl} alt=''/>
+                                    <div className='btn-upload'>
+                                        <input name='file'
+                                            type='file'
+                                            className='upload-file'
+                                            accept='image/*'
+                                            onChange={processImage}
+                                        />
+                                        <label htmlFor='file'>Seleccionar imagen</label>
+                                    </div>
                                 </div>
+        
+                                <textarea name='detail'
+                                        className='descripcion'
+                                        placeholder='Agregar descripción'
+                                        onChange={handleChange}
+                                        maxlength="2000"
+                                />
                             </div>
-                            <textarea name='detail'
-                                      className='descripcion'
-                                      placeholder='Agregar descripción'
-                                      onChange={handleChange, handleCounter}
-                                      maxlength="2000"
-                            />
-                            <spam className='counter-word'>{counter}/2000</spam>
+                            <select onChange={handleChange}>
+                                        <option name='type' value='Publico'>Público</option>
+                                        <option name='type' value='Privado'>Privado</option>
+                            </select>
                             <button type='submit' className='post-btn'>Publicar</button>
                         </form>
                 </div>

@@ -37,19 +37,18 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   width: 60%;
-  height: 50%;
-  border: 2px dashed #000;
+  height: 75%;
   border-radius: 7px;
   cursor: default;
   margin: 3% 0;
@@ -70,33 +69,6 @@
 }
 
 .img-container .btn-upload {
-  display: none;
-}
-
-.no-image {
-  top: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 50%;
-  height: 50%;
-  border: 2px dashed #000;
-  border-radius: 7px;
-  cursor: default;
-  margin: 3% 0;
-}
-
-.no-image form .descripcion {
   display: none;
 }
 
@@ -208,6 +180,10 @@
 }
 
 .without-button .counter-word {
+  display: none;
+}
+
+.without-button select {
   display: none;
 }
 
