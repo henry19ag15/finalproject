@@ -22,12 +22,8 @@ const NavBar = () => {
   const history = useHistory();
   const user = auth.currentUser;
   const [navActive, setNavActive] = useState(false);
+  //const [configNav, setConfigNav] = useState(false);
 
-  const [dropDown, setDropDown] = useState(false);
-
-  const openDropDown = () => {
-    setDropDown(!dropDown)
-  }
 
   function handleLogout(e) {
     swal({
@@ -90,6 +86,9 @@ const NavBar = () => {
           <li className={styles.add}>
             <Post/>
           </li>
+
+
+
           {/* <Link
             to="/profile"
             onClick={()=>setNavActive(false)}
@@ -104,27 +103,49 @@ const NavBar = () => {
           </Link> */}
 
 
-          <Dropdown isOpen={dropDown} toggle={openDropDown}>
-            <DropdownToggle
-              className={styles.dropBtn}
+
+          <div lassName={styles.menuPerfil}>
+            <button
               //to="/profile"
-              onClick={()=>setNavActive(false)}
-              //className={styles.dropBtn}
-            >
+              onClick={(e) => setNavActive(!navActive)}
+              //className={styles.menuItem}
+              className={navActive ? styles.menuItem : `${styles.menuItem} ${styles.btnRotate}`}
+                        >
               {" "}
               {user.photoURL ? (
-                <img src={user.photoURL} alt="" />
+                <img  className='user-img' src={user.photoURL} alt="" />
               ) : (
-                <img src={noimg} alt="" />
+                <img className='user-img' src={noimg} alt="" />
               )}
+            </button>
+          </div>
 
-              {/* <div className={styles.hiddenMenu}></div> */}
-            </DropdownToggle >
-              <DropdownMenu className={styles.dropMenu}>
-                <DropdownItem href="/profile" className={styles.textMenu} >Perfil</DropdownItem>
-                <DropdownItem className={styles.textMenu} onClick={(e) => handleLogout(e)} >Cerrar Sesión</DropdownItem>
-              </DropdownMenu>
-          </Dropdown>
+
+
+
+          <body>
+            <div
+              className={
+                navActive
+                  ? styles.menuHidden
+                  : `${styles.menuHidden} ${styles.disable}`
+              }
+                      >
+              
+                <button href="/profile" /* onClick={(e) => handleClickConfig(e)} */>
+                Perfil 
+                </button>
+              
+              <button className={styles.btnLogout} onClick={(e) => handleLogout(e)}>
+                Cerrar sesion
+              </button>
+            </div>
+          </body>
+
+
+
+        
+
         </ul>
         <button
           className={styles.btn_toogle}
