@@ -1,12 +1,16 @@
 import {React, useState} from 'react';
 import './Post.css';
+import {Link} from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import {FaRegPlusSquare } from "react-icons/fa";
 import useModal  from '../../customHooks/useModal';
 import { GrCamera } from "react-icons/gr";
+import { FaArrowLeft } from "react-icons/fa";
+
+
 
 const Post = () =>{
-    const [isOpenModal, openModal, closeModal, fileUrl, processImage] = useModal();  
+    const [isOpenModal, openModal, closeModal, fileUrl, processImage, form, handleChange, handleSubmit, counter,  handleCounter, back] = useModal();
 
 
     return(
@@ -14,24 +18,33 @@ const Post = () =>{
             <FaRegPlusSquare onClick={() => openModal()}/>
             <Modal openModal={isOpenModal} closeModal={closeModal}> 
                 <div className='post-container'>
-                    <h2>Crear Publicación</h2>
-                    <form className='form-post'>
-                        <div className={fileUrl ? 'img-container' : 'no-image' }>
-                              <GrCamera className='camera-icon'/>
-                              <img src={fileUrl} alt=''/>
-                        </div>
-                        <div className='btn-upload'>
-                            <input name='file'
-                                   type='file'
-                                   className='upload-file'
-                                   accept='image/*'
-                                   onChange={processImage}
+                    <div className={fileUrl ? 'header-post' : 'noBack'}>
+                        <spam className='back-btn' onClick={() => back()}><FaArrowLeft /></spam>
+                        <h2>Crear Publicación</h2>
+                    </div>
+                        <form className={fileUrl ? 'form-post' : 'without-button'} onSubmit={handleSubmit}>
+                            <div className={fileUrl ? 'img-container' : 'no-image' }>
+                                <GrCamera className='camera-icon'/>
+                                <img src={fileUrl} alt=''/>
+                                <div className='btn-upload'>
+                                    <input name='file'
+                                        type='file'
+                                        className='upload-file'
+                                        accept='image/*'
+                                        onChange={processImage}
+                                    />
+                                    <label htmlFor='file'>Seleccionar foto</label>
+                                </div>
+                            </div>
+                            <textarea name='detail'
+                                      className='descripcion'
+                                      placeholder='Agregar descripción'
+                                      onChange={handleChange, handleCounter}
+                                      maxlength="2000"
                             />
-                            <label htmlFor='file'>Seleccionar foto</label>
-                        </div>
-                        {/* <textarea placeholder='Agregar descripcion' className='description'></textarea>
-                        <button type='submit' className='post-btn'>Publicar</button> */}
-                    </form>
+                            <spam className='counter-word'>{counter}/2000</spam>
+                            <button type='submit' className='post-btn'>Publicar</button>
+                        </form>
                 </div>
             </Modal>
         </div>
