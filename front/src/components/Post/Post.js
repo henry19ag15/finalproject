@@ -42,19 +42,20 @@ const Post = () =>{
                                         <label htmlFor='file'>Seleccionar imagen</label>
                                     </div>
                                 </div>
-        
-                                <textarea name='detail'
-                                        className='descripcion'
-                                        placeholder='Agregar descripción'
-                                        onChange={handleChange}
-                                        maxlength="2000"
-                                />
+                                <div className='descripcion'>
+                                    <textarea name='detail'
+                                                placeholder='Agregar descripción'
+                                                onChange={handleChange}
+                                                maxlength="2000"
+                                        />
+                                    <select onChange={handleChange}>
+                                                <option name='type' value='Publico'>Público</option>
+                                                <option name='type' value='Privado'>Privado</option>
+                                    </select>
+                                    <button type='submit' className='post-btn'>Publicar</button>
+                                </div>
+                               
                             </div>
-                            <select onChange={handleChange}>
-                                        <option name='type' value='Publico'>Público</option>
-                                        <option name='type' value='Privado'>Privado</option>
-                            </select>
-                            <button type='submit' className='post-btn'>Publicar</button>
                         </form>
                 </div>
             </Modal>
