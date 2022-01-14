@@ -6,6 +6,7 @@ import {FaRegPlusSquare } from "react-icons/fa";
 import useModal  from '../../customHooks/useModal';
 import { GrCamera } from "react-icons/gr";
 import { FaArrowLeft } from "react-icons/fa";
+import PulseLoader from "react-spinners/PulseLoader";
 
 
 
@@ -15,14 +16,14 @@ const Post = () =>{
         closeModal, fileUrl,
         processImage, form,
         handleChange, handleSubmit,
-        counter,  handleCounter,
-        back] = useModal();
+        back, loading] = useModal();
 
 
     return(
         <div className='Post'>
             <FaRegPlusSquare onClick={() => openModal()}/>
             <Modal openModal={isOpenModal} closeModal={closeModal}> 
+            {loading ? <div className='loading'><PulseLoader size={12} color="#24B3D6" margin={7}/></div> : ''}
                 <div className='post-container'>
                     <div className={fileUrl ? 'header-post' : 'noBack'}>
                         <spam className='back-btn' onClick={() => back()}><FaArrowLeft /></spam>

@@ -41,6 +41,10 @@ export const validateForm = (form) => {
         errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
     }
 
+    if(form.password.trim() !== form.repeatPassword.trim()){
+        errors.displayError = "La contraseña ingresada debe ser igal en los dos casilleros"
+    }
+
 
 
     return errors
