@@ -82,7 +82,7 @@ const useModal = (initialValue = false) => {
         creator: form.creator,
         detail: form.detail,
       }).then(() =>{
-        swal("Publicaón creada correctamente", {
+        swal("Publicación creada correctamente", {
           icon: "success",
         });
         handleReset();
