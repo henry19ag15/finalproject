@@ -9,6 +9,7 @@ import { FaArrowLeft } from "react-icons/fa";
 
 
 
+
 const Post = () =>{
     const [isOpenModal, openModal,
         closeModal, fileUrl,
