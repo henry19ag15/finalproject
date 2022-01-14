@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { getMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
-import myProfile from "./perfilSimulator.json";
+// import myProfile from "./perfilSimulator.json";
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
@@ -34,11 +34,12 @@ export default function MyPerfil() {
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
-  //   const myProfile = useSelector((state) => state.myProfile);
+  const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
     console.log(perfil);
+    console.log(user);
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -85,43 +86,34 @@ export default function MyPerfil() {
 
   function handleDelete(e) {
     // app.storage().ref('users/' + user.uid).delete().then(() => { console.log("foto borrada") }).catch((error) => { console.log(error) })
-   
-    
+
     swal({
       title: "¿Estas seguro?",
       text: "Se eliminara su cuenta permanentemente!",
       icon: "error",
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-
-
         deleteUser(user)
-        .then(() => {
-          // User deleted.
-          swal("Su cuenta fue eliminada", {
-            icon: "success",
+          .then(() => {
+            // User deleted.
+            swal("Su cuenta fue eliminada", {
+              icon: "success",
+            });
+            axios.delete(
+              `https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/${user.uid}`
+            );
+            history.push("/");
+          })
+          .catch((error) => {
+            // An error ocurred
+            // ...
           });
-          axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/:${user.uid}`);
-          history.push("/");
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-        });
-
-        
       } else {
         // swal("Your imaginary file is safe!");
       }
     });
-    
-    
-    
-    
-   
   }
 
   ////////// Logica de configurar perfil ///////////
@@ -146,9 +138,13 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
-            payload: { user: { detail: inputsConfig.details } },
-          })
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+              user.uid,
+            {
+              payload: { user: { detail: inputsConfig.details } },
+            }
+          )
           .then(() => {
             dispatch(getMyProfile(user.uid));
             swal("Se cambio su información satisfatoriamente!", {
@@ -165,44 +161,32 @@ export default function MyPerfil() {
   function handleChangePass(e) {
     e.preventDefault();
 
-
     swal({
       title: "¿Estas seguro?",
       text: `Se te enviara un email a ${inputsConfig.pass} con un enlace para cambiar la contraseña`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-
         updatePassword(user, inputsConfig.pass)
-        .then(() => {
-          // Update successful.
+          .then(() => {
+            // Update successful.
 
-          swal("Se te envio un enlace a tu correo", {
-            icon: "success",
+            swal("Se te envio un enlace a tu correo", {
+              icon: "success",
+            });
+            console.log("se cambio la contraseña");
+          })
+          .catch((error) => {
+            // An error ocurred
+            // ...
+            console.log(error);
           });
-          console.log("se cambio la contraseña");
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-          console.log(error);
-        });
-
-
       } else {
         // swal("Your imaginary file is safe!");
       }
     });
-
-
-
-
-
-
-    
   }
 
   function handleChangeDisplayName(e) {
@@ -217,9 +201,13 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
-            payload: { user: { displayname: inputsConfig.displayName } },
-          })
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+              user.uid,
+            {
+              payload: { user: { displayname: inputsConfig.displayName } },
+            }
+          )
           .then(() => {
             swal("Nombre de usuario cambiado con éxito", {
               icon: "success",
@@ -264,13 +252,13 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
-
-
-            axios
-            .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
-              payload: { user: { profilephoto: user.photoURL } },
-            })
-
+            axios.put(
+              "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+                user.uid,
+              {
+                payload: { user: { profilephoto: user.photoURL } },
+              }
+            );
 
             swal("En unos segundos vas a ver los cambios!", {
               icon: "success",
@@ -345,8 +333,10 @@ export default function MyPerfil() {
             </button>
           </div>
           <h3>Cambiar contraseña</h3>
-          <p>Ingrese su email y se le enviara un link para cambiar la contraseña</p>
-         <p>Solo se podra si recien inicias sesión</p>
+          <p>
+            Ingrese su email y se le enviara un link para cambiar la contraseña
+          </p>
+          <p>Solo se podra si recien inicias sesión</p>
           <input
             name="pass"
             type="text"
@@ -405,12 +395,12 @@ export default function MyPerfil() {
           <div className={style.followBox}>
             <div>
               <p>Seguidores</p>
-              <p>{myProfile.followers.length}</p>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
             </div>
 
             <div>
               <p>Seguidos</p>
-              <p>{myProfile.followers.length}</p>
+              {myProfile.following && <p>{myProfile.following.length}</p>}
             </div>
           </div>
         </div>
