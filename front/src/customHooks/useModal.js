@@ -20,6 +20,7 @@ const useModal = (initialValue = false) => {
   });
 
   const [loading, setLoading] = useState(false)
+  console.log(loading)
 
 
 
@@ -32,6 +33,7 @@ const useModal = (initialValue = false) => {
     setIsOpen(false);
     setFileUrl(null);
     setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
+    setLoading(false)
   };
 
   const back = () => {
@@ -57,12 +59,12 @@ const useModal = (initialValue = false) => {
   };
 
   const handleReset = () => {
-    setForm({ detail: "", imagen: "", id: "", type: "Público" });
+    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true)
+    e.preventDefault();
       const storageRef = app
         .storage()
         .ref("posts/" + user.uid + "/" + form.imagen);
