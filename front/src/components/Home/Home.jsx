@@ -12,6 +12,11 @@ const dispatch= useDispatch()
 const auth = getAuth()
 const user = auth.currentUser
 const perfil = useSelector(state=>state.myProfile)
+const posts = useSelector(state=>state.posts)
+const userPost = posts.sort((a, b) => {
+    if (a.createdAt < b.createdAt) return 1
+    if (a.createdAt > b.createdAt) return -1
+    return 0})
 
 useEffect(()=>{
  dispatch(getAllUser())
@@ -37,16 +42,19 @@ function aux (e){
 
         <div className={styles.container}>
             <button onClick={(e)=>{aux(e)}}>llamar</button>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {
+            userPost?.map(el => (
+                <Card
+                    key={el.id}
+                    photo={el.photo}
+                    detail={el.detail}
+                    creator={el.creator}
+                    likes={el.likes}
+                    createdAt={el.createdAt}
 
+                />
+            ))
+        }
 
         </div>
     </div>
