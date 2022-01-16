@@ -27,7 +27,7 @@ server.get('/getbyusers', async function (req, res) {
     try {
         posts =  await Post.findAll({
             where: {
-                creator:req.body.map(e => e)
+                creator:req.body.payload.map(e => e)
             }
 
         })
