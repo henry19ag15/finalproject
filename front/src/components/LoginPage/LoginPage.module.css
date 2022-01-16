@@ -16,6 +16,10 @@
       -ms-flex-align: center;
           align-items: center;
   background: #f6f6f6;
+  background-image: url("../../sass/hojas.png");
+  -o-object-fit: cover;
+     object-fit: cover;
+  background-position: left;
 }
 
 .allLoginPage *:focus {
@@ -30,7 +34,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-top: 20vh;
+  margin-top: 80px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

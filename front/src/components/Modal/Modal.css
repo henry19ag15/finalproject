@@ -48,6 +48,92 @@
   opacity: 1;
 }
 
+@-webkit-keyframes popup {
+  0% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  10% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+  }
+  30% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+  }
+  40% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  50% {
+    -webkit-transform: scale(0.6);
+            transform: scale(0.6);
+  }
+  60% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  70% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  80% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  90% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes popup {
+  0% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  10% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+  }
+  30% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+  }
+  40% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  50% {
+    -webkit-transform: scale(0.6);
+            transform: scale(0.6);
+  }
+  60% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  70% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  80% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  90% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
 .isOpen {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -68,6 +154,7 @@
   z-index: 999;
   width: 100%;
   height: 100vh;
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -85,10 +172,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 60vw;
-  height: 75vh;
+  width: 25em;
+  height: 15em;
   background-color: #fff;
   border-radius: 7px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-animation: popup 0.2s;
+          animation: popup 0.2s;
 }
 
 .form-wrapper {
@@ -240,8 +331,17 @@
           transform: scale(0.98, 0.98);
 }
 
-@media (max-width: 850px) {
+@media (max-width: 950px) {
   .post-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-post h2 {
+    font-size: 14px;
+  }
+  .form-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -249,25 +349,44 @@
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
     width: 100%;
-    height: 70vh;
-    background-color: #fff;
-    border-radius: 7px;
+    height: 100%;
   }
-  .post-container h2 {
+  .form-wrapper .img-container {
+    width: 40%;
+    height: 40%;
+    margin-top: 5%;
+  }
+  .form-wrapper .descripcion {
     width: 100%;
-    font-size: 18px;
-    margin-top: 1%;
-    border-bottom: .5px solid #000;
   }
-  .close {
-    margin-left: 90%;
+  .form-wrapper .descripcion textarea {
+    width: 100%;
+    padding: 1% 2.5%;
+    height: 50%;
+  }
+  .form-wrapper .descripcion select {
+    height: 20%;
+  }
+  .form-wrapper .descripcion select :focus {
+    outline: 0px;
+    border: none;
+    width: 80%;
+  }
+  .form-wrapper .descripcion select :active {
+    outline: 0px;
+    border: none;
+    width: 80%;
+  }
+  .form-wrapper .descripcion button {
+    width: 80%;
+    height: 20%;
   }
 }
 /*# sourceMappingURL=Modal.css.map */
