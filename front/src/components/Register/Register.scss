@@ -118,12 +118,12 @@
     border-radius: 7px;
     border: none;
     cursor: pointer;
-    background: $background-horizontal;
+    background: $background-button;
     font-size: 12px;
     font-weight: 700;
     color: #fff;
     &:hover{
-        transform: scale(1.1, 1.1);
+        background-color: $button-hover;
     }
     &:active{
         transform: scale(1.0, 1.0);
@@ -169,6 +169,7 @@
         justify-content: flex-start;
         align-items: center;
         height: 100vh;
+        width: 100%;
         background: $background-a;
     }
 
@@ -193,13 +194,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 70%;
+        width: 100%;
         height: 90%;
     }
 
     .buttons{
         box-shadow: 0.3px 0.3px 5px rgb(20, 27, 66);
-        height: 10%;
+        height: 8%;
     }
 
     .footer-text{
@@ -216,6 +217,15 @@
         p{
             display: none;
         }
+    }
+
+    .error{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
     }
 
 }

@@ -1,89 +1,108 @@
 const server = require("express").Router();
-const { User, Post } = require("../db.js");
+const { Post, User, Comment } = require("../db.js");
 const sequelize = require("sequelize");
 
 //crear post
-server.post("/newPost", async (req, res) => {
-  const { user, data, media } = req.body;
-  let newPost = Post.create({
-    data,
-    media,
-  });
-
-  const creator = user.map((u) => {
-    const addUser = await User.findOne({
-      where: { id: u },
+server.post("/", async function (req, res) {
+  try {
+    const { photoURL, creator, detail } = req.body;
+    await Post.create({
+      photo: photoURL,
+      creator: creator,
+      detail: detail,
     });
-    newPost.addType(addUser);
-  });
-
-  await Promise.all(creator)
-
-    .then((post) => {
-      res.status(201).send(post);
-    })
-    .catch((err) => {
-      res.status(404).send(err);
-    });
+    res.status(200).send("se creo el post");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-//traer posts
-server.get("/all", async (req, res) => {
-  await Post.findAll()
-    .then((post) => {
-      res.status(201).send(post);
-    })
-    .catch((err) => {
-      res.status(404).send(err);
+//traerse los posts por usuarios
+server.get("/getbyusers", async function (req, res) {
+  console.log(req.body);
+
+  let posts = [];
+  try {
+    posts = await Post.findAll({
+      where: {
+        creator: req.body.map((e) => e),
+      },
     });
+
+    console.log(posts);
+
+    res.send(posts);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-server.put("/follow", async (req, res) => {
-  /* 
-   idUser = el usuario que sigue o deja de seguir
-  idPost = el usuario que se sigue o se deja de seguir
-  req.body porque no se por donde lo van a mandar todavia
-  */
+// traerse todos los post
+server.get("/getAll", async function (req, res) {
+  try {
+    let posts = await Post.findAll();
+    res.send(posts);
+  } catch (error) {
+    console.log(error);
+  }
+});
+// dar like
+server.put("/likes", async (req, res) => {
   console.log("Esto es el body: ", req.body);
   const idUser = req.body[0];
   const idPost = req.body[1];
 
-  let user = await User.findOne({
-    where: { id: idUser },
-  });
-  console.log(user);
   let post = await Post.findOne({
     where: { id: idPost },
   });
 
-  console.log("1: ", user.dataValues);
-  console.log("2: ", post.dataValues);
-
-  if (user && post) {
-    if (!post.like.includes(user)) {
-      try {
-        await post.update({
-          like: sequelize.fn("array_append", sequelize.col("like"), idUser),
-        });
-
-        console.log("postUpdate", post.dataValues);
-
-        res.status(200).send("Like it");
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      try {
-        await post.update({
-          like: sequelize.fn("array_remove", sequelize.col("like"), idUser),
-        });
-        res.status(200).send("Doesn't like it");
-      } catch (error) {
-        console.log(error);
-      }
+  if (!post.likes.includes(idUser)) {
+    try {
+      await post.update({
+        likes: sequelize.fn("array_append", sequelize.col("likes"), idUser),
+      });
+      res.status(200).send("Se ha dado Like");
+    } catch (error) {
+      console.log(error);
     }
   } else {
-    res.status(404).send("Usuario o post no encontrado");
+    try {
+      await post.update({
+        likes: sequelize.fn("array_remove", sequelize.col("likes"), idUser),
+      });
+      res.status(200).send("Dislike");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+// comentar
+server.post("/comments", async function (req, res) {
+  try {
+    const { idUser, idPost, detail } = req.body;
+
+    await Comment.create({
+      detail: detail,
+      idUser: idUser,
+      idPost: idPost,
+    });
+    res.status(200).send("comentario");
+  } catch (error) {
+    console.log(error);
+  }
+});
+// eliminar comentario
+server.delete("/commentdelete/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    await Comment.destroy({
+      where: {
+        id,
+      },
+    });
+    res.status(200).send("Comentario eliminado correctamente");
+  } catch (error) {
+    console.log(error);
   }
 });
 

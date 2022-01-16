@@ -2,7 +2,10 @@ import axios from "axios";
 
 export function postUser(payload) {
   return async function () {
-    await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/user/register", { payload });
+    await axios.post(
+      "https://pruebaconbackreal-pg15.herokuapp.com/user/register",
+      { payload }
+    );
     return {
       type: "POST_USER",
     };
@@ -12,16 +15,62 @@ export function postUser(payload) {
 export function getMyProfile(id) {
   return async function (dispatch) {
     try {
-      const myProfile = await axios.get(`https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`)
-      return  dispatch( {
-        type: 'GET_MY_PROFILE',
-        payload: myProfile.data
-      })
+      const myProfile = await axios.get(
+        `https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`
+      );
+      return dispatch({
+        type: "GET_MY_PROFILE",
+        payload: myProfile.data,
+      });
     } catch (error) {
       return dispatch({
-        type: 'GET_MY_PROFILE',
-        payload: error
-      })
+        type: "GET_MY_PROFILE",
+        payload: error,
+      });
     }
-  }
+  };
 }
+
+export function getUserProfile(id) {
+  return async function (dispatch) {
+    try {
+      const Profile = await axios.get(
+        `https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`
+      );
+      return dispatch({
+        type: "GET_USER_PROFILE",
+        payload: Profile.data,
+      });
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: "GET_USER_PROFILE",
+        payload: "Se rompio",
+      });
+    }
+  };
+}
+
+////////////////// Actions Post //////////////////
+export function getPost(payload) {
+  return async function (dispatch) {
+    try {
+      const posts = await axios.post(
+        "https://pruebaconbackreal-pg15.herokuapp.com/posts/getbyusers",
+        { payload: payload }
+      );
+      return dispatch({
+        type: "GET_POSTS",
+        payload: posts.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: "GET_POSTS",
+        payload: err,
+      });
+    }
+  };
+}
+
+//////////////////////////////////////////////////

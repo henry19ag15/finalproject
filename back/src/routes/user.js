@@ -178,27 +178,6 @@ server.put("/follow", async (req, res) => {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      try {
-        await userOne.update({
-          following: sequelize.fn(
-            "array_remove",
-            sequelize.col("following"),
-            idTwo
-          ),
-        });
-
-        await userTwo.update({
-          followers: sequelize.fn(
-            "array_remove",
-            sequelize.col("followers"),
-            idOne
-          ),
-        });
-        res.status(200).send("Unfollow");
-      } catch (error) {
-        console.log(error);
-      }
     }
   } else {
     res.status(404).send("Usuario no encontrado");
