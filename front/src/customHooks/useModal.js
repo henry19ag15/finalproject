@@ -18,21 +18,13 @@ const useModal = (initialValue = false) => {
     detail: "",
     type: "Público",
   });
-  const [counter, setCounter] = useState(0);
 
-  console.log(form);
-  console.log(user.id)
+  const [loading, setLoading] = useState(false)
+  console.log(loading)
 
-  ////  PARA MANEJAR EL ESTADO DEL CONTADOR DE CARACTERES //////
-  const handleCounter = (event) => {
-    if (counter < 0) {
-      setCounter(0);
-    } else if (event.keyCode === 8) {
-      setCounter(counter - 1);
-    } else {
-      setCounter(counter + 1);
-    }
-  };
+
+
+
 
   //// PARA MANEJAR EL ESTADO AL ABRI Y CERRAR VENTA DE PUBLICACIONES ////
   const openModal = () => setIsOpen(true);
@@ -41,7 +33,7 @@ const useModal = (initialValue = false) => {
     setIsOpen(false);
     setFileUrl(null);
     setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
-    setCounter(0);
+    setLoading(false)
   };
 
   const back = () => {
@@ -67,10 +59,11 @@ const useModal = (initialValue = false) => {
   };
 
   const handleReset = () => {
-    setForm({ detail: "", imagen: "", id: "", type: "Público" });
+    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
       const storageRef = app
         .storage()
@@ -82,7 +75,8 @@ const useModal = (initialValue = false) => {
         creator: form.creator,
         detail: form.detail,
       }).then(() =>{
-        swal("Publicación creada correctamente", {
+        setLoading(false)
+        swal("Publicaón creada correctamente", {
           icon: "success",
         });
         handleReset();
@@ -102,9 +96,8 @@ const useModal = (initialValue = false) => {
     form,
     handleChange,
     handleSubmit,
-    counter,
-    handleCounter,
     back,
+    loading
   ];
 };
 
