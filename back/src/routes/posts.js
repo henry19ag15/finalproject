@@ -19,8 +19,33 @@ server.post('/', async function (req, res) {
 
 
 })
+//traerse los posts por usuarios
+server.get('/getbyusers', async function (req, res) {
+
+
+    let posts = [];
+    try {
+        posts =  await Post.findAll({
+            where: {
+                creator:req.body.map(e => e)
+            }
+
+        })
+
+        console.log(posts)
+
+        res.send(posts)
+
+
+    } catch (error) {
+        console.log(error)
+
+    }
+});
+
+
 // traerse todos los post
-server.get('/get', async function (req, res) {
+server.get('/getAll', async function (req, res) {
     try {
         let posts = await Post.findAll();
         res.send(posts);
