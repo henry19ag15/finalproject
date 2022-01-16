@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+.Recover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  background: #f6f6f6;
+}
+
+.recover-form {
+  margin-top: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  height: 40%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.recover-form button {
+  width: 120px;
+  height: 40px;
+  border-radius: 7px;
+  border: none;
+  margin-top: 10%;
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
+  background: linear-gradient(90deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.recover-form button:active {
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
+}
+
+.title-recover {
+  margin-top: 3%;
+}
+
+.errors-email {
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.input {
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-left: 20px;
+  -webkit-box-shadow: 2px 2px 10px 1px #2dcce6;
+          box-shadow: 2px 2px 10px 1px #2dcce6;
+  font-size: 16px;
+}
+
+.input:focus {
+  border: 1px solid #0373b6;
+}
+
+.arrow-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+.back-arrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 50px;
+  height: 35px;
+  cursor: pointer;
+  color: #000 !important;
+}
+
+@media (max-width: 600px) {
+  .recover-form {
+    width: 100%;
+  }
+  .recover-form button {
+    height: 40px;
+  }
+  .title-recover {
+    margin-top: 30%;
+    font-size: 25px;
+  }
+  .input {
+    width: 75%;
+  }
+  .arrow-container {
+    margin-top: 3%;
+    margin-left: 8%;
+  }
+  .arrow-container p {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .arrow-container {
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 8%;
+  }
+  .arrow-container p {
+    display: none;
+  }
+}
+/*# sourceMappingURL=Recover.css.map */
