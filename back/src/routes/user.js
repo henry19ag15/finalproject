@@ -7,7 +7,7 @@ server.post("/register", async function (req, res) {
   console.log("este es el body:", req.body);
 
   try {
-    const { uid, email, displayname, detail } = req.body;
+    const { uid, email, displayname, detail } = req.body.payload.user;
 
     await User.create({
       id: uid,
@@ -124,6 +124,13 @@ server.delete("/destroy/:id", async function (req, res) {
     await User.destroy({
       where: {
         id,
+        includes:{
+          model:User,
+          attributes:['user.id'],
+          throgh:{
+            attributes:[],
+          }
+        }
       },
     });
     res.status(200).send("Usuario eliminado correctamente");

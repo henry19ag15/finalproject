@@ -96,7 +96,7 @@ server.put("/likes", async (req, res) => {
 
     }
 });
-// comentar
+// Realizar  comentarios
 server.post("/comments", async function (req, res) {
 
     try {
@@ -112,7 +112,7 @@ server.post("/comments", async function (req, res) {
             idPost: idPost,
 
         })
-        res.status(200).send("comentario")
+        res.status(200).send("Comentario creado con exito")
 
     } catch (error) {
         console.log(error)
@@ -121,6 +121,22 @@ server.post("/comments", async function (req, res) {
 
 
 });
+
+//Traer un comentario
+
+server.get("/bringscomments/:id", async function (req, res) {
+    try {
+      let user = await Comment.findOne({
+        where: { id: req.params.id },
+      });
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(400).json({
+        error: true,
+        message: "Error al buscar comentario",
+      });
+    }
+  });
 // eliminar comentario
 server.delete("/commentdelete/:id", async function (req, res) {
     try {
