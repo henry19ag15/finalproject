@@ -1,10 +1,16 @@
 const initialState = {
   estadoTest: "Hola",
+
+  // Información de usuarios //
   allUser: [],
   myProfile: {},
   userView: {},
+
+  // Posteos //
   posts: [],
-  myPosts: []
+  myPosts: [],
+  postsUserProfile: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -42,6 +48,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         myPosts: action.payload
+      }
+
+    case "GET_POSTS_USER_PROFILE":
+      return {
+        ...state,
+        postsUserProfile: action.payload
       }
 
     default:

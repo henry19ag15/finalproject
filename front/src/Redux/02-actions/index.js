@@ -102,4 +102,25 @@ export function getPostMyProfile(payload){
 
 }
 
+
+
+
+export function getPostUserProfile(payload){
+  return async function (dispatch) {
+    try {
+      const posts = await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/getbyusers", { payload: payload })
+      return dispatch({
+        type: "GET_POSTS_USER_PROFILE",
+        payload: posts.data
+      })
+    } catch (err) {
+      console.log(err)
+      return dispatch({
+        type: 'GET_POSTS_USER_PROFILE',
+        payload: err
+      })
+    }
+  }
+
+}
 //////////////////////////////////////////////////
