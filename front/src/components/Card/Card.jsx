@@ -19,7 +19,8 @@ export default function Card ({id, photo, creator, likes, detail}) {
     const user = auth.currentUser;
 
     const useUser=  profile.filter(el => el.id === creator) 
-    console.log(useUser)
+    console.log("esto es el user: ", useUser)
+    console.log(useUser[0].username)
 
     return (
         <div className={styles.cardbody}>
@@ -50,8 +51,16 @@ export default function Card ({id, photo, creator, likes, detail}) {
             </header>
 
 
-            <section className={styles.likes}> <p>Conteo de likes</p> {likes.length} </section>
-            <section className={styles.description}> <p>Descripción</p>{detail} </section>
+            <section className={styles.likes}> {likes.length} likes </section>
+            <section className={styles.description}> {detail} </section>
+            <input 
+                className={styles.input}
+                type="test"
+                name="comment"
+                placeholder="Agregar comentario..."
+                >
+            </input>
+            <button className={styles.btnComment}>Publicar</button>
             
         </div>
     )
