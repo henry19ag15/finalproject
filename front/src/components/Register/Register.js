@@ -10,6 +10,7 @@ const initialState ={
     displayname: '',
     email: '',
     password: '',
+    repeatPassword: '',
     showPassword: false
 }
 
@@ -67,6 +68,16 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Contraseña'
+                                required
+                            />
+
+                            <input type='password'
+                                className='input'
+                                name='repeatPassword'
+                                value={form.repeatPassword}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder='Repetir contraseña'
                                 required
                             />
                         </div>
