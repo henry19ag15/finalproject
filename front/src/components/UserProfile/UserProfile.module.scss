@@ -8,7 +8,7 @@
   height: 100vh;
   width: 100%;
   // height: ;
-  header {
+  .cabeza {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,7 +223,14 @@
     }
 
     span {
-      // position: absolute;
+       // padding-top: 2rem;
+       width: 100%;
+       height: auto;
+       display: flex;
+       flex-direction: column;
+       /* flex-wrap: wrap; */
+       align-items: center;
+       justify-content: space-around;
     }
     .menuConfig {
       width: 100%;

@@ -74,7 +74,7 @@ function App() {
 
 
 
-      {log !== 0 ? render() : <img className='loading' src={loading} alt='' />}
+      {log !== 0 ? render() : <img className='loadingApp' src={loading} alt='' />}
 
 
 

@@ -10,14 +10,15 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getUserProfile } from "../../Redux/02-actions";
+import { getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
+import Card from "../Card/Card";
 
-export default function MyPerfil() {
+export default function UserProfile() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -25,7 +26,7 @@ export default function MyPerfil() {
   const history = useHistory();
 
   //   const myProfile = useSelector((state) => state.myProfile);
-  //   console.log(myProfile);
+    console.log(perfil);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
   useEffect(() => {
@@ -63,9 +64,26 @@ export default function MyPerfil() {
 
   ///////////////////////////////////////////////////
 
+  //////////////// LOGICA DE POSTEOS /////////////////
+
+  
+  useEffect(() => {
+    dispatch(getPostUserProfile([perfil.id]));
+  }, [perfil]);
+  
+  
+  const postsUser = useSelector(state => state.postsUserProfile)
+  const userPost = postsUser.sort((a, b) => {
+  if (a.createdAt < b.createdAt) return 1;
+  if (a.createdAt > b.createdAt) return -1;
+  return 0;
+});
+
+  ///////////////////////////////////////////////////
+
   return (
     <div className={style.allMyPerfil}>
-      <header>
+      <header className={style.cabeza}>
         <div className={style.imgFollBox}>
           {perfil.profilephoto ? (
             <img
@@ -109,7 +127,20 @@ export default function MyPerfil() {
       </header>
 
       <body>
-        <span>Futuro muro aqui! </span>
+        <span >
+
+        {userPost?.map((el) => (
+            <Card
+              key={el.id}
+              photo={el.photo}
+              detail={el.detail}
+              creator={el.creator}
+              likes={el.likes}
+              createdAt={el.createdAt}
+            />
+          ))}
+
+        </span>
       </body>
     </div>
   );
