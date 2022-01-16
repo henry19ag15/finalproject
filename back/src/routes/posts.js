@@ -20,7 +20,7 @@ server.post('/', async function (req, res) {
 
 })
 //traerse los posts por usuarios
-server.get('/getbyusers', async function (req, res) {
+server.post('/getbyusers', async function (req, res) {
 
 
     let posts = [];
