@@ -17,7 +17,7 @@ export default function Home() {
   const user = auth.currentUser;
   const perfil = useSelector((state) => state.myProfile);
   const allUser = useSelector((state) => state.allUser);
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts);  
   const userPost = posts.sort((a, b) => {
     if (a.createdAt < b.createdAt) return 1;
     if (a.createdAt > b.createdAt) return -1;
@@ -32,7 +32,8 @@ export default function Home() {
   function aux(e) {
     e.preventDefault();
     console.log(perfil.following);
-    dispatch(getPost(perfil.following));
+    const idToGet= perfil.following.concat(user.uid)
+    dispatch(getPost(idToGet));
   }
 
   /* useEffect(()=>{
