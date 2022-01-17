@@ -26,6 +26,7 @@
     background-color: white;
     border-radius: 5px;
     box-shadow: 0px 0px 10px black;
+    // overflow-y: initial !important;
     .head {
       display: flex;
       flex-direction: row;
@@ -90,6 +91,7 @@
     }
     .FollowBox {
       width: 95%;
+      overflow-y: auto;
 
       button {
         font-family: "Nunito", sans-serif;
