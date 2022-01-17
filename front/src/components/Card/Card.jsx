@@ -9,7 +9,7 @@ import noimg from "../../sass/noimg.png";
 import { useSelector } from "react-redux";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
-export default function Card({ id, photo, creator, likes, detail }) {
+export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   const auth = getAuth();
 
   const profile = useSelector((state) => state.allUser);
@@ -18,7 +18,7 @@ export default function Card({ id, photo, creator, likes, detail }) {
 
   const useUser = profile.filter((el) => el.id === creator);
   console.log("esto es el user: ", useUser);
-  console.log(useUser[0].username);
+  console.log(useUser[0].followers);
 
   
  
@@ -29,6 +29,10 @@ export default function Card({ id, photo, creator, likes, detail }) {
     } else {
       return `/user/${creator}`;
     }
+  }
+
+  function reverse(el){
+    return el.split("-").reverse().join("-");
   }
 
   return (
@@ -68,14 +72,15 @@ export default function Card({ id, photo, creator, likes, detail }) {
             <img src={noimg} alt="" />
           )}
         </Link>
-        <div className={styles.profileName}>
+        <Link className={styles.profileName} to={linkInPhoto()}>
           {" "}
           {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
-        </div>
+        </Link>
       </header>
 
-      <section className={styles.likes}> {likes.length} likes </section>
+      <section className={styles.likes}> {likes.length} Likes </section>
       <section className={styles.description}> {detail} </section>
+      <section className={styles.datePosted}> {reverse(createdAt.substring(0,10))} </section>
       <input
         className={styles.input}
         type="test"
