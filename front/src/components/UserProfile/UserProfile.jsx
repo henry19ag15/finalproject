@@ -17,6 +17,8 @@ import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import Card from "../Card/Card";
+import FollowModalOtherProfile from "./FollowModalOtherProfile";
+
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -25,8 +27,13 @@ export default function UserProfile() {
   const perfil = useSelector((state) => state.userView);
   const history = useHistory();
 
-  //   const myProfile = useSelector((state) => state.myProfile);
-  console.log(perfil);
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: ""
+  })
+
+     const myProfile = useSelector((state) => state.myProfile);
+  //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
   useEffect(() => {
@@ -94,15 +101,16 @@ export default function UserProfile() {
           )}
 
           <div className={style.followBox}>
-            <div>
+            <button onClick={e => setFollowActive({
+              view: true, type: "followers"
+            })}>
               <p>Seguidores</p>
-              {perfil.followers ? <p>{perfil.followers.length}</p> : <p>0</p>}
-            </div>
-
-            <div>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+            </button>
+            <button onClick={e => setFollowActive({ view: true, type: "following" })} >
               <p>Seguidos</p>
-              {perfil.following ? <p>{perfil.following.length}</p> : <p>0</p>}
-            </div>
+              {myProfile.following && <p>{myProfile.following.length}</p>}
+            </button>
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -146,6 +154,8 @@ export default function UserProfile() {
           ))}
         </span>
       </body>
+
+      {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
     </div>
   );
 }

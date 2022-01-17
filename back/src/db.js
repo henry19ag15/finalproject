@@ -2,19 +2,15 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
-  process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pg15`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
-});
+);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -41,7 +37,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Comment, Post, Community } = sequelize.models; //creo que deberia estar este modelo
+const { User,Post,Comment } = sequelize.models; //creo que deberia estar este modelo
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -51,8 +47,10 @@ const { User, Comment, Post, Community } = sequelize.models; //creo que deberia 
 User.belongsToMany(Post, { through: "User_Post" });
 Post.belongsToMany(User, { through: "User_Post" });
 
-Comment.belongsToMany(Post, { through: "Post_Comment" });
-Post.belongsToMany(Comment, { through: "Post_Comment" });
+Comment.belongsTo(Post)
+Post.hasMany(Comment)
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
