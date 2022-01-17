@@ -62,6 +62,7 @@ const RecoverPassword = () =>{
             </div>
             <h1 className='title-recover'>Recuperar contraseña</h1>
             <form className='recover-form' onSubmit={handleSubmit}>
+                <p>Introduzca el email con el que se ha registrado.</p>
                 <input type='email'
                         name= 'email'
                         placeholder='Email'

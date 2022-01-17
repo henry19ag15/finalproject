@@ -85,9 +85,6 @@ const Register = () =>{
                         {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-
-                        
-
                     </form>
                 </div>
                 <div className='rigth-continer'>

@@ -10,8 +10,7 @@
   -webkit-box-shadow: 1px 1px 6px #091238;
           box-shadow: 1px 1px 6px #091238;
   background: #fff;
-  position: fixed;
-  top: 0;
+  top: 0px;
 }
 
 .img {
