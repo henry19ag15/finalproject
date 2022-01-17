@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
 import Card from "../Card/Card";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -504,6 +505,7 @@ export default function MyPerfil() {
         {renderConfig()}
         <span className={style.myProfileContainer}>
           {userPost?.map((el) => (
+            <LazyLoad height={488} offset={100}>
             <Card
               key={el.id}
               photo={el.photo}
@@ -512,6 +514,7 @@ export default function MyPerfil() {
               likes={el.likes}
               createdAt={el.createdAt}
             />
+            </LazyLoad>
           ))}
         </span>
       </body>
