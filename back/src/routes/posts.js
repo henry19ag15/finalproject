@@ -92,31 +92,7 @@ server.put("/likes", async (req, res) => {
 
     }
 });
-// Realizar  comentarios
-server.post("/comments", async function (req, res) {
 
-    try {
-        const {
-            idUser,
-            idPost,
-            detail,
-        } = req.body;
-
-        await Comment.create({
-            detail: detail,
-            idUser: idUser,
-            idPost: idPost,
-
-        })
-        res.status(200).send("Comentario creado con exito")
-
-    } catch (error) {
-        console.log(error)
-
-    }
-
-
-});
 
 
 //borrar post
@@ -136,39 +112,8 @@ server.delete("/destroy/:id", async function (req, res) {
     }
   });
 
-//Traer un comentario
-
-server.get("/bringscomments/:id", async function (req, res) {
-    try {
-      let user = await Comment.findOne({
-        where: { id: req.params.id },
-      });
-      res.status(200).send(user);
-    } catch (error) {
-      res.status(400).json({
-        error: true,
-        message: "Error al buscar comentario",
-      });
-    }
-  });
 
 
-// eliminar comentario
-server.delete("/commentdelete/:id", async function (req, res) {
-    try {
-        const { id } = req.params;
-        await Comment.destroy({
-            where: {
-                id,
-            },
-        });
-        res.status(200).send("Comentario eliminado correctamente");
-    } catch (error) {
-        console.log(error);
-    }
-
-
-});
 
 
   //editar post
