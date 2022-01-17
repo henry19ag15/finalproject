@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.allMyPerfil header {
+.allMyPerfil .cabeza {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -25,7 +25,7 @@
   padding-top: 0.5rem;
 }
 
-.allMyPerfil header .imgFollBox {
+.allMyPerfil .cabeza .imgFollBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,7 +36,7 @@
   width: 95%;
 }
 
-.allMyPerfil header .imgFollBox .photoProfile {
+.allMyPerfil .cabeza .imgFollBox .photoProfile {
   height: 6rem;
   width: 6rem;
   border-radius: 50%;
@@ -47,7 +47,7 @@
           box-shadow: 0px 5px 5px gray;
 }
 
-.allMyPerfil header .imgFollBox .followBox {
+.allMyPerfil .cabeza .imgFollBox .followBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,18 +57,18 @@
   font-size: 0.9rem;
 }
 
-.allMyPerfil header .imgFollBox .followBox div {
+.allMyPerfil .cabeza .imgFollBox .followBox div {
   padding: 0 0.3rem;
 }
 
-.allMyPerfil header .imgFollBox .followBox div p {
+.allMyPerfil .cabeza .imgFollBox .followBox div p {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 0.8rem;
   margin: 0.5rem 0;
 }
 
-.allMyPerfil header .nameConfigBox {
+.allMyPerfil .cabeza .nameConfigBox {
   width: 95%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -82,14 +82,14 @@
           justify-content: space-between;
 }
 
-.allMyPerfil header .nameConfigBox .nameBox h3 {
+.allMyPerfil .cabeza .nameConfigBox .nameBox h3 {
   margin-bottom: 0;
   text-align: start;
   border-bottom: solid 1px #24c8e1;
   font-family: "Nunito", sans-serif;
 }
 
-.allMyPerfil header .nameConfigBox .nameBox h4 {
+.allMyPerfil .cabeza .nameConfigBox .nameBox h4 {
   margin: 0 0;
   font-size: 0.8rem;
   text-align: start;
@@ -97,7 +97,7 @@
   font-family: "Nunito", sans-serif;
 }
 
-.allMyPerfil header .nameConfigBox .menuPerfil {
+.allMyPerfil .cabeza .nameConfigBox .menuPerfil {
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -111,7 +111,7 @@
           align-items: flex-end;
 }
 
-.allMyPerfil header .nameConfigBox .menuPerfil .btnConfig {
+.allMyPerfil .cabeza .nameConfigBox .menuPerfil .btnConfig {
   background-color: transparent;
   border: none;
   display: -webkit-box;
@@ -125,17 +125,17 @@
   transition: 0.5s;
 }
 
-.allMyPerfil header .nameConfigBox .menuPerfil .btnConfig:hover {
+.allMyPerfil .cabeza .nameConfigBox .menuPerfil .btnConfig:hover {
   -webkit-filter: drop-shadow(0px 0px 5px #24c8e1);
           filter: drop-shadow(0px 0px 5px #24c8e1);
 }
 
-.allMyPerfil header .nameConfigBox .menuPerfil .btnRotate {
+.allMyPerfil .cabeza .nameConfigBox .menuPerfil .btnRotate {
   -webkit-transform: rotate(-360deg);
           transform: rotate(-360deg);
 }
 
-.allMyPerfil header .details {
+.allMyPerfil .cabeza .details {
   width: 95%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -145,7 +145,7 @@
   border-radius: 5px;
 }
 
-.allMyPerfil header .details p {
+.allMyPerfil .cabeza .details p {
   font-size: 0.8rem;
   color: #030303;
   text-align: start;
@@ -253,6 +253,24 @@
   background: red;
   -webkit-box-shadow: 0px 0px 5px grey;
           box-shadow: 0px 0px 5px grey;
+}
+
+.allMyPerfil body span {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* flex-wrap: wrap; */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .allMyPerfil body .menuConfig {
