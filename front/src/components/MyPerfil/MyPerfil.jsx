@@ -19,6 +19,7 @@ import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
 import Card from "../Card/Card";
 import FollowModal from "./FollowModal";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -510,6 +511,7 @@ export default function MyPerfil() {
         {renderConfig()}
         <span className={style.myProfileContainer}>
           {userPost?.map((el) => (
+            // <LazyLoad height={488} offset={10}>
             <Card
               id={el.id}
               key={el.id}
@@ -519,6 +521,7 @@ export default function MyPerfil() {
               likes={el.likes}
               createdAt={el.createdAt}
             />
+            // </LazyLoad>
           ))}
         </span>
       </body>

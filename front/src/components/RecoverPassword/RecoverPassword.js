@@ -69,6 +69,7 @@ const RecoverPassword = () =>{
                         value={recover.email}
                         onChange={handleChange}
                         className='input'
+                        autocomplete="off"
                 />
                 <button type='Submit'>Enviar</button>
             </form>

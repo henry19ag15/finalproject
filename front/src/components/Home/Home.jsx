@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllUser,
@@ -9,6 +9,7 @@ import NavBar from "../NavBar/NavBar";
 import Card from "../Card/Card";
 import styles from "./Home.module.css";
 import { getAuth } from "firebase/auth";
+import LazyLoad from "react-lazyload";
 
 export default function Home() {
   //const [picsPerPage, setPicsPerPage] = useState(8);
@@ -32,8 +33,6 @@ export default function Home() {
     });
   }, []);
 
- 
-
   function parcheValidador(id) {
     //
     const validate = allUser.filter((e) => e.id === id);
@@ -47,25 +46,24 @@ export default function Home() {
   return (
     <div className={styles.home}>
       {/* <NavBar /> */}
-
       <div className={styles.container}>
-        
         {userPost?.map((el) =>
           parcheValidador(el.creator) ? (
-            <Card
-              id={el.id}
-
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
+            <LazyLoad height={488} offset={10}>
+              <Card
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.creator}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+            </LazyLoad>
           ) : (
             false
           )
-          )}
+        )}
       </div>
     </div>
   );
