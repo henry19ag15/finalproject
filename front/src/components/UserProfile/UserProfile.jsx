@@ -105,11 +105,11 @@ export default function UserProfile() {
               view: true, type: "followers"
             })}>
               <p>Seguidores</p>
-              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+              {perfil.followers && <p>{perfil.followers.length}</p>}
             </button>
             <button onClick={e => setFollowActive({ view: true, type: "following" })} >
               <p>Seguidos</p>
-              {myProfile.following && <p>{myProfile.following.length}</p>}
+              {perfil.following && <p>{perfil.following.length}</p>}
             </button>
           </div>
         </div>
