@@ -5,14 +5,12 @@
   margin: 0;
   box-sizing: border-box;
   // outline: solid 1px red;
-
 }
 
 body {
   font-family: sans-serif;
   padding: 90px 20px 0;
   position: sticky;
-  
 }
 
 .NavBar {
@@ -178,10 +176,10 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 80px;
-  div{
+  div {
     display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -296,6 +294,9 @@ body {
     // padding: 10px 5px 5px 5px;
     margin: 0.3rem 0;
   }
+  .add {
+    margin: 0.3rem 0;
+  }
 
   .btn_toogle {
     /* position: absolute;
@@ -359,7 +360,7 @@ body {
       font-size: 1.5rem;
       transition: 0.3s;
     }
-    .btnCloseSearch:hover{
+    .btnCloseSearch:hover {
       color: red;
     }
     ul {
@@ -405,7 +406,7 @@ body {
     // padding: 10px 5px 5px 5px;
     // margin: 5px;
     width: 70px;
-    margin-top:7px;
+    margin-top: 7px;
     color: black;
     display: flex;
     align-items: center;
