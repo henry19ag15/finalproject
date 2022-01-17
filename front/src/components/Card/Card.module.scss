@@ -1,161 +1,238 @@
 @import "../../sass/variables";
 
-.body {
-    padding: 0;
-    margin: 0;
+* {
+  //   outline: solid 1px red;
+}
 
+.body {
+  padding: 0;
+  margin: 0;
+}
+
+.cabeza {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.commentBox {
+  padding: 0.3rem;
+  border: solid 1px gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  //   background-color: blue;
+  //   position: relative;
+  //   bottom: 0;
+  width: 90%;
+  margin: 0.3rem 0;
+  .photoNameBox {
+    display: flex;
+    align-items: center;
+    img {
+      height: 1.5rem;
+      width: 1.5rem;
+      border-radius: 50%;
+      margin-right: 0.3rem;
+    }
+    p {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  }
+  .comentario {
+    width: 100%;
+    text-align: start;
+    font-size: 0.8rem;
+  }
 }
 
 
 .cardbody {
-    position: relative;
-    z-index: 1;
-    background-color: white;
-    border: solid;
-    border-width: 0.5px;
-    border-color: rgba(128, 128, 128, 0.336);
-    // z-index: 1;
-    max-width: inherit;
-    max-height: inherit;
-    // width: 50%;
-    height: 29rem;
-    //border-radius: 10px;
-    margin:  1.5rem 0 ;
+  //   position: relative;
+  //   z-index: 1;
+  background-color: white;
+  border: solid;
+  border-width: 1px;
+  border-color: rgba(128, 128, 128, 0.336);
+  // z-index: 1;
+  max-width: inherit;
+  width: 35rem;
+  max-height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //   height: 30.5rem;
+  //border-radius: 10px;
+  margin: 1.5rem 0;
+  .datePosted{
+    // width: 100%;
+    color:gray;
+    font-size: 0.75rem;
+    text-align: start;
+    padding-left: 0.5rem;
+    margin: 0.3rem 0;
+  }
+  .inputCommentBox {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    margin: 0.3rem 0;
+    height: 2rem;
+    // margin-left: 0.3rem;
+    // background-color: orange;
+    input {
+      width: inherit;
+      background: transparent;
+      border: none;
+    }
+
+    button {
+      // width: 10%;
+      color: rgb(0, 174, 255);
+      font-size: 0.8rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+  }
 }
-
-
 
 .img {
-    //border-radius: 10px; 
-    width:100%; 
-    height:22em;
-}
-
-// .over {
-// 	// content:'';
-// 	// background-color: rgba(0,0,0,0.6);
-//     transition:1s;
-//     display: none;
-
-// }
-
-// .cardData:hover {
-
-
-//     .over{
-//         //content:'';
-//         position: absolute;
-//         z-index: 2;
-//         top: 0;
-//         bottom: 6rem;
-//         left: 0;
-//         right: 0;
-//         display:flex;
-//         background-color: rgba(0,0,0,0.6);
-//     transition:1s;
-
-
-//     }
-//     .btnCommit, .btnShare{
-//         bottom: 10px;
-//     }    
-    
-// }
-
-.btn {
-    position: absolute;
-    z-index: 3;
-    right: 20px;
-    top: 20px;
-    font-size: 20px;
-    color: white;
-    border-radius: 100px;
-    width: 80px;
-    height: 40px;
-    background-color: rgb(207, 30, 10);
-    border: none;
-
-    cursor: pointer;
-}
-
-.profilePhoto {
-    flex-direction: column;
-    img {
-        width: 2rem;
-height: 2rem;
-
-        border: solid 2px grey;
-        border-radius:50%;
-    }
-}
-
-.btnLike, .btnShare, .btnCommit {
-    position: absolute;
-    z-index: 3;
-    bottom: 55px;
-    right: 20px;
-    border-radius: 10px;
-    border: none;
-    font-size: 25px;
-    background-color: white;
-
-    cursor: pointer;
-
-}
-
-.btnCommit {right: 65px;}
-.btnLike {right: 110px;}
-
-.btnBar {
-    button:hover{
-        color: grey;
-    }
-    button.active {
-        color: red;
-    }
-}
-
-.cardProfile {
-    position: absolute;
-    flex-direction: row;
-    height: 3rem;
-    text-align: left;
-    padding: 10px 0;
-
-}
-
-.profilePhoto {
-    margin-left: 10px;
-    position: absolute;
-}
-.profileName {
-    position: absolute;
-    left: 50px;
-    bottom: 8px;
-    width: 15rem;
-    font-size: 1rem;
-    // margin-left: 40px ;
-}   
-.likes {
-    position: absolute;
-    left: 15px;
-    bottom: 35px;
+  //border-radius: 10px;
+  width: 100%;
+  height: 22em;
+  object-fit: cover;
 }
 
 .description {
-    position: absolute;
-    left: 15px;
-    bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.btn {
+  //   position: absolute;
+  //   z-index: 3;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
+  color: white;
+  border-radius: 100px;
+  width: 80px;
+  height: 40px;
+  background-color: rgb(207, 30, 10);
+  border: none;
+
+  cursor: pointer;
+}
+
+.profilePhoto {
+  flex-direction: column;
+  img {
+    width: 2rem;
+    height: 2rem;
+
+    border: solid 2px grey;
+    border-radius: 50%;
+  }
+}
+
+.btnLike,
+.btnShare,
+.btnCommit {
+  //   position: absolute;
+  //   z-index: 3;
+  //   bottom: 90px;
+  //   right: 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 25px;
+  background-color: white;
+
+  cursor: pointer;
+}
+
+.btnCommit {
+  //   right: 65px;
+}
+.btnLike {
+  //   right: 110px;
+}
+
+.btnBar {
+  button {
+    margin: 0 0.3rem;
+  }
+  button:hover {
+    color: grey;
+  }
+  button.active {
+    color: red;
+  }
+}
+
+.cardProfile {
+  //   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //   height: 3rem;
+  text-align: left;
+  //   padding: 10px 0;
+}
+
+.profilePhoto {
+  margin: 0 0.3rem;
+  //   position: absolute;
+}
+.profileName {
+  //   position: absolute;
+  //   left: 50px;
+  //   bottom: 8px;
+  // width: 15rem;
+  font-size: 1rem;
+  // margin-left: 40px ;
+}
+.likes {
+  //   position: absolute;
+  //   left: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 0.5rem;
+  //   bottom: 60px;
+}
+
+.description {
+  //   position: absolute;
+  //   left: 15px;
+  //   bottom: 35px;
+  padding-left: 0.5rem;
+}
+
+.input:focus {
+  outline: none;
 }
 
 /** -------------------------------------------------------------------------------------------------------------------- */
 @media (max-width: 768px) {
+  .cardbody {
+    // border: solid;
+    // border-color: $main-color;
+    margin: 1rem 0;
+    width: 100%;
+    // height: 23em;
+    //border-radius: 10px;
+    // margin: 0 ;
+  }
 
     .cardbody {
         // border: solid;
         // border-color: $main-color;
         margin: 1rem 0;
-        // width: 90%;
+        width: 100%;
         // height: 23em;
         //border-radius: 10px;
         // margin: 0 ;
@@ -167,5 +244,9 @@ height: 2rem;
         // height:310px;
     }
 
-}
+    .btnComment{
+        right: 25px;
+    
+    }
 
+}

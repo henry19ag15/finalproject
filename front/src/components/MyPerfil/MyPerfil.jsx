@@ -10,14 +10,16 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getMyProfile } from "../../Redux/02-actions";
+import { getMyProfile, getPostMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 // import myProfile from "./perfilSimulator.json";
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
+import Card from "../Card/Card";
 import FollowModal from "./FollowModal";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -387,9 +389,23 @@ export default function MyPerfil() {
     }
   }
 
+  //////// LOGICA DE POSTEOS ////////
+  useEffect(() => {
+    dispatch(getPostMyProfile([user.uid]));
+  }, []);
+
+  const myPosts = useSelector((state) => state.myPosts);
+  const userPost = myPosts.sort((a, b) => {
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  });
+
+  ///////////////////////////////////
+
   return (
     <div className={style.allMyPerfil}>
-      <header>
+      <header className={style.cabeza}>
         <div className={style.imgFollBox}>
           {user.photoURL ? (
             <img className={style.photoProfile} src={user.photoURL} alt="" />
@@ -493,8 +509,21 @@ export default function MyPerfil() {
           </div>
         </div>
         {renderConfig()}
-        <span>Futuro muro aqui! </span>
-
+        <span className={style.myProfileContainer}>
+          {userPost?.map((el) => (
+            // <LazyLoad height={488} offset={10}>
+            <Card
+              id={el.id}
+              key={el.id}
+              photo={el.photo}
+              detail={el.detail}
+              creator={el.creator}
+              likes={el.likes}
+              createdAt={el.createdAt}
+            />
+            // </LazyLoad>
+          ))}
+        </span>
       </body>
 
       {followActive.view === true ? <FollowModal setFollowActive={setFollowActive} followActive={followActive} /> : false}
