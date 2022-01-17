@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdIosShare } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -7,6 +7,7 @@ import styles from "./Card.module.scss";
 import { getAuth } from "firebase/auth";
 import noimg from "../../sass/noimg.png";
 import { useSelector } from "react-redux";
+import axios from 'axios'
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({ id, photo, creator, likes, detail }) {
@@ -20,9 +21,6 @@ export default function Card({ id, photo, creator, likes, detail }) {
   console.log("esto es el user: ", useUser);
   console.log(useUser[0].username);
 
-  
- 
-
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
       return `/profile`;
@@ -30,6 +28,25 @@ export default function Card({ id, photo, creator, likes, detail }) {
       return `/user/${creator}`;
     }
   }
+
+  ///////// LOGICA DE COMENTARIO /////////
+  const [inputComment, setInputComment] = useState("");
+
+  function handleChange(e) {
+    setInputComment(e.target.value);
+  }
+
+  function handleComment(e) {
+    e.preventDefault();
+
+    axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/comments", {
+      idUser: auth.currentUser.uid,
+      idPost: id,
+      detail: inputComment,
+    });
+  }
+
+  ////////////////////////////////////////
 
   return (
     <div className={styles.cardbody}>
@@ -81,8 +98,11 @@ export default function Card({ id, photo, creator, likes, detail }) {
         type="test"
         name="comment"
         placeholder="Agregar comentario..."
+        onChange={(e) => handleChange(e)}
       ></input>
-      <button className={styles.btnComment}>Publicar</button>
+      <button onClick={(e) => handleComment(e)} className={styles.btnComment}>
+        Publicar
+      </button>
     </div>
   );
 }
