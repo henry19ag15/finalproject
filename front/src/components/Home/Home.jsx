@@ -53,7 +53,7 @@ export default function Home() {
         
         {userPost?.map((el) =>
           parcheValidador(el.creator) ? (
-            <LazyLoad height={488} offset={100}>
+            <LazyLoad height={488} offset={10}>
               <Card
                 key={el.id}
                 photo={el.photo}
