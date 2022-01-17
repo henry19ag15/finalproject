@@ -68,6 +68,7 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Contraseña'
+                                autocomplete="off"
                                 required
                             />
 
@@ -78,6 +79,7 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Repetir contraseña'
+                                autocomplete="off"
                                 required
                             />
                         </div>

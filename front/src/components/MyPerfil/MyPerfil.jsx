@@ -18,6 +18,8 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
 import Card from "../Card/Card";
+import FollowModal from "./FollowModal";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -35,6 +37,10 @@ export default function MyPerfil() {
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: ""
+  })
   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
@@ -141,7 +147,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { detail: inputsConfig.details } },
             }
@@ -204,7 +210,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { displayname: inputsConfig.displayName } },
             }
@@ -255,7 +261,7 @@ export default function MyPerfil() {
           }).then(() => {
             axios.put(
               "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-                user.uid,
+              user.uid,
               {
                 payload: { user: { profilephoto: user.photoURL } },
               }
@@ -408,15 +414,16 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
-            <div>
+            <button onClick={e => setFollowActive({
+              view: true, type: "followers"
+            })}>
               <p>Seguidores</p>
               {myProfile.followers && <p>{myProfile.followers.length}</p>}
-            </div>
-
-            <div>
+            </button>
+            <button onClick={e => setFollowActive({ view: true, type: "following" })}>
               <p>Seguidos</p>
               {myProfile.following && <p>{myProfile.following.length}</p>}
-            </div>
+            </button>
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -495,7 +502,7 @@ export default function MyPerfil() {
           <div>
             <button
               className={style.btnDelete}
-              onClick={(e) => handleDelete(e)}
+
             >
               Borrar Cuenta
             </button>
@@ -504,7 +511,9 @@ export default function MyPerfil() {
         {renderConfig()}
         <span className={style.myProfileContainer}>
           {userPost?.map((el) => (
+            // <LazyLoad height={488} offset={10}>
             <Card
+              id={el.id}
               key={el.id}
               photo={el.photo}
               detail={el.detail}
@@ -512,9 +521,12 @@ export default function MyPerfil() {
               likes={el.likes}
               createdAt={el.createdAt}
             />
+            // </LazyLoad>
           ))}
         </span>
       </body>
+
+      {followActive.view === true ? <FollowModal setFollowActive={setFollowActive} followActive={followActive} /> : false}
     </div>
   );
 }
