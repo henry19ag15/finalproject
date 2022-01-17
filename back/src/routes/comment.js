@@ -44,4 +44,34 @@ server.delete("/delete/:id", async function (req, res) {
 
 });
 
+// Traerse todos los comentarios
+server.get("/bringsallcomments", async function (req, res) {
+    try {
+      let comments = await Comment.findAll()
+      res.status(200).send(comments)
+    } catch (error) {
+      res.status(400).json({
+        error: true,
+        message: "Error al buscar comentario",
+      });
+    }
+  });
+
+
+
+//Traer un comentario
+
+server.get("/bringscomments/:id", async function (req, res) {
+    try {
+      let comments = await Comment.findAll({
+        where: { idPost: req.params.id },
+      });
+      res.status(200).send(comments);
+    } catch (error) {
+      res.status(400).json({
+        error: true,
+        message: "Error al buscar comentario",
+      });
+    }
+  });
 module.exports = server;
