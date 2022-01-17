@@ -8,7 +8,7 @@
   height: 100vh;
   width: 100%;
   // height: ;
-  header {
+  .cabeza {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -203,7 +203,14 @@
     }
 
     span {
-      // position: absolute;
+      // padding-top: 2rem;
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      /* flex-wrap: wrap; */
+      align-items: center;
+      justify-content: space-around;
     }
     .menuConfig {
       width: 100%;
@@ -217,11 +224,11 @@
       flex-direction: column;
       align-items: center;
       // z-index: -1;
-      h4{
+      h4 {
         font-family: "Nunito", sans-serif;
-border-bottom: 2px solid $main-color;
-font-size: 1rem;
-margin: 0.5rem 0;
+        border-bottom: 2px solid $main-color;
+        font-size: 1rem;
+        margin: 0.5rem 0;
       }
 
       button {

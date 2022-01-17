@@ -23,7 +23,7 @@ const NavBar = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [searchToRender, setSearchToRender] = useState([]);
-  console.log(allUser);
+  // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const NavBar = () => {
         user.username.toLowerCase().includes(inputSearch.toLowerCase())
       )
     );
-    console.log("esto se renderiza", searchToRender);
+    // console.log("esto se renderiza", searchToRender);
   }
 
   function handleSelectUser(e, uid) {

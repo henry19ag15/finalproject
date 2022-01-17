@@ -16,9 +16,9 @@
     border-color: rgba(128, 128, 128, 0.336);
     // z-index: 1;
     max-width: inherit;
+    width: 35rem;
     max-height: inherit;
-    // width: 50%;
-    height: 29rem;
+    height: 30.5rem;
     //border-radius: 10px;
     margin:  1.5rem 0 ;
 }
@@ -29,38 +29,13 @@
     //border-radius: 10px; 
     width:100%; 
     height:22em;
+    object-fit: cover;
 }
 
-// .over {
-// 	// content:'';
-// 	// background-color: rgba(0,0,0,0.6);
-//     transition:1s;
-//     display: none;
-
-// }
-
-// .cardData:hover {
-
-
-//     .over{
-//         //content:'';
-//         position: absolute;
-//         z-index: 2;
-//         top: 0;
-//         bottom: 6rem;
-//         left: 0;
-//         right: 0;
-//         display:flex;
-//         background-color: rgba(0,0,0,0.6);
-//     transition:1s;
-
-
-//     }
-//     .btnCommit, .btnShare{
-//         bottom: 10px;
-//     }    
-    
-// }
+.description{
+    display: flex;
+    flex-direction: row;
+}
 
 .btn {
     position: absolute;
@@ -82,7 +57,7 @@
     flex-direction: column;
     img {
         width: 2rem;
-height: 2rem;
+        height: 2rem;
 
         border: solid 2px grey;
         border-radius:50%;
@@ -92,7 +67,7 @@ height: 2rem;
 .btnLike, .btnShare, .btnCommit {
     position: absolute;
     z-index: 3;
-    bottom: 55px;
+    bottom: 90px;
     right: 20px;
     border-radius: 10px;
     border: none;
@@ -139,13 +114,40 @@ height: 2rem;
 .likes {
     position: absolute;
     left: 15px;
-    bottom: 35px;
+    bottom: 60px;
 }
 
 .description {
     position: absolute;
     left: 15px;
-    bottom: 10px;
+    bottom: 35px;
+}
+
+.input {
+    position: absolute;
+    left: 15px;
+    bottom: 13px;
+    width: 80%;
+
+    border: none;
+    //border-radius: 10px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.btnComment{
+    position: absolute;
+    right: 15px;
+    bottom: 13px;
+    width: 10%;
+    color:rgb(0, 174, 255);
+    font-size: 0.8rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+
 }
 
 /** -------------------------------------------------------------------------------------------------------------------- */
@@ -155,7 +157,7 @@ height: 2rem;
         // border: solid;
         // border-color: $main-color;
         margin: 1rem 0;
-        // width: 90%;
+        width: 100%;
         // height: 23em;
         //border-radius: 10px;
         // margin: 0 ;
