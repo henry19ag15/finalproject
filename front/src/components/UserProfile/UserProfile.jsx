@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
+import FollowModalOtherProfile from "./FollowModalOtherProfile";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -24,7 +25,12 @@ export default function MyPerfil() {
   const perfil = useSelector((state) => state.userView);
   const history = useHistory();
 
-  //   const myProfile = useSelector((state) => state.myProfile);
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: ""
+  })
+
+     const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
@@ -78,15 +84,16 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
-            <div>
+            <button onClick={e => setFollowActive({
+              view: true, type: "followers"
+            })}>
               <p>Seguidores</p>
-              {perfil.followers ? <p>{perfil.followers.length}</p> : <p>0</p>}
-            </div>
-
-            <div>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+            </button>
+            <button onClick={e => setFollowActive({ view: true, type: "following" })} >
               <p>Seguidos</p>
-              {perfil.following ? <p>{perfil.following.length}</p> : <p>0</p>}
-            </div>
+              {myProfile.following && <p>{myProfile.following.length}</p>}
+            </button>
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -111,6 +118,8 @@ export default function MyPerfil() {
       <body>
         <span>Futuro muro aqui! </span>
       </body>
+
+      {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
     </div>
   );
 }
