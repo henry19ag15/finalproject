@@ -53,6 +53,8 @@ export default function Home() {
         {userPost?.map((el) =>
           parcheValidador(el.creator) ? (
             <Card
+              id={el.id}
+
               key={el.id}
               photo={el.photo}
               detail={el.detail}

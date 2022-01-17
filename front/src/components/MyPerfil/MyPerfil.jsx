@@ -505,6 +505,7 @@ export default function MyPerfil() {
         <span className={style.myProfileContainer}>
           {userPost?.map((el) => (
             <Card
+              id={el.id}
               key={el.id}
               photo={el.photo}
               detail={el.detail}
@@ -513,11 +514,6 @@ export default function MyPerfil() {
               createdAt={el.createdAt}
             />
           ))}
-
-
-
-
-
         </span>
       </body>
     </div>

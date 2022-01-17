@@ -26,7 +26,7 @@ export default function UserProfile() {
   const history = useHistory();
 
   //   const myProfile = useSelector((state) => state.myProfile);
-    console.log(perfil);
+  console.log(perfil);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
   useEffect(() => {
@@ -66,18 +66,16 @@ export default function UserProfile() {
 
   //////////////// LOGICA DE POSTEOS /////////////////
 
-  
   useEffect(() => {
     dispatch(getPostUserProfile([perfil.id]));
   }, [perfil]);
-  
-  
-  const postsUser = useSelector(state => state.postsUserProfile)
+
+  const postsUser = useSelector((state) => state.postsUserProfile);
   const userPost = postsUser.sort((a, b) => {
-  if (a.createdAt < b.createdAt) return 1;
-  if (a.createdAt > b.createdAt) return -1;
-  return 0;
-});
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  });
 
   ///////////////////////////////////////////////////
 
@@ -114,9 +112,16 @@ export default function UserProfile() {
           </div>
           <div className={style.btnFollowBox}>
             {checkFollow() ? (
-              <button className={style.follow} onClick={(e) => handleFollow(e)}>Seguir</button>
+              <button className={style.follow} onClick={(e) => handleFollow(e)}>
+                Seguir
+              </button>
             ) : (
-              <button className={style.unfollow} onClick={(e) => handleFollow(e)}>Dejar de seguir</button>
+              <button
+                className={style.unfollow}
+                onClick={(e) => handleFollow(e)}
+              >
+                Dejar de seguir
+              </button>
             )}
           </div>
         </div>
@@ -127,10 +132,10 @@ export default function UserProfile() {
       </header>
 
       <body>
-        <span >
-
-        {userPost?.map((el) => (
+        <span>
+          {userPost?.map((el) => (
             <Card
+              id={el.id}
               key={el.id}
               photo={el.photo}
               detail={el.detail}
@@ -139,7 +144,6 @@ export default function UserProfile() {
               createdAt={el.createdAt}
             />
           ))}
-
         </span>
       </body>
     </div>
