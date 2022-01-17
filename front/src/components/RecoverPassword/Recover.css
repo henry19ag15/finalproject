@@ -22,6 +22,7 @@
   width: 100%;
   height: 100vh;
   background: #f6f6f6;
+  background-image: url("../../sass/hojas.png");
 }
 
 .recover-form {

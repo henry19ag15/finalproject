@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
-export default function Card({ id, photo, creator, likes, detail }) {
+export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
@@ -82,6 +82,10 @@ export default function Card({ id, photo, creator, likes, detail }) {
       });
   }
 
+  function reverse(el){
+    return el.split("-").reverse().join("-");
+  }
+
   function render(id) {
     const userFromComment = profile.filter((user) => user.id === id);
 
@@ -127,8 +131,11 @@ export default function Card({ id, photo, creator, likes, detail }) {
               <h4>{useUser[0].username}</h4>
             ) : (
               <h2>User</h2>
-            )}
+            )} 
+
           </div>
+      <section className={styles.datePosted}> {reverse(createdAt.substring(0,10))} </section>
+
         </header>
         <section className={styles.btnBar}>
           <button className={styles.btnLike}>
@@ -146,9 +153,10 @@ export default function Card({ id, photo, creator, likes, detail }) {
         </section>
       </div>
 
-      <section className={styles.likes}> {likes.length} likes </section>
+      <section className={styles.likes}> {likes.length} Likes </section>
       <section className={styles.description}> {detail} </section>
       <div className={styles.inputCommentBox}>
+
         <input
           className={styles.input}
           type="test"

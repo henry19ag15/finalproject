@@ -5,17 +5,20 @@
   margin: 0;
   box-sizing: border-box;
   // outline: solid 1px red;
+
 }
 
 body {
   font-family: sans-serif;
   padding: 90px 20px 0;
+  position: sticky;
+  
 }
 
 .NavBar {
   background-color: white;
   height: 80px;
-  position: sticky;
+  position: fixed;
   width: 100%;
   top: 0;
   left: 0;
