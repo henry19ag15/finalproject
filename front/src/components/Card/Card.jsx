@@ -3,22 +3,26 @@ import { Link } from "react-router-dom";
 import { MdIosShare } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
+import { BsFillHeartFill } from "react-icons/bs";
+
 import styles from "./Card.module.scss";
 import { getAuth } from "firebase/auth";
 import noimg from "../../sass/noimg.png";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { getPost, getPostMyProfile, getPostUserProfile } from "../../Redux/02-actions";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
-  // console.log("este es el id", id);
-  // const user = auth.currentUser;
-  
+  const myProfile = useSelector((state) => state.myProfile);
+  const [arrLike, setArrLike] = useState(false)
+  //const [likeActive, setLikeActive] = useState(false)
+
   const useUser = profile.filter((el) => el.id === creator);
-  // console.log("esto es el user: ", useUser);
+   //console.log("esto es el user: ", useUser);
   // console.log(useUser[0].username);
   // console.log("es id ", id);
 
@@ -36,7 +40,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   /*  const userFromComment = profile.filter(
     (user) => user.id === comment?.comment?.idUser
   ); */
-  // console.log("acacac", comment);
+   //console.log("acacac", comment);
   useEffect(() => {
     axios
       .get(
@@ -101,6 +105,36 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
 
   ////////////////////////////////////////
 
+  function handleLike() {
+    axios
+    .put(`https://pruebaconbackreal-pg15.herokuapp.com/posts/likes/`, [
+      auth.currentUser.uid,
+      id
+    ])
+    .then((res) => {
+      console.log("res de likes: ",res)
+      myProfile.following && dispatch(getPost(myProfile.following.concat(myProfile.id)))
+      dispatch(getPostMyProfile([auth.currentUser.uid]))
+      dispatch(getPostUserProfile([creator]))
+      
+    }).catch((error) =>{console.log(error)})
+    // .then((id) => {
+    //   console.log('array de likes ', id)
+    // })
+  }
+console.log('aqui likes',likes)
+  function likeValidate() {
+   const findLike = likes && likes.filter( (el)=>el === auth.currentUser.uid)
+
+    if(findLike.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+
+
   return (
     <div className={styles.cardbody}>
       <div className={styles.cardData}>
@@ -138,9 +172,12 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
 
         </header>
         <section className={styles.btnBar}>
-          <button className={styles.btnLike}>
+          <button className={
+            likeValidate()  ?  ` ${styles.btnLike} ${styles.colorLike}` : styles.btnLike}
+            onClick={handleLike}
+            >
             {" "}
-            <FiHeart />{" "}
+            {likeValidate() ? <BsFillHeartFill /> : <FiHeart />} {" "}
           </button>
           <button className={styles.btnCommit}>
             {" "}
