@@ -92,7 +92,23 @@ server.put("/likes", async (req, res) => {
 
     }
 });
+// Realizar  comentarios
+server.post("/comments", async function (req, res) {
 
+    try {
+        const {
+            autorId,
+            idPost,
+            detail,
+        } = req.body;
+
+        await Comment.create({
+            autorId: autorId,
+            idPost: idPost,
+            detail: detail,
+
+        })
+        res.status(200).send("Comentario creado con exito")
 
 
 //borrar post

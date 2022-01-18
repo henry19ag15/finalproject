@@ -7,7 +7,7 @@ server.post("/register", async function (req, res) {
   console.log("este es el body:", req.body);
 
   try {
-    const { uid, email, displayname, detail } = req.body;
+    const { uid, email, displayname, detail } = req.body.payload.user;
 
     await User.create({
       id: uid,
@@ -124,6 +124,7 @@ server.delete("/destroy/:id", async function (req, res) {
     await User.destroy({
       where: {
         id,
+       
       },
     });
     res.status(200).send("Usuario eliminado correctamente");
@@ -149,7 +150,7 @@ server.put("/follow", async (req, res) => {
     where: { id: idTwo },
   });
 
-  console.log("1: ", userOne.dataValues);
+  console.log("1: ", userOne.dataValue);
   console.log("2: ", userTwo.dataValues);
 
   if (userOne && userTwo) {
