@@ -13,8 +13,9 @@ module.exports = (sequelize) => {
                 type:DataTypes.STRING,
                 allowNull:true
             },
-            idUser: {
+            autorId: {
                 type:DataTypes.STRING,
+                default:[],
                 allowNull:true
             },
             idPost: {

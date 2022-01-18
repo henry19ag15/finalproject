@@ -124,13 +124,7 @@ server.delete("/destroy/:id", async function (req, res) {
     await User.destroy({
       where: {
         id,
-        includes:{
-          model:User,
-          attributes:['user.id'],
-          throgh:{
-            attributes:[],
-          }
-        }
+       
       },
     });
     res.status(200).send("Usuario eliminado correctamente");
@@ -156,7 +150,7 @@ server.put("/follow", async (req, res) => {
     where: { id: idTwo },
   });
 
-  console.log("1: ", userOne.dataValues);
+  console.log("1: ", userOne.dataValue);
   console.log("2: ", userTwo.dataValues);
 
   if (userOne && userTwo) {

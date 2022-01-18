@@ -101,15 +101,15 @@ server.post("/comments", async function (req, res) {
 
     try {
         const {
-            idUser,
+            autorId,
             idPost,
             detail,
         } = req.body;
 
         await Comment.create({
-            detail: detail,
-            idUser: idUser,
+            autorId: autorId,
             idPost: idPost,
+            detail: detail,
 
         })
         res.status(200).send("Comentario creado con exito")

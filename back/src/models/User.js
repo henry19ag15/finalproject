@@ -55,7 +55,7 @@ module.exports = (sequelize) => {
         defaultValue:true,
         allowNull:false
       },
-      detail:{
+      comment:{
         type:DataTypes.STRING,
         defaultValue:"",
         allowNull:true
