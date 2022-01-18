@@ -225,7 +225,7 @@ console.log('aqui likes',likes)
           <button className={styles.btnCommit}>
             {" "}
             <HiDotsHorizontal />{" "}
-          </button> : false
+          </button> 
           
 
           {/* Botones de borrar post y editar post -----> */} {postConfig.view === true ? configPost() : postConfig.view = false}
