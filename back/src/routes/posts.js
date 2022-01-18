@@ -1,15 +1,16 @@
 const server = require('express').Router();
-const { Post, User, Comment } = require('../db.js')
+const { Post, User, Comment,Like } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
 server.post('/', async function (req, res) {
     try {
-        const { photoURL, creator, detail } = req.body
+        const { photoURL, creator, detail,private } = req.body
         await Post.create({
             photo: photoURL,
-            creator: creator,
             detail: detail,
+            autorId: creator,
+            private:private
         })
         res.status(200).send("se creo el post")
 
@@ -28,7 +29,7 @@ server.post('/getbyusers', async function (req, res) {
     try {
         posts = await Post.findAll({
             where: {
-                creator: req.body.payload.map(e => e)
+                autorId: req.body.payload.map(e => e)
             }
 
         })
@@ -57,43 +58,27 @@ server.get('/getAll', async function (req, res) {
 
 })
 // dar like
-server.put("/likes", async (req, res) => {
+server.post("/likes", async function (req, res) {
 
-    console.log("Esto es el body: ", req.body);
-    const idUser = req.body[0];
-    const idPost = req.body[1];
+    try {
+        const {
+            idUser,
+            idPost,
 
-    let post = await Post.findOne({
-        where: { id: idPost }
-    })
+        } = req.body;
 
-    if (!post.likes.includes(idUser)) {
-        try {
-            await post.update(
-                { 'likes': sequelize.fn('array_append', sequelize.col('likes'), idUser) },
-            );
-            res.status(200).send("Se ha dado Like");
+        await Like.create({
+            userId: idUser,
+            postId: idPost,
 
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    else {
-        try {
-            await post.update(
-                { 'likes': sequelize.fn('array_remove', sequelize.col('likes'), idUser) }
-            )
-            res.status(200).send("Dislike");
+        })
+        res.status(200).send("comentario")
 
-        } catch (error) {
-            console.log(error)
-
-        }
+    } catch (error) {
+        console.log(error)
 
     }
-});
-
-
+})
 
 //borrar post
 
