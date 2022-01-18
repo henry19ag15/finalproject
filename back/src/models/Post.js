@@ -8,6 +8,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      
       detail: {
         type: DataTypes.TEXT,
         allowNull: false,
