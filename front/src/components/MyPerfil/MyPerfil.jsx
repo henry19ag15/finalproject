@@ -510,7 +510,7 @@ export default function MyPerfil() {
         </div>
         {renderConfig()}
         <span className={style.myProfileContainer}>
-          {userPost?.map((el) => (
+          {userPost.length > 0 ? userPost.map((el) => (
             // <LazyLoad height={488} offset={10}>
             <Card
               id={el.id}
@@ -522,7 +522,9 @@ export default function MyPerfil() {
               createdAt={el.createdAt}
             />
             // </LazyLoad>
-          ))}
+          )) : <p>
+            No hay publicaciones realizadas
+          </p>}
         </span>
       </body>
 

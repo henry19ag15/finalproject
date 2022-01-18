@@ -32,7 +32,7 @@ export default function UserProfile() {
     type: ""
   })
 
-     const myProfile = useSelector((state) => state.myProfile);
+  const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
@@ -141,7 +141,7 @@ export default function UserProfile() {
 
       <body>
         <span>
-          {userPost?.map((el) => (
+          {userPost.length > 0 ? userPost.map((el) => (
             <Card
               id={el.id}
               key={el.id}
@@ -151,8 +151,11 @@ export default function UserProfile() {
               likes={el.likes}
               createdAt={el.createdAt}
             />
-          ))}
+          )) : <p>
+            No hay publicaciones realizadas
+          </p>}
         </span>
+
       </body>
 
       {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
