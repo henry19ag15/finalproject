@@ -123,11 +123,7 @@ server.delete("/destroy/:id", async function (req, res) {
     const { id, detail} = req.body.payload;
     
     var postmod = {
-      photo, 
       detail:detail,
-      creator,
-      likes,
-      active 
     }
     Post.findOne({
       where:{
