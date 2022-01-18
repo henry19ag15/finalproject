@@ -26,9 +26,9 @@ server.post('/getbyusers', async function (req, res) {
 
     let posts = [];
     try {
-        posts =  await Post.findAll({
+        posts = await Post.findAll({
             where: {
-                creator:req.body.payload.map(e => e)
+                creator: req.body.payload.map(e => e)
             }
 
         })
@@ -99,53 +99,53 @@ server.put("/likes", async (req, res) => {
 
 server.delete("/destroy/:id", async function (req, res) {
     try {
-      const { id } = req.params;
-      await Post.destroy({
-        where:{
-          id
-        }
-        
-      });
-      res.status(200).send("Post eliminado correctamente");
+        const { id } = req.params;
+        await Post.destroy({
+            where: {
+                id
+            }
+
+        });
+        res.status(200).send("Post eliminado correctamente");
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  });
+});
 
 
 
 
 
-  //editar post
+//editar post
 
-  server.put('/setting/:id',(req, res, next)=>{
+server.put('/setting/:id', (req, res, next) => {
     console.log(req.body)
-    const { id, detail} = req.body.payload;
-    
+    const { id, detail } = req.body.payload;
+
     var postmod = {
-      photo, 
-      detail:detail,
-      creator,
-      likes,
-      active 
+        photo,
+        detail: detail,
+        creator,
+        likes,
+        active
     }
     Post.findOne({
-      where:{
-        id:id
-      }
+        where: {
+            id: id
+        }
     }).then(post => {
-      post.update(postmod)
-      .then(newPost =>{
-        newPost.save()
-        res.status(200).send('Post modificado con exito')
-        return res.json(newPost)
-      }).catch(error => { console.log(error) })
-      
-   }).catch(err => {
-     console.log(err)
-     res.status(404).send('Post no encontrado')
-   })
-  })
+        post.update(postmod)
+            .then(newPost => {
+                newPost.save()
+                res.status(200).send('Post modificado con exito')
+                return res.json(newPost)
+            }).catch(error => { console.log(error) })
+
+    }).catch(err => {
+        console.log(err)
+        res.status(404).send('Post no encontrado')
+    })
+})
 
 
 
