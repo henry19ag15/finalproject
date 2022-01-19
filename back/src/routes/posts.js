@@ -88,7 +88,7 @@ server.post("/likes", async function (req, res) {
                 postId: idPost,
 
             })
-            res.status(200).send("comentario")
+            res.status(200).send("like dado")
 
         } catch (error) {
             console.log(error)
@@ -103,6 +103,7 @@ server.post("/likes", async function (req, res) {
                     postId: idPost,
                 }
             })
+            send.status(200).send("like borrado")
 
         } catch (error) {
             console.log(error)
