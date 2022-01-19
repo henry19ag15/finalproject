@@ -1,15 +1,16 @@
 const server = require('express').Router();
-const { Post, User, Comment } = require('../db.js')
+const { Post, User, Comment, Like } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
 server.post('/', async function (req, res) {
     try {
-        const { photoURL, creator, detail } = req.body
+        const { photoURL, creator, detail, private } = req.body
         await Post.create({
             photo: photoURL,
-            creator: creator,
             detail: detail,
+            autorId: creator,
+            private: private
         })
         res.status(200).send("se creo el post")
 
@@ -26,11 +27,14 @@ server.post('/getbyusers', async function (req, res) {
 
     let posts = [];
     try {
-        posts =  await Post.findAll({
+        posts = await Post.findAll({
             where: {
-                creator:req.body.payload.map(e => e)
-            }
+                autorId: req.body.payload.map(e => e)
+            },
+            include: [
+                { model: Like }
 
+            ]
         })
 
         console.log(posts)
@@ -49,7 +53,12 @@ server.get('/getAll', async function (req, res) {
 
 
     try {
-        let posts = await Post.findAll();
+        let posts = await Post.findAll({
+            include: [
+                { model: Like }
+
+            ]
+        });
         res.send(posts);
     } catch (error) {
         console.log(error)
@@ -57,95 +66,107 @@ server.get('/getAll', async function (req, res) {
 
 })
 // dar like
-server.put("/likes", async (req, res) => {
+server.post("/likes", async function (req, res) {
 
-    console.log("Esto es el body: ", req.body);
-    const idUser = req.body[0];
-    const idPost = req.body[1];
+    const {
+        idUser,
+        idPost,
 
-    let post = await Post.findOne({
-        where: { id: idPost }
+    } = req.body;
+
+    let findLike = await Like.findOne({
+        where: {
+            userId: idUser,
+            postId: idPost
+        }
     })
+    console.log(findLike)
 
-    if (!post.likes.includes(idUser)) {
+    if (!findLike) {
         try {
-            await post.update(
-                { 'likes': sequelize.fn('array_append', sequelize.col('likes'), idUser) },
-            );
-            res.status(200).send("Se ha dado Like");
+            await Like.create({
+                userId: idUser,
+                postId: idPost,
+
+            })
+            res.status(200).send("like dado")
 
         } catch (error) {
             console.log(error)
+
         }
     }
     else {
         try {
-            await post.update(
-                { 'likes': sequelize.fn('array_remove', sequelize.col('likes'), idUser) }
-            )
-            res.status(200).send("Dislike");
+            await Like.destroy({
+                where: {
+                    userId: idUser,
+                    postId: idPost,
+                }
+            })
+            send.status(200).send("like borrado")
 
         } catch (error) {
             console.log(error)
 
         }
-
     }
-});
 
 
+
+})
 
 //borrar post
 
 server.delete("/destroy/:id", async function (req, res) {
     try {
-      const { id } = req.params;
-      await Post.destroy({
-        where:{
-          id
-        }
-        
-      });
-      res.status(200).send("Post eliminado correctamente");
+        const { id } = req.params;
+        await Post.destroy({
+            where: {
+                id
+            }
+
+        });
+        res.status(200).send("Post eliminado correctamente");
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  });
+});
 
 
 
 
 
-  //editar post
+//editar post
 
-  server.put('/setting/:id',(req, res, next)=>{
+server.put('/setting/:id', (req, res, next) => {
     console.log(req.body)
-    const { id, detail} = req.body.payload;
-    
+    const { id, detail } = req.body.payload;
+
     var postmod = {
-      photo, 
-      detail:detail,
-      creator,
-      likes,
-      active 
+        photo,
+        detail: detail,
+        creator,
+        likes,
+        active
     }
     Post.findOne({
-      where:{
-        id:id
-      }
+        where: {
+            id: id
+        }
     }).then(post => {
-      post.update(postmod)
-      .then(newPost =>{
-        newPost.save()
-        res.status(200).send('Post modificado con exito')
-        return res.json(newPost)
-      }).catch(error => { console.log(error) })
-      
-   }).catch(err => {
-     console.log(err)
-     res.status(404).send('Post no encontrado')
-   })
-  })
+        post.update(postmod)
+            .then(newPost => {
+                newPost.save()
+                res.status(200).send('Post modificado con exito')
+                return res.json(newPost)
+            }).catch(error => { console.log(error) })
+
+    }).catch(err => {
+        console.log(err)
+        res.status(404).send('Post no encontrado')
+    })
+})
 
 
 

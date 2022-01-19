@@ -10,21 +10,35 @@ import { getAuth } from "firebase/auth";
 import noimg from "../../sass/noimg.png";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+<<<<<<< HEAD
 import { getPost, getPostMyProfile, getPostUserProfile } from "../../Redux/02-actions";
+=======
+
+>>>>>>> 11563d504f2cb61ef702543ca75f9c6f9a1a7db9
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
+<<<<<<< HEAD
   const myProfile = useSelector((state) => state.myProfile);
   const [arrLike, setArrLike] = useState(false)
   //const [likeActive, setLikeActive] = useState(false)
+=======
+  // console.log("este es el id", id);
+  const user = auth.currentUser;
+>>>>>>> 11563d504f2cb61ef702543ca75f9c6f9a1a7db9
 
   const useUser = profile.filter((el) => el.id === creator);
    //console.log("esto es el user: ", useUser);
   // console.log(useUser[0].username);
   // console.log("es id ", id);
+  const [postConfig, setPostConfig] = useState({
+    view: false,
+    edit: false,
+    detail: detail,
+  })
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -77,7 +91,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
 
             setComment({ comment: res.data });
           });
-       
+
         console.log({
           idUser: auth.currentUser.uid,
           idPost: id,
@@ -86,7 +100,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
       });
   }
 
-  function reverse(el){
+  function reverse(el) {
     return el.split("-").reverse().join("-");
   }
 
@@ -101,6 +115,43 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
         {userFromComment[0]?.username && <p>{userFromComment[0].username}</p>}
       </div>
     );
+  }
+
+
+  /////////// EDITAR Y BORRAR POST /////////////
+  function deletePost() {
+    axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`)
+
+  }
+  let contador = 0;
+
+  function editPost(e) {
+    if (e === true) {
+      setPostConfig({ ...postConfig, edit: true })
+
+    }
+    else {
+      setPostConfig({ ...postConfig, edit: false, view: false })
+    }
+  }
+
+  async function submitEditPost() {
+    await axios.put(`https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`, { payload: { id: id, detail: postConfig.detail } })
+    setPostConfig({ ...postConfig, edit: false, view: false })
+
+  }
+
+
+  function configPost() {
+      return (
+        <div>
+          <button onClick={() => deletePost()}>Eliminar post</button>
+          {postConfig.edit === false ? <button onClick={() => editPost(true)}>Editar post</button> : <button onClick={() => editPost(false)}>Cancelar edicion</button>}
+        </div>
+      )
+
+
+
   }
 
   ////////////////////////////////////////
@@ -165,10 +216,10 @@ console.log('aqui likes',likes)
               <h4>{useUser[0].username}</h4>
             ) : (
               <h2>User</h2>
-            )} 
+            )}
 
           </div>
-      <section className={styles.datePosted}> {reverse(createdAt.substring(0,10))} </section>
+          <section className={styles.datePosted}> {reverse(createdAt.substring(0, 10))} </section>
 
         </header>
         <section className={styles.btnBar}>
@@ -177,12 +228,22 @@ console.log('aqui likes',likes)
             onClick={handleLike}
             >
             {" "}
+<<<<<<< HEAD
             {likeValidate() ? <BsFillHeartFill /> : <FiHeart />} {" "}
           </button>
           <button className={styles.btnCommit}>
+=======
+            <FiHeart />{" "}
+          </button>    
+
+          {/* Boton de config -----> */}  {creator === user.uid ? <button onClick={() => setPostConfig({ ...postConfig, view: !postConfig.view })} className={styles.btnCommit}>    
+>>>>>>> 11563d504f2cb61ef702543ca75f9c6f9a1a7db9
             {" "}
             <HiDotsHorizontal />{" "}
-          </button>
+          </button> : false
+          }
+
+          {/* Botones de borrar post y editar post -----> */} {postConfig.view === true ? configPost() : postConfig.view = false}
           <button className={styles.btnShare}>
             {" "}
             <MdIosShare />{" "}
@@ -191,7 +252,14 @@ console.log('aqui likes',likes)
       </div>
 
       <section className={styles.likes}> {likes.length} Likes </section>
-      <section className={styles.description}> {detail} </section>
+
+      {postConfig.edit === false ? <section className={styles.description}> {detail} </section> : 
+      <div>
+        <button onClick={() => submitEditPost()}>Confirmar</button>
+        <input onChange={e => setPostConfig({ ...postConfig, detail: e.target.value })} type={"text"} defaultValue={postConfig.detail}></input>
+      </div>
+      }
+
       <div className={styles.inputCommentBox}>
 
         <input
@@ -207,33 +275,18 @@ console.log('aqui likes',likes)
           Publicar
         </button>
       </div>
-      {/*  {comment.comment ? (
-        <div className={styles.commentBox}>
-          <div className={styles.photoNameBox}>
-            {userFromComment[0]?.profilephoto && (
-              <img src={userFromComment[0]?.profilephoto} alt="" />
-            )}
-            {userFromComment[0]?.username && (
-              <p>{userFromComment[0].username}</p>
-            )}
-          </div>
-          {comment.comment?.detail && <p className={styles.comentario}>{comment.comment.detail}</p>}
-        </div>
-      ) : (
-        false
-      )} */}
 
       {comment.comment
         ? comment.comment.map((com) => {
-            return (
-              <div className={styles.commentBox}>
-                {render(com.idUser)}
-                {com?.detail && (
-                  <p className={styles.comentario}>{com.detail}</p>
-                )}
-              </div>
-            );
-          })
+          return (
+            <div className={styles.commentBox}>
+              {render(com.idUser)}
+              {com?.detail && (
+                <p className={styles.comentario}>{com.detail}</p>
+              )}
+            </div>
+          );
+        })
         : false}
     </div>
   );
