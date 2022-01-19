@@ -23,12 +23,20 @@ const NavBar = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [searchToRender, setSearchToRender] = useState([]);
-  console.log(allUser);
+  // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
 
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
+
+  useEffect(() => {
+    setSearchToRender(
+      allUser.filter((user) =>
+        user.username.toLowerCase().includes(inputSearch.toLowerCase())
+      )
+    );
+  }, [inputSearch]);
 
   function handleGoProfile(e) {
     e.prenventDefault();
@@ -37,12 +45,8 @@ const NavBar = () => {
   // let searchToRender = [];
   function handleChangeInput(e) {
     setInputSearch(e.target.value);
-    setSearchToRender(
-      allUser.filter((user) =>
-        user.username.toLowerCase().includes(inputSearch.toLowerCase())
-      )
-    );
-    console.log("esto se renderiza", searchToRender);
+
+    // console.log("esto se renderiza", searchToRender);
   }
 
   function handleSelectUser(e, uid) {
@@ -89,7 +93,8 @@ const NavBar = () => {
             <div className={styles.inputBtnBox}>
               <input
                 className={styles.inputRespons}
-                type="text"              
+                type="text"
+                value={inputSearch}
                 placeholder="Buscar..."
                 onChange={(e) => handleChangeInput(e)}
                 onBlur={() => handleBlur()}
@@ -136,6 +141,7 @@ const NavBar = () => {
             <input
               className={styles.input}
               type="text"
+              value={inputSearch}
               placeholder="Buscar..."
               onChange={(e) => handleChangeInput(e)}
               onBlur={() => handleBlur()}
@@ -188,7 +194,7 @@ const NavBar = () => {
         </button>
       </nav>
       <ul className={styles.renderSearched}>
-        {showSearch && inputSearch.length > 1
+        {showSearch && inputSearch.length > 0
           ? searchToRender.map((user) => (
               <li key={user.id}>
                 <button onClick={(e) => handleSelectUser(e, user.id)}>

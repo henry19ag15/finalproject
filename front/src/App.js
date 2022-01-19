@@ -36,10 +36,10 @@ function App() {
   function render() {
     if (log === 1) {
       return <Switch>
-        <Route exact path='/'>
-          <NavBar />
-          <Home />
-        </Route>
+          <Route exact path='/'>
+            <NavBar />
+            <Home />
+          </Route>
         <Route path='/profile'>
           <NavBar />
           <MyPerfil />
@@ -74,7 +74,7 @@ function App() {
 
 
 
-      {log !== 0 ? render() : <img className='loading' src={loading} alt='' />}
+      {log !== 0 ? render() : <img className='loadingApp' src={loading} alt='' />}
 
 
 

@@ -4,31 +4,19 @@ module.exports = (sequelize) => {
   sequelize.define(
     "post",
     {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-      post: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      creator: {
+      photo:{
         type: DataTypes.STRING,
         allowNull: true,
       },
-      like: {
-        type: DataTypes.INTEGER,
+      
+      detail: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
-      active:{
+      private:{
         type:DataTypes.BOOLEAN,
-        defaultValue:true,
-        allowNull:true
+        defaultValue:false,
+        allowNull:false
       }
     }
     // {

@@ -10,13 +10,16 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getMyProfile } from "../../Redux/02-actions";
+import { getMyProfile, getPostMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 // import myProfile from "./perfilSimulator.json";
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
+import Card from "../Card/Card";
+import FollowModal from "./FollowModal";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -34,12 +37,16 @@ export default function MyPerfil() {
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: "",
+  });
   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
-    console.log(perfil);
-    console.log(user);
+    // console.log(perfil);
+    // console.log(user);
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -382,9 +389,23 @@ export default function MyPerfil() {
     }
   }
 
+  //////// LOGICA DE POSTEOS ////////
+  useEffect(() => {
+    dispatch(getPostMyProfile([user.uid]));
+  }, []);
+
+  const myPosts = useSelector((state) => state.myPosts);
+  const userPost = myPosts.sort((a, b) => {
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  });
+
+  ///////////////////////////////////
+
   return (
     <div className={style.allMyPerfil}>
-      <header>
+      <header className={style.cabeza}>
         <div className={style.imgFollBox}>
           {user.photoURL ? (
             <img className={style.photoProfile} src={user.photoURL} alt="" />
@@ -393,15 +414,25 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
-            <div>
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
               <p>Seguidores</p>
               {myProfile.followers && <p>{myProfile.followers.length}</p>}
-            </div>
-
-            <div>
+            </button>
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
               <p>Seguidos</p>
-              {myProfile.following && <p>{myProfile.following.length}</p>}
-            </div>
+              {myProfile.followings && <p>{myProfile.followings.length}</p>}
+            </button>
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -425,7 +456,7 @@ export default function MyPerfil() {
         </div>
 
         <div className={style.details}>
-          <p>{perfil.detail}</p>
+          <p>{perfil.comment}</p>
         </div>
       </header>
 
@@ -478,17 +509,45 @@ export default function MyPerfil() {
             Cerrar sesion
           </button>
           <div>
-            <button
+          {/*   <button
               className={style.btnDelete}
               onClick={(e) => handleDelete(e)}
             >
               Borrar Cuenta
-            </button>
+            </button> */}
           </div>
         </div>
         {renderConfig()}
-        <span>Futuro muro aqui! </span>
+        <span className={style.myProfileContainer}>
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              // <LazyLoad height={488} offset={10}>
+              <Card
+                locate="myProfile"
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.autorId}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+              // </LazyLoad>
+            ))
+          ) : (
+            <p>No hay publicaciones realizadas</p>
+          )}
+        </span>
       </body>
+
+      {followActive.view === true ? (
+        <FollowModal
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
+      )}
     </div>
   );
 }

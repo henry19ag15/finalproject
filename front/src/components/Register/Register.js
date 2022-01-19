@@ -68,6 +68,7 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Contraseña'
+                                autocomplete="off"
                                 required
                             />
 
@@ -78,6 +79,7 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Repetir contraseña'
+                                autocomplete="off"
                                 required
                             />
                         </div>
@@ -85,9 +87,6 @@ const Register = () =>{
                         {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-
-                        
-
                     </form>
                 </div>
                 <div className='rigth-continer'>

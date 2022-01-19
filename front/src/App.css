@@ -6,8 +6,9 @@
 .App {
   text-align: center;
   width: 100%;
+  overflow-x: hidden;
 }
-.loading{
+.loadingApp{
   margin-top: 10rem;
   height: 5rem;
 }
