@@ -1,8 +1,7 @@
 const server = require("express").Router();
 const { User } = require("../db");
-const {isAdmin,isAuthenticated} = require('./helpers')
 
-//rutas para ver usuarios, modificar usuarios, borrar usuarios.
+
 
 //traer usuarios
 server.get('/user', async function(req, res){
@@ -35,7 +34,7 @@ server.get('/user/:id', async function(req,res){
 });
 
 //modifica un usuario para que tenga privilegios de administrador
-server.put('/isAdmin/:id', isAuthenticated, isAdmin, async function(req, res){
+server.put('/isAdmin/:id',  async function(req, res){
     try {
         User.findByPk(req.params.id)
         (function(users){
@@ -48,7 +47,7 @@ server.put('/isAdmin/:id', isAuthenticated, isAdmin, async function(req, res){
     }
 });
 //borrar un usuario
-server.delete('/user/:id', isAuthenticated, isAdmin, async function(req,res){
+server.delete('/:id',  async function(req,res){
     try {
         let user=User.findByPk(req.params.id);
         (function(users){
