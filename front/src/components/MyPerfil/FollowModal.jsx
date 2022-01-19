@@ -10,11 +10,13 @@ export default function FollowModal({ setFollowActive, followActive }) {
   const user = useSelector((state) => state.allUser);
   const myuser = useSelector((state) => state.myProfile);
   const followers = myuser.followers.map((e) =>
-    user.filter((el) => el.autorId === e)
+    user.filter((el) => el.id === e.autorId)
   );
-  const followings = myuser.followings.map((e) =>
-    user.filter((el) => el.autorId === e)
+  const following = myuser.followings.map((e) =>
+    user.filter((el) => el.id === e.autorId)
   );
+  console.log("followers en 0", followers[0]);
+  console.log("following en 0", following[0]);
 
   const [followView, setFollowView] = useState(followActive.type);
 
@@ -30,11 +32,11 @@ export default function FollowModal({ setFollowActive, followActive }) {
     if (followView === "followers") {
       return (
         <div className={style.FollowBox}>
-          {followers.map((e) =>
+          {followers[0].map((e) =>
             e.length > 0 ? (
               <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
-                <p>{e[0].username}</p>
+                <img src={e.profilephoto} alt="" />
+                <p>{e.username}</p>
               </button>
             ) : (
               false
@@ -45,16 +47,12 @@ export default function FollowModal({ setFollowActive, followActive }) {
     } else if (followView === "following") {
       return (
         <div className={style.FollowBox}>
-          {followings.map((e) =>
-            e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
-                <p>{e[0].username}</p>
-              </button>
-            ) : (
-              false
-            )
-          )}
+          {following.map((e) => (
+            <button onClick={() => handleSelect(e[0].id)}>
+              <img src={e[0].profilephoto} alt="" />
+              <p>{e[0].username}</p>
+            </button>
+          ))}
         </div>
       );
     }
@@ -86,7 +84,7 @@ export default function FollowModal({ setFollowActive, followActive }) {
             Seguidos
           </button>
         </div>
-        {/* {FollowRender()} */}
+        {FollowRender()}
       </div>
     </div>
   );
