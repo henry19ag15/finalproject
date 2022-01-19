@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { User } = require("../db");
+const sequelize = require("sequelize")
 
 // crear usuario
 server.post("/register", async function (req, res) {
@@ -65,7 +66,7 @@ server.get("/", async function (req, res) {
 
 });
 
-//Buscar usuario por id
+///Buscar usuario por id
 server.get("/:id", async function(req, res)  {
   try {
     let user = await User.findOne({
@@ -128,6 +129,71 @@ server.delete("/destroy/:id", async function (req, res) {
     res.status(200).send("Usuario eliminado correctamente");
   } catch (error) {
     console.log(error);
+  }
+});
+
+server.put("/follow", async (req, res) => {
+  /* 
+  idOne = el usuario que sigue o deja de seguir
+  idTwo = el usuario que se sigue o se deja de seguir
+  req.body porque no se por donde lo van a mandar todavia
+  */
+  console.log("Esto es el body: ", req.body);
+  const idOne = req.body[0];
+  const idTwo = req.body[1];
+
+  let userOne = await User.findOne({
+    where: { id: idOne },
+  });
+  let userTwo = await User.findOne({
+    where: { id: idTwo },
+  });
+
+  console.log("1: ", userOne.dataValues);
+  console.log("2: ", userTwo.dataValues);
+
+  if (userOne && userTwo) {
+    if (!userOne.following.includes(idTwo)) {
+      try {
+        await userOne.update(
+          { 'following': sequelize.fn('array_append', sequelize.col('following'), idTwo) },
+        );
+  
+        console.log("UserOneUpdate", userOne)
+        await userTwo.update(
+          { 'followers': sequelize.fn('array_append', sequelize.col('followers'), idOne) },
+        );
+  
+        console.log("UserTwoUpdate", userTwo)
+
+        res.status(200).send("Follow");
+        
+      } catch (error) {
+        console.log(error)
+        
+      }
+    }
+    else {
+      try {
+        await userOne.update(
+          { 'following': sequelize.fn('array_remove', sequelize.col('following'), idTwo) }
+        )
+  
+        await userTwo.update(
+          { 'followers': sequelize.fn('array_remove', sequelize.col('followers'), idOne) }
+        );
+        res.status(200).send("Unfollow");
+        
+      } catch (error) {
+        console.log(error)
+        
+      }
+  
+    }
+  
+  }
+  else {
+    res.status(404).send("Usuario no encontrado");
   }
 });
 
