@@ -9,6 +9,10 @@ body {
 }
 
 .home {
+<<<<<<< HEAD
+=======
+    margin-top: 60px;
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
     width: 100%;
     display: flex;
     align-items: center;

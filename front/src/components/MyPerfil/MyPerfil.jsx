@@ -34,11 +34,24 @@ export default function MyPerfil() {
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
+<<<<<<< HEAD
   //   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
     console.log(perfil);
+=======
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: "",
+  });
+  const myProfile = useSelector((state) => state.myProfile);
+  //   console.log(myProfile);
+  useEffect(() => {
+    dispatch(getMyProfile(auth.currentUser.uid));
+    // console.log(perfil);
+    // console.log(user);
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -146,9 +159,19 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
+<<<<<<< HEAD
           .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
             payload: { user: { detail: inputsConfig.details } },
           })
+=======
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+              user.uid,
+            {
+              payload: { user: { detail: inputsConfig.details } },
+            }
+          )
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
           .then(() => {
             dispatch(getMyProfile(user.uid));
             swal("Se cambio su información satisfatoriamente!", {
@@ -217,9 +240,19 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
+<<<<<<< HEAD
           .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
             payload: { user: { displayname: inputsConfig.displayName } },
           })
+=======
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+              user.uid,
+            {
+              payload: { user: { displayname: inputsConfig.displayName } },
+            }
+          )
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
           .then(() => {
             swal("Nombre de usuario cambiado con éxito", {
               icon: "success",
@@ -264,6 +297,17 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+<<<<<<< HEAD
+=======
+            axios.put(
+              "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+                user.uid,
+              {
+                payload: { user: { profilephoto: user.photoURL } },
+              }
+            );
+
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
             swal("En unos segundos vas a ver los cambios!", {
               icon: "success",
             });
@@ -395,6 +439,7 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
+<<<<<<< HEAD
             <div>
               <p>Seguidores</p>
               <p>{myProfile.followers.length}</p>
@@ -404,6 +449,27 @@ export default function MyPerfil() {
               <p>Seguidos</p>
               <p>{myProfile.followers.length}</p>
             </div>
+=======
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
+              <p>Seguidores</p>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+            </button>
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
+              <p>Seguidos</p>
+              {myProfile.followings && <p>{myProfile.followings.length}</p>}
+            </button>
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -427,7 +493,7 @@ export default function MyPerfil() {
         </div>
 
         <div className={style.details}>
-          <p>{perfil.detail}</p>
+          <p>{perfil.comment}</p>
         </div>
       </header>
 
@@ -480,17 +546,50 @@ export default function MyPerfil() {
             Cerrar sesion
           </button>
           <div>
-            <button
+          {/*   <button
               className={style.btnDelete}
               onClick={(e) => handleDelete(e)}
             >
               Borrar Cuenta
-            </button>
+            </button> */}
           </div>
         </div>
         {renderConfig()}
+<<<<<<< HEAD
         <span>Futuro muro aqui! </span>
       </body>
+=======
+        <span className={style.myProfileContainer}>
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              // <LazyLoad height={488} offset={10}>
+              <Card
+                locate="myProfile"
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.autorId}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+              // </LazyLoad>
+            ))
+          ) : (
+            <p>No hay publicaciones realizadas</p>
+          )}
+        </span>
+      </body>
+
+      {followActive.view === true ? (
+        <FollowModal
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
+      )}
+>>>>>>> 53f7c534eb800479ba9b7d0df2b20ac74e21a8b9
     </div>
   );
 }
