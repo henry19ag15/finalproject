@@ -1,16 +1,16 @@
 const server = require('express').Router();
-const { Post, User, Comment,Like } = require('../db.js')
+const { Post, User, Comment, Like } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
 server.post('/', async function (req, res) {
     try {
-        const { photoURL, creator, detail,private } = req.body
+        const { photoURL, creator, detail, private } = req.body
         await Post.create({
             photo: photoURL,
             detail: detail,
             autorId: creator,
-            private:private
+            private: private
         })
         res.status(200).send("se creo el post")
 
@@ -30,8 +30,11 @@ server.post('/getbyusers', async function (req, res) {
         posts = await Post.findAll({
             where: {
                 autorId: req.body.payload.map(e => e)
-            }
+            },
+            include: [
+                { model: Like }
 
+            ]
         })
 
         console.log(posts)
@@ -50,7 +53,12 @@ server.get('/getAll', async function (req, res) {
 
 
     try {
-        let posts = await Post.findAll();
+        let posts = await Post.findAll({
+            include: [
+                { model: Like }
+
+            ]
+        });
         res.send(posts);
     } catch (error) {
         console.log(error)

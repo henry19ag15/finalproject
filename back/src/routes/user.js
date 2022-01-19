@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User, Follower, Following, Suscriber, Suscripto } = require("../db");
+const { User, Follower, Following, Suscriber, Suscripto, Post } = require("../db");
 const sequelize = require("sequelize")
 
 // crear usuario
@@ -50,7 +50,15 @@ server.get("/active", (req, res) => {
 //Traer todos los usuarios
 server.get("/", async function (req, res) {
   try {
-    let users = await User.findAll();
+    let users = await User.findAll({
+      include: [{
+        model: Follower
+      },
+      { model: Following },
+      { model: Suscriber },
+      { model: Suscripto }
+      ]
+    });
     res.send(users);
   } catch (error) {
     res.status(400).json({
