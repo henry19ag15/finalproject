@@ -10,13 +10,16 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getMyProfile } from "../../Redux/02-actions";
+import { getMyProfile, getPostMyProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
-import myProfile from "./perfilSimulator.json";
+// import myProfile from "./perfilSimulator.json";
 import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { MdClose } from "react-icons/md";
+import Card from "../Card/Card";
+import FollowModal from "./FollowModal";
+import LazyLoad from "react-lazyload";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -34,11 +37,16 @@ export default function MyPerfil() {
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
-  //   const myProfile = useSelector((state) => state.myProfile);
+  const [followActive, setFollowActive] = useState({
+    view: false,
+    type: ""
+  })
+  const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
     console.log(perfil);
+    console.log(user);
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -85,43 +93,34 @@ export default function MyPerfil() {
 
   function handleDelete(e) {
     // app.storage().ref('users/' + user.uid).delete().then(() => { console.log("foto borrada") }).catch((error) => { console.log(error) })
-   
-    
+
     swal({
       title: "¿Estas seguro?",
       text: "Se eliminara su cuenta permanentemente!",
       icon: "error",
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-
-
         deleteUser(user)
-        .then(() => {
-          // User deleted.
-          swal("Su cuenta fue eliminada", {
-            icon: "success",
+          .then(() => {
+            // User deleted.
+            swal("Su cuenta fue eliminada", {
+              icon: "success",
+            });
+            axios.delete(
+              `https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/${user.uid}`
+            );
+            history.push("/");
+          })
+          .catch((error) => {
+            // An error ocurred
+            // ...
           });
-          axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/user/destroy/:${user.uid}`);
-          history.push("/");
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-        });
-
-        
       } else {
         // swal("Your imaginary file is safe!");
       }
     });
-    
-    
-    
-    
-   
   }
 
   ////////// Logica de configurar perfil ///////////
@@ -146,9 +145,13 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
-            payload: { user: { detail: inputsConfig.details } },
-          })
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+            user.uid,
+            {
+              payload: { user: { detail: inputsConfig.details } },
+            }
+          )
           .then(() => {
             dispatch(getMyProfile(user.uid));
             swal("Se cambio su información satisfatoriamente!", {
@@ -165,44 +168,32 @@ export default function MyPerfil() {
   function handleChangePass(e) {
     e.preventDefault();
 
-
     swal({
       title: "¿Estas seguro?",
       text: `Se te enviara un email a ${inputsConfig.pass} con un enlace para cambiar la contraseña`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-
         updatePassword(user, inputsConfig.pass)
-        .then(() => {
-          // Update successful.
+          .then(() => {
+            // Update successful.
 
-          swal("Se te envio un enlace a tu correo", {
-            icon: "success",
+            swal("Se te envio un enlace a tu correo", {
+              icon: "success",
+            });
+            console.log("se cambio la contraseña");
+          })
+          .catch((error) => {
+            // An error ocurred
+            // ...
+            console.log(error);
           });
-          console.log("se cambio la contraseña");
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-          console.log(error);
-        });
-
-
       } else {
         // swal("Your imaginary file is safe!");
       }
     });
-
-
-
-
-
-
-    
   }
 
   function handleChangeDisplayName(e) {
@@ -217,9 +208,13 @@ export default function MyPerfil() {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .put("https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" + user.uid, {
-            payload: { user: { displayname: inputsConfig.displayName } },
-          })
+          .put(
+            "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+            user.uid,
+            {
+              payload: { user: { displayname: inputsConfig.displayName } },
+            }
+          )
           .then(() => {
             swal("Nombre de usuario cambiado con éxito", {
               icon: "success",
@@ -264,6 +259,14 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+            axios.put(
+              "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
+              user.uid,
+              {
+                payload: { user: { profilephoto: user.photoURL } },
+              }
+            );
+
             swal("En unos segundos vas a ver los cambios!", {
               icon: "success",
             });
@@ -337,8 +340,10 @@ export default function MyPerfil() {
             </button>
           </div>
           <h3>Cambiar contraseña</h3>
-          <p>Ingrese su email y se le enviara un link para cambiar la contraseña</p>
-         <p>Solo se podra si recien inicias sesión</p>
+          <p>
+            Ingrese su email y se le enviara un link para cambiar la contraseña
+          </p>
+          <p>Solo se podra si recien inicias sesión</p>
           <input
             name="pass"
             type="text"
@@ -384,9 +389,23 @@ export default function MyPerfil() {
     }
   }
 
+  //////// LOGICA DE POSTEOS ////////
+  useEffect(() => {
+    dispatch(getPostMyProfile([user.uid]));
+  }, []);
+
+  const myPosts = useSelector((state) => state.myPosts);
+  const userPost = myPosts.sort((a, b) => {
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  });
+
+  ///////////////////////////////////
+
   return (
     <div className={style.allMyPerfil}>
-      <header>
+      <header className={style.cabeza}>
         <div className={style.imgFollBox}>
           {user.photoURL ? (
             <img className={style.photoProfile} src={user.photoURL} alt="" />
@@ -395,15 +414,16 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
-            <div>
+            <button onClick={e => setFollowActive({
+              view: true, type: "followers"
+            })}>
               <p>Seguidores</p>
-              <p>{myProfile.followers.length}</p>
-            </div>
-
-            <div>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+            </button>
+            <button onClick={e => setFollowActive({ view: true, type: "following" })}>
               <p>Seguidos</p>
-              <p>{myProfile.followers.length}</p>
-            </div>
+              {myProfile.following && <p>{myProfile.following.length}</p>}
+            </button>
           </div>
         </div>
         <div className={style.nameConfigBox}>
@@ -482,15 +502,33 @@ export default function MyPerfil() {
           <div>
             <button
               className={style.btnDelete}
-              onClick={(e) => handleDelete(e)}
+
             >
               Borrar Cuenta
             </button>
           </div>
         </div>
         {renderConfig()}
-        <span>Futuro muro aqui! </span>
+        <span className={style.myProfileContainer}>
+          {userPost.length > 0 ? userPost.map((el) => (
+            // <LazyLoad height={488} offset={10}>
+            <Card
+              id={el.id}
+              key={el.id}
+              photo={el.photo}
+              detail={el.detail}
+              creator={el.creator}
+              likes={el.likes}
+              createdAt={el.createdAt}
+            />
+            // </LazyLoad>
+          )) : <p>
+            No hay publicaciones realizadas
+          </p>}
+        </span>
       </body>
+
+      {followActive.view === true ? <FollowModal setFollowActive={setFollowActive} followActive={followActive} /> : false}
     </div>
   );
 }

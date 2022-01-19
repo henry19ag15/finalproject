@@ -41,6 +41,10 @@ export const validateForm = (form) => {
         errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
     }
 
+    if(form.password.trim() !== form.repeatPassword.trim()){
+        errors.displayError = "La contraseña ingresada debe ser igal en los dos casilleros"
+    }
+
 
 
     return errors
@@ -86,6 +90,7 @@ export const useForm = (initialState) => {
 
                     axios.post('https://pruebaconbackreal-pg15.herokuapp.com/user/register', {
                         email: form.email,
+                        photoURL:user.photoURL,
                         password: form.password,
                         displayname: form.displayname,
                         uid: user.uid

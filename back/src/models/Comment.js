@@ -13,14 +13,6 @@ module.exports = (sequelize) => {
                 type:DataTypes.STRING,
                 allowNull:true
             },
-            idUser: {
-                type:DataTypes.STRING,
-                allowNull:true
-            },
-            idPost: {
-                type:DataTypes.STRING,
-                allowNull:true
-            }
         }
         // {
         //   timestamps: false,
