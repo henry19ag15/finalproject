@@ -117,7 +117,7 @@ server.put("/setting/:id", (req, res, next) => {
     id: uid,
     email,
     username: displayname,
-    detail,
+    comment: detail,
     profilephoto,
   };
   User.findOne({
