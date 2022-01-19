@@ -45,8 +45,8 @@ export default function MyPerfil() {
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
-    console.log(perfil);
-    console.log(user);
+    // console.log(perfil);
+    // console.log(user);
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -135,7 +135,7 @@ export default function MyPerfil() {
     e.preventDefault();
     // Cambia la configuracion en la base de datos -> va en el .then
     // console.log("llega aca?");
-
+  
     swal({
       title: "¿Estas seguro?",
       text: "si pone aceptar se cambiara su información",
@@ -422,7 +422,7 @@ export default function MyPerfil() {
             </button>
             <button onClick={e => setFollowActive({ view: true, type: "following" })}>
               <p>Seguidos</p>
-              {myProfile.following && <p>{myProfile.following.length}</p>}
+              {myProfile.followings && <p>{myProfile.followings.length}</p>}
             </button>
           </div>
         </div>
@@ -447,7 +447,7 @@ export default function MyPerfil() {
         </div>
 
         <div className={style.details}>
-          <p>{perfil.detail}</p>
+          <p>{perfil.comment}</p>
         </div>
       </header>
 
@@ -513,11 +513,12 @@ export default function MyPerfil() {
           {userPost.length > 0 ? userPost.map((el) => (
             // <LazyLoad height={488} offset={10}>
             <Card
+            locate="myProfile"
               id={el.id}
               key={el.id}
               photo={el.photo}
               detail={el.detail}
-              creator={el.creator}
+              creator={el.autorId}
               likes={el.likes}
               createdAt={el.createdAt}
             />

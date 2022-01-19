@@ -19,7 +19,6 @@ import swal from "sweetalert";
 import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
 
-
 export default function UserProfile() {
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -29,8 +28,8 @@ export default function UserProfile() {
 
   const [followActive, setFollowActive] = useState({
     view: false,
-    type: ""
-  })
+    type: "",
+  });
 
   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
@@ -101,13 +100,22 @@ export default function UserProfile() {
           )}
 
           <div className={style.followBox}>
-            <button onClick={e => setFollowActive({
-              view: true, type: "followers"
-            })}>
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
               <p>Seguidores</p>
               {perfil.followers && <p>{perfil.followers.length}</p>}
             </button>
-            <button onClick={e => setFollowActive({ view: true, type: "following" })} >
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
               <p>Seguidos</p>
               {perfil.following && <p>{perfil.following.length}</p>}
             </button>
@@ -141,24 +149,33 @@ export default function UserProfile() {
 
       <body>
         <span>
-          {userPost.length > 0 ? userPost.map((el) => (
-            <Card
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          )) : <p>
-            No hay publicaciones realizadas
-          </p>}
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              <Card
+                locate="userProfile"
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.creator}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+            ))
+          ) : (
+            <p>No hay publicaciones realizadas</p>
+          )}
         </span>
-
       </body>
 
-      {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
+      {followActive.view === true ? (
+        <FollowModalOtherProfile
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
+      )}
     </div>
   );
 }
