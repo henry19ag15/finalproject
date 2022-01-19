@@ -74,7 +74,7 @@ server.post("/likes", async function (req, res) {
 
     } = req.body;
 
-    let findLike = Like.findOne({
+    let findLike = await Like.findOne({
         where: {
             userId: idUser,
             postId: idPost

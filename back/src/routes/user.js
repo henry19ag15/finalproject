@@ -188,7 +188,7 @@ server.put("/follow", async (req, res) => {
   if (userOne && userTwo) {
     if (follower) {
       try {
-        Follower.destroy({
+        await Follower.destroy({
           where: {
             autorId: idTwo,
             follower_Id: idOne
@@ -196,7 +196,7 @@ server.put("/follow", async (req, res) => {
           }
 
         })
-        Following.destroy({
+        await Following.destroy({
           where: {
             autorId: idOne,
             followin_Id: idTwo
@@ -214,11 +214,11 @@ server.put("/follow", async (req, res) => {
 
     } else {
       try {
-        Follower.create({
+       await  Follower.create({
           autorId: idTwo,
           follower_Id: idOne
         })
-        Following.create({
+        await Following.create({
           autorId: idOne,
           followin_Id: idTwo
         })
@@ -269,7 +269,7 @@ server.put("/suscribe", async (req, res) => {
   if (userOne && userTwo) {
     if (suscriber) {
       try {
-        Suscriber.destroy({
+        await Suscriber.destroy({
           where: {
             autorId: idTwo,
             suscriber_Id: idOne
@@ -277,7 +277,7 @@ server.put("/suscribe", async (req, res) => {
           }
 
         })
-        Suscripto.destroy({
+        await Suscripto.destroy({
           where: {
             autorId: idOne,
             suscripto_Id: idTwo
@@ -295,11 +295,11 @@ server.put("/suscribe", async (req, res) => {
 
     } else {
       try {
-        Suscriber.create({
+        await Suscriber.create({
           autorId: idTwo,
           suscriber_Id: idOne
         })
-        Suscripto.create({
+        await Suscripto.create({
           autorId: idOne,
           suscripto_Id: idTwo
         })
