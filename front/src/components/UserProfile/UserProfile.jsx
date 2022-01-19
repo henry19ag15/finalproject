@@ -41,13 +41,14 @@ export default function UserProfile() {
     // console.log(perfil);
   }, []);
 
+  console.log("este es perfil",perfil)
   //////////////// Logica de Follow /////////////////
 
   function handleFollow(e) {
     axios
       .put("https://pruebaconbackreal-pg15.herokuapp.com/user/follow", [
-        user.uid,
         perfil.id,
+        user.uid,
       ])
       .then(() => {
         dispatch(getUserProfile(newStr));
@@ -59,7 +60,7 @@ export default function UserProfile() {
 
   const checkFollow = () => {
     const areFollow =
-      perfil.followers && perfil.followers.filter((id) => id === user.uid);
+      perfil.followers && perfil.followers.filter((follow) => follow.autorId === user.uid);
     console.log(areFollow);
     if (areFollow && areFollow.length > 0) {
       return false;
@@ -117,7 +118,7 @@ export default function UserProfile() {
               }
             >
               <p>Seguidos</p>
-              {perfil.following && <p>{perfil.following.length}</p>}
+              {perfil.followings && <p>{perfil.followings.length}</p>}
             </button>
           </div>
         </div>
@@ -157,7 +158,7 @@ export default function UserProfile() {
                 key={el.id}
                 photo={el.photo}
                 detail={el.detail}
-                creator={el.creator}
+                creator={el.autorId}
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
