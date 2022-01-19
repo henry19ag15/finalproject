@@ -14,14 +14,13 @@ server.post("/", async function (req, res) {
 
         await Comment.create({
             detail: detail,
-            userId: idUser,
-            postId: idPost,
+            idUser: idUser,
+            idPost: idPost,
 
         })
         res.status(200).send("comentario")
 
     } catch (error) {
-      res.status(400).send(error)
         console.log(error)
 
     }
@@ -65,7 +64,7 @@ server.get("/bringsallcomments", async function (req, res) {
 server.get("/bringscomments/:id", async function (req, res) {
     try {
       let comments = await Comment.findAll({
-        where: { postId: req.params.id },
+        where: { idPost: req.params.id },
       });
       res.status(200).send(comments);
     } catch (error) {

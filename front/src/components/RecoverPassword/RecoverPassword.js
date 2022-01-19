@@ -23,6 +23,7 @@ const RecoverPassword = () =>{
     }
     const handleSubmit = (e) =>{
         e.preventDefault()
+
         const auth = getAuth();
         sendPasswordResetEmail(auth, recover.email)
         .then(() => {
@@ -36,12 +37,8 @@ const RecoverPassword = () =>{
             const errorCode = error.code;
             const errorMessage = error.message;
             // ..
-            if(!recover.email){
-                setError({
-                    errors: 'Debe ingresar un correo valido'
-                }) 
-            }
-            else if(error){
+
+            if(error){
                 setError({
                     errors: 'El email no se encuentra registrado'
                 }) 
@@ -62,14 +59,12 @@ const RecoverPassword = () =>{
             </div>
             <h1 className='title-recover'>Recuperar contraseña</h1>
             <form className='recover-form' onSubmit={handleSubmit}>
-                <p>Introduzca el email con el que se ha registrado.</p>
                 <input type='email'
                         name= 'email'
                         placeholder='Email'
                         value={recover.email}
                         onChange={handleChange}
                         className='input'
-                        autocomplete="off"
                 />
                 <button type='Submit'>Enviar</button>
             </form>

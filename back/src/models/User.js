@@ -24,6 +24,26 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       }, // para poder modificar
+      subscribers: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
+        allowNull: true,
+      },
+      subscribed: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
+        allowNull: true,
+      },
+      followers: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
+        allowNull: true,
+      },
+      following: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue:[],
+        allowNull: true,
+      },
       //roles de usuario y administrador
       rol:{
         type:DataTypes.ENUM,
@@ -35,7 +55,7 @@ module.exports = (sequelize) => {
         defaultValue:true,
         allowNull:false
       },
-      comment:{
+      detail:{
         type:DataTypes.STRING,
         defaultValue:"",
         allowNull:true

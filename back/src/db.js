@@ -2,16 +2,19 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const Suscribed = require("./models/Suscripto");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pg15`,
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   }
-);
+});
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -38,46 +41,19 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Post, Comment, Following, Follower, Like, Suscriber, Suscripto } = sequelize.models;
+const { User, Comment, Post} = sequelize.models; //creo que deberia estar este modelo
 
-////////////////////////////////// RELACIONES/////////////////////////////////////////
+// Aca vendrian las relaciones
+// Product.hasMany(Reviews);
+// User.belongsTo(Community);
+// Community.hasMany(User);
 
-////////////////USER-POST
-User.hasMany(Post, { onDelete: 'cascade',foreignKey: "autorId" });
-Post.belongsTo(User, { onDelete: 'CASCADE'});
-
-////////////////COMMENT-POST
-Comment.belongsTo(Post, { onDelete: 'CASCADE', foreingKey: "post_id" })
-Post.hasMany(Comment, { onDelete: 'CASCADE'})
-
-///////////////USER-COMMENT
-User.hasMany(Comment, { onDelete: 'CASCADE',foreingKey: "userId" })
-Comment.belongsTo(User, { onDelete: "CASCADE" })
-
-///////////////LIKE-POST
-Post.hasMany(Like, { onDelete: 'CASCADE' })
-Like.belongsTo(Post, { onDelete: 'CASCADE', foreingKey: "post_id" })
+User.belongsToMany(Post, { through: "User_Post" });
+Post.belongsToMany(User, { through: "User_Post" });
 
 
-////////////////USER-LIKE
-User.hasMany(Like, { onDelete: 'CASCADE',  foreingKey: "autorId" })  
-Like.belongsTo(User, { onDelete: 'CASCADE'})
-
- ///////////////USER-FOLLOWER
-User.hasMany(Follower, { onDelete: 'CASCADE', foreignKey: "follower_Id" })
-Follower.belongsTo(User, { onDelete: 'CASCADE' })
-///////////////USER-FOLLOWING
-User.hasMany(Following, { onDelete: 'CASCADE', foreignKey: "followin_Id" })
-Following.belongsTo(User, { onDelete: 'CASCADE'})
-
-///////////////USER-FOLLOWER
-User.hasMany(Suscriber, { onDelete: 'CASCADE', foreignKey: "suscriber_Id" })
-Suscriber.belongsTo(User, { onDelete: 'CASCADE' })
-///////////////USER-FOLLOWING
-User.hasMany(Suscripto, { onDelete: 'CASCADE', foreignKey: "suscripto_Id" })
-Suscripto.belongsTo(User, { onDelete: 'CASCADE'})
-
-
+Comment.belongsTo(Post)
+Post.hasMany(Comment)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

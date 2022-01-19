@@ -1,17 +1,6 @@
 @import '../../sass/variables';
 
 
-.arrow-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 20%;
-    height: 50px;
-    margin-top: 40%;
-    margin-left: 3%;
-}
-
 .input-group{
     display: flex;
     flex-direction: column;
@@ -27,7 +16,7 @@
     align-items: center;
     font-size: 40px;
     font-weight: 500;
-    margin-top: 20px;
+    margin-top: 80px;
 }
 
 .Register{
@@ -35,18 +24,17 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: $background-a;
-    background-image: url('../../sass/hojas.png');
 }
 
 .big-continer{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 70vw;
-    height: 60vh;
+    width: 70%;
+    height: 25rem;
     margin-top: 30px;
     box-shadow: 0px 0px 5px black;
     border: none;
@@ -119,12 +107,12 @@
     border-radius: 7px;
     border: none;
     cursor: pointer;
-    background: $background-button;
+    background: $background-horizontal;
     font-size: 12px;
     font-weight: 700;
     color: #fff;
     &:hover{
-        background-color: $button-hover;
+        transform: scale(1.1, 1.1);
     }
     &:active{
         transform: scale(1.0, 1.0);
@@ -161,8 +149,60 @@
 
 
 
-//MEDIA PARA DISPOSITIVOS TABLETS Y TELEFONOS
-@media (max-width: 850px){
+//MEDIA PARA TRABLETS
+@media (max-width: 850px) {
+    .Register{
+        height: 100vh;
+        top: 0;
+    }
+  .title{
+        font-size: 30px;
+        font-weight: 700;
+    }
+  .big-continer{
+    display: flex;
+    flex-direction: column-reverse; 
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 50%;
+    margin-top: 60px;
+  } 
+
+  .form-continer{
+      width: 80%;
+      height: 90%;
+      padding-top: 5px;
+      margin-top: 20px
+  }
+
+  .rigth-continer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 0px;
+      border-radius: 15px 15px 0px 0px;
+      & ul li{
+          display: none;
+      }
+  }
+
+  .rigth-h2{
+    height: 70px;
+    border-radius: 7px;
+  }
+
+  .input{
+      width: 80%;
+      font-size: 16px;
+      text-align: center;
+  }
+}
+
+
+//MEDIA PARA DISPOSITIVOS PEQUEÑOS
+@media (max-width: 600px){
 
     .Register{
         display: flex;
@@ -170,22 +210,21 @@
         justify-content: flex-start;
         align-items: center;
         height: 100vh;
-        width: 100%;
         background: $background-a;
     }
 
     .title{
         font-size: 26px;
         color: #000;
-        margin-top: 80px;
-        
+        margin-top: 100px;
     }
 
     .big-continer{
         width: 100%;
-        height: 80vh;
+        height: 100vh;
         background: none;
         box-shadow: none;
+        margin-top: -80px;
     }
 
     .rigth-continer{
@@ -196,13 +235,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 100%;
-        height: 90%;
+        width: 70%;
+        height: 35vh;
     }
 
     .buttons{
         box-shadow: 0.3px 0.3px 5px rgb(20, 27, 66);
-        height: 8%;
     }
 
     .footer-text{
@@ -211,23 +249,6 @@
 
     .form{
         background: $background-a;
-    }
-
-    .arrow-container{
-        margin-top: 3%;
-        margin-left: 8%;
-        p{
-            display: none;
-        }
-    }
-
-    .error{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items: center;
-        width: 100%;
     }
 
 }

@@ -1,16 +1,15 @@
 const server = require('express').Router();
-const { Post, User, Comment,Like } = require('../db.js')
+const { Post, User, Comment } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
 server.post('/', async function (req, res) {
     try {
-        const { photoURL, creator, detail,private } = req.body
+        const { photoURL, creator, detail } = req.body
         await Post.create({
             photo: photoURL,
+            creator: creator,
             detail: detail,
-            autorId: creator,
-            private:private
         })
         res.status(200).send("se creo el post")
 
@@ -27,9 +26,9 @@ server.post('/getbyusers', async function (req, res) {
 
     let posts = [];
     try {
-        posts = await Post.findAll({
+        posts =  await Post.findAll({
             where: {
-                autorId: req.body.payload.map(e => e)
+                creator:req.body.payload.map(e => e)
             }
 
         })
@@ -58,79 +57,95 @@ server.get('/getAll', async function (req, res) {
 
 })
 // dar like
-server.post("/likes", async function (req, res) {
+server.put("/likes", async (req, res) => {
 
-    try {
-        const {
-            idUser,
-            idPost,
+    console.log("Esto es el body: ", req.body);
+    const idUser = req.body[0];
+    const idPost = req.body[1];
 
-        } = req.body;
+    let post = await Post.findOne({
+        where: { id: idPost }
+    })
 
-        await Like.create({
-            userId: idUser,
-            postId: idPost,
+    if (!post.likes.includes(idUser)) {
+        try {
+            await post.update(
+                { 'likes': sequelize.fn('array_append', sequelize.col('likes'), idUser) },
+            );
+            res.status(200).send("Se ha dado Like");
 
-        })
-        res.status(200).send("comentario")
-
-    } catch (error) {
-        console.log(error)
-
+        } catch (error) {
+            console.log(error)
+        }
     }
-})
+    else {
+        try {
+            await post.update(
+                { 'likes': sequelize.fn('array_remove', sequelize.col('likes'), idUser) }
+            )
+            res.status(200).send("Dislike");
 
-//borrar post
+        } catch (error) {
+            console.log(error)
 
-server.delete("/destroy/:id", async function (req, res) {
-    try {
-        const { id } = req.params;
-        await Post.destroy({
-            where: {
-                id
-            }
+        }
 
-        });
-        res.status(200).send("Post eliminado correctamente");
-    } catch (error) {
-        console.log(error);
     }
 });
 
 
 
+//borrar post
+
+server.delete("/destroy/:id", async function (req, res) {
+    try {
+      const { id } = req.params;
+      await Post.destroy({
+        where:{
+          id
+        }
+        
+      });
+      res.status(200).send("Post eliminado correctamente");
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 
-//editar post
 
-server.put('/setting/:id', (req, res, next) => {
+
+
+  //editar post
+
+  server.put('/setting/:id',(req, res, next)=>{
     console.log(req.body)
-    const { id, detail } = req.body.payload;
-
+    const { id, detail} = req.body.payload;
+    
     var postmod = {
-        photo,
-        detail: detail,
-        creator,
-        likes,
-        active
+      photo, 
+      detail:detail,
+      creator,
+      likes,
+      active 
     }
     Post.findOne({
-        where: {
-            id: id
-        }
+      where:{
+        id:id
+      }
     }).then(post => {
-        post.update(postmod)
-            .then(newPost => {
-                newPost.save()
-                res.status(200).send('Post modificado con exito')
-                return res.json(newPost)
-            }).catch(error => { console.log(error) })
-
-    }).catch(err => {
-        console.log(err)
-        res.status(404).send('Post no encontrado')
-    })
-})
+      post.update(postmod)
+      .then(newPost =>{
+        newPost.save()
+        res.status(200).send('Post modificado con exito')
+        return res.json(newPost)
+      }).catch(error => { console.log(error) })
+      
+   }).catch(err => {
+     console.log(err)
+     res.status(404).send('Post no encontrado')
+   })
+  })
 
 
 
