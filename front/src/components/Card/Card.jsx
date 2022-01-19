@@ -58,6 +58,7 @@ export default function Card({
     (user) => user.id === comment?.comment?.idUser
   ); */
   //console.log("acacac", comment);
+  console.log("comentario", comment.comment);
   useEffect(() => {
     axios
       .get(
@@ -108,7 +109,7 @@ export default function Card({
   }
 
   function render(id) {
-    const userFromComment = profile.filter((user) => user.userId === id);
+    const userFromComment = profile.filter((user) => user.id === id);
 
     return (
       <div className={styles.photoNameBox}>
@@ -307,7 +308,7 @@ export default function Card({
         ? comment.comment.map((com) => {
             return (
               <div className={styles.commentBox}>
-                {render(com.idUser)}
+                {render(com.userId)}
                 {com?.detail && (
                   <p className={styles.comentario}>{com.detail}</p>
                 )}
