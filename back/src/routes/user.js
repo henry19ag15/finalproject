@@ -14,7 +14,7 @@ server.post("/register", async function (req, res) {
       email,
       username: displayname,
       detail,
-      profilephoto:photoURL
+      profilephoto: photoURL
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
@@ -82,6 +82,15 @@ server.get("/:id", async function (req, res) {
   try {
     let user = await User.findOne({
       where: { id: req.params.id },
+      include: [{
+        model: Follower
+      },
+      { model: Following },
+      { model: Suscriber },
+      { model: Suscripto }
+      ]
+
+
     });
     res.status(200).send(user);
   } catch (error) {
