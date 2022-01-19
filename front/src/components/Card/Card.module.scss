@@ -150,29 +150,27 @@
   border: none;
   font-size: 25px;
   background-color: white;
+  //color: rgba(128, 128, 128, 0.767);
+  color: black;
+
 
   cursor: pointer;
 }
 
-.btnCommit {
-  //   right: 65px;
-}
-.btnLike {
-  //   right: 110px;
+
+.colorLike {
+  color: rgba(255, 0, 0, 0.747);
 }
 
 .btnBar {
   button {
     margin: 0 0.3rem;
+    transition: 0.5s;
   }
   button:hover {
-    color: grey;
-  }
-  button.active {
-    color: red;
+    transform: scale(0.95);
   }
 }
-
 .cardProfile {
   //   position: absolute;
   display: flex;

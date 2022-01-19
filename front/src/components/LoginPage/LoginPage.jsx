@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import style from "./LoginPage.module.scss";
 import { Link } from "react-router-dom";
 import googleImg from "../../sass/googleIcon.png";
-import axios from 'axios'
+import axios from "axios";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -49,15 +49,16 @@ export default function LoginPage() {
         // The signed-in user info.
         const user = result.user;
         // ...
-        
 
-
-        axios.post("https://pruebaconbackreal-pg15.herokuapp.com/user/register", {
-          email: user.email,     
-          photoURL:user.photoURL,     
-          displayname: user.displayName,
-          uid: user.uid,
-        });
+        axios
+          .post("https://pruebaconbackreal-pg15.herokuapp.com/user/register", {
+            email: user.email,
+            photoURL: user.photoURL,
+            displayname: user.displayName,
+            uid: user.uid,
+          })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         // Handle Errors here.
@@ -121,7 +122,7 @@ export default function LoginPage() {
     <div className={style.allLoginPage}>
       <Header />
       <div className={style.contentBox}>
-        <form className='form-login' onSubmit={(e) => handleSubmit(e)}>
+        <form className="form-login" onSubmit={(e) => handleSubmit(e)}>
           <h3 className={style.titleText}>Iniciar sesion</h3>
           <div className={style.labelInputEmailBox}>
             <label htmlFor="email">E-mail</label>

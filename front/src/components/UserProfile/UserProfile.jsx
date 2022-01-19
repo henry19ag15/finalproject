@@ -19,7 +19,6 @@ import swal from "sweetalert";
 import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
 
-
 export default function UserProfile() {
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -29,10 +28,10 @@ export default function UserProfile() {
 
   const [followActive, setFollowActive] = useState({
     view: false,
-    type: ""
-  })
+    type: "",
+  });
 
-     const myProfile = useSelector((state) => state.myProfile);
+  const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
@@ -42,13 +41,14 @@ export default function UserProfile() {
     // console.log(perfil);
   }, []);
 
+  console.log("este es perfil",perfil)
   //////////////// Logica de Follow /////////////////
 
   function handleFollow(e) {
     axios
       .put("https://pruebaconbackreal-pg15.herokuapp.com/user/follow", [
-        user.uid,
         perfil.id,
+        user.uid,
       ])
       .then(() => {
         dispatch(getUserProfile(newStr));
@@ -60,7 +60,7 @@ export default function UserProfile() {
 
   const checkFollow = () => {
     const areFollow =
-      perfil.followers && perfil.followers.filter((id) => id === user.uid);
+      perfil.followers && perfil.followers.filter((follow) => follow.autorId === user.uid);
     console.log(areFollow);
     if (areFollow && areFollow.length > 0) {
       return false;
@@ -101,15 +101,24 @@ export default function UserProfile() {
           )}
 
           <div className={style.followBox}>
-            <button onClick={e => setFollowActive({
-              view: true, type: "followers"
-            })}>
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
               <p>Seguidores</p>
-              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+              {perfil.followers && <p>{perfil.followers.length}</p>}
             </button>
-            <button onClick={e => setFollowActive({ view: true, type: "following" })} >
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
               <p>Seguidos</p>
-              {myProfile.following && <p>{myProfile.following.length}</p>}
+              {perfil.followings && <p>{perfil.followings.length}</p>}
             </button>
           </div>
         </div>
@@ -141,21 +150,33 @@ export default function UserProfile() {
 
       <body>
         <span>
-          {userPost?.map((el) => (
-            <Card
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          ))}
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              <Card
+                locate="userProfile"
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.autorId}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+            ))
+          ) : (
+            <p>No hay publicaciones realizadas</p>
+          )}
         </span>
       </body>
 
-      {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
+      {followActive.view === true ? (
+        <FollowModalOtherProfile
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
+      )}
     </div>
   );
 }

@@ -39,14 +39,14 @@ export default function MyPerfil() {
   const [configOptions, setConfigOptions] = useState({});
   const [followActive, setFollowActive] = useState({
     view: false,
-    type: ""
-  })
+    type: "",
+  });
   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid));
-    console.log(perfil);
-    console.log(user);
+    // console.log(perfil);
+    // console.log(user);
   }, []);
   // console.log();
   function handleLogout(e) {
@@ -147,7 +147,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-            user.uid,
+              user.uid,
             {
               payload: { user: { detail: inputsConfig.details } },
             }
@@ -210,7 +210,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-            user.uid,
+              user.uid,
             {
               payload: { user: { displayname: inputsConfig.displayName } },
             }
@@ -261,7 +261,7 @@ export default function MyPerfil() {
           }).then(() => {
             axios.put(
               "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+                user.uid,
               {
                 payload: { user: { profilephoto: user.photoURL } },
               }
@@ -414,15 +414,24 @@ export default function MyPerfil() {
           )}
 
           <div className={style.followBox}>
-            <button onClick={e => setFollowActive({
-              view: true, type: "followers"
-            })}>
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
               <p>Seguidores</p>
               {myProfile.followers && <p>{myProfile.followers.length}</p>}
             </button>
-            <button onClick={e => setFollowActive({ view: true, type: "following" })}>
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
               <p>Seguidos</p>
-              {myProfile.following && <p>{myProfile.following.length}</p>}
+              {myProfile.followings && <p>{myProfile.followings.length}</p>}
             </button>
           </div>
         </div>
@@ -447,7 +456,7 @@ export default function MyPerfil() {
         </div>
 
         <div className={style.details}>
-          <p>{perfil.detail}</p>
+          <p>{perfil.comment}</p>
         </div>
       </header>
 
@@ -500,33 +509,45 @@ export default function MyPerfil() {
             Cerrar sesion
           </button>
           <div>
-            <button
+          {/*   <button
               className={style.btnDelete}
-
+              onClick={(e) => handleDelete(e)}
             >
               Borrar Cuenta
-            </button>
+            </button> */}
           </div>
         </div>
         {renderConfig()}
         <span className={style.myProfileContainer}>
-          {userPost?.map((el) => (
-            // <LazyLoad height={488} offset={10}>
-            <Card
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-            // </LazyLoad>
-          ))}
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              // <LazyLoad height={488} offset={10}>
+              <Card
+                locate="myProfile"
+                id={el.id}
+                key={el.id}
+                photo={el.photo}
+                detail={el.detail}
+                creator={el.autorId}
+                likes={el.likes}
+                createdAt={el.createdAt}
+              />
+              // </LazyLoad>
+            ))
+          ) : (
+            <p>No hay publicaciones realizadas</p>
+          )}
         </span>
       </body>
 
-      {followActive.view === true ? <FollowModal setFollowActive={setFollowActive} followActive={followActive} /> : false}
+      {followActive.view === true ? (
+        <FollowModal
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
+      )}
     </div>
   );
 }
