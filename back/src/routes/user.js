@@ -14,7 +14,7 @@ server.post("/register", async function (req, res) {
       email,
       username: displayname,
       detail,
-      profilephoto, photoURL
+      profilephoto:photoURL
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
