@@ -134,15 +134,28 @@ server.put("/setting/:id", (req, res, next) => {
         console.log(error)
       })
     })
-  .catch((err) => {
-    console.log(err);
-    res.status(404).send("Usuario no encontrado");
-  });
+    .catch((err) => {
+      console.log(err);
+      res.status(404).send("Usuario no encontrado");
+    });
 });
 
 server.delete("/destroy/:id", async function (req, res) {
   try {
     const { id } = req.params;
+    await Follower.destroy({
+      where: {
+        autorId: id
+      }
+
+    })
+    await Following.destroy({
+      where: {
+        autorId: id
+      }
+
+    })
+
 
     await User.destroy({
       where: {
@@ -214,7 +227,7 @@ server.put("/follow", async (req, res) => {
 
     } else {
       try {
-       await  Follower.create({
+        await Follower.create({
           autorId: idTwo,
           follower_Id: idOne
         })
