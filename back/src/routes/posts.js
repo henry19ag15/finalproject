@@ -103,7 +103,7 @@ server.post("/likes", async function (req, res) {
                     postId: idPost,
                 }
             })
-            send.status(200).send("like borrado")
+            res.status(200).send("like borrado")
 
         } catch (error) {
             console.log(error)
