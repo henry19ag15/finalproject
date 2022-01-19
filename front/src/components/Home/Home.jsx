@@ -24,13 +24,16 @@ export default function Home() {
     if (a.createdAt > b.createdAt) return -1;
     return 0;
   });
-
+console.log(userPost)
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getMyProfile(user.uid)).then((res) => {
-      // console.log(res.payload.following);
-      dispatch(getPost(res.payload.following.concat(user.uid)));
-    });
+      console.log(res);
+      const arrayIds = res.payload.followings.map((el) => el.autorId);
+      dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
+        console.log(err)
+      );
+    }).catch(err=>console.log(err));
   }, []);
 
   function parcheValidador(id) {
@@ -48,18 +51,19 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className={styles.container}>
         {userPost?.map((el) =>
-          parcheValidador(el.creator) ? (
-            <LazyLoad height={488} offset={10}>
+          parcheValidador(el.autorId) ? (
+            // <LazyLoad height={488} offset={10}>
               <Card
+              locate="home"
                 id={el.id}
                 key={el.id}
                 photo={el.photo}
                 detail={el.detail}
-                creator={el.creator}
+                creator={el.autorId}
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
-            </LazyLoad>
+            //  </LazyLoad> 
           ) : (
             false
           )

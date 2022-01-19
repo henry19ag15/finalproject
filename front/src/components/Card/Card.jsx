@@ -10,10 +10,22 @@ import { getAuth } from "firebase/auth";
 import noimg from "../../sass/noimg.png";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { getPost, getPostMyProfile, getPostUserProfile } from "../../Redux/02-actions";
+import {
+  getPost,
+  getPostMyProfile,
+  getPostUserProfile,
+} from "../../Redux/02-actions";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
-export default function Card({ id, photo, creator, likes, detail, createdAt }) {
+export default function Card({
+  id,
+  photo,
+  creator,
+  likes,
+  detail,
+  createdAt,
+  locate,
+}) {
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
@@ -21,16 +33,15 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   const user = auth.currentUser;
   const myProfile = useSelector((state) => state.myProfile);
 
-
   const useUser = profile.filter((el) => el.id === creator);
-   //console.log("esto es el user: ", useUser);
+  //console.log("esto es el user: ", useUser);
   // console.log(useUser[0].username);
   // console.log("es id ", id);
   const [postConfig, setPostConfig] = useState({
     view: false,
     edit: false,
     detail: detail,
-  })
+  });
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -46,7 +57,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   /*  const userFromComment = profile.filter(
     (user) => user.id === comment?.comment?.idUser
   ); */
-   //console.log("acacac", comment);
+  //console.log("acacac", comment);
   useEffect(() => {
     axios
       .get(
@@ -73,7 +84,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
       })
       .then((res) => {
         console.log("res 1", res);
-        setInputComment("")
+        setInputComment("");
         axios
           .get(
             `https://pruebaconbackreal-pg15.herokuapp.com/comment/bringscomments/${id}`
@@ -97,7 +108,7 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
   }
 
   function render(id) {
-    const userFromComment = profile.filter((user) => user.id === id);
+    const userFromComment = profile.filter((user) => user.userId === id);
 
     return (
       <div className={styles.photoNameBox}>
@@ -109,74 +120,94 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
     );
   }
 
-
   /////////// EDITAR Y BORRAR POST /////////////
   function deletePost() {
-    axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`)
-
+    axios.delete(
+      `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+    );
   }
   let contador = 0;
 
   function editPost(e) {
     if (e === true) {
-      setPostConfig({ ...postConfig, edit: true })
-
-    }
-    else {
-      setPostConfig({ ...postConfig, edit: false, view: false })
+      setPostConfig({ ...postConfig, edit: true });
+    } else {
+      setPostConfig({ ...postConfig, edit: false, view: false });
     }
   }
 
   async function submitEditPost() {
-    await axios.put(`https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`, { payload: { id: id, detail: postConfig.detail } })
-    setPostConfig({ ...postConfig, edit: false, view: false })
-
+    await axios.put(
+      `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
+      { payload: { id: id, detail: postConfig.detail } }
+    );
+    setPostConfig({ ...postConfig, edit: false, view: false });
   }
 
-
   function configPost() {
-      return (
-        <div>
-          <button onClick={() => deletePost()}>Eliminar post</button>
-          {postConfig.edit === false ? <button onClick={() => editPost(true)}>Editar post</button> : <button onClick={() => editPost(false)}>Cancelar edicion</button>}
-        </div>
-      )
-
-
-
+    return (
+      <div>
+        <button onClick={() => deletePost()}>Eliminar post</button>
+        {postConfig.edit === false ? (
+          <button onClick={() => editPost(true)}>Editar post</button>
+        ) : (
+          <button onClick={() => editPost(false)}>Cancelar edicion</button>
+        )}
+      </div>
+    );
   }
 
   ////////////////////////////////////////
 
-  function handleLike() {
+  function handleLike(e) {
+    function checkLocateCard() {
+      switch (locate) {
+        case "myProfile":
+          dispatch(getPostMyProfile([auth.currentUser.uid]));
+
+        case "home":
+          const arrayIds = myProfile.followings.map((el) => el.autorId);
+          myProfile.followings &&
+            dispatch(getPost(arrayIds.concat(myProfile.id)));
+
+        case "userProfile":
+          dispatch(getPostUserProfile([creator]));
+
+        default:
+          break;
+      }
+    }
+
+    e.preventDefault();
     axios
-    .put(`https://pruebaconbackreal-pg15.herokuapp.com/posts/likes/`, [
-      auth.currentUser.uid,
-      id
-    ])
-    .then((res) => {
-      console.log("res de likes: ",res)
-      myProfile.following && dispatch(getPost(myProfile.following.concat(myProfile.id)))
-      dispatch(getPostMyProfile([auth.currentUser.uid]))
-      dispatch(getPostUserProfile([creator]))
-      
-    }).catch((error) =>{console.log(error)})
+      .post(`https://pruebaconbackreal-pg15.herokuapp.com/posts/likes/`, {
+        idUser: auth.currentUser.uid,
+        idPost: id,
+      })
+      .then((res) => {
+        checkLocateCard();
+        console.log("res de likes: ", res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // .then((id) => {
     //   console.log('array de likes ', id)
     // })
   }
-console.log('aqui likes',likes)
-  function likeValidate() {
-   const findLike = likes && likes.filter( (el)=>el === auth.currentUser.uid)
+  console.log("aqui likes", likes);
 
-    if(findLike.length > 0) {
-      return true
+  function likeValidate() {
+    const viewIdLikes = likes.filter(
+      (like) => like.userId === auth.currentUser.uid
+    );
+
+    if (viewIdLikes.length > 0) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
-
-
 
   return (
     <div className={styles.cardbody}>
@@ -209,26 +240,30 @@ console.log('aqui likes',likes)
             ) : (
               <h2>User</h2>
             )}
-
           </div>
-          <section className={styles.datePosted}> {reverse(createdAt.substring(0, 10))} </section>
-
+          <section className={styles.datePosted}>
+            {" "}
+            {reverse(createdAt.substring(0, 10))}{" "}
+          </section>
         </header>
         <section className={styles.btnBar}>
-          <button className={
-            likeValidate()  ?  ` ${styles.btnLike} ${styles.colorLike}` : styles.btnLike}
-            onClick={handleLike}
-            >
+          <button
+            className={
+              likeValidate()
+                ? ` ${styles.btnLike} ${styles.colorLike}`
+                : styles.btnLike
+            }
+            onClick={(e) => handleLike(e)}
+          >
             {" "}
-            {likeValidate() ? <BsFillHeartFill /> : <FiHeart />} {" "}
+            {likeValidate() ? <BsFillHeartFill /> : <FiHeart />}{" "}
           </button>
           <button className={styles.btnCommit}>
             {" "}
             <HiDotsHorizontal />{" "}
-          </button> 
-          
-
-          {/* Botones de borrar post y editar post -----> */} {postConfig.view === true ? configPost() : postConfig.view = false}
+          </button>
+          {/* Botones de borrar post y editar post -----> */}{" "}
+          {postConfig.view === true ? configPost() : (postConfig.view = false)}
           <button className={styles.btnShare}>
             {" "}
             <MdIosShare />{" "}
@@ -238,15 +273,22 @@ console.log('aqui likes',likes)
 
       <section className={styles.likes}> {likes.length} Likes </section>
 
-      {postConfig.edit === false ? <section className={styles.description}> {detail} </section> : 
-      <div>
-        <button onClick={() => submitEditPost()}>Confirmar</button>
-        <input onChange={e => setPostConfig({ ...postConfig, detail: e.target.value })} type={"text"} defaultValue={postConfig.detail}></input>
-      </div>
-      }
+      {postConfig.edit === false ? (
+        <section className={styles.description}> {detail} </section>
+      ) : (
+        <div>
+          <button onClick={() => submitEditPost()}>Confirmar</button>
+          <input
+            onChange={(e) =>
+              setPostConfig({ ...postConfig, detail: e.target.value })
+            }
+            type={"text"}
+            defaultValue={postConfig.detail}
+          ></input>
+        </div>
+      )}
 
       <div className={styles.inputCommentBox}>
-
         <input
           className={styles.input}
           type="test"
@@ -263,15 +305,15 @@ console.log('aqui likes',likes)
 
       {comment.comment
         ? comment.comment.map((com) => {
-          return (
-            <div className={styles.commentBox}>
-              {render(com.idUser)}
-              {com?.detail && (
-                <p className={styles.comentario}>{com.detail}</p>
-              )}
-            </div>
-          );
-        })
+            return (
+              <div className={styles.commentBox}>
+                {render(com.idUser)}
+                {com?.detail && (
+                  <p className={styles.comentario}>{com.detail}</p>
+                )}
+              </div>
+            );
+          })
         : false}
     </div>
   );

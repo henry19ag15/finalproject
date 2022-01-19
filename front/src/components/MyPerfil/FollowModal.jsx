@@ -10,10 +10,10 @@ export default function FollowModal({ setFollowActive, followActive }) {
   const user = useSelector((state) => state.allUser);
   const myuser = useSelector((state) => state.myProfile);
   const followers = myuser.followers.map((e) =>
-    user.filter((el) => el.id === e)
+    user.filter((el) => el.autorId === e)
   );
-  const following = myuser.following.map((e) =>
-    user.filter((el) => el.id === e)
+  const followings = myuser.followings.map((e) =>
+    user.filter((el) => el.autorId === e)
   );
 
   const [followView, setFollowView] = useState(followActive.type);
@@ -45,7 +45,7 @@ export default function FollowModal({ setFollowActive, followActive }) {
     } else if (followView === "following") {
       return (
         <div className={style.FollowBox}>
-          {following.map((e) =>
+          {followings.map((e) =>
             e.length > 0 ? (
               <button onClick={() => handleSelect(e[0].id)}>
                 <img src={e[0].profilephoto} alt=""></img>
@@ -86,7 +86,7 @@ export default function FollowModal({ setFollowActive, followActive }) {
             Seguidos
           </button>
         </div>
-        {FollowRender()}
+        {/* {FollowRender()} */}
       </div>
     </div>
   );
