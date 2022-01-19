@@ -1,14 +1,7 @@
-*{
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
 .App {
   text-align: center;
-  width: 100%;
-  overflow-x: hidden;
 }
-.loadingApp{
+.loading{
   margin-top: 10rem;
   height: 5rem;
 }

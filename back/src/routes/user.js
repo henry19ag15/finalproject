@@ -7,13 +7,14 @@ server.post("/register", async function (req, res) {
   console.log("este es el body:", req.body);
 
   try {
-    const { uid, email, displayname, detail } = req.body;
+    const { uid, email, displayname, detail, photoURL } = req.body;
 
     await User.create({
       id: uid,
       email,
       username: displayname,
       detail,
+      profilephoto: photoURL
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
@@ -26,6 +27,14 @@ server.put("/inactive/:id", (req, res) => {
   User.findOne({
     where: {
       id: req.params.id,
+      include: [{
+        model: Follower
+      },
+      { model: Following },
+      { model: Suscriber },
+      { model: Suscripto }
+      ]
+
     },
   })
     .then((post) => {
@@ -73,6 +82,15 @@ server.get("/:id", async function (req, res) {
   try {
     let user = await User.findOne({
       where: { id: req.params.id },
+      include: [{
+        model: Follower
+      },
+      { model: Following },
+      { model: Suscriber },
+      { model: Suscripto }
+      ]
+
+
     });
     res.status(200).send(user);
   } catch (error) {
@@ -99,7 +117,7 @@ server.put("/setting/:id", (req, res, next) => {
     id: uid,
     email,
     username: displayname,
-    detail,
+    comment: detail,
     profilephoto,
   };
   User.findOne({
@@ -112,7 +130,9 @@ server.put("/setting/:id", (req, res, next) => {
         newUser.save();
         res.status(200).send("Usuario modificado con exito");
         return res.json(newUser);
-      });
+      }).catch((error) => {
+        console.log(error)
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -123,6 +143,19 @@ server.put("/setting/:id", (req, res, next) => {
 server.delete("/destroy/:id", async function (req, res) {
   try {
     const { id } = req.params;
+    await Follower.destroy({
+      where: {
+        autorId: id
+      }
+
+    })
+    await Following.destroy({
+      where: {
+        autorId: id
+      }
+
+    })
+
 
     await User.destroy({
       where: {
@@ -168,7 +201,7 @@ server.put("/follow", async (req, res) => {
   if (userOne && userTwo) {
     if (follower) {
       try {
-        Follower.destroy({
+        await Follower.destroy({
           where: {
             autorId: idTwo,
             follower_Id: idOne
@@ -176,7 +209,7 @@ server.put("/follow", async (req, res) => {
           }
 
         })
-        Following.destroy({
+        await Following.destroy({
           where: {
             autorId: idOne,
             followin_Id: idTwo
@@ -194,11 +227,11 @@ server.put("/follow", async (req, res) => {
 
     } else {
       try {
-        Follower.create({
+        await Follower.create({
           autorId: idTwo,
           follower_Id: idOne
         })
-        Following.create({
+        await Following.create({
           autorId: idOne,
           followin_Id: idTwo
         })
@@ -249,7 +282,7 @@ server.put("/suscribe", async (req, res) => {
   if (userOne && userTwo) {
     if (suscriber) {
       try {
-        Suscriber.destroy({
+        await Suscriber.destroy({
           where: {
             autorId: idTwo,
             suscriber_Id: idOne
@@ -257,7 +290,7 @@ server.put("/suscribe", async (req, res) => {
           }
 
         })
-        Suscripto.destroy({
+        await Suscripto.destroy({
           where: {
             autorId: idOne,
             suscripto_Id: idTwo
@@ -275,11 +308,11 @@ server.put("/suscribe", async (req, res) => {
 
     } else {
       try {
-        Suscriber.create({
+        await Suscriber.create({
           autorId: idTwo,
           suscriber_Id: idOne
         })
-        Suscripto.create({
+        await Suscripto.create({
           autorId: idOne,
           suscripto_Id: idTwo
         })

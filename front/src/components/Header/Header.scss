@@ -2,18 +2,26 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: 80px;
+    height: 65px;
     box-shadow: 1px 1px 6px #091238;
     background: #fff;
-    top: 0px;
+    top: 0;
+    & h1{
+        display: flex;
+        margin-left: 20px;
+        font-size: 27px;
+        color: #000;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .img{
-    width: 180px;
-    height: 80%;
-    margin-left: 30%;
+    width: 55px;
+    height: 40px;
+    margin-left: 150px;
+    cursor: pointer;
 }
-
 
 @media (max-width: 600px) {
     .Header{
@@ -24,12 +32,20 @@
         background: none;
         box-shadow: none;
         height: 40px;
-    }
-    .img{
-        width: 30%;
-        height: 30%;
-        margin-left: 0px;
-        margin-top: 15%;
+        margin-top: 40px;
+        & h1{
+             display: flex;
+             justify-content: center;
+         }
+         & img{
+             width: 55px;
+             height: 40px;
+             margin-left: 0px;
+             margin-top: 60px;
+         }
     }
 
+    .logo{
+        margin-top: 15%;
+    }
 }

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { MdIosShare } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
@@ -106,48 +107,56 @@ export default function Card({ id, photo, creator, likes, detail, createdAt }) {
 
   function render(id) {
     const userFromComment = profile.filter((user) => user.id === id);
+=======
+import {MdIosShare} from 'react-icons/md';
+import {HiDotsHorizontal} from 'react-icons/hi';
+import {FiHeart} from 'react-icons/fi';
+import styles from './Card.module.scss'
+import { getAuth } from "firebase/auth";
+import noimg from '../../sass/noimg.png';
+const img ='https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg'
+
+
+export default function Card () {
+    const auth = getAuth();
+
+    const user = auth.currentUser;
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
 
     return (
-      <div className={styles.photoNameBox}>
-        {userFromComment[0]?.profilephoto && (
-          <img src={userFromComment[0].profilephoto} alt="" />
-        )}
-        {userFromComment[0]?.username && <p>{userFromComment[0].username}</p>}
-      </div>
-    );
-  }
+        <div className={styles.cardbody}>
+            <div className={styles.cardData}>
+                <nav to='/home'>    {/* TODO cambiar a link */}
+                    <img className={styles.img} src={img}></img>
+                </nav>
+            </div>
+
+            <section className={styles.btnBar}>
+                    <button className={styles.btnLike}> <FiHeart/> </button>
+                    <button className={styles.btnCommit}> <HiDotsHorizontal/> </button>
+                    <button className={styles.btnShare}> <MdIosShare/> </button>
+            </section>
+            <header className={styles.cardProfile}> 
+                <Link
+                    to="/profile"
+                    //onClick={()=>setNavActive(false)}
+                    className={styles.profilePhoto}
+                >
+                    {" "}
+                    {user.photoURL?(<img src={user.photoURL} alt="" />):(<img src={noimg} alt="" />)}
+                </Link>
+                <div className={styles.profileName}> 
+                    {" "}
+                    {user.displayName?(<h4>{user.displayName}</h4>): (<h2>User</h2>)}
+                 </div>
+            </header>
 
 
-  /////////// EDITAR Y BORRAR POST /////////////
-  function deletePost() {
-    axios.delete(`https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`)
-
-  }
-  let contador = 0;
-
-  function editPost(e) {
-    if (e === true) {
-      setPostConfig({ ...postConfig, edit: true })
-
-    }
-    else {
-      setPostConfig({ ...postConfig, edit: false, view: false })
-    }
-  }
-
-  async function submitEditPost() {
-    await axios.put(`https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`, { payload: { id: id, detail: postConfig.detail } })
-    setPostConfig({ ...postConfig, edit: false, view: false })
-
-  }
-
-
-  function configPost() {
-      return (
-        <div>
-          <button onClick={() => deletePost()}>Eliminar post</button>
-          {postConfig.edit === false ? <button onClick={() => editPost(true)}>Editar post</button> : <button onClick={() => editPost(false)}>Cancelar edicion</button>}
+            <section className={styles.likes}> <p>Conteo de likes</p> </section>
+            <section className={styles.description}> <p>Descripción</p> </section>
+            
         </div>
+<<<<<<< HEAD
       )
 
 
@@ -217,10 +226,13 @@ console.log('aqui likes',likes)
             ) : (
               <h2>User</h2>
             )}
+=======
+    )
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
 
-          </div>
-          <section className={styles.datePosted}> {reverse(createdAt.substring(0, 10))} </section>
+};
 
+<<<<<<< HEAD
         </header>
         <section className={styles.btnBar}>
           <button className={
@@ -291,3 +303,6 @@ console.log('aqui likes',likes)
     </div>
   );
 }
+=======
+
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f

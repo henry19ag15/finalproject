@@ -2,16 +2,19 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const Suscribed = require("./models/Suscripto");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pg15`,
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   }
-);
+});
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -70,13 +73,12 @@ Follower.belongsTo(User, { onDelete: 'CASCADE' })
 User.hasMany(Following, { onDelete: 'CASCADE', foreignKey: "followin_Id" })
 Following.belongsTo(User, { onDelete: 'CASCADE'})
 
-///////////////USER-FOLLOWER
+///////////////USER-SUSCRIBERS
 User.hasMany(Suscriber, { onDelete: 'CASCADE', foreignKey: "suscriber_Id" })
 Suscriber.belongsTo(User, { onDelete: 'CASCADE' })
-///////////////USER-FOLLOWING
+///////////////USER-SUSCRIBED
 User.hasMany(Suscripto, { onDelete: 'CASCADE', foreignKey: "suscripto_Id" })
 Suscripto.belongsTo(User, { onDelete: 'CASCADE'})
-
 
 
 module.exports = {
