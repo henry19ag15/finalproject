@@ -7,13 +7,14 @@ server.post("/register", async function (req, res) {
   console.log("este es el body:", req.body);
 
   try {
-    const { uid, email, displayname, detail } = req.body;
+    const { uid, email, displayname, detail, photoURL } = req.body;
 
     await User.create({
       id: uid,
       email,
       username: displayname,
       detail,
+      profilephoto, photoURL
     });
     res.status(200).send("Usuario creado correctamente");
   } catch (error) {
@@ -26,6 +27,14 @@ server.put("/inactive/:id", (req, res) => {
   User.findOne({
     where: {
       id: req.params.id,
+      include: [{
+        model: Follower
+      },
+      { model: Following },
+      { model: Suscriber },
+      { model: Suscripto }
+      ]
+
     },
   })
     .then((post) => {
