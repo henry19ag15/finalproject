@@ -509,12 +509,12 @@ export default function MyPerfil() {
             Cerrar sesion
           </button>
           <div>
-            <button
+          {/*   <button
               className={style.btnDelete}
               onClick={(e) => handleDelete(e)}
             >
               Borrar Cuenta
-            </button>
+            </button> */}
           </div>
         </div>
         {renderConfig()}
