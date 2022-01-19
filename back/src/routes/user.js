@@ -130,12 +130,14 @@ server.put("/setting/:id", (req, res, next) => {
         newUser.save();
         res.status(200).send("Usuario modificado con exito");
         return res.json(newUser);
-      });
+      }).catch((error) => {
+        console.log(error)
+      })
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).send("Usuario no encontrado");
-    });
+  .catch((err) => {
+    console.log(err);
+    res.status(404).send("Usuario no encontrado");
+  });
 });
 
 server.delete("/destroy/:id", async function (req, res) {
