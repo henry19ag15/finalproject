@@ -53,8 +53,12 @@ export default function LoginPage() {
 
 
         axios.post("https://pruebaconbackreal-pg15.herokuapp.com/user/register", {
+<<<<<<< HEAD
           email: user.email,     
           photoURl:user.photoURL,     
+=======
+          email: user.email,          
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
           displayname: user.displayName,
           uid: user.uid,
         });

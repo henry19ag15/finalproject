@@ -10,7 +10,6 @@
   -webkit-box-shadow: 1px 1px 6px #091238;
           box-shadow: 1px 1px 6px #091238;
   background: #fff;
-  position: fixed;
   top: 0;
 }
 
@@ -32,7 +31,11 @@
 .img {
   width: 55px;
   height: 40px;
+<<<<<<< HEAD
   margin-left: 100px;
+=======
+  margin-left: 150px;
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
   cursor: pointer;
 }
 
@@ -55,6 +58,7 @@
     -webkit-box-shadow: none;
             box-shadow: none;
     height: 40px;
+    margin-top: 40px;
   }
   .Header h1 {
     display: -webkit-box;

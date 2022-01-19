@@ -13,6 +13,7 @@ export function postUser(payload) {
 }
 
 export function getMyProfile(id) {
+<<<<<<< HEAD
   return async function (dispatch) {
     try {
       const myProfile = await axios.get(
@@ -41,6 +42,15 @@ export function getUserProfile(id) {
         type: "GET_USER_PROFILE",
         payload: Profile.data,
       });
+=======
+  return async function (dispatch) {
+    try {
+      const myProfile = await axios.get(`https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`)
+      return  dispatch( {
+        type: 'GET_MY_PROFILE',
+        payload: myProfile.data
+      })
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
     } catch (error) {
       console.log(error);
       return dispatch({
@@ -48,6 +58,7 @@ export function getUserProfile(id) {
         payload: "Se rompio",
       });
     }
+<<<<<<< HEAD
   };
 }
 
@@ -74,3 +85,7 @@ export function getPost(payload) {
 }
 
 //////////////////////////////////////////////////
+=======
+  }
+}
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f

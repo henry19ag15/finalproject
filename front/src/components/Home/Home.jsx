@@ -2,9 +2,9 @@ import { useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import Card from "../Card/Card";
 import styles from "./Home.module.css";
-import { getAuth } from "firebase/auth";
 
 export default function Home() {
+<<<<<<< HEAD
   //const [picsPerPage, setPicsPerPage] = useState(8);
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -42,34 +42,27 @@ export default function Home() {
       return false;
     }
   }
+=======
+    //const [picsPerPage, setPicsPerPage] = useState(8);
 
-  return (
+    return (
     <div className={styles.home}>
-      {/* <NavBar /> */}
+        {/* <NavBar /> */}
 
-      <div className={styles.container}>
-        <button
-          onClick={(e) => {
-            aux(e);
-          }}
-        >
-          llamar
-        </button>
-        {userPost?.map((el) =>
-          aux2(el.creator) ? (
-            <Card
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          ) : (
-            false
-          )
-        )}
-      </div>
+        <div className={styles.container}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+>>>>>>> d54904ae95fdfa36e35268206e0ff0962909a47f
+
+
+        </div>
     </div>
-  );
+    );
 }

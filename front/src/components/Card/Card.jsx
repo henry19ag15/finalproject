@@ -6,26 +6,19 @@ import {FiHeart} from 'react-icons/fi';
 import styles from './Card.module.scss'
 import { getAuth } from "firebase/auth";
 import noimg from '../../sass/noimg.png';
-import { useSelector } from "react-redux";
 const img ='https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg'
 
 
-export default function Card ({id, photo, creator, likes, detail}) {
+export default function Card () {
     const auth = getAuth();
 
-    const profile = useSelector(state => state.allUser)
-
-
     const user = auth.currentUser;
-
-    const useUser=  profile.filter(el => el.id === creator) 
-    console.log(useUser)
 
     return (
         <div className={styles.cardbody}>
             <div className={styles.cardData}>
                 <nav to='/home'>    {/* TODO cambiar a link */}
-                    <img className={styles.img} src={photo}></img>
+                    <img className={styles.img} src={img}></img>
                 </nav>
             </div>
 
@@ -41,17 +34,17 @@ export default function Card ({id, photo, creator, likes, detail}) {
                     className={styles.profilePhoto}
                 >
                     {" "}
-                    {useUser[0].profilephoto?(<img src={useUser[0].profilephoto} alt="" />):(<img src={noimg} alt="" />)}
+                    {user.photoURL?(<img src={user.photoURL} alt="" />):(<img src={noimg} alt="" />)}
                 </Link>
                 <div className={styles.profileName}> 
                     {" "}
-                    {useUser[0].username?(<h4>{useUser[0].username}</h4>): (<h2>User</h2>)}
+                    {user.displayName?(<h4>{user.displayName}</h4>): (<h2>User</h2>)}
                  </div>
             </header>
 
 
-            <section className={styles.likes}> <p>Conteo de likes</p> {likes.length} </section>
-            <section className={styles.description}> <p>Descripción</p>{detail} </section>
+            <section className={styles.likes}> <p>Conteo de likes</p> </section>
+            <section className={styles.description}> <p>Descripción</p> </section>
             
         </div>
     )

@@ -8,19 +8,15 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      
+
       detail: {
         type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      private: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
-      },
-      creator: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      likes: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: [],
-        allowNull: true,
       },
     }
     // {

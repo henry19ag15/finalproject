@@ -11,29 +11,28 @@
 }
 
 .recover-form{
-    margin-top: 5%;
+    margin-top: 10%;
     display: flex;
     flex-direction: column;
     width: 50%;
-    height: 40%;
+    height: 20%;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     button{
         width: 120px;
         height: 40px;
         border-radius: 7px;
         border: none;
-        margin-top: 10%;
         cursor: pointer;
-        background: $background-button;
+        background: $background-horizontal;
         font-size: 14px;
         font-weight: 700;
         color: #fff;
-        &:active{
-            transform: scale(0.9, 0.9);
-        }
         &:hover{
-            background-color: $button-hover;
+            transform: scale(1.1, 1.1);
+        }
+        &:active{
+            transform: scale(1.0, 1.0);
         }
     }
 }
@@ -85,9 +84,6 @@
 @media (max-width: 600px){
     .recover-form{
         width: 100%;
-        & button{
-            height: 40px;
-        }
     }
     .title-recover{
         margin-top: 30%;
