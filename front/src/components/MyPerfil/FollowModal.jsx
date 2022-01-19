@@ -32,15 +32,13 @@ export default function FollowModal({ setFollowActive, followActive }) {
     if (followView === "followers") {
       return (
         <div className={style.FollowBox}>
-          {followers[0].map((e) =>
-            e.length > 0 ? (
+          {followers.map((e) =>
+            (
               <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e.profilephoto} alt="" />
-                <p>{e.username}</p>
+                <img src={e[0].profilephoto} alt="" />
+                <p>{e[0].username}</p>
               </button>
-            ) : (
-              false
-            )
+            ) 
           )}
         </div>
       );

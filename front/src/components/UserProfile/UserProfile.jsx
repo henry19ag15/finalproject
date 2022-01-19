@@ -51,7 +51,7 @@ export default function UserProfile() {
         user.uid,
       ])
       .then(() => {
-        dispatch(getUserProfile(newStr));
+        dispatch(getUserProfile(perfil.id));
       })
       .catch((err) => {
         console.log(err);
