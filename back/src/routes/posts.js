@@ -68,24 +68,50 @@ server.get('/getAll', async function (req, res) {
 // dar like
 server.post("/likes", async function (req, res) {
 
-    try {
-        const {
-            idUser,
-            idPost,
+    const {
+        idUser,
+        idPost,
 
-        } = req.body;
+    } = req.body;
 
-        await Like.create({
+    let findLike = Like.findOne({
+        where: {
             userId: idUser,
-            postId: idPost,
+            postId: idPost
+        }
+    })
 
-        })
-        res.status(200).send("comentario")
+    if (!findLike) {
+        try {
+            await Like.create({
+                userId: idUser,
+                postId: idPost,
 
-    } catch (error) {
-        console.log(error)
+            })
+            res.status(200).send("comentario")
 
+        } catch (error) {
+            console.log(error)
+
+        }
     }
+    else {
+        try {
+            await Like.destroy({
+                where: {
+                    userId: idUser,
+                    postId: idPost,
+                }
+            })
+
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+
+
 })
 
 //borrar post
