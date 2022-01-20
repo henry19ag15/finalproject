@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Post, User, Comment, Like } = require("../db.js");
+const { Post, User, Like } = require("../db.js");
 const sequelize = require("sequelize");
 
 //crear post
@@ -12,6 +12,25 @@ server.post("/", async function (req, res) {
       autorId: creator,
       private: private,
     });
+
+    /* NOTIFICACION SOBRE NUEVO POST */
+
+    // let idPost = await Post.findOne({
+    //   where: {},
+    // });
+
+    // let user = await User.findOne({
+    //   where: {
+    //     id: creator,
+    //   },
+    // });
+
+    // await Notification.create({
+    //   autor: creator,
+    //   details: "Ha publicado algo",
+    //   about: idPost,
+    // });
+
     res.status(200).send("se creo el post");
   } catch (error) {
     console.log(error);
@@ -67,6 +86,26 @@ server.post("/likes", async function (req, res) {
         userId: idUser,
         postId: idPost,
       });
+      /* NOTIFICACION SOBRE NUEVO LIKE */
+
+      let autor = await Post.findOne({
+        where: {
+          id: idPost,
+        },
+      });
+
+      let user = await User.findOne({
+        where: {
+          id: autor.autorId,
+        },
+      });
+
+      await Notification.create({
+        autor: user.id,
+        details: "Le ha dado like a una de tus publicaciones.",
+        about: idPost,
+      });
+
       res.status(200).send("like dado");
     } catch (error) {
       console.log(error);

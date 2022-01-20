@@ -227,6 +227,15 @@ server.put("/follow", async (req, res) => {
           autorId: idOne,
           followin_Id: idTwo,
         });
+
+        /* NOTIFICACION SOBRE SEGUIDO */
+
+        await Notification.create({
+          autor: idTwo,
+          details: "Te ha empezado a seguir",
+          about: idTwo,
+        });
+
         res.send("Se ha empezado a seguir");
       } catch (error) {
         console.log(error);
@@ -291,6 +300,13 @@ server.put("/suscribe", async (req, res) => {
         await Suscripto.create({
           autorId: idOne,
           suscripto_Id: idTwo,
+        });
+
+        /* NOTIFICACION SOBRE NUEVO SUSCRITO */
+        await Notification.create({
+          autor: idTwo,
+          details: "Se ha suscrito a tu perfil.",
+          about: idTwo,
         });
         res.send("Se ha empezado a suscribir");
       } catch (error) {
