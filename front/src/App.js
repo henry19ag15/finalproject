@@ -10,6 +10,7 @@ import MyPerfil from './components/MyPerfil/MyPerfil';
 import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 import UserProfile from './components/UserProfile/UserProfile'
+import MercadoPago from './components/MercadoPago/MercadoPago';
 
 
 
@@ -49,6 +50,9 @@ function App() {
           <NavBar />
           <UserProfile />
         </Route>
+        <Route exact path='/mercadopago/:id'>
+          <MercadoPago/>
+          </Route>
 
 
       </Switch>
