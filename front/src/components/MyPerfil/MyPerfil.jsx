@@ -505,7 +505,7 @@ export default function MyPerfil() {
         {renderConfig()}
         <span className={style.myProfileContainer}>
           {userPost?.map((el) => (
-            <LazyLoad height={488} offset={100}>
+            <LazyLoad height={400} offset={5}>
             <Card
               key={el.id}
               photo={el.photo}
