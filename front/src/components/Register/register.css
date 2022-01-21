@@ -13,9 +13,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
+  width: 20%;
   height: 50px;
-  margin-top: 2%;
+  margin-top: 40%;
   margin-left: 3%;
 }
 
@@ -53,7 +53,7 @@
           align-items: center;
   font-size: 40px;
   font-weight: 500;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 .Register {
@@ -70,9 +70,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: #f6f6f6;
+  background-image: url("../../sass/hojas.png");
 }
 
 .big-continer {
@@ -86,8 +87,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 70%;
-  height: 25rem;
+  width: 70vw;
+  height: 60vh;
   margin-top: 30px;
   -webkit-box-shadow: 0px 0px 5px black;
           box-shadow: 0px 0px 5px black;
@@ -187,16 +188,14 @@
   border-radius: 7px;
   border: none;
   cursor: pointer;
-  background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
-  background: linear-gradient(90deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
+  background: #24B3D6;
   font-size: 12px;
   font-weight: 700;
   color: #fff;
 }
 
 .buttons:hover {
-  -webkit-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
+  background-color: #0197BB;
 }
 
 .buttons:active {
@@ -248,11 +247,13 @@
         -ms-flex-align: center;
             align-items: center;
     height: 100vh;
+    width: 100%;
     background: #f6f6f6;
   }
   .title {
     font-size: 26px;
     color: #000;
+    margin-top: 80px;
   }
   .big-continer {
     width: 100%;
@@ -275,13 +276,13 @@
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    width: 70%;
+    width: 100%;
     height: 90%;
   }
   .buttons {
     -webkit-box-shadow: 0.3px 0.3px 5px #141b42;
             box-shadow: 0.3px 0.3px 5px #141b42;
-    height: 10%;
+    height: 8%;
   }
   .footer-text {
     margin-top: 50px;
@@ -295,6 +296,24 @@
   }
   .arrow-container p {
     display: none;
+  }
+  .error {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
   }
 }
 /*# sourceMappingURL=Register.css.map */

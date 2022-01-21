@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+}
+
 .Recover {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16,6 +22,7 @@
   width: 100%;
   height: 100vh;
   background: #f6f6f6;
+  background-image: url("../../sass/hojas.png");
 }
 
 .recover-form {
@@ -44,8 +51,7 @@
   border: none;
   margin-top: 10%;
   cursor: pointer;
-  background: -webkit-gradient(linear, left top, right top, from(#2dcce6), color-stop(38%, #50a4df), color-stop(96%, #0373b6));
-  background: linear-gradient(90deg, #2dcce6 0%, #50a4df 38%, #0373b6 96%);
+  background: #24B3D6;
   font-size: 14px;
   font-weight: 700;
   color: #fff;
@@ -54,6 +60,10 @@
 .recover-form button:active {
   -webkit-transform: scale(0.9, 0.9);
           transform: scale(0.9, 0.9);
+}
+
+.recover-form button:hover {
+  background-color: #0197BB;
 }
 
 .title-recover {

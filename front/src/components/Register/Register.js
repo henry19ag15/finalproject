@@ -10,6 +10,7 @@ const initialState ={
     displayname: '',
     email: '',
     password: '',
+    repeatPassword: '',
     showPassword: false
 }
 
@@ -67,6 +68,18 @@ const Register = () =>{
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Contraseña'
+                                autocomplete="off"
+                                required
+                            />
+
+                            <input type='password'
+                                className='input'
+                                name='repeatPassword'
+                                value={form.repeatPassword}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder='Repetir contraseña'
+                                autocomplete="off"
                                 required
                             />
                         </div>
@@ -74,9 +87,6 @@ const Register = () =>{
                         {errors.succes && <p className='succes'>{errors.succes}</p>}
 
                         <button type='submit' className='buttons'>CREAR USUARIO</button>
-
-                        
-
                     </form>
                 </div>
                 <div className='rigth-continer'>
