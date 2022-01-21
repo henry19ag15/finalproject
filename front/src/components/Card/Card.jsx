@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { MdIosShare } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
@@ -15,6 +16,9 @@ import {
   getPostMyProfile,
   getPostUserProfile,
 } from "../../Redux/02-actions";
+import swal from "sweetalert";
+//import EditPost from "../Edit/EditPost/EditPost";
+
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({
@@ -28,15 +32,15 @@ export default function Card({
 }) {
   const auth = getAuth();
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.allUser);
-  // console.log("este es el id", id);
   const user = auth.currentUser;
+  const profile = useSelector((state) => state.allUser);
   const myProfile = useSelector((state) => state.myProfile);
-
+  const myPosts = useSelector((state) => state.myPosts);
   const useUser = profile.filter((el) => el.id === creator);
-  //console.log("esto es el user: ", useUser);
-  // console.log(useUser[0].username);
-  // console.log("es id ", id);
+  const [configMenu, setconfigMenu] = useState(false);
+  const location = useLocation();
+  const history = useHistory();
+
   const [postConfig, setPostConfig] = useState({
     view: false,
     edit: false,
@@ -58,7 +62,8 @@ export default function Card({
     (user) => user.id === comment?.comment?.idUser
   ); */
   //console.log("acacac", comment);
-  console.log("comentario", comment.comment);
+  //console.log("comentario", comment.comment);
+
   useEffect(() => {
     axios
       .get(
@@ -84,14 +89,12 @@ export default function Card({
         detail: inputComment,
       })
       .then((res) => {
-        console.log("res 1", res);
         setInputComment("");
         axios
           .get(
             `https://pruebaconbackreal-pg15.herokuapp.com/comment/bringscomments/${id}`
           )
           .then((res) => {
-            console.log("res 2", res);
 
             setComment({ comment: res.data });
           });
@@ -103,6 +106,41 @@ export default function Card({
         });
       });
   }
+
+   function submitEditPost() {
+     axios.put(
+      `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
+      { payload: { id: id, detail: postConfig.detail} }
+    );
+    setPostConfig({ ...postConfig, edit: false, view: false });
+    console.log('el postConfig: ',postConfig);
+
+  }
+
+  // async function submitEditPost(el) {
+  //   await axios.put(
+  //     `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
+  //     { payload: { id: id, detail: postConfig.detail } }
+  //   );
+  //   console.log('el postConfig ',postConfig);
+  //   setPostConfig({ ...postConfig, 
+  //     [el.target.name]: el.target.value,
+  //     edit: false, view: false });
+  // }
+
+  // function configPost() {
+  //   return (
+  //     <div>
+  //       <button onClick={() => deletePost()}>Eliminar post</button>
+  //       {postConfig.edit === false ? (
+  //         <button onClick={() => editPost(true)}>Editar post</button>
+  //       ) : (
+  //         <button onClick={() => editPost(false)}>Cancelar edicion</button>
+  //       )}
+  //     </div>
+  //   );
+  // }
+
 
   function reverse(el) {
     return el.split("-").reverse().join("-");
@@ -122,11 +160,11 @@ export default function Card({
   }
 
   /////////// EDITAR Y BORRAR POST /////////////
-  function deletePost() {
-    axios.delete(
-      `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
-    );
-  }
+  // function deletePost() {
+  //   axios.delete(
+  //     `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+  //   );
+  // }
   let contador = 0;
 
   function editPost(e) {
@@ -135,27 +173,6 @@ export default function Card({
     } else {
       setPostConfig({ ...postConfig, edit: false, view: false });
     }
-  }
-
-  async function submitEditPost() {
-    await axios.put(
-      `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
-      { payload: { id: id, detail: postConfig.detail } }
-    );
-    setPostConfig({ ...postConfig, edit: false, view: false });
-  }
-
-  function configPost() {
-    return (
-      <div>
-        <button onClick={() => deletePost()}>Eliminar post</button>
-        {postConfig.edit === false ? (
-          <button onClick={() => editPost(true)}>Editar post</button>
-        ) : (
-          <button onClick={() => editPost(false)}>Cancelar edicion</button>
-        )}
-      </div>
-    );
   }
 
   ////////////////////////////////////////
@@ -196,7 +213,6 @@ export default function Card({
     //   console.log('array de likes ', id)
     // })
   }
-  console.log("aqui likes", likes);
 
   function likeValidate() {
     const viewIdLikes = likes.filter(
@@ -209,6 +225,62 @@ export default function Card({
       return false;
     }
   }
+
+  
+  function handleDelete() {
+
+      swal({
+        title: "¿Estas seguro?",
+        text: "¡Se eliminará su publicación permanentemente!",
+        icon: "error",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          axios.delete(
+                `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+              );
+              // Post deleted.
+          swal("Publicación elimmiada.", {
+            icon: "success",
+          });
+          console.log('Post eliminado')
+        } else {
+          console.log('Error al eliminar publicación')
+        }
+      })
+    
+
+      // swal({
+      //   title: "¿Estas seguro?",
+      //   text: "¡Se eliminará su publicación permanentemente!",
+      //   icon: "error",
+      //   buttons: true,
+      //   dangerMode: true,
+      // }).then((willDelete) => {
+      //   if (willDelete) {
+      //     deletePost(id)
+      //       .then(() => {
+      //         // Post deleted.
+      //         swal("Publicación elimmiada.", {
+      //           icon: "success",
+      //         });
+      //         axios.delete(
+      //           `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+      //         );
+      //         console.log('post eliminado')
+      //       })
+      //       .catch((error) => {
+      //         console.log(error)
+      //       });
+      //   } else {
+      //     console.log('Error al eliminar publicación')
+      //   }
+      // })
+}
+
+
+
 
   return (
     <div className={styles.cardbody}>
@@ -259,16 +331,27 @@ export default function Card({
             {" "}
             {likeValidate() ? <BsFillHeartFill /> : <FiHeart />}{" "}
           </button>
-          <button className={styles.btnCommit}>
-            {" "}
+          <button className={creator === auth.currentUser.uid ?  styles.btnOption :  ` ${styles.btnHide} ${styles.btnOption} `}
+                  onClick={(e) => setconfigMenu(!configMenu)} >
             <HiDotsHorizontal />{" "}
           </button>
+          <section className={ configMenu ? styles.optionsBox : `${styles.optionsBox} ${styles.optionsHide}`}>
+              <button className={styles.displayName}
+              onClick={() => editPost(true)} >
+                Editar...
+              </button>
+              <button className={styles.deltePost}
+              onClick={()=>handleDelete()} >
+                Borrar
+              </button>
+          </section>
           {/* Botones de borrar post y editar post -----> */}{" "}
-          {postConfig.view === true ? configPost() : (postConfig.view = false)}
-          <button className={styles.btnShare}>
+          {/* {postConfig.view === true ? configPost() : (postConfig.view = false)} */}
+
+          {/* <button className={styles.btnShare}>
             {" "}
             <MdIosShare />{" "}
-          </button>
+          </button> */}
         </section>
       </div>
 
@@ -278,14 +361,17 @@ export default function Card({
         <section className={styles.description}> {detail} </section>
       ) : (
         <div>
-          <button onClick={() => submitEditPost()}>Confirmar</button>
           <input
             onChange={(e) =>
               setPostConfig({ ...postConfig, detail: e.target.value })
+              // setPostConfig({ ...postConfig, [e.target.name]: e.target.value })
+
             }
             type={"text"}
             defaultValue={postConfig.detail}
           ></input>
+            <button onClick={()=> submitEditPost()}>Confirmar</button>
+            <button onClick={() => editPost(false)}>Cancelar</button>
         </div>
       )}
 

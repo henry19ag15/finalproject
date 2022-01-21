@@ -1,7 +1,7 @@
 @import "../../sass/variables";
 
 * {
-  //   outline: solid 1px red;
+  //outline: solid 1px red;
 }
 
 .body {
@@ -112,21 +112,21 @@
   padding: 0.5rem 0;
 }
 
-.btn {
-  //   position: absolute;
-  //   z-index: 3;
-  right: 20px;
-  top: 20px;
-  font-size: 20px;
-  color: white;
-  border-radius: 100px;
-  width: 80px;
-  height: 40px;
-  background-color: rgb(207, 30, 10);
-  border: none;
+// .btn {
+//   //   position: absolute;
+//   //   z-index: 3;
+//   right: 20px;
+//   top: 20px;
+//   font-size: 20px;
+//   color: white;
+//   border-radius: 100px;
+//   width: 80px;
+//   height: 40px;
+//   background-color: rgb(207, 30, 10);
+//   border: none;
 
-  cursor: pointer;
-}
+//   cursor: pointer;
+// }
 
 .profilePhoto {
   flex-direction: column;
@@ -139,9 +139,13 @@
   }
 }
 
+.btnHide {
+  display: none;
+}
+
 .btnLike,
-.btnShare,
-.btnCommit {
+//.btnShare,
+.btnOption {
   //   position: absolute;
   //   z-index: 3;
   //   bottom: 90px;
@@ -150,8 +154,8 @@
   border: none;
   font-size: 25px;
   background-color: white;
-  //color: rgba(128, 128, 128, 0.767);
   color: black;
+  // display: none;
 
 
   cursor: pointer;
@@ -171,6 +175,42 @@
     transform: scale(0.95);
   }
 }
+
+.optionsBox {
+  border-bottom: solid rgba(128, 128, 128, 0.336);
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin: 5px 0;
+  transition: 2s;
+
+  button {
+    font-family: "Nunito", sans-serif;
+    background-color: transparent;
+    border: none;
+    text-align: start;
+    font-size: 1rem;
+    margin: 3px 20px;
+    color: grey;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .deltePost {
+    color: red;
+    padding-inline-end: 5px;
+  }
+
+}
+
+.optionsHide {
+  position: fixed;
+  right: -150vw;
+  transition: 1s;
+}
+
 .cardProfile {
   //   position: absolute;
   display: flex;
