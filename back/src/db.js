@@ -60,11 +60,11 @@ Comment.belongsTo(User, {as: "autor"})
 // Likes.belongsTo(Post)
 // Post.hasMany(Likes)
 
-User.hasMany(Follower, {as: "follower", foreignKey: "follower_Id"})
+ User.hasMany(Follower, {as: "follower", foreignKey: "follower_Id"})
 Follower.belongsTo(User)
 
-// User.hasMany(Followings, {as: "followin", foreignKey : "autor_Id"})
-// Followings.belongsTo(User, {as: "autor"})
+ User.hasMany(Following, {as: "following", foreignKey : "autor_Id"})
+ Following.belongsTo(User, {as: "autor"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
