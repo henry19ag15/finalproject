@@ -59,13 +59,6 @@ Post.hasMany(Like, { onDelete: 'CASCADE' })
 Like.belongsTo(Post, { onDelete: 'CASCADE', foreingKey: "post_id" })
 
 
-<<<<<<< HEAD
- User.hasMany(Follower, {as: "follower", foreignKey: "follower_Id"})
-Follower.belongsTo(User)
-
- User.hasMany(Following, {as: "following", foreignKey : "autor_Id"})
- Following.belongsTo(User, {as: "autor"})
-=======
 ////////////////USER-LIKE
 User.hasMany(Like, { onDelete: 'CASCADE',  foreingKey: "autorId" })  
 Like.belongsTo(User, { onDelete: 'CASCADE'})
@@ -85,7 +78,6 @@ User.hasMany(Suscripto, { onDelete: 'CASCADE', foreignKey: "suscripto_Id" })
 Suscripto.belongsTo(User, { onDelete: 'CASCADE'})
 
 
->>>>>>> f339fc150b5f79057ce7f148700aa5b0ff9d5a72
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
