@@ -27,9 +27,10 @@ server.post("/", async function (req, res) {
     });
 
     await Notification.create({
-      autor: user.id,
-      details: "Ha comentado una de tus publicaciones",
+      autor: idUser,
+      details: " ha comentado una de tus publicaciones",
       about: idPost,
+      recieves: user.id,
     });
 
     res.status(200).send("comentario");

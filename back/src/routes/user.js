@@ -232,8 +232,9 @@ server.put("/follow", async (req, res) => {
 
         await Notification.create({
           autor: idTwo,
-          details: "Te ha empezado a seguir",
+          details: " te ha empezado a seguir",
           about: idTwo,
+          recieves: idOne,
         });
 
         res.send("Se ha empezado a seguir");
@@ -305,8 +306,9 @@ server.put("/suscribe", async (req, res) => {
         /* NOTIFICACION SOBRE NUEVO SUSCRITO */
         await Notification.create({
           autor: idTwo,
-          details: "Se ha suscrito a tu perfil.",
+          details: " se ha suscrito a tu perfil.",
           about: idTwo,
+          recieves: idOne,
         });
         res.send("Se ha empezado a suscribir");
       } catch (error) {

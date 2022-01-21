@@ -19,16 +19,11 @@ server.post("/", async function (req, res) {
     //   where: {},
     // });
 
-    // let user = await User.findOne({
-    //   where: {
-    //     id: creator,
-    //   },
-    // });
-
     // await Notification.create({
     //   autor: creator,
-    //   details: "Ha publicado algo",
+    //   details: " ha publicado algo",
     //   about: idPost,
+    //   recieves: user.id,
     // });
 
     res.status(200).send("se creo el post");
@@ -101,9 +96,10 @@ server.post("/likes", async function (req, res) {
       });
 
       await Notification.create({
-        autor: user.id,
-        details: "Le ha dado like a una de tus publicaciones.",
+        autor: idUser,
+        details: " le ha dado like a una de tus publicaciones.",
         about: idPost,
+        recieves: user.id,
       });
 
       res.status(200).send("like dado");

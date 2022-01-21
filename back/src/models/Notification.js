@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
     "notification",
     {
       autor: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       detail: {
@@ -13,7 +13,16 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       about: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      visto: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
+      recieves: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     }
