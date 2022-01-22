@@ -14,6 +14,20 @@ server.post('/', async function (req, res) {
         })
         res.status(200).send("se creo el post")
 
+
+        /* NOTIFICACION SOBRE NUEVO POST */
+
+        // let idPost = await Post.findOne({
+        //   where: {},
+        // });
+
+        // await Notification.create({
+        //   autor: creator,
+        //   details: " ha publicado algo",
+        //   about: idPost,
+        //   recieves: user.id,
+        // });
+
     } catch (error) {
         console.log(error)
     }
@@ -84,6 +98,7 @@ server.post("/likes", async function (req, res) {
         where: { id: idPost }
     })
 
+    console.log(findLike)
 
     if (!findLike) {
         try {
@@ -114,7 +129,7 @@ server.post("/likes", async function (req, res) {
                     userId: idUser,
                     postId: idPost,
                 }
-            })
+            });
             if (findPost.autorId !== idUser) {
                 await Notification.destroy({
                     where: {
@@ -124,7 +139,6 @@ server.post("/likes", async function (req, res) {
                     }
                 });
             }
-
             res.status(200).send("like borrado")
 
         } catch (error) {

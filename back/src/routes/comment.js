@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Comment,Notification,Post } = require('../db.js')
+const { Comment, Notification, Post } = require('../db.js')
 
 
 // comentar
@@ -32,13 +32,13 @@ server.post("/", async function (req, res) {
       });
 
     }
-
+   
     res.status(200).send("comentario")
 
-  } catch (error) {
-    res.status(400).send(error)
-    console.log(error)
 
+  } catch (error) {
+    // res.status(400).send(error)
+    console.log(error)
   }
 
 

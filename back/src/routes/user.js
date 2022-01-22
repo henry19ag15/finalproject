@@ -65,7 +65,8 @@ server.get("/", async function (req, res) {
       },
       { model: Following },
       { model: Suscriber },
-      { model: Suscripto }
+      { model: Suscripto },
+      { model: Notification }
       ]
     });
     res.send(users);
@@ -219,15 +220,15 @@ server.put("/follow", async (req, res) => {
           
 
         })
+
         await Notification.destroy({
-          where:{
+          where: {
             autor: idOne,
             about: idTwo,
             notification_Id: idOne
-
           }
         });
-        res.send("Se ha dejado de seguir")
+        res.status(200).send("Se ha dejado de seguir")
 
       } catch (error) {
         console.log(error)
@@ -245,6 +246,8 @@ server.put("/follow", async (req, res) => {
           autorId: idOne,
           followin_Id: idTwo
         })
+
+
         /* NOTIFICACION SOBRE SEGUIDO */
 
         await Notification.create({
@@ -253,7 +256,7 @@ server.put("/follow", async (req, res) => {
           about: idTwo,
           notification_Id: idOne
         });
-        res.send("Se ha empezado a seguir")
+        res.status(200).send("Se ha empezado a seguir")
 
 
       } catch (error) {
@@ -316,6 +319,15 @@ server.put("/suscribe", async (req, res) => {
           }
 
         })
+        await Notification.destroy({
+          where: {
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne
+
+          }
+
+        });
         res.send("Se ha dejado de suscribir")
 
       } catch (error) {
@@ -334,6 +346,8 @@ server.put("/suscribe", async (req, res) => {
           autorId: idOne,
           suscripto_Id: idTwo
         })
+
+
         await Notification.create({
           autor: idOne,
           detail: "Te ha empezado a suscribir",
