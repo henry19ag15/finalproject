@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Post, User, Comment, Like } = require('../db.js')
+const { Post, User, Comment, Like, Notification } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
@@ -80,6 +80,10 @@ server.post("/likes", async function (req, res) {
             postId: idPost
         }
     })
+    let findPost = await Post.findOne({
+        where: { id: idPost }
+    })
+
 
     if (!findLike) {
         try {
@@ -88,6 +92,14 @@ server.post("/likes", async function (req, res) {
                 postId: idPost,
 
             })
+            if (findPost.autorId !== idUser) {
+                await Notification.create({
+                    autor: idUser,
+                    detail: " le ha dado like a una de tus publicaciones.",
+                    about: idPost,
+                    notification_Id: findPost.autorId
+                });
+            }
             res.status(200).send("like dado")
 
         } catch (error) {

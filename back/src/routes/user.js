@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User, Follower, Following, Suscriber, Suscripto, Post } = require("../db");
+const { User, Follower, Following, Suscriber, Suscripto, Post, Notification } = require("../db");
 const sequelize = require("sequelize")
 
 // crear usuario
@@ -87,7 +87,8 @@ server.get("/:id", async function (req, res) {
       },
       { model: Following },
       { model: Suscriber },
-      { model: Suscripto }
+      { model: Suscripto },
+      { model: Notification }
       ]
 
 
@@ -235,6 +236,14 @@ server.put("/follow", async (req, res) => {
           autorId: idOne,
           followin_Id: idTwo
         })
+        /* NOTIFICACION SOBRE SEGUIDO */
+
+        await Notification.create({
+          autor: idOne,
+          detail: "Te ha empezado a seguir",
+          about: idTwo,
+          notification_Id: idOne
+        });
         res.send("Se ha empezado a seguir")
 
 
@@ -316,6 +325,12 @@ server.put("/suscribe", async (req, res) => {
           autorId: idOne,
           suscripto_Id: idTwo
         })
+        await Notification.create({
+          autor: idOne,
+          detail: "Te ha empezado a suscribir",
+          about: idTwo,
+          notification_Id: idOne
+        });
         res.send("Se ha empezado a suscribir")
 
 
