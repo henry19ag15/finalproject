@@ -108,15 +108,22 @@ export default function Card({
     return el.split("-").reverse().join("-");
   }
 
-  function render(id) {
+  function Render(id, Comment) {
     const userFromComment = profile.filter((user) => user.id === id);
 
     return (
       <div className={styles.photoNameBox}>
-        {userFromComment[0]?.profilephoto && (
-          <img src={userFromComment[0].profilephoto} alt="" />
-        )}
-        {userFromComment[0]?.username && <p>{userFromComment[0].username}</p>}
+        <div className={styles.imgBox}>
+          {userFromComment[0]?.profilephoto && (
+            <img src={userFromComment[0].profilephoto} alt="" />
+          )}
+        </div>
+        <div className={styles.commentTextBox}>
+          {userFromComment[0]?.username && (
+            <p className={styles.name}>{userFromComment[0].username}</p>
+          )}
+          <p>{Comment}</p>
+        </div>
       </div>
     );
   }
@@ -212,41 +219,30 @@ export default function Card({
 
   return (
     <div className={styles.cardbody}>
-      <div className={styles.cardData}>
-        <nav to="/home">
+      <header className={styles.cardProfile}>
+        <Link
+          to={linkInPhoto()}
+          //onClick={()=>setNavActive(false)}
+          className={styles.profilePhoto}
+        >
           {" "}
-          {/* TODO cambiar a link */}
-          <img className={styles.img} src={photo}></img>
-        </nav>
-      </div>
+          {useUser[0].profilephoto ? (
+            <img src={useUser[0].profilephoto} alt="" />
+          ) : (
+            <img src={noimg} alt="" />
+          )}
+        </Link>
+        <div className={styles.profileName}>
+          {" "}
+          {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+        </div>
+      </header>
+
+      <Link  to={`/user/${creator}`} className={styles.cardData}>
+        <img className={styles.img} src={photo}></img>
+      </Link>
 
       <div className={styles.cabeza}>
-        <header className={styles.cardProfile}>
-          <Link
-            to={linkInPhoto()}
-            //onClick={()=>setNavActive(false)}
-            className={styles.profilePhoto}
-          >
-            {" "}
-            {useUser[0].profilephoto ? (
-              <img src={useUser[0].profilephoto} alt="" />
-            ) : (
-              <img src={noimg} alt="" />
-            )}
-          </Link>
-          <div className={styles.profileName}>
-            {" "}
-            {useUser[0].username ? (
-              <h4>{useUser[0].username}</h4>
-            ) : (
-              <h2>User</h2>
-            )}
-          </div>
-          <section className={styles.datePosted}>
-            {" "}
-            {reverse(createdAt.substring(0, 10))}{" "}
-          </section>
-        </header>
         <section className={styles.btnBar}>
           <button
             className={
@@ -259,20 +255,28 @@ export default function Card({
             {" "}
             {likeValidate() ? <BsFillHeartFill /> : <FiHeart />}{" "}
           </button>
-          <button className={styles.btnCommit}>
-            {" "}
-            <HiDotsHorizontal />{" "}
-          </button>
+          {auth.currentUser.uid === creator && (
+            <button
+              className={styles.btnCommit}
+              onClick={() => {
+                setPostConfig({ ...postConfig, view: !postConfig.view });
+              }}
+            >
+              {" "}
+              <HiDotsHorizontal />{" "}
+            </button>
+          )}
           {/* Botones de borrar post y editar post -----> */}{" "}
-          {postConfig.view === true ? configPost() : (postConfig.view = false)}
-          <button className={styles.btnShare}>
-            {" "}
-            <MdIosShare />{" "}
-          </button>
+          {postConfig.view ? configPost() : false}
+        </section>
+
+        <section className={styles.datePosted}>
+          {" "}
+          {reverse(createdAt.substring(0, 10))}{" "}
         </section>
       </div>
 
-      <section className={styles.likes}> {likes.length} Likes </section>
+      <section className={styles.likes}>{likes.length} Me gusta </section>
 
       {postConfig.edit === false ? (
         <section className={styles.description}> {detail} </section>
@@ -299,7 +303,16 @@ export default function Card({
           autoComplete="off"
           value={inputComment}
         ></input>
-        <button onClick={(e) => handleComment(e)} className={styles.btnComment}>
+        <button
+          onClick={
+            inputComment.length > 0 ? (e) => handleComment(e) : undefined
+          }
+          className={
+            inputComment.length > 0
+              ? styles.btnComment
+              : `${styles.btnComment} ${styles.btnCommentDisabled}`
+          }
+        >
           Publicar
         </button>
       </div>
@@ -308,10 +321,7 @@ export default function Card({
         ? comment.comment.map((com) => {
             return (
               <div className={styles.commentBox}>
-                {render(com.userId)}
-                {com?.detail && (
-                  <p className={styles.comentario}>{com.detail}</p>
-                )}
+                {com?.detail && Render(com.userId, com.detail)}
               </div>
             );
           })

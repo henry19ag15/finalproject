@@ -51,13 +51,15 @@ const NavBar = () => {
 
   function handleSelectUser(e, uid) {
     // e.preventDefault()
-    // setInputSearch("");
-
+    
     if (uid === user.uid) {
       history.push(`/profile`);
+      setInputSearch("");
     } else {
       dispatch(getUserProfile(uid));
       history.push(`/user/${uid}`);
+      setInputSearch("");
+
     }
   }
   function handleSelectUserResp(e, uid) {
@@ -137,20 +139,39 @@ const NavBar = () => {
             navActive ? styles.NavMenu : `${styles.NavMenu} ${styles.disable}`
           }
         >
-          <li className={styles.searchBar}>
-            <input
-              className={styles.input}
-              type="text"
-              value={inputSearch}
-              placeholder="Buscar..."
-              onChange={(e) => handleChangeInput(e)}
-              onBlur={() => handleBlur()}
-              onFocus={() => setShowSearch(true)}
-            ></input>
+          <li className={!showSearch? styles.searchBar:`${styles.searchBar} ${styles.focusSearch}`}>
+            <div className={styles.inputIconBox}>
+              <input
+                className={styles.input}
+                type="text"
+                value={inputSearch}
+                placeholder="Buscar..."
+                onChange={(e) => handleChangeInput(e)}
+                onBlur={() => handleBlur()}
+                onFocus={() => setShowSearch(true)}
+              ></input>
 
-            <button className={styles.btn} type="submit">
-              <BiSearchAlt />
-            </button>
+              <button className={styles.btn} type="submit">
+                <BiSearchAlt />
+              </button>
+            </div>
+            <ul className={styles.renderSearched}>
+        {showSearch && inputSearch.length > 0
+          ? searchToRender.map((user) => (
+              <li key={user.id}>
+                <button onClick={(e) => handleSelectUser(e, user.id)}>
+                  {user.profilephoto ? (
+                    <img src={user.profilephoto} alt="" />
+                  ) : (
+                    <img src={noimg} alt="" />
+                  )}
+                  {user.username}
+                </button>
+              </li>
+            ))
+          : false}
+      </ul>
+
           </li>
           <li className={styles.menuItem}>
             {" "}
@@ -193,22 +214,7 @@ const NavBar = () => {
           <Hamburger size={30} toggled={navActive} toggle={setNavActive} />
         </button>
       </nav>
-      <ul className={styles.renderSearched}>
-        {showSearch && inputSearch.length > 0
-          ? searchToRender.map((user) => (
-              <li key={user.id}>
-                <button onClick={(e) => handleSelectUser(e, user.id)}>
-                  {user.profilephoto ? (
-                    <img src={user.profilephoto} alt="" />
-                  ) : (
-                    <img src={noimg} alt="" />
-                  )}
-                  {user.username}
-                </button>
-              </li>
-            ))
-          : false}
-      </ul>
+     
     </div>
   );
 };
