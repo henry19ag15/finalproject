@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Comment } = require('../db.js')
+const { Comment,Notification } = require('../db.js')
 
 
 // comentar
