@@ -12,31 +12,46 @@
 .cabeza {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
 }
+
 .commentBox {
-  padding: 0.3rem;
-  border: solid 1px gray;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  //   background-color: blue;
-  //   position: relative;
-  //   bottom: 0;
-  width: 90%;
-  margin: 0.3rem 0;
+  //  *{outline:solid 1px red}
+  height: 100%;
+  width: 95%;
+  margin: 0.5rem 0;
   .photoNameBox {
     display: flex;
-    align-items: center;
-    img {
-      height: 1.5rem;
-      width: 1.5rem;
-      border-radius: 50%;
-      margin-right: 0.3rem;
+    align-items: flex-start;
+
+    .imgBox {
+      height: 100%;
+      display: flex;
+
+      img {
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 50%;
+        margin-right: 0.3rem;
+      }
     }
-    p {
-      font-size: 0.9rem;
-      font-weight: 600;
+    .commentTextBox {
+      border-radius: 5px;
+      // border: solid 1px gray;
+      width: 100%;
+      p {
+        font-weight: 400;
+        text-align: left;
+        font-size: 0.9rem;
+        padding-right: 2rem;
+        padding-left: 0.5rem;
+      }
+      .name {
+        font-size: 1rem;
+        text-align: left;
+        font-weight: 500;
+        padding-left: 0;
+      }
     }
   }
   .comentario {
@@ -46,7 +61,6 @@
   }
 }
 
-
 .cardbody {
   //   position: relative;
   //   z-index: 1;
@@ -54,6 +68,7 @@
   border: solid;
   border-width: 1px;
   border-color: rgba(128, 128, 128, 0.336);
+  border-radius: 5px;
   // z-index: 1;
   max-width: inherit;
   width: 35rem;
@@ -64,9 +79,9 @@
   //   height: 30.5rem;
   //border-radius: 10px;
   margin: 1.5rem 0;
-  .datePosted{
+  .datePosted {
     // width: 100%;
-    color:gray;
+    color: gray;
     font-size: 0.75rem;
     text-align: start;
     padding-left: 0.5rem;
@@ -95,21 +110,28 @@
       cursor: pointer;
       background-color: transparent;
     }
+    .btnCommentDisabled {
+      color: gray;
+    }
   }
 }
+.cardData{
+  // width: 100%;
 
-.img {
-  //border-radius: 10px;
-  width: 100%;
-  height: 22em;
-  object-fit: cover;
-}
+  .img {
+    //border-radius: 10px;
+    // width: 100%;
+    height: 22em;
+    object-fit: cover;
+  }
+  }
+
 
 .description {
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
 }
 
 .btn {
@@ -133,10 +155,13 @@
   img {
     width: 2rem;
     height: 2rem;
-
-    border: solid 2px grey;
+    box-shadow: 0px 0px 5px black;
+    // border: solid 2px grey;
     border-radius: 50%;
   }
+}
+.btnLike {
+  transition: 0s;
 }
 
 .btnLike,
@@ -153,10 +178,8 @@
   //color: rgba(128, 128, 128, 0.767);
   color: black;
 
-
   cursor: pointer;
 }
-
 
 .colorLike {
   color: rgba(255, 0, 0, 0.747);
@@ -165,7 +188,7 @@
 .btnBar {
   button {
     margin: 0 0.3rem;
-    transition: 0.5s;
+    transition: 0.1s;
   }
   button:hover {
     transform: scale(0.95);
@@ -173,41 +196,38 @@
 }
 .cardProfile {
   //   position: absolute;
+  width: 95%;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   align-items: center;
   //   height: 3rem;
   text-align: left;
-  //   padding: 10px 0;
+  margin: 0.7rem 0;
 }
 
 .profilePhoto {
   margin: 0 0.3rem;
+  display: flex;
+  align-items: center;
   //   position: absolute;
+  border: none;
 }
 .profileName {
-  //   position: absolute;
-  //   left: 50px;
-  //   bottom: 8px;
-  // width: 15rem;
-  font-size: 1rem;
-  // margin-left: 40px ;
+  h4 {
+    font-weight: 600;
+  }
 }
 .likes {
   //   position: absolute;
   //   left: 15px;
-  width: 100%;
+  width: 93%;
   display: flex;
   justify-content: flex-start;
-  padding-left: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  // padding-left: 0.5rem;
   //   bottom: 60px;
-}
-
-.description {
-  //   position: absolute;
-  //   left: 15px;
-  //   bottom: 35px;
-  padding-left: 0.5rem;
 }
 
 .input:focus {
@@ -215,7 +235,7 @@
 }
 
 /** -------------------------------------------------------------------------------------------------------------------- */
-@media (max-width: 768px) {
+@media (max-width: 668px) {
   .cardbody {
     // border: solid;
     // border-color: $main-color;
@@ -226,25 +246,23 @@
     // margin: 0 ;
   }
 
-    .cardbody {
-        // border: solid;
-        // border-color: $main-color;
-        margin: 1rem 0;
-        width: 100%;
-        // height: 23em;
-        //border-radius: 10px;
-        // margin: 0 ;
-    }
+  .cardbody {
+    // border: solid;
+    // border-color: $main-color;
+    margin: 1rem 0;
+    width: 100%;
+    // height: 23em;
+    //border-radius: 10px;
+    // margin: 0 ;
+  }
 
-    .img {
-        //border-radius: 10px; 
-        width: 100%; 
-        // height:310px;
-    }
+  .img {
+    //border-radius: 10px;
+    width: 100%;
+    // height:310px;
+  }
 
-    .btnComment{
-        right: 25px;
-    
-    }
-
+  .btnComment {
+    right: 25px;
+  }
 }
