@@ -111,7 +111,7 @@ server.post("/likes", async function (req, res) {
                 await Notification.create({
                     autor: idUser,
                     detail: " le ha dado like a una de tus publicaciones.",
-                    about: idPost,
+                    about: `${idPost}`,
                     notification_Id: findPost.autorId
                 });
             }
@@ -134,7 +134,7 @@ server.post("/likes", async function (req, res) {
                 await Notification.destroy({
                     where: {
                         autor: idUser,
-                        about: idPost,
+                        about: `${idPost}`,
                         notification_Id: findPost.autorId
                     }
                 });
