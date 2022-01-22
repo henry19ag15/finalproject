@@ -115,6 +115,16 @@ server.post("/likes", async function (req, res) {
                     postId: idPost,
                 }
             })
+            if (findPost.autorId !== idUser) {
+                await Notification.destroy({
+                    where: {
+                        autor: idUser,
+                        about: idPost,
+                        notification_Id: findPost.autorId
+                    }
+                });
+            }
+
             res.status(200).send("like borrado")
 
         } catch (error) {

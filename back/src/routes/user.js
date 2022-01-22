@@ -216,8 +216,17 @@ server.put("/follow", async (req, res) => {
             followin_Id: idTwo
 
           }
+          
 
         })
+        await Notification.destroy({
+          where:{
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne
+
+          }
+        });
         res.send("Se ha dejado de seguir")
 
       } catch (error) {
