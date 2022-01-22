@@ -135,7 +135,7 @@ server.post("/likes", async function (req, res) {
                 await Notification.destroy({
                     where: {
                         autor: idUser,
-                        about: idPost,
+                        about: `${idPost}`,
                         notification_Id: findPost.autorId
                     }
                 });
