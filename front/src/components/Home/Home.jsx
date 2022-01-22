@@ -24,18 +24,16 @@ export default function Home() {
     if (a.createdAt > b.createdAt) return -1;
     return 0;
   });
-  console.log(userPost);
+console.log(userPost)
   useEffect(() => {
     dispatch(getAllUser());
-    dispatch(getMyProfile(user.uid))
-      .then((res) => {
-        console.log(res);
-        const arrayIds = res.payload.followings.map((el) => el.autorId);
-        dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
-          console.log(err)
-        );
-      })
-      .catch((err) => console.log(err));
+    dispatch(getMyProfile(user.uid)).then((res) => {
+      console.log(res);
+      const arrayIds = res.payload.followings.map((el) => el.autorId);
+      dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
+        console.log(err)
+      );
+    }).catch(err=>console.log(err));
   }, []);
 
   function parcheValidador(id) {
@@ -52,12 +50,11 @@ export default function Home() {
     <div className={styles.home}>
       {/* <NavBar /> */}
       <div className={styles.container}>
-        {userPost.length !== 0 ? (
-          userPost.map((el) =>
-            parcheValidador(el.autorId) ? (
-              // <LazyLoad height={488} offset={10}>
+        {userPost?.map((el) =>
+          parcheValidador(el.autorId) ? (
+            <LazyLoad height={488} offset={5}>
               <Card
-                locate="home"
+              locate="home"
                 id={el.id}
                 key={el.id}
                 photo={el.photo}
@@ -66,15 +63,10 @@ export default function Home() {
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
-            ) : (
-              //  </LazyLoad>
-              false
-            )
+             </LazyLoad> 
+          ) : (
+            false
           )
-        ) : (
-          <div className={styles.postNone}>
-            <p>No hay publicaciones para mostrar</p>
-          </div>
         )}
       </div>
     </div>
