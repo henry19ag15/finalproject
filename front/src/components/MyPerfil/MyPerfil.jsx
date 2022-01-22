@@ -534,8 +534,11 @@ export default function MyPerfil() {
               />
               // </LazyLoad>
             ))
-          ) : (
+          ) : (<div className={style.nonePost}>
+
+         
             <p>No hay publicaciones realizadas</p>
+            </div>
           )}
         </span>
       </body>

@@ -35,6 +35,12 @@ export default function UserProfile() {
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
+  
+  useEffect(()=>{
+if(newStr===auth.currentUser.uid){history.push('/profile')}
+  },[])
+  
+  
   useEffect(() => {
     dispatch(getUserProfile(newStr));
     // console.log(newStr);
@@ -163,8 +169,10 @@ export default function UserProfile() {
                 createdAt={el.createdAt}
               />
             ))
-          ) : (
+          ) : (<div className={style.postNone}>
+
             <p>No hay publicaciones realizadas</p>
+          </div>
           )}
         </span>
       </body>
