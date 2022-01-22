@@ -38,7 +38,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Post, Comment, Following, Follower, Like, Suscriber, Suscripto } = sequelize.models;
+const { User, Post, Comment, Following, Follower, Like, Suscriber, Suscripto,Notification} = sequelize.models;
 
 ////////////////////////////////// RELACIONES/////////////////////////////////////////
 
@@ -76,6 +76,10 @@ Suscriber.belongsTo(User, { onDelete: 'CASCADE' })
 ///////////////USER-FOLLOWING
 User.hasMany(Suscripto, { onDelete: 'CASCADE', foreignKey: "suscripto_Id" })
 Suscripto.belongsTo(User, { onDelete: 'CASCADE'})
+
+///////////////USER-NOTIFICATION
+User.hasMany(Notification, { onDelete: 'CASCADE', foreignKey: "notification_Id" })
+Notification.belongsTo(User, { onDelete: 'CASCADE'})
 
 
 
