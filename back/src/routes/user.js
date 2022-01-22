@@ -185,7 +185,15 @@ server.put("/follow", async (req, res) => {
           }
 
         })
-        res.send("Se ha dejado de seguir")
+
+        await Notification.destroy({
+          where: {
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne
+          }
+        });
+        res.status(200).send("Se ha dejado de seguir")
 
       } catch (error) {
         console.log(error)
@@ -211,9 +219,9 @@ server.put("/follow", async (req, res) => {
           autor: idOne,
           detail: "Te ha empezado a seguir",
           about: idTwo,
-          notification_Id:idOne
+          notification_Id: idOne
         });
-        res.send("Se ha empezado a seguir")
+        res.status(200).send("Se ha empezado a seguir")
 
 
       } catch (error) {
@@ -276,6 +284,15 @@ server.put("/suscribe", async (req, res) => {
           }
 
         })
+        await Notification.destroy({
+          where: {
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne
+
+          }
+
+        });
         res.send("Se ha dejado de suscribir")
 
       } catch (error) {
@@ -295,12 +312,12 @@ server.put("/suscribe", async (req, res) => {
           suscripto_Id: idTwo
         })
 
-        
+
         await Notification.create({
           autor: idOne,
           detail: "Te ha empezado a suscribir",
           about: idTwo,
-          notification_Id:idOne
+          notification_Id: idOne
         });
         res.send("Se ha empezado a suscribir")
 
