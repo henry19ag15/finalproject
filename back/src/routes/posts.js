@@ -179,11 +179,7 @@ server.put('/setting/:id', (req, res, next) => {
     const { id, detail } = req.body.payload;
 
     var postmod = {
-        photo,
         detail: detail,
-        creator,
-        likes,
-        active
     }
     Post.findOne({
         where: {
