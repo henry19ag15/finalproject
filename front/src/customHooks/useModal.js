@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { getAuth } from "firebase/auth";
-import {app} from '../firebase/firebaseConfig'
+import { app } from '../firebase/firebaseConfig'
 import swal from "sweetalert";
 import axios from 'axios'
-
+import { useDispatch, useSelector } from "react-redux";
+import { getPost, getPostMyProfile } from "../Redux/02-actions";
+import MyPerfil from "../components/MyPerfil/MyPerfil";
 
 
 const useModal = (initialValue = false) => {
-  
+  const dispatch = useDispatch()
   const auth = getAuth();
   const user = auth.currentUser
+  const myProfile = useSelector(state => state.myProfile)
   const [isOpen, setIsOpen] = useState(initialValue);
   const [fileUrl, setFileUrl] = useState(null);
   const [form, setForm] = useState({
     creator: user.uid,
     imagen: "",
     detail: "",
-    type: "Público",
+    type: false,
   });
 
   const [loading, setLoading] = useState(false)
@@ -65,25 +68,35 @@ const useModal = (initialValue = false) => {
   const handleSubmit = async (e) => {
     setLoading(true)
     e.preventDefault();
-      const storageRef = app
-        .storage()
-        .ref("posts/" + user.uid + "/" + form.imagen);
-      await storageRef.put(form.imgUrl);
-      const url = await storageRef.getDownloadURL();
-      await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/", {
-        photoURL: url,
-        creator: form.creator,
-        detail: form.detail,
-      }).then(() =>{
-        setLoading(false)
-        swal("Publicaón creada correctamente", {
-          icon: "success",
-        });
-        handleReset();
-        closeModal()
-      }).catch((error) =>{
-        console.log(error)
+    const storageRef = app
+      .storage()
+      .ref("posts/" + user.uid + "/" + form.imagen);
+    await storageRef.put(form.imgUrl);
+    const url = await storageRef.getDownloadURL();
+    await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/", {
+      photoURL: url,
+      creator: form.creator,
+      detail: form.detail,
+      private: form.type
+    }).then((res) => {
+      console.log(res)
+      setLoading(false)
+      swal("Publicaón creada correctamente", {
+        icon: "success",
       })
+      const arrayIds = myProfile.followers.map((el) => el.autorId)
+
+      dispatch(getPost(arrayIds.concat(auth.currentUser.uid)))
+      dispatch(getPostMyProfile([auth.currentUser.uid]))
+      handleReset();
+      closeModal()
+    }).catch((error) => {
+      swal("No se pudo subir la publicaciones", {
+        icon: "error",
+      })
+
+      console.log(error)
+    })
   };
 
 
