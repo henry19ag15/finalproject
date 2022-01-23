@@ -10,6 +10,7 @@ import MyPerfil from './components/MyPerfil/MyPerfil';
 import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 import UserProfile from './components/UserProfile/UserProfile'
+import Error404 from './components/Error404/Error404';
 
 
 
@@ -45,12 +46,14 @@ function App() {
           <MyPerfil />
         </Route>
         <Route exact path="/user/:id">
-
           <NavBar />
           <UserProfile />
         </Route>
 
-
+         
+        <Route path="*">
+          <Error404/>
+        </Route>
       </Switch>
 
     } else if (log === 2) {
@@ -63,6 +66,9 @@ function App() {
         </Route>
         <Route path="/recovery">
           <RecoverPassword />
+        </Route>
+        <Route path="*">
+          <Error404/>
         </Route>
       </Switch>
     }

@@ -18,6 +18,8 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
+import LoadingPage from "../LoadingPage/LoadingPage";
+import Error404 from "../Error404/Error404";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ export default function UserProfile() {
   const user = auth.currentUser;
   const perfil = useSelector((state) => state.userView);
   const history = useHistory();
-
+  const [load, setLoad] = useState(0);
   const [followActive, setFollowActive] = useState({
     view: false,
     type: "",
@@ -35,19 +37,24 @@ export default function UserProfile() {
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
-  
-  useEffect(()=>{
-if(newStr===auth.currentUser.uid){history.push('/profile')}
-  },[])
-  
-  
+
   useEffect(() => {
-    dispatch(getUserProfile(newStr));
+    if (newStr === auth.currentUser.uid) {
+      history.push("/profile");
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUserProfile(newStr)).then(() => {
+      console.log(perfil)
+      perfil.length!==0 ? setLoad(1) : setLoad(2);
+    });
+
     // console.log(newStr);
     // console.log(perfil);
   }, []);
 
-  console.log("este es perfil",perfil)
+  
   //////////////// Logica de Follow /////////////////
 
   function handleFollow(e) {
@@ -66,7 +73,8 @@ if(newStr===auth.currentUser.uid){history.push('/profile')}
 
   const checkFollow = () => {
     const areFollow =
-      perfil.followers && perfil.followers.filter((follow) => follow.autorId === user.uid);
+      perfil.followers &&
+      perfil.followers.filter((follow) => follow.autorId === user.uid);
     console.log(areFollow);
     if (areFollow && areFollow.length > 0) {
       return false;
@@ -92,99 +100,116 @@ if(newStr===auth.currentUser.uid){history.push('/profile')}
 
   ///////////////////////////////////////////////////
 
-  return (
-    <div className={style.allMyPerfil}>
-      <header className={style.cabeza}>
-        <div className={style.imgFollBox}>
-          {perfil.profilephoto ? (
-            <img
-              className={style.photoProfile}
-              src={perfil.profilephoto}
-              alt=""
-            />
-          ) : (
-            <img className={style.photoProfile} src={noImg} alt="" />
-          )}
+  //////////////// LOGICA DE POSTEOS /////////////////
 
-          <div className={style.followBox}>
-            <button
-              onClick={(e) =>
-                setFollowActive({
-                  view: true,
-                  type: "followers",
-                })
-              }
-            >
-              <p>Seguidores</p>
-              {perfil.followers && <p>{perfil.followers.length}</p>}
-            </button>
-            <button
-              onClick={(e) =>
-                setFollowActive({ view: true, type: "following" })
-              }
-            >
-              <p>Seguidos</p>
-              {perfil.followings && <p>{perfil.followings.length}</p>}
-            </button>
-          </div>
-        </div>
-        <div className={style.nameConfigBox}>
-          <div className={style.nameBox}>
-            <h3>{perfil.username}</h3>
-            <h4>{perfil.email}</h4>
-          </div>
-          <div className={style.btnFollowBox}>
-            {checkFollow() ? (
-              <button className={style.follow} onClick={(e) => handleFollow(e)}>
-                Seguir
-              </button>
-            ) : (
-              <button
-                className={style.unfollow}
-                onClick={(e) => handleFollow(e)}
-              >
-                Dejar de seguir
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className={style.details}>
-          <p>{perfil.detail}</p>
-        </div>
-      </header>
-
-      <body>
-        <span>
-          {userPost.length > 0 ? (
-            userPost.map((el) => (
-              <Card
-                locate="userProfile"
-                id={el.id}
-                key={el.id}
-                photo={el.photo}
-                detail={el.detail}
-                creator={el.autorId}
-                likes={el.likes}
-                createdAt={el.createdAt}
+  function RenderProfile() {
+    return (
+      <div className={style.allMyPerfil}>
+        <header className={style.cabeza}>
+          <div className={style.imgFollBox}>
+            {perfil.profilephoto ? (
+              <img
+                className={style.photoProfile}
+                src={perfil.profilephoto}
+                alt=""
               />
-            ))
-          ) : (<div className={style.postNone}>
+            ) : (
+              <img className={style.photoProfile} src={noImg} alt="" />
+            )}
 
-            <p>No hay publicaciones realizadas</p>
+            <div className={style.followBox}>
+              <button
+                onClick={(e) =>
+                  setFollowActive({
+                    view: true,
+                    type: "followers",
+                  })
+                }
+              >
+                <p>Seguidores</p>
+                {perfil.followers && <p>{perfil.followers.length}</p>}
+              </button>
+              <button
+                onClick={(e) =>
+                  setFollowActive({ view: true, type: "following" })
+                }
+              >
+                <p>Seguidos</p>
+                {perfil.followings && <p>{perfil.followings.length}</p>}
+              </button>
+            </div>
           </div>
-          )}
-        </span>
-      </body>
+          <div className={style.nameConfigBox}>
+            <div className={style.nameBox}>
+              <h3>{perfil.username}</h3>
+              <h4>{perfil.email}</h4>
+            </div>
+            <div className={style.btnFollowBox}>
+              {checkFollow() ? (
+                <button
+                  className={style.follow}
+                  onClick={(e) => handleFollow(e)}
+                >
+                  Seguir
+                </button>
+              ) : (
+                <button
+                  className={style.unfollow}
+                  onClick={(e) => handleFollow(e)}
+                >
+                  Dejar de seguir
+                </button>
+              )}
+            </div>
+          </div>
 
-      {followActive.view === true ? (
-        <FollowModalOtherProfile
-          setFollowActive={setFollowActive}
-          followActive={followActive}
-        />
-      ) : (
-        false
-      )}
-    </div>
-  );
+          <div className={style.details}>
+            <p>{perfil.detail}</p>
+          </div>
+        </header>
+
+        <body>
+          <span>
+            {userPost.length > 0 ? (
+              userPost.map((el) => (
+                <Card
+                  locate="userProfile"
+                  id={el.id}
+                  key={el.id}
+                  photo={el.photo}
+                  detail={el.detail}
+                  creator={el.autorId}
+                  likes={el.likes}
+                  createdAt={el.createdAt}
+                />
+              ))
+            ) : (
+              <div className={style.postNone}>
+                <p>No hay publicaciones realizadas</p>
+              </div>
+            )}
+          </span>
+        </body>
+
+        {followActive.view === true ? (
+          <FollowModalOtherProfile
+            setFollowActive={setFollowActive}
+            followActive={followActive}
+          />
+        ) : (
+          false
+        )}
+      </div>
+    );
+  }
+
+  ///////////////////////////////////////////////////
+
+  // return load === 1 ? RenderProfile() : <LoadingPage />;
+
+  if (load === 0) {
+    return <LoadingPage />;
+  } else if (load === 1) {
+    return RenderProfile();
+  } else if (load === 2) return <Error404 />;
 }
