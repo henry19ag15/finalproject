@@ -10,7 +10,7 @@ server.put("/viewed", async (req, res) => {
     { visto: true },
     { where: { notification_Id: id } }
   )
-
+  res.send("notifications")
 
 });
 
