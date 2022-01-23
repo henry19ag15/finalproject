@@ -64,6 +64,9 @@ console.log("llamo ahora")
         <Route path="*">
           <Error404/>
         </Route>
+
+
+        
       </Switch>
 
     } else if (log === 2) {
