@@ -519,9 +519,22 @@ export default function MyPerfil() {
         </div>
         {renderConfig()}
         <span className={style.myProfileContainer}>
+          {userPost?.map((el) => (
+            <LazyLoad height={400} offset={5}>
+            <Card
+              key={el.id}
+              photo={el.photo}
+              detail={el.detail}
+              creator={el.creator}
+              likes={el.likes}
+              createdAt={el.createdAt}
+            />
+            </LazyLoad>
+          ))}
+
           {userPost.length > 0 ? (
             userPost.map((el) => (
-              // <LazyLoad height={488} offset={10}>
+              <LazyLoad height={488} offset={5}>
               <Card
                 locate="myProfile"
                 id={el.id}
@@ -532,7 +545,7 @@ export default function MyPerfil() {
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
-              // </LazyLoad>
+             </LazyLoad>
             ))
           ) : (<div className={style.nonePost}>
 
