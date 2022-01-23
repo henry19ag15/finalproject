@@ -10,7 +10,7 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
+import { getMyProfile, getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AiFillSetting } from "react-icons/ai";
@@ -38,6 +38,9 @@ export default function UserProfile() {
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
 
+
+
+
   useEffect(() => {
     if (newStr === auth.currentUser.uid) {
       history.push("/profile");
@@ -45,16 +48,21 @@ export default function UserProfile() {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserProfile(newStr)).then(() => {
-      console.log(perfil)
-      perfil.length!==0 ? setLoad(1) : setLoad(2);
+    dispatch(getMyProfile(auth.currentUser.uid))
+    dispatch(getUserProfile(newStr)).then((res) => {
+      console.log("esto es res", res);
+
+      if (res.payload.active === true) {
+        setLoad(1);
+      } else {
+        setLoad(2);
+      }
     });
 
     // console.log(newStr);
     // console.log(perfil);
   }, []);
 
-  
   //////////////// Logica de Follow /////////////////
 
   function handleFollow(e) {
@@ -99,8 +107,6 @@ export default function UserProfile() {
   });
 
   ///////////////////////////////////////////////////
-
-  //////////////// LOGICA DE POSTEOS /////////////////
 
   function RenderProfile() {
     return (

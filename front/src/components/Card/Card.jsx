@@ -4,6 +4,8 @@ import { MdIosShare } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { BsFillHeartFill } from "react-icons/bs";
+import swal from "sweetalert";
+import loading from "../../sass/loading.gif"
 
 import styles from "./Card.module.scss";
 import { getAuth } from "firebase/auth";
@@ -43,6 +45,7 @@ export default function Card({
     edit: false,
     detail: detail,
   });
+  const [load, setLoad] = useState(false)
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -93,7 +96,6 @@ export default function Card({
           )
           .then((res) => {
             console.log("res 2", res);
-
             setComment({ comment: res.data });
           });
 
@@ -131,37 +133,125 @@ export default function Card({
 
   /////////// EDITAR Y BORRAR POST /////////////
   function deletePost() {
-    axios.delete(
-      `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
-    );
+    swal({
+      title: "Editar Post",
+      text: "¿Seguro que quieres editar el post?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        setLoad(true)
+        axios.delete(
+          `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+        ).then(() => {
+          setLoad(false)
+          setPostConfig({ ...postConfig, view: false, edit: false })
+          if (locate === "home") {
+            const post = myProfile.followings.map((user) => user.autorId);
+            dispatch(getPost(post.concat(auth.currentUser.uid)))
+
+          }
+          else if (locate === "myProfile") {
+            dispatch(getPostMyProfile([auth.currentUser.uid]))
+          }
+
+
+        })
+      }
+      else {
+        return
+      }
+
+
+    })
   }
+
+
+
+
   let contador = 0;
 
   function editPost(e) {
     if (e === true) {
       setPostConfig({ ...postConfig, edit: true });
     } else {
-      setPostConfig({ ...postConfig, edit: false, view: false });
+      setPostConfig({ ...postConfig, edit: false });
     }
   }
 
-  async function submitEditPost() {
-    await axios.put(
-      `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
-      { payload: { id: id, detail: postConfig.detail } }
-    );
-    setPostConfig({ ...postConfig, edit: false, view: false });
+  function submitEditPost() {
+    swal({
+      title: "Editar Post",
+      text: "¿Seguro que quieres editar el post?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        setLoad(true)
+        axios.put(
+          `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
+          { payload: { id: id, detail: postConfig.detail } }
+        ).then(() => {
+          setLoad(false)
+          setPostConfig({ ...postConfig, view: false, edit: false })
+          if (locate === "home") {
+            const post = myProfile.followings.map((user) => user.autorId);
+            dispatch(getPost(post.concat(auth.currentUser.uid)))
+
+          }
+          else if (locate === "myProfile") {
+            dispatch(getPostMyProfile([auth.currentUser.uid]))
+          }
+
+
+
+        })
+
+      }
+      else {
+        return
+      }
+
+
+    }).catch(error => { console.log(error) })
+
   }
 
   function configPost() {
     return (
-      <div>
-        <button onClick={() => deletePost()}>Eliminar post</button>
-        {postConfig.edit === false ? (
-          <button onClick={() => editPost(true)}>Editar post</button>
-        ) : (
-          <button onClick={() => editPost(false)}>Cancelar edicion</button>
-        )}
+      <div className={styles.editBox}>
+        <div className={styles.card}>
+          <div className={styles.head}>
+            <button onClick={e => setPostConfig({ ...postConfig, view: false, edit: false })} className={styles.buttonClose}>X</button>
+          </div>
+          {postConfig.edit === false ? (
+            <div className={styles.bodycardnoedit}>
+              <button className={styles.cancelar} onClick={() => deletePost()}>Eliminar post</button>
+              <button onClick={() => editPost(true)}>Editar post</button>
+            </div>
+          ) : (
+            <div className={styles.bodycard}>
+              <div className={styles.btnBox}>
+                <button className={styles.cancelar} onClick={() => editPost(false)}>Cancelar edicion</button>
+                <button onClick={() => submitEditPost()}>Confirmar</button>
+              </div>
+              <div className={styles.inputBox}>
+                <textarea
+                  onChange={(e) =>
+                    setPostConfig({ ...postConfig, detail: e.target.value })
+                  }
+                  type={"text"}
+                  defaultValue={postConfig.detail}
+                  resize="none"
+                ></textarea>
+              </div>
+
+            </div>
+          )}
+
+        </div>
       </div>
     );
   }
@@ -221,7 +311,7 @@ export default function Card({
           className={styles.profilePhoto}
         >
           {" "}
-          {useUser[0].profilephoto ? (
+          {useUser[0]?.profilephoto ? (
             <img src={useUser[0].profilephoto} alt="" />
           ) : (
             <img src={noimg} alt="" />
@@ -229,7 +319,7 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
         </div>
       </header>
 
@@ -261,9 +351,10 @@ export default function Card({
               <HiDotsHorizontal />{" "}
             </button>
           )}
-          {/* Botones de borrar post y editar post -----> */}{" "}
+          {/* Ventana Modal con opciones para borrar y editar post*/}{" "}
           {postConfig.view ? configPost() : false}
         </section>
+
 
         <section className={styles.datePosted}>
           {" "}
@@ -273,20 +364,8 @@ export default function Card({
 
       <section className={styles.likes}>{likes.length} Me gusta </section>
 
-      {postConfig.edit === false ? (
-        <section className={styles.description}> {detail} </section>
-      ) : (
-        <div>
-          <button onClick={() => submitEditPost()}>Confirmar</button>
-          <input
-            onChange={(e) =>
-              setPostConfig({ ...postConfig, detail: e.target.value })
-            }
-            type={"text"}
-            defaultValue={postConfig.detail}
-          ></input>
-        </div>
-      )}
+
+      <section className={styles.description}> {detail} </section>
 
       <div className={styles.inputCommentBox}>
         <input
@@ -315,12 +394,17 @@ export default function Card({
       {comment.comment
         ? comment.comment.map((com) => {
             return (
-              <div className={styles.commentBox}>
+              <div key={com.id} className={styles.commentBox}>
                 {com?.detail && Render(com.userId, com.detail)}
               </div>
             );
           })
         : false}
+      {load === true ?
+        <div className={styles.load} >
+          <img src={loading} alt="" />
+        </div> : false}
     </div>
+
   );
 }
