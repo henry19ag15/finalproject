@@ -251,7 +251,7 @@ server.put("/follow", async (req, res) => {
         /* NOTIFICACION SOBRE SEGUIDO */
 
         await Notification.create({
-          autor: idOne,
+          autor: idTwo,
           detail: "Te ha empezado a seguir",
           about: idTwo,
           notification_Id: idOne
