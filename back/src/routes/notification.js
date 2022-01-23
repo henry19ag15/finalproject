@@ -12,8 +12,8 @@ server.put("/viewed", async (req, res) => {
         notification_Id: id,
       },
     }).then(res => {
-      res.map(e => e.visto = true)
-      res.save();
+      res.map(e => e.visto = true).save();
+
     })
 
     res.status(200);
