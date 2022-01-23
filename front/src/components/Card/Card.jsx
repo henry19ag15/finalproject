@@ -311,7 +311,7 @@ export default function Card({
           className={styles.profilePhoto}
         >
           {" "}
-          {useUser[0].profilephoto ? (
+          {useUser[0]?.profilephoto ? (
             <img src={useUser[0].profilephoto} alt="" />
           ) : (
             <img src={noimg} alt="" />
@@ -319,7 +319,7 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
         </div>
       </header>
 
