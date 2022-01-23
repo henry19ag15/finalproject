@@ -32,6 +32,7 @@ export default function Card({
   // console.log("este es el id", id);
   const user = auth.currentUser;
   const myProfile = useSelector((state) => state.myProfile);
+  const userView = useSelector((state) => state.userView);
 
   const useUser = profile.filter((el) => el.id === creator);
   //console.log("esto es el user: ", useUser);
@@ -58,7 +59,7 @@ export default function Card({
     (user) => user.id === comment?.comment?.idUser
   ); */
   //console.log("acacac", comment);
-  console.log("comentario", comment.comment);
+  // console.log("comentario", comment.comment);
   useEffect(() => {
     axios
       .get(
@@ -96,11 +97,11 @@ export default function Card({
             setComment({ comment: res.data });
           });
 
-        console.log({
+        /*  console.log({
           idUser: auth.currentUser.uid,
           idPost: id,
           detail: inputComment,
-        });
+        }); */
       });
   }
 
@@ -168,25 +169,19 @@ export default function Card({
   ////////////////////////////////////////
 
   function handleLike(e) {
+    e.preventDefault();
     function checkLocateCard() {
-      switch (locate) {
-        case "myProfile":
-          dispatch(getPostMyProfile([auth.currentUser.uid]));
+      if (locate === "myProfile") {
+        dispatch(getPostMyProfile([auth.currentUser.uid]));
+      } else if (locate === "userProfile") {
+        dispatch(getPostUserProfile([creator]));
+      } else if (locate === "home") {
+        const arrayIds = myProfile.followings.map((el) => el.autorId);
 
-        case "home":
-          const arrayIds = myProfile.followings.map((el) => el.autorId);
-          myProfile.followings &&
-            dispatch(getPost(arrayIds.concat(myProfile.id)));
-
-        case "userProfile":
-          dispatch(getPostUserProfile([creator]));
-
-        default:
-          break;
+        dispatch(getPost(arrayIds.concat(myProfile.id)));
       }
     }
 
-    e.preventDefault();
     axios
       .post(`https://pruebaconbackreal-pg15.herokuapp.com/posts/likes/`, {
         idUser: auth.currentUser.uid,
@@ -197,13 +192,13 @@ export default function Card({
         console.log("res de likes: ", res);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Funcion like error", error);
       });
     // .then((id) => {
     //   console.log('array de likes ', id)
     // })
   }
-  console.log("aqui likes", likes);
+  // console.log("aqui likes", likes);
 
   function likeValidate() {
     const viewIdLikes = likes.filter(
@@ -238,7 +233,7 @@ export default function Card({
         </div>
       </header>
 
-      <Link  to={`/user/${creator}`} className={styles.cardData}>
+      <Link to={`/user/${creator}`} className={styles.cardData}>
         <img className={styles.img} src={photo}></img>
       </Link>
 

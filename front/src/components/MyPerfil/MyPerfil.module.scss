@@ -123,8 +123,9 @@
       // margin: 0.2rem 0;
       padding: 1rem 0;
       border-radius: 5px;
-      padding-right: 30%;
+       padding-right: 50%;
       p {
+        // width: 150vw;
         font-size: 0.8rem;
         color: $background-c;
         text-align: start;
@@ -333,7 +334,7 @@
   .allMyPerfil {
     .cabeza {
       .details {
-        padding-right: 50%;
+        padding-right: 20%;
       }
     }
   }
