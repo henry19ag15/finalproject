@@ -315,7 +315,7 @@ export default function Card({
       {comment.comment
         ? comment.comment.map((com) => {
             return (
-              <div className={styles.commentBox}>
+              <div key={com.id} className={styles.commentBox}>
                 {com?.detail && Render(com.userId, com.detail)}
               </div>
             );
