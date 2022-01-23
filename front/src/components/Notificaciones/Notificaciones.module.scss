@@ -11,12 +11,18 @@ overflow-y:scroll;
 
 
   ul {
+    // display: flex;
+    // flex-direction: column-reverse;
     li {
       list-style: none;
       .cadaNotificaion {
         padding: 0.5rem 0;
+        width: 100%;
         display: flex;
         transition:.2s ;
+        border:none;
+        background: transparent;
+        cursor: pointer;
         img {
           height: 2rem;
           width: 2rem;

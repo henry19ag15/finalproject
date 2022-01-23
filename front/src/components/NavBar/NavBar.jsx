@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
 import Post from "../Post/Post";
 import Notificaiones from "../Notificaciones/Notificaciones";
+import axios from 'axios';
 
 const NavBar = () => {
   const auth = getAuth();
@@ -93,6 +94,29 @@ const NavBar = () => {
       (noti) => noti.visto === false
     );
     return validate?.length;
+  }
+
+
+
+
+
+
+  function handleNotificationView() {
+
+    axios
+    .put(
+      "https://pruebaconbackreal-pg15.herokuapp.com/notification/viewed",
+      {
+        id: auth.currentUser.uid,
+      }
+    )
+    .then((res) => {
+      dispatch(getMyProfile(auth.currentUser.uid))
+      console.log(res)})
+    .catch((err) => console.log(err));
+  
+  
+    setNotiView(!notiView)
   }
 
   //////////////////////////////////////////////
@@ -196,9 +220,9 @@ const NavBar = () => {
             {" "}
             <buttom
               className={styles.btnNotifi}
-              onClick={() => setNotiView(!notiView)}
+              onClick={() => handleNotificationView()}
             >
-              {validateNotification()!==0 &&<p>{validateNotification()}</p>}
+              {validateNotification() !== 0 ? <p>{validateNotification()}</p>:false}
               <IoMdNotificationsOutline />{" "}
             </buttom>
             {notiView ? <Notificaiones /> : false}
