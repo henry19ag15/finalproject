@@ -1,18 +1,22 @@
 const server = require("express").Router();
 const { Notification } = require("../db.js");
 
-server.get("/:id", async (req, res) => {
+server.put("/viewed", async (req, res) => {
   console.log(req.body);
   /* id del que mira SUS notificaciones*/
-  const { id } = req.params;
+  const { id } = req.body;
 
   try {
-    let busy = await Notification.findAll({
+    await Notification.findAll({
       where: {
-        recieves: id,
+        notification_Id: id,
       },
-    });
-    res.status(200).send(busy);
+    }).then(res => {
+      res.map(e => e.visto = true)
+      res.save();
+    })
+
+    res.status(200);
   } catch (err) {
     console.log(err);
   }
