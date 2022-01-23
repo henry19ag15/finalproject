@@ -6,20 +6,12 @@ server.put("/viewed", async (req, res) => {
   /* id del que mira SUS notificaciones*/
   const { id } = req.body;
 
-  try {
-    await Notification.findAll({
-      where: {
-        notification_Id: id,
-      },
-    }).then(response => {
-      response.map(e => e.visto = true).save();
+  Notification.update(
+    { visto: true },
+    { where: { notification_Id: id } }
+  )
 
-    })
 
-    res.status(200);
-  } catch (err) {
-    console.log(err);
-  }
 });
 
 
