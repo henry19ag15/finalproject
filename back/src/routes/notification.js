@@ -11,8 +11,8 @@ server.put("/viewed", async (req, res) => {
       where: {
         notification_Id: id,
       },
-    }).then(res => {
-      res.map(e => e.visto = true).save();
+    }).then(response => {
+      response.map(e => e.visto = true).save();
 
     })
 
