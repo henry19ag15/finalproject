@@ -3,7 +3,7 @@
 * {
   //   outline: solid 1px red;
 }
-.load{
+.load {
   position: fixed;
   top: 0;
   height: 100%;
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
-  img{
+  img {
     height: 2rem;
   }
 }
@@ -165,45 +165,42 @@
           border-radius: 50%;
           transition: 0.2s;
           margin: 0.5rem;
-          
         }
       }
-      .bodycardnoedit{
+      .bodycardnoedit {
         height: 100%;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        .cancelar{
+        .cancelar {
           background-color: red;
-          
-          
         }
-        button{
+        button {
           border: none;
           padding: 2rem;
-          
+
           border-radius: 5px;
           background-color: $main-color;
           color: white;
           box-shadow: 1px 1px 5px black;
           transition: 0.3s;
         }
-
       }
       .bodycard {
         height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
-        .btnBox,.inputBox{
+        .btnBox,
+        .inputBox {
           display: flex;
           align-items: center;
           justify-content: center;
         }
-        .btnBox{
+        .btnBox {
           height: 20%;
-          button{
+          button {
             border: none;
             padding: 0.2rem 0.5rem;
             border-radius: 5px;
@@ -211,18 +208,14 @@
             color: white;
             box-shadow: 1px 1px 5px black;
             transition: 0.3s;
-
           }
-          .cancelar{
+          .cancelar {
             background-color: red;
-            
-            
           }
-
         }
-        .inputBox{
+        .inputBox {
           height: inherit;
-          textarea{
+          textarea {
             height: 80%;
             width: 80%;
             padding: 0.5rem;
@@ -230,12 +223,31 @@
             resize: none;
             box-shadow: 0px 0px 5px black;
           }
-          textarea:focus{
+          textarea:focus {
             outline: none;
           }
-
         }
       }
+    }
+  }
+
+  .btnVerComBox {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+button{
+  background: transparent;
+  font-size: 0.7rem;
+  margin: 0.5rem 0;
+  border: none;
+
+}
+    .btnVerMas {
+      color: rgb(0, 174, 255);
+    }
+
+    .btnVerMenos{
+      color:gray
     }
   }
 }
@@ -359,7 +371,7 @@
 
 /** -------------------------------------------------------------------------------------------------------------------- */
 @media (max-width: 668px) {
-  .card{
+  .card {
     width: 100%;
   }
   .cardbody {
