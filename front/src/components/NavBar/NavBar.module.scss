@@ -416,12 +416,13 @@ display:none;
     }
     .btnCloseSearch {
       position: absolute;
-      right: 1vw;
-      top: 1vh;
+      right: 2vw;
+      top: 0.5vh;
       background: transparent;
       border: none;
       font-size: 1.5rem;
       transition: 0.3s;
+      
     }
     .btnCloseSearch:hover {
       color: red;
