@@ -216,6 +216,15 @@ const NavBar = () => {
             </ul>
           </li>
 
+<li >
+  <button onClick={()=>setSearchResponsActive(true)} className={styles.btnOpenSearchInNavResp}>
+  <BiSearchAlt />
+  </button>
+</li>
+
+
+
+
           <li className={styles.menuItem}>
             {" "}
             <buttom

@@ -509,7 +509,7 @@ export default function MyPerfil() {
             Cerrar sesion
           </button>
           <div>
-          {/*   <button
+            {/*   <button
               className={style.btnDelete}
               onClick={(e) => handleDelete(e)}
             >
@@ -519,38 +519,24 @@ export default function MyPerfil() {
         </div>
         {renderConfig()}
         <span className={style.myProfileContainer}>
-          {userPost?.map((el) => (
-            <LazyLoad height={400} offset={5}>
-            <Card
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-            </LazyLoad>
-          ))}
-
           {userPost.length > 0 ? (
             userPost.map((el) => (
               <LazyLoad height={488} offset={5}>
-              <Card
-                locate="myProfile"
-                id={el.id}
-                key={el.id}
-                photo={el.photo}
-                detail={el.detail}
-                creator={el.autorId}
-                likes={el.likes}
-                createdAt={el.createdAt}
-              />
-             </LazyLoad>
+                <Card
+                  locate="myProfile"
+                  id={el.id}
+                  key={el.id}
+                  photo={el.photo}
+                  detail={el.detail}
+                  creator={el.autorId}
+                  likes={el.likes}
+                  createdAt={el.createdAt}
+                />
+              </LazyLoad>
             ))
-          ) : (<div className={style.nonePost}>
-
-         
-            <p>No hay publicaciones realizadas</p>
+          ) : (
+            <div className={style.nonePost}>
+              <p>No hay publicaciones realizadas</p>
             </div>
           )}
         </span>
