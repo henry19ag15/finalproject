@@ -142,14 +142,14 @@ export default function Card({
     return (
       <div className={styles.photoNameBox}>
         <div className={styles.imgBox}>
-          {userFromComment[0]?.profilephoto && (
+          {userFromComment[0]?.profilephoto ? (
             <img src={userFromComment[0].profilephoto} alt="" />
-          )}
+          ) :(<img src={noimg} alt=""></img>)}
         </div>
         <div className={styles.commentTextBox}>
-          {userFromComment[0]?.username && (
+          {userFromComment[0]?.username?(
             <p className={styles.name}>{userFromComment[0].username}</p>
-          )}
+          ):<p className={styles.name}>Nombre no encontrado</p>}
           <p>{Comment}</p>
         </div>
       </div>
@@ -337,7 +337,7 @@ export default function Card({
           className={styles.profilePhoto}
         >
           {" "}
-          {useUser[0].profilephoto ? (
+          {useUser[0]?.profilephoto ? (
             <img src={useUser[0].profilephoto} alt="" />
           ) : (
             <img src={noimg} alt="" />
@@ -345,7 +345,7 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
         </div>
       </header>
 
