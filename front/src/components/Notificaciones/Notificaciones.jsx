@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserProfile } from "../../Redux/02-actions";
 import style from "./Notificaciones.module.scss";
+import noimg from '../../sass/noimg.png'
 
 export default function Notificaiones() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export default function Notificaiones() {
         onClick={() => handleBtnNotification(detail, autorId)}
         className={style.cadaNotificaion}
       >
-        {<img src={infoUser[0].profilephoto} alt="" />}
+        {infoUser[0].profilephoto?<img src={infoUser[0].profilephoto} alt="" />:<img src={noimg} alt=""></img>}
         <div className={style.textBox}>
           <h4>{infoUser[0].username} </h4>
           <p>{detail}</p>
