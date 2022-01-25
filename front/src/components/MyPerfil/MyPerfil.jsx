@@ -34,6 +34,7 @@ export default function MyPerfil() {
     img: "",
     email: "",
     pass: "",
+    passVal: "",
     displayName: "",
   });
   const [configOptions, setConfigOptions] = useState({});
@@ -286,11 +287,6 @@ export default function MyPerfil() {
     if (configOptions.details) {
       return (
         <div className={style.inputsConfigBox}>
-          <div className={style.btnCloseBox}>
-            <button onClick={() => setConfigOptions({})}>
-              <MdClose />
-            </button>
-          </div>
           <h3>Cambiar detalles</h3>
           <p>Ingrese su información</p>
           <input
@@ -312,14 +308,14 @@ export default function MyPerfil() {
     } else if (configOptions.img) {
       return (
         <div className={style.inputsConfigBox}>
-          <div className={style.btnCloseBox}>
-            <button onClick={() => setConfigOptions({})}>
-              <MdClose />
-            </button>
-          </div>
           <h3>Cambiar foto de perfil</h3>
           <p>Seleccione su nueva foto de perfil</p>
-          <input type="file" onChange={(e) => handlePhoto(e)} />
+          <input
+            className={style.inputFile}
+            accept="image/png, image/jpeg"
+            type="file"
+            onChange={(e) => handlePhoto(e)}
+          />
           <div className={style.btnSelectBox}>
             <button onClick={(e) => handlePhotoSubmit(e)}>Aceptar</button>
             <button
@@ -334,23 +330,33 @@ export default function MyPerfil() {
     } else if (configOptions.pass) {
       return (
         <div className={style.inputsConfigBox}>
-          <div className={style.btnCloseBox}>
-            <button onClick={() => setConfigOptions({})}>
-              <MdClose />
-            </button>
-          </div>
           <h3>Cambiar contraseña</h3>
-          <p>
-            Ingrese su email y se le enviara un link para cambiar la contraseña
-          </p>
           <p>Solo se podra si recien inicias sesión</p>
+          <p>Debe ingresar la contraseña nueva en los dos campos</p>
+
           <input
+            autoComplete="off"
             name="pass"
-            type="text"
+            type="password"
+            onChange={(e) => handleChangeInputsConfig(e)}
+          />
+          <input
+            autoComplete="off"
+            name="passVal"
+            type="password"
             onChange={(e) => handleChangeInputsConfig(e)}
           />
           <div className={style.btnSelectBox}>
-            <button onClick={(e) => handleChangePass(e)}>Aceptar</button>
+            <button
+              onClick={
+                inputsConfig.pass === inputsConfig.passVal
+                  ? (e) => handleChangePass(e)
+                  : false
+              }
+            >
+              Aceptar
+            </button>
+
             <button
               className={style.btnCancel}
               onClick={(e) => handleCancel(e)}
@@ -363,14 +369,10 @@ export default function MyPerfil() {
     } else if (configOptions.displayName) {
       return (
         <div className={style.inputsConfigBox}>
-          <div className={style.btnCloseBox}>
-            <button onClick={() => setConfigOptions({})}>
-              <MdClose />
-            </button>
-          </div>
           <h3>Cambiar nombre de usuario</h3>
           <p>Ingrese el nombre de usuario nuevo</p>
           <input
+            autoComplete="off"
             name="displayName"
             type="text"
             onChange={(e) => handleChangeInputsConfig(e)}
