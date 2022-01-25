@@ -201,7 +201,7 @@ server.put('/setting/:id', (req, res, next) => {
 
 server.post("/respone",function (req, res) {
     console.log(req.body)
-   res.status(200)
+   res.status(200).send("Ok")
 });
 
 
