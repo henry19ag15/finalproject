@@ -199,6 +199,14 @@ server.put('/setting/:id', (req, res, next) => {
     })
 })
 
+server.post("/respone",function (req, res) {
+    console.log(req.body)
+   
+});
+
+
+
+
 
 
 module.exports = server;
