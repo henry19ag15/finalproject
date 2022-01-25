@@ -1,6 +1,5 @@
 @import "../../sass/variables";
 
-
 * {
   margin: 0;
   box-sizing: border-box;
@@ -9,7 +8,7 @@
 
 body {
   font-family: $primary-font;
-  
+
   padding: 90px 20px 0;
   position: sticky;
 }
@@ -52,7 +51,7 @@ body {
 .NavMenu {
   display: flex;
   justify-content: space-around;
-  
+
   //   margin-right: 40px;
   padding: 0 0;
   width: 70%;
@@ -61,21 +60,27 @@ body {
 }
 
 /** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
+
+.btnOpenSearchInNavResp{
+display:none;
+}
+
+
 .searchBarRespons {
   display: none;
 }
 
-.focusSearch{
- // background-color :red;
- transition: 0.2s;
- border: solid 1px black;
+.focusSearch {
+  // background-color :red;
+  transition: 0.2s;
+  border: solid 1px black;
 
- box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px black;
 }
 .searchBar {
   // position: relative;
-  margin-top: 13px ;
-  top:0;
+  margin-top: 13px;
+  top: 0;
   width: 50%;
   height: max-content;
   background-color: white;
@@ -108,14 +113,11 @@ body {
       padding-left: 0.5rem;
       color: $main-color;
     }
-    .btn{
+    .btn {
       margin-right: 0.3rem;
     }
-
-
   }
 }
-
 
 .input:focus {
   outline: none;
@@ -163,7 +165,7 @@ body {
     button {
       padding: 0.5rem;
       width: 100%;
-      height: 100%; 
+      height: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -185,11 +187,14 @@ body {
     }
     button:hover {
       // background-color: $main-color;
-      color: $main-color
+      color: $main-color;
     }
   }
 }
-.btnOpenSearchInNavResp {
+
+.liBoxSearchResponsive{
+
+
   display: none;
 }
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
@@ -197,18 +202,19 @@ body {
 /*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
 .add {
   // margin-top: 7px;
-  font-size: 1.9rem;
+  font-size: 1.8rem;
   // width: 70px;
-  color: black;
+  // color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 80px;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  transition: 0.2s;
+ 
+}
+
+.add:hover{
+  // filter: drop-shadow(0px 0px 2px $main-color);
 }
 
 .menuItem {
@@ -225,8 +231,33 @@ body {
   /* border-color: honeydew; */
   border-radius: 80px;
   transition: 0.2s;
-
   cursor: pointer;
+
+  .btnNotifi {
+    height: 100%;
+    display: flex;
+      align-items: center;
+      font-size: 2rem;
+      transition: 0.2s;
+    p {
+      color: white;
+      background-color: red;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      position: absolute;
+      top: 15px;
+    }
+  }
+  .btnNotifi:hover{
+    transform: none;
+    // filter: drop-shadow(0px 0px 2px $main-color);
+  }
+
   img {
     height: 2.5rem;
     width: 2.5rem;
@@ -241,11 +272,11 @@ body {
 
 .menuItem:active {
   // background-color: rgba(172, 232, 255, 0.781);
-  transform: scale(0.9);
+  // transform: scale(0.9);
 }
 
 .menuItem:hover {
-  color: $main-color;
+  // color: $main-color;
 }
 
 .btn_toogle {
@@ -381,12 +412,13 @@ body {
     }
     .btnCloseSearch {
       position: absolute;
-      right: 1vw;
-      top: 1vh;
+      right: 2vw;
+      top: 0.5vh;
       background: transparent;
       border: none;
       font-size: 1.5rem;
       transition: 0.3s;
+      
     }
     .btnCloseSearch:hover {
       color: red;
@@ -410,7 +442,7 @@ body {
           display: flex;
           align-items: center;
           font-size: 1rem;
-          font-family:$primary-font;
+          font-family: $primary-font;
           background: transparent;
           border: none;
           img {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { getAllUser } from "../../Redux/02-actions/index";
+import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
 import { Link } from "react-router-dom";
@@ -12,6 +12,8 @@ import { Sling as Hamburger } from "hamburger-react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
 import Post from "../Post/Post";
+import Notificaiones from "../Notificaciones/Notificaciones";
+import axios from "axios";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -19,10 +21,13 @@ const NavBar = () => {
   const history = useHistory();
   const user = auth.currentUser;
   const allUser = useSelector((state) => state.allUser);
+  const myProfile = useSelector((state) => state.myProfile);
+
   const [navActive, setNavActive] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [searchToRender, setSearchToRender] = useState([]);
+  const [notiView, setNotiView] = useState(false);
   // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
 
@@ -51,7 +56,7 @@ const NavBar = () => {
 
   function handleSelectUser(e, uid) {
     // e.preventDefault()
-    
+
     if (uid === user.uid) {
       history.push(`/profile`);
       setInputSearch("");
@@ -59,7 +64,6 @@ const NavBar = () => {
       dispatch(getUserProfile(uid));
       history.push(`/user/${uid}`);
       setInputSearch("");
-
     }
   }
   function handleSelectUserResp(e, uid) {
@@ -83,6 +87,30 @@ const NavBar = () => {
     setNavActive(false);
     setSearchResponsActive(true);
   }
+
+  ////////// LOGICA DE NOTIFICAIONES //////////
+  function validateNotification() {
+    const validate = myProfile?.notifications?.filter(
+      (noti) => noti.visto === false
+    );
+    return validate?.length;
+  }
+
+  function handleNotificationView() {
+    axios
+      .put("https://pruebaconbackreal-pg15.herokuapp.com/notification/viewed", {
+        id: auth.currentUser.uid,
+      })
+      .then((res) => {
+        dispatch(getMyProfile(auth.currentUser.uid));
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+
+    setNotiView(!notiView);
+  }
+
+  //////////////////////////////////////////////
 
   return (
     <div className={styles.NavBar}>
@@ -139,7 +167,13 @@ const NavBar = () => {
             navActive ? styles.NavMenu : `${styles.NavMenu} ${styles.disable}`
           }
         >
-          <li className={!showSearch? styles.searchBar:`${styles.searchBar} ${styles.focusSearch}`}>
+          <li
+            className={
+              !showSearch
+                ? styles.searchBar
+                : `${styles.searchBar} ${styles.focusSearch}`
+            }
+          >
             <div className={styles.inputIconBox}>
               <input
                 className={styles.input}
@@ -156,36 +190,55 @@ const NavBar = () => {
               </button>
             </div>
             <ul className={styles.renderSearched}>
-        {showSearch && inputSearch.length > 0
-          ? searchToRender.map((user) => (
-              <li key={user.id}>
-                <button onClick={(e) => handleSelectUser(e, user.id)}>
-                  {user.profilephoto ? (
-                    <img src={user.profilephoto} alt="" />
-                  ) : (
-                    <img src={noimg} alt="" />
-                  )}
-                  {user.username}
-                </button>
-              </li>
-            ))
-          : false}
-      </ul>
+              {showSearch && inputSearch.length > 0
+                ? searchToRender.map((user) => (
+                    <li key={user.id}>
+                      <button onClick={(e) => handleSelectUser(e, user.id)}>
+                        {user.profilephoto ? (
+                          <img src={user.profilephoto} alt="" />
+                        ) : (
+                          <img src={noimg} alt="" />
+                        )}
+                        {user.username}
+                      </button>
+                    </li>
+                  ))
+                : false}
+            </ul>
+          </li>
 
+          <li>
+            <button
+              onClick={() => {
+                setSearchResponsActive(true)
+                setNavActive(false)
+              }}
+              className={styles.btnOpenSearchInNavResp}
+            >
+              <BiSearchAlt />
+            </button>
           </li>
+
           <li className={styles.menuItem}>
             {" "}
-            <IoMdNotificationsOutline />{" "}
-          </li>
-          <li className={styles.menuItem}>
-            {" "}
-            <BiMessageRoundedDetail />{" "}
+            <buttom
+              className={styles.btnNotifi}
+              onClick={() => handleNotificationView()}
+            >
+              {validateNotification() !== 0 ? (
+                <p>{validateNotification()}</p>
+              ) : (
+                false
+              )}
+              <IoMdNotificationsOutline />{" "}
+            </buttom>
+            {notiView ? <Notificaiones /> : false}
           </li>
           <li className={styles.add}>
             <Post />
           </li>
 
-          <li>
+          <li className={styles.liBoxSearchResponsive}>
             <button
               className={styles.btnOpenSearchInNavResp}
               onClick={(e) => handleOpenSearchRespons(e)}
@@ -214,7 +267,6 @@ const NavBar = () => {
           <Hamburger size={30} toggled={navActive} toggle={setNavActive} />
         </button>
       </nav>
-     
     </div>
   );
 };

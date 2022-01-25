@@ -1,0 +1,66 @@
+.todoNotificaciones {
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  border: groove 2px black;
+  border-radius: 5px;
+width: 18rem;
+height: 60vh;
+overflow-x:hidden;
+overflow-y:scroll;
+
+
+  ul {
+    // display: flex;
+    // flex-direction: column-reverse;
+    li {
+      list-style: none;
+      .cadaNotificaion {
+        padding: 0.5rem 0;
+        width: 100%;
+        display: flex;
+        transition:.2s ;
+        border:none;
+        background: transparent;
+        cursor: pointer;
+        img {
+          height: 2rem;
+          width: 2rem;
+          margin: 0 0.5rem;
+        }
+        .textBox {
+          display: flex;
+          flex-direction: column;
+          h4 {
+            display: flex;
+            // flex-wrap:wrap;
+            flex-wrap: nowrap;
+
+            display: flex;
+            align-items: center;
+            text-align: left;
+            font-size: 0.8rem;
+            transition: 0.2s;
+          }
+          p {
+            font-size: 0.8rem;
+            text-align: left;
+
+            margin: 0 2px;
+            // font-weight: 600;
+          }
+        }
+      }
+
+      .cadaNotificaion:hover{
+          box-shadow: 0px 0px 5px black;
+          .textBox{
+              h4{
+                  letter-spacing: 1px;
+                }
+                  
+          }
+      }
+    }
+  }
+}

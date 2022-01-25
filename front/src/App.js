@@ -3,19 +3,30 @@ import Register from './components/Register/Register';
 import NavBar from './components/NavBar/NavBar';
 import Home from './components/Home/Home'
 import loading from './sass/loading.gif'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch, Route } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import MyPerfil from './components/MyPerfil/MyPerfil';
 import LoginPage from './components/LoginPage/LoginPage';
 import RecoverPassword from './components/RecoverPassword/RecoverPassword';
 import UserProfile from './components/UserProfile/UserProfile'
-
+import Error404 from './components/Error404/Error404';
+import {useDispatch} from 'react-redux';
+import { getMyProfile } from './Redux/02-actions';
 
 
 function App() {
   const [log, setLog] = useState(0)
   const auth = getAuth();
+const dispatch= useDispatch();
+
+
+useEffect(()=>{
+setInterval(()=>{
+dispatch(getMyProfile(auth.currentUser.uid))
+console.log("llamo ahora")
+},60000)
+},[])
 
 
   onAuthStateChanged(auth, (user) => {
@@ -45,12 +56,17 @@ function App() {
           <MyPerfil />
         </Route>
         <Route exact path="/user/:id">
-
           <NavBar />
           <UserProfile />
         </Route>
 
+         
+        <Route path="*">
+          <Error404/>
+        </Route>
 
+
+        
       </Switch>
 
     } else if (log === 2) {
@@ -63,6 +79,9 @@ function App() {
         </Route>
         <Route path="/recovery">
           <RecoverPassword />
+        </Route>
+        <Route path="*">
+          <Error404/>
         </Route>
       </Switch>
     }

@@ -5,7 +5,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { BsFillHeartFill } from "react-icons/bs";
 import swal from "sweetalert";
-import loading from "../../sass/loading.gif"
+import loading from "../../sass/loading.gif";
 
 import styles from "./Card.module.scss";
 import { getAuth } from "firebase/auth";
@@ -34,6 +34,7 @@ export default function Card({
   // console.log("este es el id", id);
   const user = auth.currentUser;
   const myProfile = useSelector((state) => state.myProfile);
+  const userView = useSelector((state) => state.userView);
 
   const useUser = profile.filter((el) => el.id === creator);
   //console.log("esto es el user: ", useUser);
@@ -44,7 +45,7 @@ export default function Card({
     edit: false,
     detail: detail,
   });
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -57,11 +58,36 @@ export default function Card({
   ///////// LOGICA DE COMENTARIO /////////
   const [inputComment, setInputComment] = useState("");
   const [comment, setComment] = useState({});
-  /*  const userFromComment = profile.filter(
-    (user) => user.id === comment?.comment?.idUser
-  ); */
-  //console.log("acacac", comment);
-  console.log("comentario", comment.comment);
+  const [indexComment, setIndexComment] = useState(2);
+  const commentSorted = comment?.comment?.sort((a, b) => {
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  });
+  const commentSlice = commentSorted?.slice(0, indexComment);
+
+  function handleVerMas() {
+    setIndexComment(indexComment + 2);
+
+    console.log(commentSorted.length, " es menor a ", indexComment);
+  }
+
+  function handleVerMenos() {
+    setIndexComment(2);
+  }
+
+  function renderBtnVer() {
+    return commentSorted?.length - 1 >= indexComment ? (
+      <button className={styles.btnVerMas} onClick={() => handleVerMas()}>
+        Ver mas comentarios...
+      </button>
+    ) : (
+      <button className={styles.btnVerMenos} onClick={() => handleVerMenos()}>
+        ...Ocultar comentarios
+      </button>
+    );
+  }
+
   useEffect(() => {
     axios
       .get(
@@ -98,11 +124,11 @@ export default function Card({
             setComment({ comment: res.data });
           });
 
-        console.log({
+        /*  console.log({
           idUser: auth.currentUser.uid,
           idPost: id,
           detail: inputComment,
-        });
+        }); */
       });
   }
 
@@ -116,14 +142,14 @@ export default function Card({
     return (
       <div className={styles.photoNameBox}>
         <div className={styles.imgBox}>
-          {userFromComment[0]?.profilephoto && (
+          {userFromComment[0]?.profilephoto ? (
             <img src={userFromComment[0].profilephoto} alt="" />
-          )}
+          ) :(<img src={noimg} alt=""></img>)}
         </div>
         <div className={styles.commentTextBox}>
-          {userFromComment[0]?.username && (
+          {userFromComment[0]?.username?(
             <p className={styles.name}>{userFromComment[0].username}</p>
-          )}
+          ):<p className={styles.name}>Nombre no encontrado</p>}
           <p>{Comment}</p>
         </div>
       </div>
@@ -138,36 +164,28 @@ export default function Card({
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then(willDelete => {
+    }).then((willDelete) => {
       if (willDelete) {
-        setLoad(true)
-        axios.delete(
-          `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
-        ).then(() => {
-          setLoad(false)
-          setPostConfig({ ...postConfig, view: false, edit: false })
-          if (locate === "home") {
-            const post = myProfile.followings.map((user) => user.autorId);
-            dispatch(getPost(post.concat(auth.currentUser.uid)))
-
-          }
-          else if (locate === "myProfile") {
-            dispatch(getPostMyProfile([auth.currentUser.uid]))
-          }
-
-
-        })
+        setLoad(true);
+        axios
+          .delete(
+            `https://pruebaconbackreal-pg15.herokuapp.com/posts/destroy/${id}`
+          )
+          .then(() => {
+            setLoad(false);
+            setPostConfig({ ...postConfig, view: false, edit: false });
+            if (locate === "home") {
+              const post = myProfile.followings.map((user) => user.autorId);
+              dispatch(getPost(post.concat(auth.currentUser.uid)));
+            } else if (locate === "myProfile") {
+              dispatch(getPostMyProfile([auth.currentUser.uid]));
+            }
+          });
+      } else {
+        return;
       }
-      else {
-        return
-      }
-
-
-    })
+    });
   }
-
-
-
 
   let contador = 0;
 
@@ -186,36 +204,32 @@ export default function Card({
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        setLoad(true)
-        axios.put(
-          `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
-          { payload: { id: id, detail: postConfig.detail } }
-        ).then(() => {
-          setLoad(false)
-          setPostConfig({ ...postConfig, view: false, edit: false })
-          if (locate === "home") {
-            const post = myProfile.followings.map((user) => user.autorId);
-            dispatch(getPost(post.concat(auth.currentUser.uid)))
-
-          }
-          else if (locate === "myProfile") {
-            dispatch(getPostMyProfile([auth.currentUser.uid]))
-          }
-
-
-
-        })
-
-      }
-      else {
-        return
-      }
-
-
-    }).catch(error => { console.log(error) })
-
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          setLoad(true);
+          axios
+            .put(
+              `https://pruebaconbackreal-pg15.herokuapp.com/posts/setting/${id}`,
+              { payload: { id: id, detail: postConfig.detail } }
+            )
+            .then(() => {
+              setLoad(false);
+              setPostConfig({ ...postConfig, view: false, edit: false });
+              if (locate === "home") {
+                const post = myProfile.followings.map((user) => user.autorId);
+                dispatch(getPost(post.concat(auth.currentUser.uid)));
+              } else if (locate === "myProfile") {
+                dispatch(getPostMyProfile([auth.currentUser.uid]));
+              }
+            });
+        } else {
+          return;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function configPost() {
@@ -223,17 +237,31 @@ export default function Card({
       <div className={styles.editBox}>
         <div className={styles.card}>
           <div className={styles.head}>
-            <button onClick={e => setPostConfig({ ...postConfig, view: false, edit: false })} className={styles.buttonClose}>X</button>
+            <button
+              onClick={(e) =>
+                setPostConfig({ ...postConfig, view: false, edit: false })
+              }
+              className={styles.buttonClose}
+            >
+              X
+            </button>
           </div>
           {postConfig.edit === false ? (
             <div className={styles.bodycardnoedit}>
-              <button className={styles.cancelar} onClick={() => deletePost()}>Eliminar post</button>
+              <button className={styles.cancelar} onClick={() => deletePost()}>
+                Eliminar post
+              </button>
               <button onClick={() => editPost(true)}>Editar post</button>
             </div>
           ) : (
             <div className={styles.bodycard}>
               <div className={styles.btnBox}>
-                <button className={styles.cancelar} onClick={() => editPost(false)}>Cancelar edicion</button>
+                <button
+                  className={styles.cancelar}
+                  onClick={() => editPost(false)}
+                >
+                  Cancelar edicion
+                </button>
                 <button onClick={() => submitEditPost()}>Confirmar</button>
               </div>
               <div className={styles.inputBox}>
@@ -246,10 +274,8 @@ export default function Card({
                   resize="none"
                 ></textarea>
               </div>
-
             </div>
           )}
-
         </div>
       </div>
     );
@@ -257,26 +283,21 @@ export default function Card({
 
   ////////////////////////////////////////
 
+  //////////// Logica de Likes ////////////
   function handleLike(e) {
+    e.preventDefault();
     function checkLocateCard() {
-      switch (locate) {
-        case "myProfile":
-          dispatch(getPostMyProfile([auth.currentUser.uid]));
+      if (locate === "myProfile") {
+        dispatch(getPostMyProfile([auth.currentUser.uid]));
+      } else if (locate === "userProfile") {
+        dispatch(getPostUserProfile([creator]));
+      } else if (locate === "home") {
+        const arrayIds = myProfile.followings.map((el) => el.autorId);
 
-        case "home":
-          const arrayIds = myProfile.followings.map((el) => el.autorId);
-          myProfile.followings &&
-            dispatch(getPost(arrayIds.concat(myProfile.id)));
-
-        case "userProfile":
-          dispatch(getPostUserProfile([creator]));
-
-        default:
-          break;
+        dispatch(getPost(arrayIds.concat(myProfile.id)));
       }
     }
 
-    e.preventDefault();
     axios
       .post(`https://pruebaconbackreal-pg15.herokuapp.com/posts/likes/`, {
         idUser: auth.currentUser.uid,
@@ -287,13 +308,13 @@ export default function Card({
         console.log("res de likes: ", res);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Funcion like error", error);
       });
     // .then((id) => {
     //   console.log('array de likes ', id)
     // })
   }
-  console.log("aqui likes", likes);
+  // console.log("aqui likes", likes);
 
   function likeValidate() {
     const viewIdLikes = likes.filter(
@@ -306,7 +327,7 @@ export default function Card({
       return false;
     }
   }
-
+  ////////////////////////////////////////
   return (
     <div className={styles.cardbody}>
       <header className={styles.cardProfile}>
@@ -316,7 +337,7 @@ export default function Card({
           className={styles.profilePhoto}
         >
           {" "}
-          {useUser[0].profilephoto ? (
+          {useUser[0]?.profilephoto ? (
             <img src={useUser[0].profilephoto} alt="" />
           ) : (
             <img src={noimg} alt="" />
@@ -324,7 +345,7 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0].username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
         </div>
       </header>
 
@@ -360,7 +381,6 @@ export default function Card({
           {postConfig.view ? configPost() : false}
         </section>
 
-
         <section className={styles.datePosted}>
           {" "}
           {reverse(createdAt.substring(0, 10))}{" "}
@@ -368,7 +388,6 @@ export default function Card({
       </div>
 
       <section className={styles.likes}>{likes.length} Me gusta </section>
-
 
       <section className={styles.description}> {detail} </section>
 
@@ -396,20 +415,27 @@ export default function Card({
         </button>
       </div>
 
-      {comment.comment
-        ? comment.comment.map((com) => {
-          return (
-            <div className={styles.commentBox}>
-              {com?.detail && Render(com.userId, com.detail)}
-            </div>
-          );
-        })
+      {commentSlice
+        ? commentSlice.map((com) => {
+            return (
+              <div key={com.id} className={styles.commentBox}>
+                {com?.detail && Render(com.userId, com.detail)}
+              </div>
+            );
+          })
         : false}
-      {load === true ?
-        <div className={styles.load} >
+      {load === true ? (
+        <div className={styles.load}>
           <img src={loading} alt="" />
-        </div> : false}
+        </div>
+      ) : (
+        false
+      )}
+      <div className={styles.btnVerComBox}>
+        {commentSorted?.length > 2 ? renderBtnVer() : false}
+      </div>
+      {/* <button onClick={() => console.log(commentSlice)}> AUX</button> */}
+      {/* <button onClick={() => console.log(comment.comment)}> ALL COMMENT</button> */}
     </div>
-
   );
 }
