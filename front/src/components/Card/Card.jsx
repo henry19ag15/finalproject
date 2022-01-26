@@ -6,6 +6,7 @@ import { FiHeart } from "react-icons/fi";
 import { BsFillHeartFill } from "react-icons/bs";
 import swal from "sweetalert";
 import loading from "../../sass/loading.gif";
+import Like from "./Like"
 
 import styles from "./Card.module.scss";
 import { getAuth } from "firebase/auth";
@@ -54,6 +55,12 @@ export default function Card({
       return `/user/${creator}`;
     }
   }
+
+  //////////LIKES////////////////////////
+  const [likesView, setlikesView] = useState(false)
+
+
+  ///////////////////////////////////////
 
   ///////// LOGICA DE COMENTARIO /////////
   const [inputComment, setInputComment] = useState("");
@@ -380,14 +387,16 @@ export default function Card({
           {/* Ventana Modal con opciones para borrar y editar post*/}{" "}
           {postConfig.view ? configPost() : false}
         </section>
-
         <section className={styles.datePosted}>
           {" "}
           {reverse(createdAt.substring(0, 10))}{" "}
         </section>
       </div>
-
+      <button className="" onClick={() => setlikesView (true)}>
       <section className={styles.likes}>{likes.length} Me gusta </section>
+
+      </button>
+
 
       <section className={styles.description}> {detail} </section>
 
@@ -437,6 +446,8 @@ export default function Card({
       </div>
       {/* <button onClick={() => console.log(commentSlice)}> AUX</button> */}
       {/* <button onClick={() => console.log(comment.comment)}> ALL COMMENT</button> */}
+      {likesView? <Like setlikesView = {setlikesView}/>: false}
+
     </div>
   );
 }
