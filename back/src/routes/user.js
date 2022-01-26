@@ -91,7 +91,7 @@ server.get("/:id", async function (req, res) {
       { model: Suscripto },
       { model: Notification },
       { model: Order },
-      { model: Post},
+      { model: Post}
                 
       ]
 
