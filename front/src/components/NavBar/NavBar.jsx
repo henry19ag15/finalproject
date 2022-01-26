@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
-import {AiFillStar} from 'react-icons/ai'
+import { AiFillStar } from "react-icons/ai";
 import { RiVipCrownLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
@@ -25,7 +25,6 @@ const NavBar = () => {
   const user = auth.currentUser;
   const allUser = useSelector((state) => state.allUser);
   const myProfile = useSelector((state) => state.myProfile);
-
   const [navActive, setNavActive] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -33,15 +32,44 @@ const NavBar = () => {
   const [notiView, setNotiView] = useState(false);
   // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
+
+  ///////////// LLAMADA A MERCADO PAGO /////////////
   const [data, setData] = useState("");
 
-  /*  useEffect(()=>{
-    axios.get('Ruta del back cuando este',{id:auth.currentUser.uid})
-    .then((res)=>{
-      setData(res.data)
-      console.info('Contenido de data:', data )
-    }).catch(err=> console.log(err))
-  }) */
+  useEffect(() => {
+    console.log(auth.currentUser.uid);
+    axios
+      .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
+        uid: auth.currentUser.uid,
+      })
+      .then((res) => {
+        setData(res.data);
+        console.info("Contenido de data:", res);
+      })
+      .catch((err) => console.log("se rompio"));
+  }, []);
+
+  /* 
+  useEffect(() => {
+    if (aux !== 0) {
+      axios
+        .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
+          uid: auth.currentUser.uid,
+        })
+        .then((res) => {
+          // setData(res.data)
+          console.info("Contenido de data:", res);
+        })
+        .catch((err) => console.log("se rompio"));
+    } else {
+      console.log("es igual a undefined");
+    }
+  }, [aux]);
+  */
+
+
+
+  ///////////////////////////////////////////////////
 
   useEffect(() => {
     dispatch(getAllUser());
@@ -120,7 +148,6 @@ const NavBar = () => {
       .catch((err) => console.log(err));
 
     setNotiView(!notiView);
-    
   }
 
   //////////////////////////////////////////////
@@ -241,40 +268,27 @@ const NavBar = () => {
             </button>
           </li>
 
-
-
-
-
-
           {/* //////////////////// PREMIUM //////////////////// */}
 
           <li>
-           
             <button
               className={styles.btnPremiumView}
               onClick={(e) => handleViewPremium(e)}
             >
-               <div className={styles.iconStar}>
-
-<AiFillStar/>
-</div>
+              <div className={styles.iconStar}>
+                <AiFillStar />
+              </div>
               <RiVipCrownLine />
             </button>
 
             {premiumModalView ? (
-              <Premium setPremiumModalView={setPremiumModalView}  data="684896062-5a7659b2-ba47-469f-b0b5-5bbbab5efd97" />
+              <Premium setPremiumModalView={setPremiumModalView} data={data} />
             ) : (
               false
             )}
           </li>
 
           {/* ////////////////////////////////////////////////// */}
-
-
-
-
-
-
 
           <li className={styles.menuItem}>
             {" "}
