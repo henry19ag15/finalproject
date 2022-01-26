@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User, Follower, Following, Suscriber, Suscripto, Post, Notification } = require("../db");
+const { User, Follower, Following, Suscriber, Suscripto, Post, Notification,Order } = require("../db");
 const sequelize = require("sequelize")
 
 // crear usuario
@@ -89,7 +89,9 @@ server.get("/:id", async function (req, res) {
       { model: Following },
       { model: Suscriber },
       { model: Suscripto },
-      { model: Notification }
+      { model: Notification },
+      { model: Order }          
+                
       ]
 
 
