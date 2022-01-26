@@ -42,11 +42,14 @@ export default function Premium({ setPremiumModalView, data }) {
         </div>
         <div className={style.descripcionBox}>
           <p className={style.text1}>
-            Con ShareIt Premium podras compartir tener algunas funcionalidades
-            extras más{" "}
+            ¿Te gustaría poder hacer más publicaciones por día?
+          </p>
+          <p className={style.text1}>
+            Puedes conseguirlo junto con un pequeño cambio de diseño en tu
+            perfil
           </p>
           <p className={style.text2}>a tan solo</p>
-          <p className={style.text3}>$10</p>
+          <p className={style.text3}>$200</p>
         </div>
       </form>
     </div>
