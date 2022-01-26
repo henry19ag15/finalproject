@@ -52,7 +52,6 @@ server.post("/", function (req, res) {
 });
 
 server.get('/feedback', async function (req, res) {
-    console.log(res.)
 
     try {
         const payment_id = req.query.payment_id
