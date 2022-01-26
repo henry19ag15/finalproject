@@ -37,14 +37,14 @@ const NavBar = () => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    console.log(auth.currentUser.uid);
+    // console.log(auth.currentUser.uid);
     axios
       .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
         uid: auth.currentUser.uid,
       })
       .then((res) => {
         setData(res.data);
-        console.info("Contenido de data:", res);
+        // console.info("Contenido de data:", res);
       })
       .catch((err) => console.log("se rompio"));
   }, []);
@@ -66,8 +66,6 @@ const NavBar = () => {
     }
   }, [aux]);
   */
-
-
 
   ///////////////////////////////////////////////////
 
@@ -143,7 +141,7 @@ const NavBar = () => {
       })
       .then((res) => {
         dispatch(getMyProfile(auth.currentUser.uid));
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => console.log(err));
 
@@ -291,8 +289,7 @@ const NavBar = () => {
           {/* ////////////////////////////////////////////////// */}
 
           <li className={styles.menuItem}>
-            {" "}
-            <buttom
+            <button
               className={styles.btnNotifi}
               onClick={() => handleNotificationView()}
             >
@@ -301,8 +298,8 @@ const NavBar = () => {
               ) : (
                 false
               )}
-              <IoMdNotificationsOutline />{" "}
-            </buttom>
+              <IoMdNotificationsOutline />
+            </button>
             {notiView ? <Notificaiones /> : false}
           </li>
           <li className={styles.add}>

@@ -25,10 +25,8 @@ export default function FollowModalOtherProfile({
     user.filter((el) => el.id === e.autorId)
   );
 
-  console.log("followers ", followers);
-  console.log("following ", following);
-
-
+  // console.log("followers ", followers);
+  // console.log("following ", following);
 
   const [followView, setFollowView] = useState(followActive.type);
 
@@ -49,7 +47,7 @@ export default function FollowModalOtherProfile({
         <div className={style.FollowBox}>
           {followers.map((e) =>
             e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
+              <button key={e[0].id} onClick={() => handleSelect(e[0].id)}>
                 <img src={e[0].profilephoto} alt=""></img>
                 <p>{e[0].username}</p>
               </button>
@@ -64,7 +62,7 @@ export default function FollowModalOtherProfile({
         <div className={style.FollowBox}>
           {following.map((e) =>
             e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
+              <button key={e[0].id} onClick={() => handleSelect(e[0].id)}>
                 <img src={e[0].profilephoto} alt=""></img>
                 <p>{e[0].username}</p>
               </button>

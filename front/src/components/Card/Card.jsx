@@ -69,7 +69,7 @@ export default function Card({
   function handleVerMas() {
     setIndexComment(indexComment + 2);
 
-    console.log(commentSorted.length, " es menor a ", indexComment);
+    // console.log(commentSorted.length, " es menor a ", indexComment);
   }
 
   function handleVerMenos() {
@@ -113,14 +113,14 @@ export default function Card({
         detail: inputComment,
       })
       .then((res) => {
-        console.log("res 1", res);
+        // console.log("res 1", res);
         setInputComment("");
         axios
           .get(
             `https://pruebaconbackreal-pg15.herokuapp.com/comment/bringscomments/${id}`
           )
           .then((res) => {
-            console.log("res 2", res);
+            // console.log("res 2", res);
             setComment({ comment: res.data });
           });
 
@@ -144,12 +144,16 @@ export default function Card({
         <div className={styles.imgBox}>
           {userFromComment[0]?.profilephoto ? (
             <img src={userFromComment[0].profilephoto} alt="" />
-          ) :(<img src={noimg} alt=""></img>)}
+          ) : (
+            <img src={noimg} alt=""></img>
+          )}
         </div>
         <div className={styles.commentTextBox}>
-          {userFromComment[0]?.username?(
+          {userFromComment[0]?.username ? (
             <p className={styles.name}>{userFromComment[0].username}</p>
-          ):<p className={styles.name}>Nombre no encontrado</p>}
+          ) : (
+            <p className={styles.name}>Nombre no encontrado</p>
+          )}
           <p>{Comment}</p>
         </div>
       </div>
@@ -305,7 +309,7 @@ export default function Card({
       })
       .then((res) => {
         checkLocateCard();
-        console.log("res de likes: ", res);
+        // console.log("res de likes: ", res);
       })
       .catch((error) => {
         console.log("Funcion like error", error);
@@ -345,7 +349,11 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? (
+            <h4>{useUser[0].username}</h4>
+          ) : (
+            <h2>User</h2>
+          )}
         </div>
       </header>
 
@@ -427,7 +435,6 @@ export default function Card({
       {load === true ? (
         <div className={styles.load}>
           <img src={loading} alt="" />
-         
         </div>
       ) : (
         false
