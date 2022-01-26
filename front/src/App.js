@@ -13,6 +13,7 @@ import UserProfile from './components/UserProfile/UserProfile'
 import Error404 from './components/Error404/Error404';
 import {useDispatch} from 'react-redux';
 import { getMyProfile } from './Redux/02-actions';
+import MercadoPago from './components/MercadoPago/MercadoPago'
 
 
 function App() {
@@ -58,6 +59,9 @@ console.log("llamo ahora")
         <Route exact path="/user/:id">
           <NavBar />
           <UserProfile />
+        </Route>
+        <Route exact path="/mercadopago">
+          <MercadoPago />
         </Route>
 
          

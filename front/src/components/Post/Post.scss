@@ -13,7 +13,6 @@
     font-size: 12px;
     border-bottom: 1px solid #686868;
     & .back-btn{
-        margin-left: 3%;
         font-size: 22px;
         font-weight: bold;
     }
@@ -125,6 +124,11 @@
     }
     select{
         display: none;
+    }
+    .descripcion{
+        input{
+            display: none;
+        }
     }
 }
 

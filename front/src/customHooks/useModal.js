@@ -17,13 +17,15 @@ const useModal = (initialValue = false) => {
   const [fileUrl, setFileUrl] = useState(null);
   const [form, setForm] = useState({
     creator: user.uid,
-    imagen: "",
-    detail: "",
-    type: false,
+    imagen: '',
+    detail: '',
+    type: '',
+    titulo: '',
+    precio: ''
   });
 
   const [loading, setLoading] = useState(false)
-  // console.log(loading)
+  console.log(form)
 
 
 
@@ -35,7 +37,7 @@ const useModal = (initialValue = false) => {
   const closeModal = () => {
     setIsOpen(false);
     setFileUrl(null);
-    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
+    setForm({ creator: user.uid, imagen: "", detail: "", type: '', imgUrl: null, titulo: '', precio: '' });
     setLoading(false)
   };
 
@@ -62,7 +64,7 @@ const useModal = (initialValue = false) => {
   };
 
   const handleReset = () => {
-    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
+    setForm({ creator: user.uid, imagen: "", detail: "", type: '', imgUrl: null, titulo: '', precio: '' });
   };
 
   const handleSubmit = async (e) => {

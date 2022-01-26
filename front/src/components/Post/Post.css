@@ -24,7 +24,6 @@
 }
 
 .header-post .back-btn {
-  margin-left: 3%;
   font-size: 22px;
   font-weight: bold;
 }
@@ -185,6 +184,10 @@
 }
 
 .without-button select {
+  display: none;
+}
+
+.without-button .descripcion input {
   display: none;
 }
 

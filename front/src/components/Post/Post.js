@@ -49,10 +49,6 @@ const Post = () =>{
                                                 onChange={handleChange}
                                                 maxlength="2000"
                                         />
-                                    <select onChange={handleChange}>
-                                                <option name='type' value={false}>Público</option>
-                                                <option name='type' value={true}>Privado</option>
-                                    </select>
                                     <button type='submit' className='post-btn'>Publicar</button>
                                 </div>
                                

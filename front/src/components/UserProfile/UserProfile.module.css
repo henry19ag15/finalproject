@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital@1&display=swap");
 .allMyPerfil {
-  background: #f6f6f6;
-  height: 100vh;
+  background: transparent;
   width: 100%;
 }
 
-.allMyPerfil header {
+.allMyPerfil .cabeza {
+  margin-top: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -18,14 +18,19 @@
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  background: #24c8e1;
-  background: -webkit-gradient(linear, left top, left bottom, from(#24c8e1), color-stop(26%, rgba(54, 197, 231, 0.851978)), color-stop(49%, rgba(68, 194, 235, 0)));
-  background: linear-gradient(180deg, #24c8e1 0%, rgba(54, 197, 231, 0.851978) 26%, rgba(68, 194, 235, 0) 49%);
-  border-bottom: solid 1px black;
+  background-color: transparent;
+  /* background: rgb(36, 200, 225);
+    background: linear-gradient(
+      180deg,
+      rgba(36, 200, 225, 1) 0%,
+      rgba(54, 197, 231, 0.8519782913165266) 26%,
+      rgba(68, 194, 235, 0) 100%
+    ); */
+  border-bottom: groove 2px #aaaaaa;
   padding-top: 0.5rem;
 }
 
-.allMyPerfil header .imgFollBox {
+.allMyPerfil .cabeza .imgFollBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,18 +41,17 @@
   width: 95%;
 }
 
-.allMyPerfil header .imgFollBox .photoProfile {
+.allMyPerfil .cabeza .imgFollBox .photoProfile {
   height: 6rem;
   width: 6rem;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
-  border: solid 3px #24c8e1;
-  -webkit-box-shadow: 0px 5px 5px gray;
-          box-shadow: 0px 5px 5px gray;
+  -webkit-box-shadow: 0px 5px 10px black;
+          box-shadow: 0px 5px 10px black;
 }
 
-.allMyPerfil header .imgFollBox .followBox {
+.allMyPerfil .cabeza .imgFollBox .followBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,18 +61,18 @@
   font-size: 0.9rem;
 }
 
-.allMyPerfil header .imgFollBox .followBox div {
+.allMyPerfil .cabeza .imgFollBox .followBox button {
   padding: 0 0.3rem;
+  border: none;
+  background: transparent;
 }
 
-.allMyPerfil header .imgFollBox .followBox div p {
-  font-family: "Nunito", sans-serif;
+.allMyPerfil .cabeza .imgFollBox .followBox button p {
   font-weight: 600;
-  font-size: 0.8rem;
-  margin: 0.5rem 0;
+  margin: 0 0;
 }
 
-.allMyPerfil header .nameConfigBox {
+.allMyPerfil .cabeza .nameConfigBox {
   width: 95%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -82,22 +86,21 @@
           justify-content: space-between;
 }
 
-.allMyPerfil header .nameConfigBox .nameBox h3 {
+.allMyPerfil .cabeza .nameConfigBox .nameBox h3 {
   margin-bottom: 0;
   text-align: start;
   border-bottom: solid 1px #24c8e1;
   font-family: "Nunito", sans-serif;
 }
 
-.allMyPerfil header .nameConfigBox .nameBox h4 {
+.allMyPerfil .cabeza .nameConfigBox .nameBox h4 {
   margin: 0 0;
   font-size: 0.8rem;
   text-align: start;
-  color: #0f0f0f;
   font-family: "Nunito", sans-serif;
 }
 
-.allMyPerfil header .nameConfigBox .btnFollowBox {
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -106,50 +109,49 @@
           align-items: center;
 }
 
-.allMyPerfil header .nameConfigBox .btnFollowBox button {
-  padding: 0.3rem 1rem;
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox button {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
   border-radius: 3px;
-  background: transparent;
-  font-family: "Nunito", sans-serif;
+  cursor: pointer;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   font-weight: 700;
 }
 
-.allMyPerfil header .nameConfigBox .btnFollowBox .unfollow {
-  color: red;
-  border: groove 2px red;
-  -webkit-box-shadow: 0px 0px 5px red inset;
-          box-shadow: 0px 0px 5px red inset;
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox .unfollow {
+  border: groove 2px darkgray;
+  color: black;
+  font-weight: 500;
 }
 
-.allMyPerfil header .nameConfigBox .btnFollowBox .follow {
-  color: #24c8e1;
-  border: groove 2px #24c8e1;
-  -webkit-box-shadow: 0px 0px 5px #24c8e1 inset;
-          box-shadow: 0px 0px 5px #24c8e1 inset;
-}
-
-.allMyPerfil header .nameConfigBox .btnFollowBox .follow:hover {
-  border: groove 2px #24c8e1;
-  color: white;
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox .follow {
   background-color: #24c8e1;
-}
-
-.allMyPerfil header .nameConfigBox .btnFollowBox .unfollow:hover {
-  border: groove 2px red;
+  border: none;
+  -webkit-box-shadow: 1px 1px 3px gray;
+          box-shadow: 1px 1px 3px gray;
+  font-weight: 500;
+  letter-spacing: 1px;
   color: white;
-  background-color: red;
 }
 
-.allMyPerfil header .nameConfigBox .btnFollowBox button:active {
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox .follow:hover {
+  background-color: #00b2df;
+  -webkit-box-shadow: 1px 1px 5px gray;
+          box-shadow: 1px 1px 5px gray;
+}
+
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox .unfollow:hover {
+  -webkit-box-shadow: 1px 1px 2px gray;
+          box-shadow: 1px 1px 2px gray;
+}
+
+.allMyPerfil .cabeza .nameConfigBox .btnFollowBox button:active {
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
-  -webkit-box-shadow: -1px -1px 3px black inset;
-          box-shadow: -1px -1px 3px black inset;
 }
 
-.allMyPerfil header .details {
+.allMyPerfil .cabeza .details {
   width: 95%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -159,15 +161,13 @@
   border-radius: 5px;
 }
 
-.allMyPerfil header .details p {
+.allMyPerfil .cabeza .details p {
   font-size: 0.8rem;
-  color: #030303;
   text-align: start;
   font-family: "Nunito", sans-serif;
 }
 
 .allMyPerfil body {
-  height: 50vh;
   width: 100%;
 }
 
@@ -269,6 +269,24 @@
           box-shadow: 0px 0px 5px grey;
 }
 
+.allMyPerfil body span {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* flex-wrap: wrap; */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
 .allMyPerfil body .menuConfig {
   width: 100%;
   background-color: white;
@@ -361,8 +379,34 @@
   transition: 0.5s;
 }
 
+.allMyPerfil body .postNone {
+  height: 60vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
 @media screen and (min-width: 768px) {
-  .allMyPerfil header .imgFollBox .photoProfile {
+  .allMyPerfil {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .allMyPerfil .cabeza {
+    width: 40%;
+  }
+  .allMyPerfil .cabeza .imgFollBox .photoProfile {
     height: 8rem;
     width: 8rem;
   }
