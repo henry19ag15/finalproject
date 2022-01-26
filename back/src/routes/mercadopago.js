@@ -24,7 +24,7 @@ server.post("/", function (req, res) {
         ],
 
         back_urls: {
-            "success": "http://localhost:3001/mercadopago/feedback",
+            "success": "https://pruebaconbackreal-pg15.herokuapp.com/mercadopago/feedback",
             "failure": "http://localhost:3001/feedback",
             "pending": "http://localhost:3001/feedback"
         },
