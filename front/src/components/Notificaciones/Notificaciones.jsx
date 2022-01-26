@@ -21,7 +21,7 @@ export default function Notificaiones() {
     console.log(detail);
     if (detail === "Te ha empezado a seguir") {
       dispatch(getUserProfile([autorId])).then(() => {
-        history.push("/user/" + autorId);
+        history.push("/user/" + autorId);        
       });
     }
   }

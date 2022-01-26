@@ -5,7 +5,7 @@
     //outline :solid 1px red
   }
   background: transparent;
- /*  background-image: url('../../sass/hojas.png');
+  /*  background-image: url('../../sass/hojas.png');
   background-attachment: fixed; */
 
   // background: $background-a;
@@ -22,7 +22,7 @@
     // position: relative;
     // z-index: 1000;
     // background-color: white;
-    
+
     border-bottom: solid 1px black;
     padding-top: 0.5rem;
     // box-shadow: 0px 0px 1000px $main-color inset;
@@ -53,7 +53,6 @@
           border: none;
           background: transparent;
           p {
-            
             font-weight: 600;
             // font-size: 0.8rem;
             margin: 0 0;
@@ -75,7 +74,7 @@
           margin-bottom: 0;
           text-align: start;
           border-bottom: solid 1px $main-color;
-          font-family:'Poppins', sans-serif;
+          font-family: "Poppins", sans-serif;
           font-weight: 600;
         }
         h4 {
@@ -85,7 +84,7 @@
 
           // margin-left: 0.5rem;
           color: $background-b;
-          font-family:'Poppins', sans-serif;
+          font-family: "Poppins", sans-serif;
         }
       }
       .menuPerfil {
@@ -123,13 +122,13 @@
       // margin: 0.2rem 0;
       padding: 1rem 0;
       border-radius: 5px;
-       padding-right: 50%;
+      padding-right: 50%;
       p {
         // width: 150vw;
         font-size: 0.8rem;
         color: $background-c;
         text-align: start;
-        font-family:'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
       }
     }
   }
@@ -141,42 +140,80 @@
     .inputsConfigBox {
       width: 100%;
       // height: 8rem;
-      background: white;
+      background: transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0px 0px 5px gray inset;
+      // box-shadow: 0px 0px 5px gray inset;
       h3 {
-        font-family:'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         border-bottom: solid 2px $main-color;
         margin: 1rem 0;
       }
       p {
-        font-family:'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: 0.8rem;
       }
+
+      
+.inputFile::-webkit-file-upload-button {
+  // visibility: hidden;
+  background: $main-color;
+  border: none;
+  box-shadow: 1px 1px 2px black;
+  border-radius: 5px;  
+  
+}
+
+.inputFile::-webkit-file-upload-button:hover{
+  box-shadow: 1px 1px 3px black;
+ 
+}
+
+.inputFile::before{
+
+}
+
+
       input:focus {
         outline: none;
       }
       input {
-        border-radius: 5rem;
+        border-radius: 5px;
         border: none;
-        box-shadow: 0px 0px 10px $main-color;
         padding: 0.2rem;
+        box-shadow: 0px 0px 2px black;
+
         margin: 0.5rem 0;
+        width: 15rem;
+      }
+
+.inputFile:file-upload-button{
+  background-color:red;
+}
+
+      input:focus {
+        box-shadow: 0px 0px 5px black;
       }
 
       .btnSelectBox {
         display: flex;
         button {
+          color:white;
           margin: 1rem 0.5rem;
+          padding: 0.3rem 1rem;
           border-radius: 2rem;
           border: groove 2px $main-color;
-          background: transparent;
+          background: $main-color;
+          transition:0.2s;
           // font-family:'Poppins', sans-serif;
         }
         .btnCancel {
           border: groove 2px red;
+          background-color: red;
+        }
+        button:hover{
+          transform: scale(1.05);
         }
       }
 
@@ -218,25 +255,22 @@
       align-items: center;
       justify-content: space-around;
 
-
-      .nonePost{
+      .nonePost {
         height: 60vh;
         display: flex;
         align-items: center;
-        justify-content:center ;
+        justify-content: center;
         // background-color: red;
-        
       }
-
-
     }
     .menuConfig {
       width: 100%;
       background-color: white;
-      position: absolute;
+      position: fixed;
       // height: 100vh;
       box-shadow: 0px 0px 5px black inset;
-      right: 0;
+      left: 0;
+      top: 60px;
       transition: 0.5s;
       display: flex;
       flex-direction: column;
@@ -300,9 +334,9 @@
       }
     }
     .menuConfigOff {
-      position: fixed;
-      // top: 0;
-      right: -150vw;
+      // position: fixed;
+      top: -30vh;
+
       // left: 150vw;
       transition: 0.5s;
     }
