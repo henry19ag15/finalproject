@@ -9,6 +9,7 @@ const Admin = require("./admin");
 const Posts = require("./posts");
 const Comment = require("./comment");
 const Notification= require("./notification")
+const MercadoPago = require("./mercadopago")
 
 
 
@@ -20,6 +21,7 @@ router.use("/user", User);
 router.use("/posts", Posts);
 router.use("/comment", Comment);
 router.use("/notification",Notification);
+router.use("/mercadopago",MercadoPago)
 
 
 module.exports =router;
