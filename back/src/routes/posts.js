@@ -63,8 +63,27 @@ server.post('/getbyusers', async function (req, res) {
 });
 
 // traerse todos los post
-server.get('/getAll', async function (req, res) {
+server.get('/getAll/:id', async function (req, res) {
 
+    if(req.params.id){
+        
+        
+          try {
+        let posts = await Post.findAll({
+            where:{id:req.params.id}
+            include: [
+                { model: Like }
+            ]
+        });
+        res.send(posts);
+    } catch (error) {
+        console.log(error)
+    }
+        
+        
+        
+        
+    }else {
 
     try {
         let posts = await Post.findAll({
@@ -77,7 +96,7 @@ server.get('/getAll', async function (req, res) {
     } catch (error) {
         console.log(error)
     }
-
+    }
 })
 // dar like
 server.post("/likes", async function (req, res) {
