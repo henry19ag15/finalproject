@@ -70,7 +70,7 @@ server.get('/getAll/:id', async function (req, res) {
         
           try {
         let posts = await Post.findAll({
-            where:{id:req.params.id}
+            where:{id:req.params.id},
             include: [
                 { model: Like }
             ]
