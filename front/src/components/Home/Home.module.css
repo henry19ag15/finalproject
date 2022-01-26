@@ -9,12 +9,13 @@ body {
 }
 
 .home {
-    margin-top: 80px;
+    margin-top: 60px;
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: #f6f6f6;
+    background-color: transparent;
+   
     /* position: relative;
     z-index: 1; */
 }
@@ -26,7 +27,7 @@ body {
     /* z-index: 3; */
     /* border-color: rgb(41, 40, 40); */
     width: 100%;
-    height: auto;
+    height: inherit;
     display: flex;
     flex-direction: column;
     /* flex-wrap: wrap; */
@@ -36,6 +37,16 @@ body {
     /* left: 0; */
     /* top: 0; */
 }
+
+.postNone{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
 
 /** -------------------------------------------------------------------------------------------------------------------- */
 @media (max-width: 412px) {

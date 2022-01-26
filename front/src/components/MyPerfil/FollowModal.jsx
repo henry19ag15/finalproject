@@ -10,11 +10,13 @@ export default function FollowModal({ setFollowActive, followActive }) {
   const user = useSelector((state) => state.allUser);
   const myuser = useSelector((state) => state.myProfile);
   const followers = myuser.followers.map((e) =>
-    user.filter((el) => el.id === e)
+    user.filter((el) => el.id === e.autorId)
   );
-  const following = myuser.following.map((e) =>
-    user.filter((el) => el.id === e)
+  const following = myuser.followings.map((e) =>
+    user.filter((el) => el.id === e.autorId)
   );
+  console.log("followers en 0", followers[0]);
+  console.log("following en 0", following[0]);
 
   const [followView, setFollowView] = useState(followActive.type);
 
@@ -31,30 +33,24 @@ export default function FollowModal({ setFollowActive, followActive }) {
       return (
         <div className={style.FollowBox}>
           {followers.map((e) =>
-            e.length > 0 ? (
+            (
               <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
+                <img src={e[0].profilephoto} alt="" />
                 <p>{e[0].username}</p>
               </button>
-            ) : (
-              false
-            )
+            ) 
           )}
         </div>
       );
     } else if (followView === "following") {
       return (
         <div className={style.FollowBox}>
-          {following.map((e) =>
-            e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
-                <p>{e[0].username}</p>
-              </button>
-            ) : (
-              false
-            )
-          )}
+          {following.map((e) => (
+            <button onClick={() => handleSelect(e[0].id)}>
+              <img src={e[0].profilephoto} alt="" />
+              <p>{e[0].username}</p>
+            </button>
+          ))}
         </div>
       );
     }

@@ -10,7 +10,7 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
+import { getMyProfile, getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AiFillSetting } from "react-icons/ai";
@@ -18,7 +18,8 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
-
+import LoadingPage from "../LoadingPage/LoadingPage";
+import Error404 from "../Error404/Error404";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -26,18 +27,38 @@ export default function UserProfile() {
   const user = auth.currentUser;
   const perfil = useSelector((state) => state.userView);
   const history = useHistory();
-
+  const [load, setLoad] = useState(0);
   const [followActive, setFollowActive] = useState({
     view: false,
-    type: ""
-  })
+    type: "",
+  });
 
   const myProfile = useSelector((state) => state.myProfile);
   //   console.log(myProfile);
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
+
+
+
+
   useEffect(() => {
-    dispatch(getUserProfile(newStr));
+    if (newStr === auth.currentUser.uid) {
+      history.push("/profile");
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMyProfile(auth.currentUser.uid))
+    dispatch(getUserProfile(newStr)).then((res) => {
+      console.log("esto es res", res);
+
+      if (res.payload.active === true) {
+        setLoad(1);
+      } else {
+        setLoad(2);
+      }
+    });
+
     // console.log(newStr);
     // console.log(perfil);
   }, []);
@@ -47,11 +68,11 @@ export default function UserProfile() {
   function handleFollow(e) {
     axios
       .put("https://pruebaconbackreal-pg15.herokuapp.com/user/follow", [
-        user.uid,
         perfil.id,
+        user.uid,
       ])
       .then(() => {
-        dispatch(getUserProfile(newStr));
+        dispatch(getUserProfile(perfil.id));
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +81,8 @@ export default function UserProfile() {
 
   const checkFollow = () => {
     const areFollow =
-      perfil.followers && perfil.followers.filter((id) => id === user.uid);
+      perfil.followers &&
+      perfil.followers.filter((follow) => follow.autorId === user.uid);
     console.log(areFollow);
     if (areFollow && areFollow.length > 0) {
       return false;
@@ -86,79 +108,114 @@ export default function UserProfile() {
 
   ///////////////////////////////////////////////////
 
-  return (
-    <div className={style.allMyPerfil}>
-      <header className={style.cabeza}>
-        <div className={style.imgFollBox}>
-          {perfil.profilephoto ? (
-            <img
-              className={style.photoProfile}
-              src={perfil.profilephoto}
-              alt=""
-            />
-          ) : (
-            <img className={style.photoProfile} src={noImg} alt="" />
-          )}
-
-          <div className={style.followBox}>
-            <button onClick={e => setFollowActive({
-              view: true, type: "followers"
-            })}>
-              <p>Seguidores</p>
-              {perfil.followers && <p>{perfil.followers.length}</p>}
-            </button>
-            <button onClick={e => setFollowActive({ view: true, type: "following" })} >
-              <p>Seguidos</p>
-              {perfil.following && <p>{perfil.following.length}</p>}
-            </button>
-          </div>
-        </div>
-        <div className={style.nameConfigBox}>
-          <div className={style.nameBox}>
-            <h3>{perfil.username}</h3>
-            <h4>{perfil.email}</h4>
-          </div>
-          <div className={style.btnFollowBox}>
-            {checkFollow() ? (
-              <button className={style.follow} onClick={(e) => handleFollow(e)}>
-                Seguir
-              </button>
+  function RenderProfile() {
+    return (
+      <div className={style.allMyPerfil}>
+        <header className={style.cabeza}>
+          <div className={style.imgFollBox}>
+            {perfil.profilephoto ? (
+              <img
+                className={style.photoProfile}
+                src={perfil.profilephoto}
+                alt=""
+              />
             ) : (
-              <button
-                className={style.unfollow}
-                onClick={(e) => handleFollow(e)}
-              >
-                Dejar de seguir
-              </button>
+              <img className={style.photoProfile} src={noImg} alt="" />
             )}
+
+            <div className={style.followBox}>
+              <button
+                onClick={(e) =>
+                  setFollowActive({
+                    view: true,
+                    type: "followers",
+                  })
+                }
+              >
+                <p>Seguidores</p>
+                {perfil.followers && <p>{perfil.followers.length}</p>}
+              </button>
+              <button
+                onClick={(e) =>
+                  setFollowActive({ view: true, type: "following" })
+                }
+              >
+                <p>Seguidos</p>
+                {perfil.followings && <p>{perfil.followings.length}</p>}
+              </button>
+            </div>
           </div>
-        </div>
+          <div className={style.nameConfigBox}>
+            <div className={style.nameBox}>
+              <h3>{perfil.username}</h3>
+              <h4>{perfil.email}</h4>
+            </div>
+            <div className={style.btnFollowBox}>
+              {checkFollow() ? (
+                <button
+                  className={style.follow}
+                  onClick={(e) => handleFollow(e)}
+                >
+                  Seguir
+                </button>
+              ) : (
+                <button
+                  className={style.unfollow}
+                  onClick={(e) => handleFollow(e)}
+                >
+                  Dejar de seguir
+                </button>
+              )}
+            </div>
+          </div>
 
-        <div className={style.details}>
-          <p>{perfil.detail}</p>
-        </div>
-      </header>
+          <div className={style.details}>
+            <p>{perfil.detail}</p>
+          </div>
+        </header>
 
-      <body>
-        <span>
-          {userPost.length > 0 ? userPost.map((el) => (
-            <Card
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.creator}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          )) : <p>
-            No hay publicaciones realizadas
-          </p>}
-        </span>
+        <body>
+          <span>
+            {userPost.length > 0 ? (
+              userPost.map((el) => (
+                <Card
+                  locate="userProfile"
+                  id={el.id}
+                  key={el.id}
+                  photo={el.photo}
+                  detail={el.detail}
+                  creator={el.autorId}
+                  likes={el.likes}
+                  createdAt={el.createdAt}
+                />
+              ))
+            ) : (
+              <div className={style.postNone}>
+                <p>No hay publicaciones realizadas</p>
+              </div>
+            )}
+          </span>
+        </body>
 
-      </body>
+        {followActive.view === true ? (
+          <FollowModalOtherProfile
+            setFollowActive={setFollowActive}
+            followActive={followActive}
+          />
+        ) : (
+          false
+        )}
+      </div>
+    );
+  }
 
-      {followActive.view === true ? <FollowModalOtherProfile setFollowActive={setFollowActive} followActive={followActive} /> : false}
-    </div>
-  );
+  ///////////////////////////////////////////////////
+
+  // return load === 1 ? RenderProfile() : <LoadingPage />;
+
+  if (load === 0) {
+    return <LoadingPage />;
+  } else if (load === 1) {
+    return RenderProfile();
+  } else if (load === 2) return <Error404 />;
 }

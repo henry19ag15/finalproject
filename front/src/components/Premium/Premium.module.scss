@@ -1,0 +1,82 @@
+.allPremium {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formPremium {
+  position: absolute;
+  background-color: white;
+  background-image: url("../../sass/hojas.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+//   justify-content: space-between;
+  //   z-index: 3000;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px black;
+  width: 20rem;
+  height: 30rem;
+  padding: 0.5rem 0.5rem 2rem 0.5rem;
+
+  .btnCLoseBox {
+    width: 98%;
+    //   background: red;
+    display: flex;
+    justify-content: flex-end;
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      background: transparent;
+      border: none;
+      color: red;
+      margin: 0.3rem 0;
+      filter: drop-shadow(0px 0px 1px black);
+      transition: 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .imgBox {
+    img {
+      height: 5rem;
+    }
+    .textPremium {
+      position: absolute;
+      font-size: 1.3rem;
+      top: 5rem;
+      color: yellow;
+      text-shadow: 0px 0px 5px black, 0px 0px 5px black, 0px 0px 5px black;
+      left: 11rem;
+    }
+  }
+
+  .descripcionBox {
+      margin: 1.5rem 0;
+      height: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+    .text1 {
+    }
+    .text2{
+font-size: 1.5rem ;
+    }
+    .text3{
+        font-size: 2rem;
+        font-weight: 600;
+    }
+  }
+}

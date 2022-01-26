@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { getPost, getPostMyProfile } from "../Redux/02-actions";
+import MyPerfil from "../components/MyPerfil/MyPerfil";
 
 
 const useModal = (initialValue = false) => {
@@ -18,7 +19,7 @@ const useModal = (initialValue = false) => {
     creator: user.uid,
     imagen: "",
     detail: "",
-    type: "Público",
+    type: false,
   });
 
   const [loading, setLoading] = useState(false)
@@ -76,18 +77,24 @@ const useModal = (initialValue = false) => {
       photoURL: url,
       creator: form.creator,
       detail: form.detail,
-    }).then(() => {
+      private: form.type
+    }).then((res) => {
+      console.log(res)
       setLoading(false)
       swal("Publicaón creada correctamente", {
         icon: "success",
-      });
+      })
+      const arrayIds = myProfile.followers.map((el) => el.autorId)
 
-
-      dispatch(getPost(myProfile.following.concat(auth.currentUser.uid)))
-      dispatch(getPostMyProfile(auth.currentUser.uid))
+      dispatch(getPost(arrayIds.concat(auth.currentUser.uid)))
+      dispatch(getPostMyProfile([auth.currentUser.uid]))
       handleReset();
       closeModal()
     }).catch((error) => {
+      swal("No se pudo subir la publicaciones", {
+        icon: "error",
+      })
+
       console.log(error)
     })
   };

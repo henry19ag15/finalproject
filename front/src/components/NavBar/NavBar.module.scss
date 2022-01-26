@@ -1,23 +1,21 @@
 @import "../../sass/variables";
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital@1&display=swap");
 
 * {
   margin: 0;
   box-sizing: border-box;
   // outline: solid 1px red;
-
 }
 
 body {
-  font-family: sans-serif;
+  font-family: $primary-font;
+
   padding: 90px 20px 0;
   position: sticky;
-  
 }
 
 .NavBar {
   background-color: white;
-  height: 80px;
+  height: 60px;
   position: fixed;
   width: 100%;
   top: 0;
@@ -42,18 +40,18 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 190px;
-  margin-left: 2rem;
+  // width: 190px;
+  margin-left: 1rem;
   img {
     height: 95%;
-    width: 90%;
+    // width: 90%;
   }
 }
 
 .NavMenu {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+
   //   margin-right: 40px;
   padding: 0 0;
   width: 70%;
@@ -62,38 +60,87 @@ body {
 }
 
 /** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
+
+
+.btnPremiumView{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background:transparent ;
+  border: none;
+  cursor: pointer;
+}
+
+.iconStar{
+  position: absolute;
+  top:0.5rem;
+  padding-right: 1rem ;
+  color: rgba(255, 255, 0, 0.9);
+  filter: drop-shadow(0px 0px 2px black);
+  font-size: 1.3rem;
+  }
+
+
+.btnOpenSearchInNavResp{
+display:none;
+}
+
+
 .searchBarRespons {
   display: none;
 }
 
-.searchBar {
-  line-height: 80px;
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  // background: green;
-  border-radius: 3rem;
-  border: solid 1px $main-color;
-}
-.searchBar:hover {
+.focusSearch {
   // background-color :red;
   transition: 0.2s;
-  box-shadow: 0px 0px 5px $main-color;
+  border: solid 1px black;
+
+  box-shadow: 0px 0px 5px black;
+}
+.searchBar {
+  // position: relative;
+  margin-top: 13px;
+  top: 0;
+  width: 50%;
+  height: max-content;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  // background: green;
+  border-radius: 5px;
+  border: solid 1px black;
+
+  .inputIconBox {
+    width: inherit;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    // line-height: 80px;
+    .input {
+      background-color: rgba(228, 222, 222, 0.945);
+      background: transparent;
+      width: inherit;
+      font-family: $primary-font;
+
+      // height: 30px;
+      // border-radius: 5em 0 0 5em;
+      border: none;
+      font-size: 1rem;
+      padding-left: 0.5rem;
+      color: $main-color;
+    }
+    .btn {
+      margin-right: 0.3rem;
+    }
+  }
 }
 
-.input {
-  background-color: rgba(228, 222, 222, 0.945);
-  background: transparent;
-  width: 100%;
-  height: 30px;
-  // border-radius: 5em 0 0 5em;
-  border: none;
-  font-size: 1rem;
-  padding-left: 0.5rem;
-  color: $main-color;
-}
 .input:focus {
   outline: none;
 }
@@ -118,8 +165,8 @@ body {
 }
 
 .renderSearched {
-  position: fixed;
-  top: 0;
+  // position: fixed;
+  // top: 0;
   // left: 0;
   // height: auto;
   // background: red;
@@ -127,15 +174,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  // margin-top: 80px;
   width: 100%;
+  // border-radius: 5px;
   li {
     // height: auto;
-    background: white;
-    width: 60%;
+    // background: white;
+    width: 100%;
     list-style: none;
     display: flex;
-    border: solid 1px $main-color;
+    // border: solid 1px $main-color;
     button {
       padding: 0.5rem;
       width: 100%;
@@ -146,46 +194,57 @@ body {
       justify-content: flex-start;
       background: transparent;
       border: none;
-      font-family: "Nunito", sans-serif;
-      font-size: 1.2rem;
+      font-weight: 500;
+      font-family: $primary-font;
+      font-size: 1rem;
       transition: 0.2s;
       img {
-        height: 2.5rem;
-        width: 2.5rem;
+        height: 1.5rem;
+        width: 1.5rem;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 0.5rem;
+        box-shadow: 0px 0px 5px black;
       }
     }
     button:hover {
-      background-color: $main-color;
-      color: White;
+      // background-color: $main-color;
+      color: $main-color;
     }
   }
 }
-.btnOpenSearchInNavResp {
+
+.liBoxSearchResponsive{
+
+
   display: none;
 }
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
 
 /*? ----------------------------------------      MenuItem    --------------------------------------------------------------------- */
 .add {
-  margin-top: 7px;
-  font-size: 36px;
-  width: 70px;
-  color: black;
+  // margin-top: 7px;
+  font-size: 1.8rem;
+  // width: 70px;
+  // color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 80px;
+  transition: 0.2s;
+ 
+}
+
+.add:hover{
+  // filter: drop-shadow(0px 0px 2px $main-color);
 }
 
 .menuItem {
   /* color: hotpink; */
-  font-size: 40px;
+  font-size: 2rem;
   // padding: 10px 5px 5px 5px;
   // margin: 5px;
-  width: 70px;
+  // width: 70px;
   color: black;
   display: flex;
   align-items: center;
@@ -194,8 +253,33 @@ body {
   /* border-color: honeydew; */
   border-radius: 80px;
   transition: 0.2s;
-
   cursor: pointer;
+
+  .btnNotifi {
+    height: 100%;
+    display: flex;
+      align-items: center;
+      font-size: 2rem;
+      transition: 0.2s;
+    p {
+      color: white;
+      background-color: red;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      position: absolute;
+      
+    }
+  }
+  .btnNotifi:hover{
+    transform: none;
+    // filter: drop-shadow(0px 0px 2px $main-color);
+  }
+
   img {
     height: 2.5rem;
     width: 2.5rem;
@@ -210,11 +294,11 @@ body {
 
 .menuItem:active {
   // background-color: rgba(172, 232, 255, 0.781);
-  transform: scale(0.9);
+  // transform: scale(0.9);
 }
 
 .menuItem:hover {
-  color: $main-color;
+  // color: $main-color;
 }
 
 .btn_toogle {
@@ -258,7 +342,7 @@ body {
     color: rgb(8, 8, 8);
     background-color: white;
     right: 0;
-    top: 79px;
+    top: 59px;
     padding: 20px 0;
     display: flex;
     justify-content: flex-end;
@@ -272,6 +356,20 @@ body {
 
     transition: 0.3s;
   }
+
+
+  
+  
+  .iconStar{
+    // position: relative;
+    top: initial;
+   
+    }
+
+
+
+
+
 
   .disable {
     right: -100vw;
@@ -288,7 +386,11 @@ body {
   }
 
   .menuItem {
-    padding: 10px 5px 5px 5px;
+    // padding: 10px 5px 5px 5px;
+    margin: 0.3rem 0;
+  }
+  .add {
+    margin: 0.3rem 0;
   }
 
   .btn_toogle {
@@ -346,14 +448,15 @@ body {
     }
     .btnCloseSearch {
       position: absolute;
-      right: 1vw;
-      top: 1vh;
+      right: 2vw;
+      top: 0.5vh;
       background: transparent;
       border: none;
       font-size: 1.5rem;
       transition: 0.3s;
+      
     }
-    .btnCloseSearch:hover{
+    .btnCloseSearch:hover {
       color: red;
     }
     ul {
@@ -375,7 +478,7 @@ body {
           display: flex;
           align-items: center;
           font-size: 1rem;
-          font-family: "Nunito", sans-serif;
+          font-family: $primary-font;
           background: transparent;
           border: none;
           img {
@@ -395,11 +498,11 @@ body {
   }
   .btnOpenSearchInNavResp {
     background: transparent;
-    font-size: 40px;
+    font-size: 2rem;
     // padding: 10px 5px 5px 5px;
     // margin: 5px;
     width: 70px;
-    margin-top:7px;
+    margin-top: 7px;
     color: black;
     display: flex;
     align-items: center;
@@ -407,5 +510,8 @@ body {
 
     border: none;
     transition: 0.2s;
+  }
+  .numAlert{
+    // top:1px
   }
 }

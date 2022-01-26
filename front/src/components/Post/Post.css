@@ -1,5 +1,8 @@
 .Post {
   cursor: pointer;
+  display:flex;
+align-items: center;
+
 }
 
 .header-post {

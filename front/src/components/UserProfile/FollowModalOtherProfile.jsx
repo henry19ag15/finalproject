@@ -19,11 +19,16 @@ export default function FollowModalOtherProfile({
   urlActual = urlActual.slice(6, urlActual.length);
   const profileUser = user.filter((e) => e.id === urlActual);
   const followers = profileUser[0].followers.map((e) =>
-    user.filter((el) => el.id === e)
+    user.filter((el) => el.id === e.autorId)
   );
-  const following = profileUser[0].following.map((e) =>
-    user.filter((el) => el.id === e)
+  const following = profileUser[0].followings.map((e) =>
+    user.filter((el) => el.id === e.autorId)
   );
+
+  console.log("followers ", followers);
+  console.log("following ", following);
+
+
 
   const [followView, setFollowView] = useState(followActive.type);
 
