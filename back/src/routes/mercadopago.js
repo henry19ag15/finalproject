@@ -9,7 +9,7 @@ mercadopago.configure({
 
 
 server.post("/", function (req, res) {
-    console.log(req.body)
+    console.log(req.body.uid)
 
 
 
@@ -52,7 +52,7 @@ server.post("/", function (req, res) {
 });
 
 server.get('/feedback', async function (req, res) {
-    console.log(res)
+    console.log(res.)
 
     try {
         const payment_id = req.query.payment_id
@@ -66,9 +66,6 @@ server.get('/feedback', async function (req, res) {
                 payment_id,
                 userId: external_reference,
             })
-        }
-        else {
-            res.redirect("http://localhost:3000")
         }
         res.redirect("http://localhost:3000")
     } catch (error) {
