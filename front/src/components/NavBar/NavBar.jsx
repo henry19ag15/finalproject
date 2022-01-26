@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
-import { RiVipCrownLine } from "react-icons/ri";
+import { RiVipCrownLine, RiVipCrownFill } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { BsPatchCheckFill } from "react-icons/bs";
+
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
@@ -17,6 +19,7 @@ import Post from "../Post/Post";
 import Notificaiones from "../Notificaciones/Notificaciones";
 import axios from "axios";
 import Premium from "../Premium/Premium";
+import PremiumCheck from "../Premium/PremiumCheck";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -66,8 +69,6 @@ const NavBar = () => {
     }
   }, [aux]);
   */
-
-
 
   ///////////////////////////////////////////////////
 
@@ -154,6 +155,7 @@ const NavBar = () => {
 
   ////////////// LOGICA DE PREMIUM //////////////
   const [premiumModalView, setPremiumModalView] = useState(false);
+  const premiumValidate = myProfile && myProfile?.orders?.length>0;
 
   function handleViewPremium(e) {
     setPremiumModalView(!premiumModalView);
@@ -272,17 +274,31 @@ const NavBar = () => {
 
           <li>
             <button
-              className={styles.btnPremiumView}
+              className={
+                premiumValidate
+                  ? `${styles.btnPremiumView} ${styles.btnPremiumViewCheck}`
+                  : styles.btnPremiumView
+              }
               onClick={(e) => handleViewPremium(e)}
             >
-              <div className={styles.iconStar}>
-                <AiFillStar />
+              <div
+                className={premiumValidate ? styles.iconCheck : styles.iconStar}
+              >
+                {premiumValidate ? <BsPatchCheckFill /> : <AiFillStar />}
               </div>
-              <RiVipCrownLine />
+              {premiumValidate ? <RiVipCrownFill /> : <RiVipCrownLine />}
             </button>
 
             {premiumModalView ? (
-              <Premium setPremiumModalView={setPremiumModalView} data={data} />
+              premiumValidate ? (
+                <PremiumCheck setPremiumModalView={setPremiumModalView}/>
+              ) : (
+                <Premium
+                  setPremiumModalView={setPremiumModalView}
+                  data={data}
+                  premiumValidate={premiumValidate}
+                />
+              )
             ) : (
               false
             )}

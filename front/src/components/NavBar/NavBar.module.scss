@@ -64,6 +64,7 @@ body {
 
 .btnPremiumView{
   height: 100%;
+  width: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,6 +73,24 @@ body {
   border: none;
   cursor: pointer;
 }
+
+.btnPremiumViewCheck{
+color :yellow;
+  filter: drop-shadow(1px 1px 4px black);
+  font-size: 2.2rem;
+}
+
+
+
+.iconCheck{
+  position: absolute;
+  top:0.5rem;
+  padding-right: 1rem ;
+  // color: rgba(255, 255, 0, 0.9);
+  color:rgba(0, 128, 0, 0.9);
+  filter: drop-shadow(0px 0px 2px black);
+  font-size: 1.3rem;
+  }
 
 .iconStar{
   position: absolute;
