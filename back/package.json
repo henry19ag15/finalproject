@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "mercadopago": "^1.5.11"
   },
   "devDependencies": {
     "chai": "^4.2.0",
