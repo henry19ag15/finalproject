@@ -2,7 +2,7 @@ const server = require("express").Router();
 const { Comment, Notification, Post } = require('../db.js')
 
 
-// comentar
+// Hacer un comentario
 server.post("/", async function (req, res) {
 
   try {
@@ -43,7 +43,8 @@ server.post("/", async function (req, res) {
 
 
 });
-// eliminar comentario
+
+// Eliminar comentario
 server.delete("/delete/:id", async function (req, res) {
   try {
     const { id } = req.params;

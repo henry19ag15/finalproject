@@ -38,4 +38,28 @@ server.put("/visto/:id", (req, res) => {
     });
 });
 
+
+server.get("/boolean/:id", async (req, res) => {
+  console.log(req.body);
+  /* id del que mira SUS notificaciones*/
+  const { id } = req.params;
+
+  try {
+    let noti = await Notification.findAll({
+      where: {
+        recieves: id,
+      },
+    });
+    res.status(200).send(noti);
+  } catch (err) {
+    console.log(err);
+  }
+  if(noti){
+    return {
+      visto: false
+    }
+    
+  }
+  res.status(200).send(noti)
+});
 module.exports = server;

@@ -3,11 +3,11 @@ const mercadopago = require("mercadopago");
 // Agrega credenciales
 
 mercadopago.configure({
-    access_token: "TEST-1669804256012393-012002-9bab02eee7f87d669e56773678a093ab-684896062",
+    access_token: "TEST-5744131261849900-012314-d0b641511d07f8adc8be1c70f285658d-659924599",
 });
 
 
-server.post("/", function (req, res) {
+server.post("/suscription", function (req, res) {
     console.log(req.body)
 
     let preference = {
@@ -43,11 +43,16 @@ server.post("/", function (req, res) {
 });
 
 server.get('/feedback', function (req, res) {
-    res.json({
-        Payment: req.query.payment_id,
-        Status: req.query.status,
-        MerchantOrder: req.query.merchant_order_id
-    });
+    console.log(res)
+   try {
+       const payment_id = req.query.payment_id
+       const payment_status = req.query.status
+       const external_reference =req.query.external_reference
+
+
+   } catch (error) {
+       
+   }
 });
 
 
