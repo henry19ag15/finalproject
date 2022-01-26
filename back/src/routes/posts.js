@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Post, User, Like } = require("../db.js");
+const { Post, User, Comment, Like, Notification } = require("../db.js");
 const sequelize = require("sequelize");
 
 //crear post
@@ -12,6 +12,7 @@ server.post("/", async function (req, res) {
       autorId: creator,
       private: private,
     });
+    res.status(200).send("se creo el post");
 
     /* NOTIFICACION SOBRE NUEVO POST */
 
@@ -25,8 +26,6 @@ server.post("/", async function (req, res) {
     //   about: idPost,
     //   recieves: user.id,
     // });
-
-    res.status(200).send("se creo el post");
   } catch (error) {
     console.log(error);
   }
@@ -83,26 +82,52 @@ server.post("/likes", async function (req, res) {
       });
       /* NOTIFICACION SOBRE NUEVO LIKE */
 
-      let autor = await Post.findOne({
-        where: {
-          id: idPost,
-        },
+      let findPost = await Post.findOne({
+        where: { id: idPost },
       });
 
-      let user = await User.findOne({
-        where: {
-          id: autor.autorId,
-        },
-      });
+      console.log(findLike);
 
-      await Notification.create({
-        autor: idUser,
-        details: " le ha dado like a una de tus publicaciones.",
-        about: idPost,
-        recieves: user.id,
-      });
-
-      res.status(200).send("like dado");
+      if (!findLike) {
+        try {
+          await Like.create({
+            userId: idUser,
+            postId: idPost,
+          });
+          if (findPost.autorId !== idUser) {
+            await Notification.create({
+              autor: idUser,
+              detail: " le ha dado like a una de tus publicaciones.",
+              about: `${idPost}`,
+              notification_Id: findPost.autorId,
+            });
+          }
+          res.status(200).send("like dado");
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await Like.destroy({
+            where: {
+              userId: idUser,
+              postId: idPost,
+            },
+          });
+          if (findPost.autorId !== idUser) {
+            await Notification.destroy({
+              where: {
+                autor: idUser,
+                about: `${idPost}`,
+                notification_Id: findPost.autorId,
+              },
+            });
+          }
+          res.status(200).send("like borrado");
+        } catch (error) {
+          console.log(error);
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -144,11 +169,7 @@ server.put("/setting/:id", (req, res, next) => {
   const { id, detail } = req.body.payload;
 
   var postmod = {
-    photo,
     detail: detail,
-    creator,
-    likes,
-    active,
   };
   Post.findOne({
     where: {
@@ -171,6 +192,11 @@ server.put("/setting/:id", (req, res, next) => {
       console.log(err);
       res.status(404).send("Post no encontrado");
     });
+});
+
+server.post("/respone", function (req, res) {
+  console.log(req.body);
+  res.status(200).send("Ok");
 });
 
 module.exports = server;

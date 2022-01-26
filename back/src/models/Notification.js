@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
     {
       autor: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       detail: {
         type: DataTypes.TEXT,
@@ -14,16 +14,16 @@ module.exports = (sequelize) => {
       },
       about: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       visto: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: false,
+        allowNull: true,
       },
       recieves: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
     }
     // {

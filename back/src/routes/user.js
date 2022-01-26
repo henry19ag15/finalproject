@@ -6,6 +6,8 @@ const {
   Suscriber,
   Suscripto,
   Post,
+  Notification,
+  Order,
 } = require("../db");
 const sequelize = require("sequelize");
 
@@ -74,6 +76,7 @@ server.get("/", async function (req, res) {
         { model: Following },
         { model: Suscriber },
         { model: Suscripto },
+        { model: Notification },
       ],
     });
     res.send(users);
@@ -97,6 +100,8 @@ server.get("/:id", async function (req, res) {
         { model: Following },
         { model: Suscriber },
         { model: Suscripto },
+        { model: Notification },
+        { model: Order },
       ],
     });
     res.status(200).send(user);
@@ -213,7 +218,15 @@ server.put("/follow", async (req, res) => {
             followin_Id: idTwo,
           },
         });
-        res.send("Se ha dejado de seguir");
+
+        await Notification.destroy({
+          where: {
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne,
+          },
+        });
+        res.status(200).send("Se ha dejado de seguir");
       } catch (error) {
         console.log(error);
       }
@@ -227,6 +240,16 @@ server.put("/follow", async (req, res) => {
           autorId: idOne,
           followin_Id: idTwo,
         });
+
+        /* NOTIFICACION SOBRE SEGUIDO */
+
+        await Notification.create({
+          autor: idTwo,
+          detail: "Te ha empezado a seguir",
+          about: idTwo,
+          notification_Id: idOne,
+        });
+        res.status(200).send("Se ha empezado a seguir");
 
         /* NOTIFICACION SOBRE SEGUIDO */
 
@@ -288,6 +311,13 @@ server.put("/suscribe", async (req, res) => {
             suscripto_Id: idTwo,
           },
         });
+        await Notification.destroy({
+          where: {
+            autor: idOne,
+            about: idTwo,
+            notification_Id: idOne,
+          },
+        });
         res.send("Se ha dejado de suscribir");
       } catch (error) {
         console.log(error);
@@ -303,12 +333,11 @@ server.put("/suscribe", async (req, res) => {
           suscripto_Id: idTwo,
         });
 
-        /* NOTIFICACION SOBRE NUEVO SUSCRITO */
         await Notification.create({
-          autor: idTwo,
-          details: " se ha suscrito a tu perfil.",
+          autor: idOne,
+          detail: "Te ha empezado a suscribir",
           about: idTwo,
-          recieves: idOne,
+          notification_Id: idOne,
         });
         res.send("Se ha empezado a suscribir");
       } catch (error) {

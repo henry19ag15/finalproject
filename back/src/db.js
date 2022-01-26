@@ -49,6 +49,7 @@ const {
   Suscriber,
   Suscripto,
   Notification,
+  Order,
 } = sequelize.models;
 
 ////////////////////////////////// RELACIONES/////////////////////////////////////////
@@ -86,10 +87,16 @@ Suscriber.belongsTo(User, { onDelete: "CASCADE" });
 ///////////////USER-SUSCRIBED
 User.hasMany(Suscripto, { onDelete: "CASCADE", foreignKey: "suscripto_Id" });
 Suscripto.belongsTo(User, { onDelete: "CASCADE" });
-
 ///////////////USER-NOTIFICATION
-User.hasMany(Notification, { onDelete: "CASCADE", foreignKey: "recieves_Id" });
+User.hasMany(Notification, {
+  onDelete: "CASCADE",
+  foreignKey: "notification_Id",
+});
 Notification.belongsTo(User, { onDelete: "CASCADE" });
+
+///////////////USER-ORDER
+User.hasMany(Order, { onDelete: "CASCADE" });
+Order.belongsTo(User, { onDelete: "CASCADE" });
 
 /* El User de la relacion es el que recibe la notificacion  */
 

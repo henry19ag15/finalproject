@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Comment, Post, Notification, User } = require("../db.js");
+const { Comment, Notification, Post } = require("../db.js");
 
 // comentar
 server.post("/", async function (req, res) {
@@ -11,31 +11,22 @@ server.post("/", async function (req, res) {
       userId: idUser,
       postId: idPost,
     });
-
-    /* NOTIFICACION SOBRE NUEVO COMENTARIO */
-
-    let autor = await Post.findOne({
-      where: {
-        id: idPost,
-      },
+    let findPost = await Post.findOne({
+      where: { id: idPost },
+      /* NOTIFICACION SOBRE NUEVO COMENTARIO */
     });
-
-    let user = await User.findOne({
-      where: {
-        id: autor.id,
-      },
-    });
-
-    await Notification.create({
-      autor: idUser,
-      details: " ha comentado una de tus publicaciones",
-      about: idPost,
-      recieves: user.id,
-    });
+    if (findPost.autorId !== idUser) {
+      await Notification.create({
+        autor: idUser,
+        detail: " ha comentado una de tus publicaciones",
+        about: idPost,
+        notification_Id: findPost.autorId,
+      });
+    }
 
     res.status(200).send("comentario");
   } catch (error) {
-    res.status(400).send(error);
+    // res.status(400).send(error)
     console.log(error);
   }
 });
