@@ -20,12 +20,16 @@ import { MdClose } from "react-icons/md";
 import Card from "../Card/Card";
 import FollowModal from "./FollowModal";
 import LazyLoad from "react-lazyload";
+import LoadingPage from "../LoadingPage/LoadingPage";
+import Error404 from "../Error404/Error404";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
-  const perfil = useSelector((state) => state.myProfile);
+ 
+  const myProfile = useSelector((state) => state.myProfile);
+
   const history = useHistory();
 
   const [configNav, setConfigNav] = useState(false);
@@ -42,14 +46,22 @@ export default function MyPerfil() {
     view: false,
     type: "",
   });
-  const myProfile = useSelector((state) => state.myProfile);
-  //   console.log(myProfile);
+  const [load,setLoad]=useState(0)
+ 
   useEffect(() => {
-    dispatch(getMyProfile(auth.currentUser.uid));
+    dispatch(getMyProfile(auth.currentUser.uid)).then((res)=>{
+      console.log("asdkjasd",res)
+      if (res.payload.active === true) {
+        setLoad(1);
+      } else {
+        setLoad(2);
+      } 
+    })
+    ;
     // console.log(perfil);
     // console.log(user);
   }, []);
-  // console.log();
+  
   function handleLogout(e) {
     swal({
       title: "Cerrar sesion",
@@ -405,153 +417,165 @@ export default function MyPerfil() {
 
   ///////////////////////////////////
 
-  return (
-    <div className={style.allMyPerfil}>
-      <header className={style.cabeza}>
-        <div className={style.imgFollBox}>
-          {user.photoURL ? (
-            <img className={style.photoProfile} src={user.photoURL} alt="" />
-          ) : (
-            <img className={style.photoProfile} src={noImg} alt="" />
-          )}
+function RenderMyProfile (){
+  return <div className={style.allMyPerfil}>
+  <header className={style.cabeza}>
+    <div className={style.imgFollBox}>
+      {user.photoURL ? (
+        <img className={style.photoProfile} src={user.photoURL} alt="" />
+      ) : (
+        <img className={style.photoProfile} src={noImg} alt="" />
+      )}
 
-          <div className={style.followBox}>
-            <button
-              onClick={(e) =>
-                setFollowActive({
-                  view: true,
-                  type: "followers",
-                })
-              }
-            >
-              <p>Seguidores</p>
-              {myProfile.followers && <p>{myProfile.followers.length}</p>}
-            </button>
-            <button
-              onClick={(e) =>
-                setFollowActive({ view: true, type: "following" })
-              }
-            >
-              <p>Seguidos</p>
-              {myProfile.followings && <p>{myProfile.followings.length}</p>}
-            </button>
-          </div>
-        </div>
-        <div className={style.nameConfigBox}>
-          <div className={style.nameBox}>
-            <h3>{perfil.username}</h3>
-            <h4>{user.email}</h4>
-          </div>
-
-          <div className={style.menuPerfil}>
-            <button
-              onClick={(e) => setConfigNav(!configNav)}
-              className={
-                configNav
-                  ? style.btnConfig
-                  : `${style.btnConfig} ${style.btnRotate}`
-              }
-            >
-              <AiFillSetting />
-            </button>
-          </div>
-        </div>
-
-        <div className={style.details}>
-          <p>{perfil.comment}</p>
-        </div>
-      </header>
-
-      <body>
-        <div
-          className={
-            configNav
-              ? style.menuConfig
-              : `${style.menuConfig} ${style.menuConfigOff}`
+      <div className={style.followBox}>
+        <button
+          onClick={(e) =>
+            setFollowActive({
+              view: true,
+              type: "followers",
+            })
           }
         >
-          <h4>Opciones</h4>
-          {/* <button
-            onClick={() => {
-              console.log("este es user", user);
-              swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              }).then((willDelete) => {
-                if (willDelete) {
-                  swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
-                  });
-                } else {
-                  swal("Your imaginary file is safe!");
-                }
-              });
-            }}
-          >
-            {" "}
-            ver user
-          </button> */}
-
-          <button name="displayName" onClick={(e) => handleClickConfig(e)}>
-            Cambiar nombre de usuario
-          </button>
-          <button name="img" onClick={(e) => handleClickConfig(e)}>
-            Cambiar foto de perfil
-          </button>
-          <button name="details" onClick={(e) => handleClickConfig(e)}>
-            Cambiar detalles
-          </button>
-          <button name="pass" onClick={(e) => handleClickConfig(e)}>
-            Cambiar contraseña
-          </button>
-          <button className={style.btnLogout} onClick={(e) => handleLogout(e)}>
-            Cerrar sesion
-          </button>
-          <div>
-            {/*   <button
-              className={style.btnDelete}
-              onClick={(e) => handleDelete(e)}
-            >
-              Borrar Cuenta
-            </button> */}
-          </div>
-        </div>
-        {renderConfig()}
-        <span className={style.myProfileContainer}>
-          {userPost.length > 0 ? (
-            userPost.map((el) => (
-              <LazyLoad height={488} offset={5}>
-                <Card
-                  locate="myProfile"
-                  id={el.id}
-                  key={el.id}
-                  photo={el.photo}
-                  detail={el.detail}
-                  creator={el.autorId}
-                  likes={el.likes}
-                  createdAt={el.createdAt}
-                />
-              </LazyLoad>
-            ))
-          ) : (
-            <div className={style.nonePost}>
-              <p>No hay publicaciones realizadas</p>
-            </div>
-          )}
-        </span>
-      </body>
-
-      {followActive.view === true ? (
-        <FollowModal
-          setFollowActive={setFollowActive}
-          followActive={followActive}
-        />
-      ) : (
-        false
-      )}
+          <p>Seguidores</p>
+          {myProfile.followers && <p>{myProfile.followers.length}</p>}
+        </button>
+        <button
+          onClick={(e) =>
+            setFollowActive({ view: true, type: "following" })
+          }
+        >
+          <p>Seguidos</p>
+          {myProfile.followings && <p>{myProfile.followings.length}</p>}
+        </button>
+      </div>
     </div>
-  );
+    <div className={style.nameConfigBox}>
+      <div className={style.nameBox}>
+        <h3>{myProfile.username}</h3>
+        <h4>{user.email}</h4>
+      </div>
+
+      <div className={style.menuPerfil}>
+        <button
+          onClick={(e) => setConfigNav(!configNav)}
+          className={
+            configNav
+              ? style.btnConfig
+              : `${style.btnConfig} ${style.btnRotate}`
+          }
+        >
+          <AiFillSetting />
+        </button>
+      </div>
+    </div>
+
+    <div className={style.details}>
+      <p>{myProfile.comment}</p>
+    </div>
+  </header>
+
+  <body>
+    <div
+      className={
+        configNav
+          ? style.menuConfig
+          : `${style.menuConfig} ${style.menuConfigOff}`
+      }
+    >
+      <h4>Opciones</h4>
+      {/* <button
+        onClick={() => {
+          console.log("este es user", user);
+          swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              swal("Poof! Your imaginary file has been deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("Your imaginary file is safe!");
+            }
+          });
+        }}
+      >
+        {" "}
+        ver user
+      </button> */}
+
+      <button name="displayName" onClick={(e) => handleClickConfig(e)}>
+        Cambiar nombre de usuario
+      </button>
+      <button name="img" onClick={(e) => handleClickConfig(e)}>
+        Cambiar foto de perfil
+      </button>
+      <button name="details" onClick={(e) => handleClickConfig(e)}>
+        Cambiar detalles
+      </button>
+      <button name="pass" onClick={(e) => handleClickConfig(e)}>
+        Cambiar contraseña
+      </button>
+      <button className={style.btnLogout} onClick={(e) => handleLogout(e)}>
+        Cerrar sesion
+      </button>
+      <div>
+        {/*   <button
+          className={style.btnDelete}
+          onClick={(e) => handleDelete(e)}
+        >
+          Borrar Cuenta
+        </button> */}
+      </div>
+    </div>
+    {renderConfig()}
+    <span className={style.myProfileContainer}>
+      {userPost.length > 0 ? (
+        userPost.map((el) => (
+          <LazyLoad height={488} offset={5}>
+            <Card
+              locate="myProfile"
+              id={el.id}
+              key={el.id}
+              photo={el.photo}
+              detail={el.detail}
+              creator={el.autorId}
+              likes={el.likes}
+              createdAt={el.createdAt}
+            />
+          </LazyLoad>
+        ))
+      ) : (
+        <div className={style.nonePost}>
+          <p>No hay publicaciones realizadas</p>
+        </div>
+      )}
+    </span>
+  </body>
+
+  {followActive.view === true ? (
+    <FollowModal
+      setFollowActive={setFollowActive}
+      followActive={followActive}
+    />
+  ) : (
+    false
+  )}
+</div>
+}
+
+
+
+
+
+      if (load === 0) {
+      return <LoadingPage />;
+    } else if (load === 1) {
+      return RenderMyProfile();
+    } else if (load === 2) return <Error404 />;
+    
+  
 }

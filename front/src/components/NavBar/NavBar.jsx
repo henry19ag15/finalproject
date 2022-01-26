@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
+import {AiFillStar} from 'react-icons/ai'
+import { RiVipCrownLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
@@ -14,6 +16,7 @@ import { getUserProfile } from "../../Redux/02-actions";
 import Post from "../Post/Post";
 import Notificaiones from "../Notificaciones/Notificaciones";
 import axios from "axios";
+import Premium from "../Premium/Premium";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -30,6 +33,15 @@ const NavBar = () => {
   const [notiView, setNotiView] = useState(false);
   // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
+  const [data, setData] = useState("");
+
+  /*  useEffect(()=>{
+    axios.get('Ruta del back cuando este',{id:auth.currentUser.uid})
+    .then((res)=>{
+      setData(res.data)
+      console.info('Contenido de data:', data )
+    }).catch(err=> console.log(err))
+  }) */
 
   useEffect(() => {
     dispatch(getAllUser());
@@ -108,6 +120,16 @@ const NavBar = () => {
       .catch((err) => console.log(err));
 
     setNotiView(!notiView);
+    
+  }
+
+  //////////////////////////////////////////////
+
+  ////////////// LOGICA DE PREMIUM //////////////
+  const [premiumModalView, setPremiumModalView] = useState(false);
+
+  function handleViewPremium(e) {
+    setPremiumModalView(!premiumModalView);
   }
 
   //////////////////////////////////////////////
@@ -210,14 +232,49 @@ const NavBar = () => {
           <li>
             <button
               onClick={() => {
-                setSearchResponsActive(true)
-                setNavActive(false)
+                setSearchResponsActive(true);
+                setNavActive(false);
               }}
               className={styles.btnOpenSearchInNavResp}
             >
               <BiSearchAlt />
             </button>
           </li>
+
+
+
+
+
+
+          {/* //////////////////// PREMIUM //////////////////// */}
+
+          <li>
+           
+            <button
+              className={styles.btnPremiumView}
+              onClick={(e) => handleViewPremium(e)}
+            >
+               <div className={styles.iconStar}>
+
+<AiFillStar/>
+</div>
+              <RiVipCrownLine />
+            </button>
+
+            {premiumModalView ? (
+              <Premium setPremiumModalView={setPremiumModalView}  data="684896062-5a7659b2-ba47-469f-b0b5-5bbbab5efd97" />
+            ) : (
+              false
+            )}
+          </li>
+
+          {/* ////////////////////////////////////////////////// */}
+
+
+
+
+
+
 
           <li className={styles.menuItem}>
             {" "}
@@ -226,7 +283,7 @@ const NavBar = () => {
               onClick={() => handleNotificationView()}
             >
               {validateNotification() !== 0 ? (
-                <p>{validateNotification()}</p>
+                <p className={styles.numAlert}>{validateNotification()}</p>
               ) : (
                 false
               )}
@@ -262,7 +319,7 @@ const NavBar = () => {
         </ul>
         <button
           className={styles.btn_toogle}
-          onClick={() => setNavActive(!navActive)}
+          onClick={() => setNotiView(false)}
         >
           <Hamburger size={30} toggled={navActive} toggle={setNavActive} />
         </button>
