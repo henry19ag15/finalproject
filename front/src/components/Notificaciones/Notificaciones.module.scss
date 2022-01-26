@@ -64,3 +64,17 @@ overflow-y:scroll;
     }
   }
 }
+
+
+
+
+@media screen and(max-width:768px) {
+
+.todoNotificaciones{
+  position: absolute;
+  width: 100%;
+  top: 27vh;
+  // right: ;
+}
+
+}

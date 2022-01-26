@@ -27,7 +27,7 @@ body {
     /* z-index: 3; */
     /* border-color: rgb(41, 40, 40); */
     width: 100%;
-    height: auto;
+    height: inherit;
     display: flex;
     flex-direction: column;
     /* flex-wrap: wrap; */

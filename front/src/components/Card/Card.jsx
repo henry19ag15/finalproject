@@ -427,6 +427,7 @@ export default function Card({
       {load === true ? (
         <div className={styles.load}>
           <img src={loading} alt="" />
+         
         </div>
       ) : (
         false
