@@ -462,6 +462,20 @@
   font-size: 0.9rem;
 }
 
+.likes button {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  margin-left: 0.3em;
+  cursor: pointer;
+}
+
+section .closeLike {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+}
+
 .input:focus {
   outline: none;
 }

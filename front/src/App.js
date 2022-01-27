@@ -14,6 +14,7 @@ import Error404 from './components/Error404/Error404';
 import { useDispatch } from 'react-redux';
 import { getMyProfile } from './Redux/02-actions';
 import axios from 'axios';
+import LikesModal from './components/LikesModal/LikesModal';
 
 
 
@@ -84,6 +85,9 @@ function App() {
         <Route exact path="/user/:id">
           <NavBar />
           <UserProfile />
+        </Route>
+        <Route path="/likeuser">
+          <LikesModal />
         </Route>
         <Route path="*">
           <Error404 />

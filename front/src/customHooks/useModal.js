@@ -93,6 +93,7 @@ const useModal = (initialValue = false) => {
       handleReset();
       closeModal()
     }).catch((error) => {
+      setLoading(false)
       swal("No se pudo subir la publicaciones", {
         icon: "error",
       })
