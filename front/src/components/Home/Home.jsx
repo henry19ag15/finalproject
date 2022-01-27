@@ -10,6 +10,7 @@ import Card from "../Card/Card";
 import styles from "./Home.module.css";
 import { getAuth } from "firebase/auth";
 import LazyLoad from "react-lazyload";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function Home() {
   //const [picsPerPage, setPicsPerPage] = useState(8);
@@ -25,20 +26,24 @@ export default function Home() {
     return 0;
   });
 
-  const [followin, setFollowin] = useState({ array: [] })
-
+  const [followin, setFollowin] = useState({ array: [] });
+  const [load, setLoad] = useState(0);
 
   // console.log(userPost)
   useEffect(() => {
     dispatch(getAllUser());
-    dispatch(getMyProfile(user.uid)).then((res) => {
-      console.log(res);
-      const arrayIds = res.payload.followings.map((el) => el.autorId);
-      setFollowin({ array: arrayIds })
-      dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
-        console.log(err)
-      );
-    }).catch(err => console.log(err));
+    dispatch(getMyProfile(user.uid))
+      .then((res) => {
+        console.log(res);
+        const arrayIds = res.payload.followings.map((el) => el.autorId);
+        setFollowin({ array: arrayIds });
+        dispatch(getPost(arrayIds.concat(user.uid)))
+          .then((res) => {
+            setLoad(1);
+          })
+          .catch((err) => setLoad(1));
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function parcheValidador(id) {
@@ -51,35 +56,48 @@ export default function Home() {
     }
   }
 
-  return (
-    <div className={styles.home}>
-      {/* <NavBar /> */}
-      <div className={styles.container}>
-        {userPost?.map((el) =>
-          parcheValidador(el.autorId) ? (
-            <LazyLoad height={488} offset={5} key={el.id}>
-              <Card
-                locate="home"
-                id={el.id}
-                key={el.id}
-                photo={el.photo}
-                detail={el.detail}
-                creator={el.autorId}
-                likes={el.likes}
-                createdAt={el.createdAt}
-              />
-            </LazyLoad>
-          ) : (
-            false
-          )
+  function Render() {
+    return (
+      <div className={styles.home}>
+        {/* <NavBar /> */}
+        <div className={styles.container}>
+          {userPost?.map((el) =>
+            parcheValidador(el.autorId) ? (
+              <LazyLoad height={488} offset={5} key={el.id}>
+                <Card
+                  locate="home"
+                  id={el.id}
+                  key={el.id}
+                  photo={el.photo}
+                  detail={el.detail}
+                  creator={el.autorId}
+                  likes={el.likes}
+                  createdAt={el.createdAt}
+                />
+              </LazyLoad>
+            ) : (
+              false
+            )
+          )}
+        </div>
+        {followin.array.length > 0 ? (
+          true
+        ) : (
+          <div className={styles.noneFollowins}>
+            <h1>No sigues a nadie todavia!</h1>
+            <h3>
+              Empieza a seguir gente para poder ver sus publicaciones en el
+              inicio
+            </h3>
+          </div>
         )}
       </div>
-      {followin.array.length > 0 ? true :
-        <div className={styles.noneFollowins}>
-          <h1>No sigues a nadie todavia!</h1>
-          <h3>Empieza a seguir gente para poder ver sus publicaciones en el inicio</h3>
-        </div>}
+    );
+  }
 
-    </div>
-  );
+  if (load === 0) {
+    return <LoadingPage />;
+  } else if (load === 1) {
+    return Render();
+  }
 }
