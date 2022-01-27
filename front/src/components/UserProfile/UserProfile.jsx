@@ -12,8 +12,6 @@ import {
 } from "firebase/auth";
 import { getMyProfile, getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
-
-import { AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import Card from "../Card/Card";

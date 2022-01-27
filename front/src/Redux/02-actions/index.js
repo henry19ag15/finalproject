@@ -49,7 +49,7 @@ export function getMyProfile(id) {
 export function getUserProfile(id) {
   return async function (dispatch) {
     try {
-      const Profile = await axios.get(`https://pruebaconbackreal-pg15.herokuapp.com/user/${id}`)
+      const Profile = await axios.get(`https://pruebaconbackreal-pg15.herokuapp.com/posts/getAll/${id}`)
       return dispatch({
         type: 'GET_USER_PROFILE',
         payload: Profile.data
@@ -65,6 +65,41 @@ export function getUserProfile(id) {
 }
 
 ////////////////// Actions Post //////////////////
+
+
+export function getPostFromId(id) {
+
+
+  console.log(id)
+  return async function (dispatch) {
+
+    try {
+
+      const res = await axios.get(
+        `https://pruebaconbackreal-pg15.herokuapp.com/posts/getAll/${id}`
+      )
+      return dispatch({
+        type: 'GET_POST_FROM_ID',
+        payload: res.data
+      })
+    } catch (error) {
+
+      return dispatch({
+        type: 'GET_POST_FROM_ID',
+        payload: error
+      })
+    }
+
+
+
+
+
+  }
+
+}
+
+
+
 export function getPost(payload) {
   return async function (dispatch) {
     try {
@@ -83,7 +118,7 @@ export function getPost(payload) {
   }
 }
 
-export function getPostMyProfile(payload){
+export function getPostMyProfile(payload) {
   return async function (dispatch) {
     try {
       const posts = await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/getbyusers", { payload: payload })
@@ -105,7 +140,7 @@ export function getPostMyProfile(payload){
 
 
 
-export function getPostUserProfile(payload){
+export function getPostUserProfile(payload) {
   return async function (dispatch) {
     try {
       const posts = await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/getbyusers", { payload: payload })

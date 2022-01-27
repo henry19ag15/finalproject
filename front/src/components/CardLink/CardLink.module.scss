@@ -1,0 +1,277 @@
+* {
+  //   outline: solid 1px red;
+}
+.allCardLink {
+  // overflow-y: scroll;
+  width: 100vw;
+  //   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+
+  .maxCard {
+    // height: 22rem;
+    // height: 100%;
+    width: 100%;
+    background-color: white;
+    .btnCloseBox {
+      //   background-color: green;
+      width: 100%;
+    }
+
+    .imgPanelContainer {
+      //   background-color: blue;
+      width: 100%;
+      //   height: inherit;
+      display: flex;
+      flex-direction: column;
+
+      .imageBox {
+        // background-color: violet;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        img {
+          width: 100%;
+        }
+      }
+      .panelBox {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        header {
+          display: flex;
+          justify-content: flex-end;
+          width: 95%;
+          display: flex;
+          flex-direction: row-reverse;
+          margin: 0.5rem 0;
+          h4 {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+          }
+          img {
+            margin: 0.5rem;
+            border-radius: 50%;
+            box-shadow: 1px 1px 5px black;
+            height: 2rem;
+            width: 2rem;
+            object-fit: cover;
+          }
+        }
+
+        .cabeza {
+          width: 94%;
+          display: flex;
+          justify-content: space-between;
+          margin: 0.3rem 0;
+
+          .btnBar {
+            display: flex;
+            align-items: center;
+            //   height: 100%;
+            button {
+              margin: 0 0.3rem;
+              transition: 0.1s;
+            }
+            button:hover {
+              transform: scale(0.95);
+            }
+          }
+
+          .btnLike {
+            border-radius: 10px;
+            border: none;
+            font-size: 2.2rem;
+            background-color: transparent;
+            //color: rgba(128, 128, 128, 0.767);
+            color: black;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          }
+
+          .colorLike {
+            color: rgba(255, 0, 0, 0.747);
+          }
+        }
+
+        .commentBox {
+          //  *{outline:solid 1px red}
+          // height: 100%;
+          width: 95%;
+          margin: 0.5rem 0;
+          // overflow-y: scroll;
+          .photoNameBox {
+            display: flex;
+            align-items: flex-start;
+
+            .imgBox {
+              height: 100%;
+              display: flex;
+
+              img {
+                height: 1.5rem;
+                width: 1.5rem;
+                border-radius: 50%;
+                margin-right: 0.3rem;
+              }
+            }
+            .commentTextBox {
+              border-radius: 5px;
+              // border: solid 1px gray;
+              width: 100%;
+              p {
+                font-weight: 400;
+                text-align: left;
+                font-size: 0.8rem;
+                padding-right: 2rem;
+                padding-left: 0.5rem;
+              }
+              .name {
+                font-size: 0.9rem;
+                text-align: left;
+                font-weight: 500;
+                padding-left: 0;
+              }
+            }
+          }
+          .comentario {
+            width: 100%;
+            text-align: start;
+            font-size: 0.8rem;
+          }
+        }
+
+        .inputCommentBox {
+          width: 95%;
+          display: flex;
+          flex-direction: row;
+          margin: 0.3rem 0;
+          height: 2rem;
+          // margin-left: 0.3rem;
+          // background-color: orange;
+          input {
+            width: inherit;
+            background: transparent;
+            border: none;
+          }
+
+          button {
+            // width: 10%;
+            color: rgb(0, 174, 255);
+            font-size: 0.8rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            background-color: transparent;
+          }
+          .btnCommentDisabled {
+            color: gray;
+          }
+        }
+
+        .likes {
+          //   position: absolute;
+          //   left: 15px;
+          width: 93%;
+          display: flex;
+          justify-content: flex-start;
+          font-weight: 500;
+          font-size: 0.9rem;
+          // padding-left: 0.5rem;
+          //   bottom: 60px;
+        }
+
+        .description {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          padding: 0.5rem 1rem;
+        }
+
+        .btnVerComBox {
+          width: 90%;
+          display: flex;
+          justify-content: flex-start;
+          button {
+            background: transparent;
+            font-size: 0.7rem;
+            margin: 0.5rem 0;
+            border: none;
+          }
+          .btnVerMas {
+            color: rgb(0, 174, 255);
+          }
+
+          .btnVerMenos {
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 780px) {
+  .allCardLink {
+    position: fixed;
+    height: 100vh;
+
+    .maxCard {
+        border-radius: 10px ;
+        box-shadow: 1px 1px 10px black;
+      height: 30rem;
+      width: 780px;
+
+      .btnCloseBox {
+        position: fixed;
+        top: 0;
+        width: 95%;
+      }
+
+      .imgPanelContainer {
+        flex-direction: row;
+        height: 100%;
+        .panelBox {
+          height: 100%;
+        //   overflow-y: scroll;
+
+header{
+    flex-direction: row;
+}
+
+          .commenOverlay {
+              width: 100%;
+              padding-left: 0.7rem;
+              height: inherit;
+            overflow-y: scroll;
+            .commentBox {
+              flex-direction: row-reverse;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1028px) {
+  .allCardLink {
+    .maxCard {
+      width: 1028px;
+
+      .imgPanelContainer {
+        .panelBox {
+        //   overflow-y: scroll;
+
+          .commentBox {
+          }
+        }
+      }
+    }
+  }
+}

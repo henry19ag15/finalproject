@@ -7,6 +7,7 @@ const initialState = {
   userView: {},
 
   // Posteos //
+  postsFromId:{},
   posts: [],
   myPosts: [],
   postsUserProfile: []
@@ -37,6 +38,15 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allUser: action.payload
       }
+
+
+case "GET_POST_FROM_ID":
+  return {
+    ...state,
+    postsFromId: action.payload
+  }
+
+
 
     case "GET_POSTS":
       return {

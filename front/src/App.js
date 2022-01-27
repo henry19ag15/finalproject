@@ -14,6 +14,7 @@ import Error404 from './components/Error404/Error404';
 import { useDispatch } from 'react-redux';
 import { getMyProfile } from './Redux/02-actions';
 import axios from 'axios';
+import CardLink from './components/CardLink/CardLink';
 
 
 
@@ -84,6 +85,14 @@ function App() {
           <NavBar />
           <UserProfile />
         </Route>
+
+        <Route exact path="/post/:id">
+          {/* <NavBar /> */}
+          <CardLink />
+        </Route>
+
+
+
 
 
         <Route path="*">
