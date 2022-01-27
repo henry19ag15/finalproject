@@ -38,18 +38,21 @@ import { useSelector } from 'react-redux';
 
     return (
         <div className='Post'>
-            <FaRegPlusSquare onClick={() => openModal()} />
-            <Modal openModal={isOpenModal} closeModal={closeModal}>
-                {loading ? <div className='loading'><PulseLoader size={12} color="#24B3D6" margin={7} /></div> : ''}
-                {limitPost === true ? <div className='post-container'>
+            <FaRegPlusSquare onClick={() => openModal()}/>
+            <Modal openModal={isOpenModal} closeModal={closeModal}> 
+            {loading ? <div className='loading'><PulseLoader size={12} color="#24B3D6" margin={7}/></div> : ''}
+            {limitPost === true ? <div className='post-container post-container-empty'>
                     <h4>Alcanzaste tu limite para crear posts!</h4>
+            <button className='close' onClick={closeModal}>X</button>
 
-                </div>
-                    : <div className='post-container'>
-                        <div className={fileUrl ? 'header-post' : 'noBack'}>
-                            <spam className='back-btn' onClick={() => back()}><FaArrowLeft /></spam>
-                            <h2>Crear Publicación</h2>
-                        </div>
+
+                </div>:
+                <div className='post-container post'>
+                    <div className={fileUrl ? 'header-post' : 'noBack'}>
+                        <spam className='back-btn' onClick={() => back()}><FaArrowLeft /></spam>
+                        <h2>Crear Publicación</h2>
+                        <button className='close' onClick={closeModal}>X</button>
+                    </div>
                         <form className={fileUrl ? 'form-post' : 'without-button'} onSubmit={handleSubmit}>
                             <div className={fileUrl ? 'form-wrapper' : 'form-noimage'}>
                                 <div className={fileUrl ? 'img-container' : 'no-image'}>
@@ -71,10 +74,7 @@ import { useSelector } from 'react-redux';
                                         onChange={handleChange}
                                         maxlength="2000"
                                     />
-                                    <select onChange={handleChange}>
-                                        <option name='type' value={false}>Público</option>
-                                        <option name='type' value={true}>Privado</option>
-                                    </select>
+                                  
                                     <button type='submit' className='post-btn'>Publicar</button>
                                 </div>
 

@@ -23,7 +23,7 @@ import FollowModal from "./FollowModal";
 import LazyLoad from "react-lazyload";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Error404 from "../Error404/Error404";
-import { AiFillStar } from 'react-icons/ai'
+import { AiFillStar } from "react-icons/ai";
 import { RiVipCrownFill } from "react-icons/ri";
 
 export default function MyPerfil() {
@@ -50,7 +50,11 @@ export default function MyPerfil() {
     type: "",
   });
   const [load, setLoad] = useState(0);
+
   const [loadForOptions, setLoadForOptions] = useState(false);
+
+  const [error, setError] = useState("");
+  const expression = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid)).then((res) => {
@@ -163,7 +167,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-            user.uid,
+              user.uid,
             {
               payload: { user: { detail: inputsConfig.details } },
             }
@@ -183,33 +187,41 @@ export default function MyPerfil() {
   }
   function handleChangePass(e) {
     e.preventDefault();
+    if (inputsConfig.pass !== inputsConfig.passVal) {
+      setError("La contrseña ingresada debe ser igual en ambos campos");
+    } else if (!expression.test(inputsConfig.pass.trim())) {
+      setError(
+        "La contraseña debe tener mínimo ocho caracteres, al menos una letra y un número."
+      );
+    } else {
+      swal({
+        title: "¿Estas seguro?",
+        text: `Se cambiará la contraseña de tu cuenta.`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          updatePassword(user, inputsConfig.pass)
+            .then(() => {
+              // Update successful.
 
-    swal({
-      title: "¿Estas seguro?",
-      text: `Se te enviara un email a ${user.email} con un enlace para cambiar la contraseña`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        updatePassword(user, inputsConfig.pass)
-          .then(() => {
-            // Update successful.
-
-            swal("Se te envio un enlace a tu correo", {
-              icon: "success",
+              swal("Contraseña cambiada correctamente", {
+                icon: "success",
+              });
+              handleCancel();
+              console.log("se cambio la contraseña");
+            })
+            .catch((error) => {
+              // An error ocurred
+              // ...
+              console.log(error);
             });
-            // console.log("se cambio la contraseña");
-          })
-          .catch((error) => {
-            // An error ocurred
-            // ...
-            console.log(error);
-          });
-      } else {
-        // swal("Your imaginary file is safe!");
-      }
-    });
+        } else {
+          // swal("Your imaginary file is safe!");
+        }
+      });
+    }
   }
 
   function handleChangeDisplayName(e) {
@@ -226,7 +238,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-            user.uid,
+              user.uid,
             {
               payload: { user: { displayname: inputsConfig.displayName } },
             }
@@ -247,6 +259,7 @@ export default function MyPerfil() {
   function handleCancel(e) {
     setConfigOptions({});
     setConfigNav(true);
+    setError("");
   }
 
   let file = {};
@@ -279,7 +292,7 @@ export default function MyPerfil() {
             setLoadForOptions(false);
             axios.put(
               "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+                user.uid,
               {
                 payload: { user: { profilephoto: user.photoURL } },
               }
@@ -363,16 +376,9 @@ export default function MyPerfil() {
             type="password"
             onChange={(e) => handleChangeInputsConfig(e)}
           />
+          {error ? <p>{error}</p> : ""}
           <div className={style.btnSelectBox}>
-            <button
-              onClick={
-                inputsConfig.pass === inputsConfig.passVal
-                  ? (e) => handleChangePass(e)
-                  : false
-              }
-            >
-              Aceptar
-            </button>
+            <button onClick={(e) => handleChangePass(e)}>Aceptar</button>
 
             <button
               className={style.btnCancel}
@@ -427,15 +433,16 @@ export default function MyPerfil() {
       <div className={style.allMyPerfil}>
         <header className={style.cabeza}>
           <div className={style.imgFollBox}>
-
-          {myProfile.orders.length ?
-            <div className={style.btnPremiumView}>
-              <div className={style.iconStar}>
-                <AiFillStar />
+            {myProfile.orders.length ? (
+              <div className={style.btnPremiumView}>
+                <div className={style.iconStar}>
+                  <AiFillStar />
+                </div>
+                <RiVipCrownFill />
               </div>
-              <RiVipCrownFill />
-            </div>
-            : false}
+            ) : (
+              false
+            )}
 
             {user.photoURL ? (
               <img className={style.photoProfile} src={user.photoURL} alt="" />
@@ -580,6 +587,14 @@ export default function MyPerfil() {
             setFollowActive={setFollowActive}
             followActive={followActive}
           />
+        ) : (
+          false
+        )}
+
+        {loadForOptions === true ? (
+          <div className={style.load}>
+            <img src={loading} alt="" />
+          </div>
         ) : (
           false
         )}

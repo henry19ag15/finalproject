@@ -18,6 +18,7 @@ import {
   getPostMyProfile,
   getPostUserProfile,
 } from "../../Redux/02-actions";
+import LikesModal from "../LikesModal/LikesModal";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({
@@ -29,6 +30,7 @@ export default function Card({
   createdAt,
   locate,
 }) {
+
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
@@ -47,6 +49,11 @@ export default function Card({
     detail: detail,
   });
   const [load, setLoad] = useState(false);
+  const [openLike, setOpenLike] = useState(false);
+  
+  const closeLike = () => {
+    setOpenLike(false)
+  }
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -401,7 +408,10 @@ export default function Card({
         </section>
       </div>
 
-      <section className={styles.likes}>{likes.length} Me gusta </section>
+      <section className= {styles.likes}>
+      <button  onClick={() => setOpenLike(true)}>{likes.length} Me gusta</button>
+        {openLike ? <LikesModal  setOpenLike={setOpenLike} likes={likes}/> : ''}
+      </section>
 
       <section className={styles.description}> {detail} </section>
 

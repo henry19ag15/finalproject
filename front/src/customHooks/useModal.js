@@ -16,17 +16,15 @@ const useModal = (initialValue = false) => {
   const [fileUrl, setFileUrl] = useState(null);
   const [form, setForm] = useState({
     creator: user.uid,
-    imagen: "",
-    detail: "",
-    type: false,
+    imagen: '',
+    detail: '',
+    type: true,
+    titulo: '',
+    precio: ''
   });
 
   
-  // console.log(loading)
-
-
-  
-  
+    
 
   
 
@@ -62,7 +60,7 @@ const useModal = (initialValue = false) => {
       creator: user.uid,
       imagen: "",
       detail: "",
-      type: "Publico",
+      type: true,
       imgUrl: null,
     });
     setLoading(false);
@@ -96,7 +94,7 @@ const useModal = (initialValue = false) => {
       creator: user.uid,
       imagen: "",
       detail: "",
-      type: "Publico",
+      type: true,
       imgUrl: null,
     });
   };
@@ -130,6 +128,7 @@ const useModal = (initialValue = false) => {
         closeModal();
       })
       .catch((error) => {
+        setLoading(false)
         swal("No se pudo subir la publicaciones", {
           icon: "error",
         });

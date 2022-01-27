@@ -1,0 +1,84 @@
+.todoNotificaciones {
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  border: groove 2px black;
+  border-radius: 5px;
+  width: 18rem;
+  height: 60vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.todoNotificaciones ul li {
+  list-style: none;
+}
+
+.todoNotificaciones ul li .cadaNotificaion {
+  padding: 0.5rem 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: .2s;
+  transition: .2s;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.todoNotificaciones ul li .cadaNotificaion img {
+  height: 2rem;
+  width: 2rem;
+  margin: 0 0.5rem;
+}
+
+.todoNotificaciones ul li .cadaNotificaion .textBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.todoNotificaciones ul li .cadaNotificaion .textBox h4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: left;
+  font-size: 0.8rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.todoNotificaciones ul li .cadaNotificaion .textBox p {
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 0 2px;
+}
+
+.todoNotificaciones ul li .cadaNotificaion:hover {
+  -webkit-box-shadow: 0px 0px 5px black;
+          box-shadow: 0px 0px 5px black;
+}
+
+.todoNotificaciones ul li .cadaNotificaion:hover .textBox h4 {
+  letter-spacing: 1px;
+}
+
+@media screen and (max-width: 768px) {
+  .todoNotificaciones {
+    position: absolute;
+    width: 100%;
+    top: 27vh;
+  }
+}
+/*# sourceMappingURL=Notificaciones.module.css.map */
