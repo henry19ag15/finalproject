@@ -27,7 +27,7 @@ export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
- 
+
   const myProfile = useSelector((state) => state.myProfile);
 
   const history = useHistory();
@@ -46,22 +46,21 @@ export default function MyPerfil() {
     view: false,
     type: "",
   });
-  const [load,setLoad]=useState(0)
- 
+  const [load, setLoad] = useState(0);
+
   useEffect(() => {
-    dispatch(getMyProfile(auth.currentUser.uid)).then((res)=>{
-      console.log("asdkjasd",res)
+    dispatch(getMyProfile(auth.currentUser.uid)).then((res) => {
+      // console.log("asdkjasd",res)
       if (res.payload.active === true) {
         setLoad(1);
       } else {
         setLoad(2);
-      } 
-    })
-    ;
+      }
+    });
     // console.log(perfil);
     // console.log(user);
   }, []);
-  
+
   function handleLogout(e) {
     swal({
       title: "Cerrar sesion",
@@ -74,7 +73,7 @@ export default function MyPerfil() {
         signOut(auth)
           .then(() => {
             // Sign-out successful.
-            console.log("deslogueaste");
+            // console.log("deslogueaste");
             history.push("/");
           })
           .catch((error) => {
@@ -183,7 +182,7 @@ export default function MyPerfil() {
 
     swal({
       title: "¿Estas seguro?",
-      text: `Se te enviara un email a ${inputsConfig.pass} con un enlace para cambiar la contraseña`,
+      text: `Se te enviara un email a ${user.email} con un enlace para cambiar la contraseña`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -196,7 +195,7 @@ export default function MyPerfil() {
             swal("Se te envio un enlace a tu correo", {
               icon: "success",
             });
-            console.log("se cambio la contraseña");
+            // console.log("se cambio la contraseña");
           })
           .catch((error) => {
             // An error ocurred
@@ -417,73 +416,74 @@ export default function MyPerfil() {
 
   ///////////////////////////////////
 
-function RenderMyProfile (){
-  return <div className={style.allMyPerfil}>
-  <header className={style.cabeza}>
-    <div className={style.imgFollBox}>
-      {user.photoURL ? (
-        <img className={style.photoProfile} src={user.photoURL} alt="" />
-      ) : (
-        <img className={style.photoProfile} src={noImg} alt="" />
-      )}
+  function RenderMyProfile() {
+    return (
+      <div className={style.allMyPerfil}>
+        <header className={style.cabeza}>
+          <div className={style.imgFollBox}>
+            {user.photoURL ? (
+              <img className={style.photoProfile} src={user.photoURL} alt="" />
+            ) : (
+              <img className={style.photoProfile} src={noImg} alt="" />
+            )}
 
-      <div className={style.followBox}>
-        <button
-          onClick={(e) =>
-            setFollowActive({
-              view: true,
-              type: "followers",
-            })
-          }
-        >
-          <p>Seguidores</p>
-          {myProfile.followers && <p>{myProfile.followers.length}</p>}
-        </button>
-        <button
-          onClick={(e) =>
-            setFollowActive({ view: true, type: "following" })
-          }
-        >
-          <p>Seguidos</p>
-          {myProfile.followings && <p>{myProfile.followings.length}</p>}
-        </button>
-      </div>
-    </div>
-    <div className={style.nameConfigBox}>
-      <div className={style.nameBox}>
-        <h3>{myProfile.username}</h3>
-        <h4>{user.email}</h4>
-      </div>
+            <div className={style.followBox}>
+              <button
+                onClick={(e) =>
+                  setFollowActive({
+                    view: true,
+                    type: "followers",
+                  })
+                }
+              >
+                <p>Seguidores</p>
+                {myProfile.followers && <p>{myProfile.followers.length}</p>}
+              </button>
+              <button
+                onClick={(e) =>
+                  setFollowActive({ view: true, type: "following" })
+                }
+              >
+                <p>Seguidos</p>
+                {myProfile.followings && <p>{myProfile.followings.length}</p>}
+              </button>
+            </div>
+          </div>
+          <div className={style.nameConfigBox}>
+            <div className={style.nameBox}>
+              <h3>{myProfile.username}</h3>
+              <h4>{user.email}</h4>
+            </div>
 
-      <div className={style.menuPerfil}>
-        <button
-          onClick={(e) => setConfigNav(!configNav)}
-          className={
-            configNav
-              ? style.btnConfig
-              : `${style.btnConfig} ${style.btnRotate}`
-          }
-        >
-          <AiFillSetting />
-        </button>
-      </div>
-    </div>
+            <div className={style.menuPerfil}>
+              <button
+                onClick={(e) => setConfigNav(!configNav)}
+                className={
+                  configNav
+                    ? style.btnConfig
+                    : `${style.btnConfig} ${style.btnRotate}`
+                }
+              >
+                <AiFillSetting />
+              </button>
+            </div>
+          </div>
 
-    <div className={style.details}>
-      <p>{myProfile.comment}</p>
-    </div>
-  </header>
+          <div className={style.details}>
+            <p>{myProfile.comment}</p>
+          </div>
+        </header>
 
-  <body>
-    <div
-      className={
-        configNav
-          ? style.menuConfig
-          : `${style.menuConfig} ${style.menuConfigOff}`
-      }
-    >
-      <h4>Opciones</h4>
-      {/* <button
+        <div className={style.body}>
+          <div
+            className={
+              configNav
+                ? style.menuConfig
+                : `${style.menuConfig} ${style.menuConfigOff}`
+            }
+          >
+            <h4>Opciones</h4>
+            {/* <button
         onClick={() => {
           console.log("este es user", user);
           swal({
@@ -507,75 +507,73 @@ function RenderMyProfile (){
         ver user
       </button> */}
 
-      <button name="displayName" onClick={(e) => handleClickConfig(e)}>
-        Cambiar nombre de usuario
-      </button>
-      <button name="img" onClick={(e) => handleClickConfig(e)}>
-        Cambiar foto de perfil
-      </button>
-      <button name="details" onClick={(e) => handleClickConfig(e)}>
-        Cambiar detalles
-      </button>
-      <button name="pass" onClick={(e) => handleClickConfig(e)}>
-        Cambiar contraseña
-      </button>
-      <button className={style.btnLogout} onClick={(e) => handleLogout(e)}>
-        Cerrar sesion
-      </button>
-      <div>
-        {/*   <button
+            <button name="displayName" onClick={(e) => handleClickConfig(e)}>
+              Cambiar nombre de usuario
+            </button>
+            <button name="img" onClick={(e) => handleClickConfig(e)}>
+              Cambiar foto de perfil
+            </button>
+            <button name="details" onClick={(e) => handleClickConfig(e)}>
+              Cambiar detalles
+            </button>
+            <button name="pass" onClick={(e) => handleClickConfig(e)}>
+              Cambiar contraseña
+            </button>
+            <button
+              className={style.btnLogout}
+              onClick={(e) => handleLogout(e)}
+            >
+              Cerrar sesion
+            </button>
+            <div>
+              {/*   <button
           className={style.btnDelete}
           onClick={(e) => handleDelete(e)}
         >
           Borrar Cuenta
         </button> */}
-      </div>
-    </div>
-    {renderConfig()}
-    <span className={style.myProfileContainer}>
-      {userPost.length > 0 ? (
-        userPost.map((el) => (
-          <LazyLoad height={488} offset={5}>
-            <Card
-              locate="myProfile"
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.autorId}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          </LazyLoad>
-        ))
-      ) : (
-        <div className={style.nonePost}>
-          <p>No hay publicaciones realizadas</p>
+            </div>
+          </div>
+          {renderConfig()}
+          <span className={style.myProfileContainer}>
+            {userPost.length > 0 ? (
+              userPost.map((el) => (
+                <LazyLoad height={488} offset={5} key={el.id}>
+                  <Card
+                    locate="myProfile"
+                    id={el.id}
+                    key={el.id}
+                    photo={el.photo}
+                    detail={el.detail}
+                    creator={el.autorId}
+                    likes={el.likes}
+                    createdAt={el.createdAt}
+                  />
+                </LazyLoad>
+              ))
+            ) : (
+              <div className={style.nonePost}>
+                <p>No hay publicaciones realizadas</p>
+              </div>
+            )}
+          </span>
         </div>
-      )}
-    </span>
-  </body>
 
-  {followActive.view === true ? (
-    <FollowModal
-      setFollowActive={setFollowActive}
-      followActive={followActive}
-    />
-  ) : (
-    false
-  )}
-</div>
-}
+        {followActive.view === true ? (
+          <FollowModal
+            setFollowActive={setFollowActive}
+            followActive={followActive}
+          />
+        ) : (
+          false
+        )}
+      </div>
+    );
+  }
 
-
-
-
-
-      if (load === 0) {
-      return <LoadingPage />;
-    } else if (load === 1) {
-      return RenderMyProfile();
-    } else if (load === 2) return <Error404 />;
-    
-  
+  if (load === 0) {
+    return <LoadingPage />;
+  } else if (load === 1) {
+    return RenderMyProfile();
+  } else if (load === 2) return <Error404 />;
 }

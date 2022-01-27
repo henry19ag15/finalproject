@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { app } from '../firebase/firebaseConfig'
+import { app } from "../firebase/firebaseConfig";
 import swal from "sweetalert";
-import axios from 'axios'
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getPost, getPostMyProfile } from "../Redux/02-actions";
 import MyPerfil from "../components/MyPerfil/MyPerfil";
 
-
 const useModal = (initialValue = false) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const auth = getAuth();
-  const user = auth.currentUser
-  const myProfile = useSelector(state => state.myProfile)
+  const user = auth.currentUser;
+  const myProfile = useSelector((state) => state.myProfile);
   const [isOpen, setIsOpen] = useState(initialValue);
   const [fileUrl, setFileUrl] = useState(null);
   const [form, setForm] = useState({
@@ -22,12 +21,8 @@ const useModal = (initialValue = false) => {
     type: false,
   });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   // console.log(loading)
-
-
-
-
 
   //// PARA MANEJAR EL ESTADO AL ABRI Y CERRAR VENTA DE PUBLICACIONES ////
   const openModal = () => setIsOpen(true);
@@ -35,8 +30,14 @@ const useModal = (initialValue = false) => {
   const closeModal = () => {
     setIsOpen(false);
     setFileUrl(null);
-    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
-    setLoading(false)
+    setForm({
+      creator: user.uid,
+      imagen: "",
+      detail: "",
+      type: "Publico",
+      imgUrl: null,
+    });
+    setLoading(false);
   };
 
   const back = () => {
@@ -49,7 +50,8 @@ const useModal = (initialValue = false) => {
     setFileUrl(imageUrl);
     setForm({
       ...form,
-      imagen: imageFile.name, imgUrl: imageFile
+      imagen: imageFile.name,
+      imgUrl: imageFile,
     });
   };
 
@@ -62,43 +64,51 @@ const useModal = (initialValue = false) => {
   };
 
   const handleReset = () => {
-    setForm({ creator: user.uid, imagen: "", detail: "", type: "Publico", imgUrl: null });
+    setForm({
+      creator: user.uid,
+      imagen: "",
+      detail: "",
+      type: "Publico",
+      imgUrl: null,
+    });
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     const storageRef = app
       .storage()
       .ref("posts/" + user.uid + "/" + form.imagen);
     await storageRef.put(form.imgUrl);
     const url = await storageRef.getDownloadURL();
-    await axios.post("https://pruebaconbackreal-pg15.herokuapp.com/posts/", {
-      photoURL: url,
-      creator: form.creator,
-      detail: form.detail,
-      private: form.type
-    }).then((res) => {
-      console.log(res)
-      setLoading(false)
-      swal("Publicaón creada correctamente", {
-        icon: "success",
+    await axios
+      .post("https://pruebaconbackreal-pg15.herokuapp.com/posts/", {
+        photoURL: url,
+        creator: form.creator,
+        detail: form.detail,
+        private: form.type,
       })
-      const arrayIds = myProfile.followers.map((el) => el.autorId)
+      .then((res) => {
+        // console.log(res)
+        setLoading(false);
+        swal("Publicaón creada correctamente", {
+          icon: "success",
+        });
+        const arrayIds = myProfile.followers.map((el) => el.autorId);
 
-      dispatch(getPost(arrayIds.concat(auth.currentUser.uid)))
-      dispatch(getPostMyProfile([auth.currentUser.uid]))
-      handleReset();
-      closeModal()
-    }).catch((error) => {
-      swal("No se pudo subir la publicaciones", {
-        icon: "error",
+        dispatch(getPost(arrayIds.concat(auth.currentUser.uid)));
+        dispatch(getPostMyProfile([auth.currentUser.uid]));
+        handleReset();
+        closeModal();
       })
+      .catch((error) => {
+        swal("No se pudo subir la publicaciones", {
+          icon: "error",
+        });
 
-      console.log(error)
-    })
+        console.log(error);
+      });
   };
-
 
   return [
     isOpen,
@@ -110,7 +120,7 @@ const useModal = (initialValue = false) => {
     handleChange,
     handleSubmit,
     back,
-    loading
+    loading,
   ];
 };
 

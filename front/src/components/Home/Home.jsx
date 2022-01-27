@@ -28,13 +28,15 @@ export default function Home() {
 console.log("Sigue escuchando cambios de vercel")
   useEffect(() => {
     dispatch(getAllUser());
-    dispatch(getMyProfile(user.uid)).then((res) => {
-      console.log(res);
-      const arrayIds = res.payload.followings.map((el) => el.autorId);
-      dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
-        console.log(err)
-      );
-    }).catch(err=>console.log(err));
+    dispatch(getMyProfile(user.uid))
+      .then((res) => {
+        // console.log(res);
+        const arrayIds = res.payload.followings.map((el) => el.autorId);
+        dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
+          console.log(err)
+        );
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function parcheValidador(id) {
@@ -53,9 +55,9 @@ console.log("Sigue escuchando cambios de vercel")
       <div className={styles.container}>
         {userPost?.map((el) =>
           parcheValidador(el.autorId) ? (
-            <LazyLoad height={488} offset={5}>
+            <LazyLoad height={488} offset={5} key={el.id}>
               <Card
-              locate="home"
+                locate="home"
                 id={el.id}
                 key={el.id}
                 photo={el.photo}
@@ -64,7 +66,7 @@ console.log("Sigue escuchando cambios de vercel")
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
-             </LazyLoad> 
+            </LazyLoad>
           ) : (
             false
           )

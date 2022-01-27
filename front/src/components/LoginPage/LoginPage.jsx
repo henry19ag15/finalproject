@@ -57,7 +57,7 @@ export default function LoginPage() {
             displayname: user.displayName,
             uid: user.uid,
           })
-          .then((res) => console.log(res))
+          // .then((res) => console.log(res))
           .catch((err) => console.log(err));
       })
       .catch((error) => {
@@ -84,7 +84,7 @@ export default function LoginPage() {
           const user = userCredential.user;
           // ...
 
-          console.log("logueaste");
+          // console.log("logueaste");
         })
         .catch((error) => {
           const errorCode = error.code;
