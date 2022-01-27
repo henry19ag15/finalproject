@@ -57,10 +57,10 @@ server.get("/feedback", async function (req, res) {
         userId: external_reference,
       });
     }
-    res.redirect("https://finalprojectmm.vercel.app/");
+    res.redirect("https://share-it-tawny.vercel.app/");
   } catch (error) {
     console.log(error);
-    res.redirect(`https://finalprojectmm.vercel.app/`);
+    res.redirect(`https://share-it-tawny.vercel.app/`);
   }
 });
 
