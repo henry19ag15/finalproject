@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
+import noimg from "../../sass/noimg.png"
 
 export default function FollowModalOtherProfile({
   setFollowActive,
@@ -50,7 +51,7 @@ export default function FollowModalOtherProfile({
           {followers.map((e) =>
             e.length > 0 ? (
               <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
+                <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt=""></img>
                 <p>{e[0].username}</p>
               </button>
             ) : (
@@ -65,7 +66,7 @@ export default function FollowModalOtherProfile({
           {following.map((e) =>
             e.length > 0 ? (
               <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
+                <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt=""></img>
                 <p>{e[0].username}</p>
               </button>
             ) : (

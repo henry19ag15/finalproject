@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import style from "./Premium.module.scss";
-import {AiOutlineCloseCircle} from 'react-icons/ai'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 import shareItImg from '../../assets/logo3.png'
 
 export default function Premium({ setPremiumModalView, data }) {
@@ -25,24 +25,24 @@ export default function Premium({ setPremiumModalView, data }) {
 
   return (
     <div className={style.allPremium}>
-     
-      <form className={style.formPremium} id="form1">
-          <div className={style.btnCLoseBox}>
-              <button onClick={()=>setPremiumModalView(false)}><AiOutlineCloseCircle/></button>
-          </div>
-          <div className={style.imgBox}>
-              <img src={shareItImg} alt="" />
-              <p className={style.textPremium}>Premium</p>
-          </div>
-        <div className={style.descripcionBox}>
-<p className={style.text1}>Con ShareIt Premium podras compartir tener algunas funcionalidades extras más </p>
-<p className={style.text2}>a tan solo</p>
-<p className={style.text3}>$10</p>
 
-        
+      <form className={style.formPremium} id="form1">
+        <div className={style.btnCLoseBox}>
+          <button onClick={() => setPremiumModalView(false)}><AiOutlineCloseCircle /></button>
         </div>
-        
-       
+        <div className={style.imgBox}>
+          <img src={shareItImg} alt="" />
+          <p className={style.textPremium}>Premium</p>
+        </div>
+        <div className={style.descripcionBox}>
+          <p className={style.text1}>Con ShareIt Premium podras compartir tener algunas funcionalidades extras más </p>
+          <p className={style.text2}>a tan solo</p>
+          <p className={style.text3}>$10</p>
+
+
+        </div>
+
+
       </form>
     </div>
   );

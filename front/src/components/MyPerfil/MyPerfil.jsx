@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./MyPerfil.module.scss";
 import noImg from "../../sass/noimg.png";
+import loading from "../../sass/loading.gif";
 import axios from "axios";
 import { app } from "../../firebase/firebaseConfig";
 import {
@@ -22,12 +23,14 @@ import FollowModal from "./FollowModal";
 import LazyLoad from "react-lazyload";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Error404 from "../Error404/Error404";
+import { AiFillStar } from 'react-icons/ai'
+import { RiVipCrownFill } from "react-icons/ri";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
- 
+
   const myProfile = useSelector((state) => state.myProfile);
 
   const history = useHistory();
@@ -46,22 +49,23 @@ export default function MyPerfil() {
     view: false,
     type: "",
   });
-  const [load,setLoad]=useState(0)
- 
+  const [load, setLoad] = useState(0)
+  const [loadForOptions, setLoadForOptions] = useState(false);
+
   useEffect(() => {
-    dispatch(getMyProfile(auth.currentUser.uid)).then((res)=>{
-      console.log("asdkjasd",res)
+    dispatch(getMyProfile(auth.currentUser.uid)).then((res) => {
+      console.log("asdkjasd", res)
       if (res.payload.active === true) {
         setLoad(1);
       } else {
         setLoad(2);
-      } 
+      }
     })
-    ;
+      ;
     // console.log(perfil);
     // console.log(user);
   }, []);
-  
+
   function handleLogout(e) {
     swal({
       title: "Cerrar sesion",
@@ -160,7 +164,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { detail: inputsConfig.details } },
             }
@@ -223,7 +227,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { displayname: inputsConfig.displayName } },
             }
@@ -263,6 +267,7 @@ export default function MyPerfil() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        setLoadForOptions(true);
         const change = async () => {
           const storageRef = await app
             .storage()
@@ -272,9 +277,10 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+            setLoadForOptions(false);
             axios.put(
               "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-                user.uid,
+              user.uid,
               {
                 payload: { user: { profilephoto: user.photoURL } },
               }
@@ -417,73 +423,84 @@ export default function MyPerfil() {
 
   ///////////////////////////////////
 
-function RenderMyProfile (){
-  return <div className={style.allMyPerfil}>
-  <header className={style.cabeza}>
-    <div className={style.imgFollBox}>
-      {user.photoURL ? (
-        <img className={style.photoProfile} src={user.photoURL} alt="" />
-      ) : (
-        <img className={style.photoProfile} src={noImg} alt="" />
-      )}
+  function RenderMyProfile() {
+    return <div className={style.allMyPerfil}>
+      <header className={style.cabeza}>
+        <div className={style.imgFollBox}>
+          {myProfile.orders.length ?
+            <div className={style.btnPremiumView}>
+              <div className={style.iconStar}>
+                <AiFillStar />
+              </div>
+              <RiVipCrownFill />
+            </div>
+            : false}
 
-      <div className={style.followBox}>
-        <button
-          onClick={(e) =>
-            setFollowActive({
-              view: true,
-              type: "followers",
-            })
-          }
-        >
-          <p>Seguidores</p>
-          {myProfile.followers && <p>{myProfile.followers.length}</p>}
-        </button>
-        <button
-          onClick={(e) =>
-            setFollowActive({ view: true, type: "following" })
-          }
-        >
-          <p>Seguidos</p>
-          {myProfile.followings && <p>{myProfile.followings.length}</p>}
-        </button>
-      </div>
-    </div>
-    <div className={style.nameConfigBox}>
-      <div className={style.nameBox}>
-        <h3>{myProfile.username}</h3>
-        <h4>{user.email}</h4>
-      </div>
+          {user.photoURL ? (
+            <img className={style.photoProfile} src={user.photoURL} alt="" />
+          ) : (
 
-      <div className={style.menuPerfil}>
-        <button
-          onClick={(e) => setConfigNav(!configNav)}
+            <img className={style.photoProfile} src={noImg} alt="" />
+
+          )}
+
+          <div className={style.followBox}>
+            <button
+              onClick={(e) =>
+                setFollowActive({
+                  view: true,
+                  type: "followers",
+                })
+              }
+            >
+              <p>Seguidores</p>
+              {myProfile.followers && <p>{myProfile.followers.length}</p>}
+            </button>
+            <button
+              onClick={(e) =>
+                setFollowActive({ view: true, type: "following" })
+              }
+            >
+              <p>Seguidos</p>
+              {myProfile.followings && <p>{myProfile.followings.length}</p>}
+            </button>
+          </div>
+        </div>
+        <div className={style.nameConfigBox}>
+          <div className={style.nameBox}>
+            <h3>{myProfile.username}</h3>
+            <h4>{user.email}</h4>
+          </div>
+
+          <div className={style.menuPerfil}>
+            <button
+              onClick={(e) => setConfigNav(!configNav)}
+              className={
+                configNav
+                  ? style.btnConfig
+                  : `${style.btnConfig} ${style.btnRotate}`
+              }
+            >
+              <AiFillSetting />
+            </button>
+          </div>
+        </div>
+
+        <div className={style.details}>
+          <p>{myProfile.comment}</p>
+        </div>
+      </header>
+
+      <body>
+        <div
           className={
             configNav
-              ? style.btnConfig
-              : `${style.btnConfig} ${style.btnRotate}`
+              ? style.menuConfig
+              : `${style.menuConfig} ${style.menuConfigOff}`
           }
         >
-          <AiFillSetting />
-        </button>
-      </div>
-    </div>
-
-    <div className={style.details}>
-      <p>{myProfile.comment}</p>
-    </div>
-  </header>
-
-  <body>
-    <div
-      className={
-        configNav
-          ? style.menuConfig
-          : `${style.menuConfig} ${style.menuConfigOff}`
-      }
-    >
-      <h4>Opciones</h4>
-      {/* <button
+          <h4>Opciones</h4>
+          {/* <button
         onClick={() => {
           console.log("este es user", user);
           swal({
@@ -507,75 +524,82 @@ function RenderMyProfile (){
         ver user
       </button> */}
 
-      <button name="displayName" onClick={(e) => handleClickConfig(e)}>
-        Cambiar nombre de usuario
-      </button>
-      <button name="img" onClick={(e) => handleClickConfig(e)}>
-        Cambiar foto de perfil
-      </button>
-      <button name="details" onClick={(e) => handleClickConfig(e)}>
-        Cambiar detalles
-      </button>
-      <button name="pass" onClick={(e) => handleClickConfig(e)}>
-        Cambiar contraseña
-      </button>
-      <button className={style.btnLogout} onClick={(e) => handleLogout(e)}>
-        Cerrar sesion
-      </button>
-      <div>
-        {/*   <button
+          <button name="displayName" onClick={(e) => handleClickConfig(e)}>
+            Cambiar nombre de usuario
+          </button>
+          <button name="img" onClick={(e) => handleClickConfig(e)}>
+            Cambiar foto de perfil
+          </button>
+          <button name="details" onClick={(e) => handleClickConfig(e)}>
+            Cambiar detalles
+          </button>
+          <button name="pass" onClick={(e) => handleClickConfig(e)}>
+            Cambiar contraseña
+          </button>
+          <button className={style.btnLogout} onClick={(e) => handleLogout(e)}>
+            Cerrar sesion
+          </button>
+          <div>
+            {/*   <button
           className={style.btnDelete}
           onClick={(e) => handleDelete(e)}
         >
           Borrar Cuenta
         </button> */}
-      </div>
-    </div>
-    {renderConfig()}
-    <span className={style.myProfileContainer}>
-      {userPost.length > 0 ? (
-        userPost.map((el) => (
-          <LazyLoad height={488} offset={5}>
-            <Card
-              locate="myProfile"
-              id={el.id}
-              key={el.id}
-              photo={el.photo}
-              detail={el.detail}
-              creator={el.autorId}
-              likes={el.likes}
-              createdAt={el.createdAt}
-            />
-          </LazyLoad>
-        ))
-      ) : (
-        <div className={style.nonePost}>
-          <p>No hay publicaciones realizadas</p>
+          </div>
         </div>
+        {renderConfig()}
+        <span className={style.myProfileContainer}>
+          {userPost.length > 0 ? (
+            userPost.map((el) => (
+              <LazyLoad height={488} offset={5}>
+                <Card
+                  locate="myProfile"
+                  id={el.id}
+                  key={el.id}
+                  photo={el.photo}
+                  detail={el.detail}
+                  creator={el.autorId}
+                  likes={el.likes}
+                  createdAt={el.createdAt}
+                />
+              </LazyLoad>
+            ))
+          ) : (
+            <div className={style.nonePost}>
+              <p>No hay publicaciones realizadas</p>
+            </div>
+          )}
+        </span>
+      </body>
+
+      {followActive.view === true ? (
+        <FollowModal
+          setFollowActive={setFollowActive}
+          followActive={followActive}
+        />
+      ) : (
+        false
       )}
-    </span>
-  </body>
-
-  {followActive.view === true ? (
-    <FollowModal
-      setFollowActive={setFollowActive}
-      followActive={followActive}
-    />
-  ) : (
-    false
-  )}
-</div>
-}
+      {loadForOptions === true ? (
+        <div className={style.load}>
+          <img src={loading} alt="" />
+        </div>
+      ) : (
+        false
+      )}
+    </div>
+  }
 
 
 
 
 
-      if (load === 0) {
-      return <LoadingPage />;
-    } else if (load === 1) {
-      return RenderMyProfile();
-    } else if (load === 2) return <Error404 />;
-    
-  
+  if (load === 0) {
+    return <LoadingPage />;
+  } else if (load === 1) {
+    return RenderMyProfile();
+  } else if (load === 2) return <Error404 />;
+
+
 }

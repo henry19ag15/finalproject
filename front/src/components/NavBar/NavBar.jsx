@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
-import {AiFillStar} from 'react-icons/ai'
+import { AiFillStar } from 'react-icons/ai'
 import { RiVipCrownLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
@@ -120,7 +120,7 @@ const NavBar = () => {
       .catch((err) => console.log(err));
 
     setNotiView(!notiView);
-    
+
   }
 
   //////////////////////////////////////////////
@@ -166,17 +166,17 @@ const NavBar = () => {
             <ul>
               {inputSearch.length > 1
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUserResp(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUserResp(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </div>
@@ -214,17 +214,17 @@ const NavBar = () => {
             <ul className={styles.renderSearched}>
               {showSearch && inputSearch.length > 0
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUser(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUser(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </li>
@@ -249,20 +249,20 @@ const NavBar = () => {
           {/* //////////////////// PREMIUM //////////////////// */}
 
           <li>
-           
+
             <button
               className={styles.btnPremiumView}
               onClick={(e) => handleViewPremium(e)}
             >
-               <div className={styles.iconStar}>
+              <div className={styles.iconStar}>
 
-<AiFillStar/>
-</div>
+                <AiFillStar />
+              </div>
               <RiVipCrownLine />
             </button>
 
             {premiumModalView ? (
-              <Premium setPremiumModalView={setPremiumModalView}  data="684896062-5a7659b2-ba47-469f-b0b5-5bbbab5efd97" />
+              <Premium setPremiumModalView={setPremiumModalView} data="684896062-5a7659b2-ba47-469f-b0b5-5bbbab5efd97" />
             ) : (
               false
             )}

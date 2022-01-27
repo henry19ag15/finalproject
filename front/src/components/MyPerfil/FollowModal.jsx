@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import style from "./FollowModal.module.scss";
 import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
+import noimg from "../../sass/noimg.png"
 
 export default function FollowModal({ setFollowActive, followActive }) {
   const auth = getAuth();
@@ -33,12 +34,12 @@ export default function FollowModal({ setFollowActive, followActive }) {
       return (
         <div className={style.FollowBox}>
           {followers.map((e) =>
-            (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt="" />
-                <p>{e[0].username}</p>
-              </button>
-            ) 
+          (
+            <button onClick={() => handleSelect(e[0].id)}>
+              <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt="" />
+              <p>{e[0].username}</p>
+            </button>
+          )
           )}
         </div>
       );
@@ -47,7 +48,7 @@ export default function FollowModal({ setFollowActive, followActive }) {
         <div className={style.FollowBox}>
           {following.map((e) => (
             <button onClick={() => handleSelect(e[0].id)}>
-              <img src={e[0].profilephoto} alt="" />
+              <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt="" />
               <p>{e[0].username}</p>
             </button>
           ))}

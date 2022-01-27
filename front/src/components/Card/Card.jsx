@@ -13,6 +13,7 @@ import noimg from "../../sass/noimg.png";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {
+  getMyProfile,
   getPost,
   getPostMyProfile,
   getPostUserProfile,
@@ -177,8 +178,11 @@ export default function Card({
             if (locate === "home") {
               const post = myProfile.followings.map((user) => user.autorId);
               dispatch(getPost(post.concat(auth.currentUser.uid)));
+              dispatch(getMyProfile(auth.currentUser.uid))
+           
             } else if (locate === "myProfile") {
               dispatch(getPostMyProfile([auth.currentUser.uid]));
+              dispatch(getMyProfile(auth.currentUser.uid));
             }
           });
       } else {
@@ -219,8 +223,10 @@ export default function Card({
               if (locate === "home") {
                 const post = myProfile.followings.map((user) => user.autorId);
                 dispatch(getPost(post.concat(auth.currentUser.uid)));
+                dispatch(getMyProfile(auth.currentUser.uid));
               } else if (locate === "myProfile") {
                 dispatch(getPostMyProfile([auth.currentUser.uid]));
+                dispatch(getMyProfile(auth.currentUser.uid));
               }
             });
         } else {

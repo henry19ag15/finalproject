@@ -4,7 +4,7 @@ import { app } from '../firebase/firebaseConfig'
 import swal from "sweetalert";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, getPostMyProfile } from "../Redux/02-actions";
+import { getMyProfile, getPost, getPostMyProfile } from "../Redux/02-actions";
 import MyPerfil from "../components/MyPerfil/MyPerfil";
 
 
@@ -23,14 +23,34 @@ const useModal = (initialValue = false) => {
   });
 
   const [loading, setLoading] = useState(false)
+  const [limitPost, setLimitPost] = useState(false)
   // console.log(loading)
 
 
 
 
 
-  //// PARA MANEJAR EL ESTADO AL ABRI Y CERRAR VENTA DE PUBLICACIONES ////
-  const openModal = () => setIsOpen(true);
+
+
+  //// PARA MANEJAR EL ESTADO AL ABRI Y CERRAR VENTA DE PUBLICACIONES + LOGICA DE LIMIT DE POST////
+  const openModal = () => {
+    setIsOpen(true)
+    setLimitPost(false)
+
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + "1") + '-' + today.getDate();
+    var postsToday = myProfile.posts.filter(el => el.createdAt.slice(0, 10) === "2022-01-27")
+
+    if (!myProfile.orders.length && postsToday.length === 1) {
+      setLimitPost(true)
+    }
+    if (myProfile.orders.length && postsToday.length === 3) {
+      setLimitPost(true)
+    }
+
+    // console.log(myPostsToday)
+
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -88,6 +108,7 @@ const useModal = (initialValue = false) => {
 
       dispatch(getPost(arrayIds.concat(auth.currentUser.uid)))
       dispatch(getPostMyProfile([auth.currentUser.uid]))
+      dispatch(getMyProfile(auth.currentUser.uid))
       handleReset();
       closeModal()
     }).catch((error) => {
@@ -110,7 +131,9 @@ const useModal = (initialValue = false) => {
     handleChange,
     handleSubmit,
     back,
-    loading
+    loading,
+    limitPost,
+    setLimitPost
   ];
 };
 
