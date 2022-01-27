@@ -24,7 +24,7 @@ function App() {
     setInterval(() => {
       dispatch(getMyProfile(auth.currentUser.uid));
       // console.log("llamo ahora")
-    }, 60000);
+    }, 15000);
   }, []);
 
   onAuthStateChanged(auth, (user) => {
