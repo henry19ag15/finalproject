@@ -17,13 +17,13 @@ export default function Notificaiones() {
   const users = useSelector((state) => state.allUser);
   const history = useHistory();
 
-  function handleBtnNotification(detail, autorId) {
-    // console.log(detail);
-    if (detail === "Te ha empezado a seguir") {
-      dispatch(getUserProfile([autorId])).then(() => {
-        history.push("/user/" + autorId);
+  function handleBtnNotification(detail, autorId,idUser) {
+    
+   
+      dispatch(getUserProfile([idUser])).then(() => {
+        history.push("/user/" + idUser);
       });
-    }
+    
   }
 
   function render(detail, idUser, autorId) {
@@ -31,7 +31,7 @@ export default function Notificaiones() {
     // console.log("asd",infoUser)
     return (
       <button
-        onClick={() => handleBtnNotification(detail, autorId)}
+        onClick={() => handleBtnNotification(detail, autorId,idUser)}
         className={style.cadaNotificaion}
       >
         {infoUser[0].profilephoto ? (
