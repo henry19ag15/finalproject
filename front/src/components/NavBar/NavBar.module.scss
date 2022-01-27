@@ -61,51 +61,46 @@ body {
 
 /** ----------------------------------------      SearchBar    --------------------------------------------------------------------- */
 
-
-.btnPremiumView{
+.btnPremiumView {
   height: 100%;
   width: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  background:transparent ;
+  background: transparent;
   border: none;
   cursor: pointer;
 }
 
-.btnPremiumViewCheck{
-color :yellow;
+.btnPremiumViewCheck {
+  color: yellow;
   filter: drop-shadow(1px 1px 4px black);
   font-size: 2.2rem;
 }
 
-
-
-.iconCheck{
+.iconCheck {
   position: absolute;
-  top:0.5rem;
-  padding-right: 1rem ;
+  top: 0.5rem;
+  padding-right: 1rem;
   // color: rgba(255, 255, 0, 0.9);
-  color:rgba(0, 128, 0, 0.9);
+  color: rgba(0, 128, 0, 0.9);
   filter: drop-shadow(0px 0px 2px black);
   font-size: 1.3rem;
-  }
+}
 
-.iconStar{
+.iconStar {
   position: absolute;
-  top:0.5rem;
-  padding-right: 1rem ;
+  top: 0.5rem;
+  padding-right: 1rem;
   color: rgba(255, 255, 0, 0.9);
   filter: drop-shadow(0px 0px 2px black);
   font-size: 1.3rem;
-  }
-
-
-.btnOpenSearchInNavResp{
-display:none;
 }
 
+.btnOpenSearchInNavResp {
+  display: none;
+}
 
 .searchBarRespons {
   display: none;
@@ -125,9 +120,13 @@ display:none;
   width: 50%;
   height: max-content;
   background-color: white;
+  // background-color: red;
+  max-height: 20rem;
+  overflow-y: scroll;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   // align-items: center;
   // background: green;
   border-radius: 5px;
@@ -233,9 +232,7 @@ display:none;
   }
 }
 
-.liBoxSearchResponsive{
-
-
+.liBoxSearchResponsive {
   display: none;
 }
 /** ----------------------------------------      SearchBar Fin   --------------------------------------------------------------------- */
@@ -251,10 +248,9 @@ display:none;
   justify-content: center;
   border-radius: 80px;
   transition: 0.2s;
- 
 }
 
-.add:hover{
+.add:hover {
   // filter: drop-shadow(0px 0px 2px $main-color);
 }
 
@@ -277,11 +273,11 @@ display:none;
   .btnNotifi {
     height: 100%;
     display: flex;
-      align-items: center;
-      font-size: 2rem;
-      transition: 0.2s;
-      border: none;
-      background: transparent;
+    align-items: center;
+    font-size: 2rem;
+    transition: 0.2s;
+    border: none;
+    background: transparent;
     p {
       color: white;
       background-color: red;
@@ -293,10 +289,9 @@ display:none;
       justify-content: center;
       font-size: 0.6rem;
       position: absolute;
-      
     }
   }
-  .btnNotifi:hover{
+  .btnNotifi:hover {
     transform: none;
     // filter: drop-shadow(0px 0px 2px $main-color);
   }
@@ -378,19 +373,10 @@ display:none;
     transition: 0.3s;
   }
 
-
-  
-  
-  .iconStar{
+  .iconStar {
     // position: relative;
     top: initial;
-   
-    }
-
-
-
-
-
+  }
 
   .disable {
     right: -100vw;
@@ -475,7 +461,6 @@ display:none;
       border: none;
       font-size: 1.5rem;
       transition: 0.3s;
-      
     }
     .btnCloseSearch:hover {
       color: red;
@@ -532,7 +517,7 @@ display:none;
     border: none;
     transition: 0.2s;
   }
-  .numAlert{
+  .numAlert {
     // top:1px
   }
 }

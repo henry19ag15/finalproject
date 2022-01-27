@@ -34,6 +34,8 @@ export default function Home() {
     dispatch(getAllUser());
     dispatch(getMyProfile(user.uid))
       .then((res) => {
+        setLoad(1);
+
         console.log(res);
         const arrayIds = res.payload.followings.map((el) => el.autorId);
         setFollowin({ array: arrayIds });
@@ -43,7 +45,7 @@ export default function Home() {
           })
           .catch((err) => setLoad(1));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setLoad(1));
   }, []);
 
   function parcheValidador(id) {

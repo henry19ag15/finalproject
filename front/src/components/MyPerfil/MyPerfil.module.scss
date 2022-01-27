@@ -4,6 +4,9 @@
   * {
     // outline :solid 1px red
   }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .load {
     position: fixed;
@@ -32,7 +35,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 90%;
     // position: relative;
     // z-index: 1000;
     // background-color: white;
@@ -359,7 +362,7 @@
     }
     .menuConfigOff {
       // position: fixed;
-      top: -30vh;
+      top: -35vh;
 
       // left: 150vw;
       transition: 0.5s;
@@ -373,7 +376,7 @@
     flex-direction: column;
     align-items: center;
     .cabeza {
-      width: 40%;
+      width: 50%;
       .imgFollBox {
         .photoProfile {
           height: 8rem;
