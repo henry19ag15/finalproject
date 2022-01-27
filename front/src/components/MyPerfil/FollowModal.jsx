@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import style from "./FollowModal.module.scss";
 import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
+import noimg from "../../sass/noimg.png"
 
 export default function FollowModal({ setFollowActive, followActive }) {
   const auth = getAuth();
@@ -15,8 +16,8 @@ export default function FollowModal({ setFollowActive, followActive }) {
   const following = myuser.followings.map((e) =>
     user.filter((el) => el.id === e.autorId)
   );
-  console.log("followers en 0", followers[0]);
-  console.log("following en 0", following[0]);
+  // console.log("followers en 0", followers[0]);
+  // console.log("following en 0", following[0]);
 
   const [followView, setFollowView] = useState(followActive.type);
 
@@ -33,12 +34,12 @@ export default function FollowModal({ setFollowActive, followActive }) {
       return (
         <div className={style.FollowBox}>
           {followers.map((e) =>
-            (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt="" />
-                <p>{e[0].username}</p>
-              </button>
-            ) 
+          (
+            <button  key={e[0].id} onClick={() => handleSelect(e[0].id)}>
+              <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt="" />
+              <p>{e[0].username}</p>
+            </button>
+          )
           )}
         </div>
       );
@@ -46,9 +47,9 @@ export default function FollowModal({ setFollowActive, followActive }) {
       return (
         <div className={style.FollowBox}>
           {following.map((e) => (
-            <button onClick={() => handleSelect(e[0].id)}>
-              <img src={e[0].profilephoto} alt="" />
-              <p>{e[0].username}</p>
+            <button key={e[0].id} onClick={() => handleSelect(e[0].id)}>
+              <img src={e[0]?.profilephoto ? e[0]?.profilephoto : noimg} alt="" />
+              <p>{e[0]?.username}</p>
             </button>
           ))}
         </div>

@@ -367,6 +367,21 @@ width: 100%;
   font-size: 0.9rem;
   // padding-left: 0.5rem;
   //   bottom: 60px;
+  button{
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    margin-left: 0.3em ;
+    cursor: pointer;
+  }
+}
+
+section{
+  .closeLike{
+    border: none;
+    background: transparent;
+    font-weight: 600;
+  }
 }
 
 .input:focus {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserProfile } from "../../Redux/02-actions";
 import style from "./Notificaciones.module.scss";
-import noimg from '../../sass/noimg.png'
+import noimg from "../../sass/noimg.png";
 
 export default function Notificaiones() {
   const dispatch = useDispatch();
@@ -17,13 +17,13 @@ export default function Notificaiones() {
   const users = useSelector((state) => state.allUser);
   const history = useHistory();
 
-  function handleBtnNotification(detail, autorId) {
-    console.log(detail);
-    if (detail === "Te ha empezado a seguir") {
-      dispatch(getUserProfile([autorId])).then(() => {
-        history.push("/user/" + autorId);        
+  function handleBtnNotification(detail, autorId,idUser) {
+    
+   
+      dispatch(getUserProfile([idUser])).then(() => {
+        history.push("/user/" + idUser);
       });
-    }
+    
   }
 
   function render(detail, idUser, autorId) {
@@ -31,10 +31,14 @@ export default function Notificaiones() {
     // console.log("asd",infoUser)
     return (
       <button
-        onClick={() => handleBtnNotification(detail, autorId)}
+        onClick={() => handleBtnNotification(detail, autorId,idUser)}
         className={style.cadaNotificaion}
       >
-        {infoUser[0].profilephoto?<img src={infoUser[0].profilephoto} alt="" />:<img src={noimg} alt=""></img>}
+        {infoUser[0].profilephoto ? (
+          <img src={infoUser[0].profilephoto} alt="" />
+        ) : (
+          <img src={noimg} alt=""></img>
+        )}
         <div className={style.textBox}>
           <h4>{infoUser[0].username} </h4>
           <p>{detail}</p>

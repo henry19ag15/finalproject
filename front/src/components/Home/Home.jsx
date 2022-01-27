@@ -24,17 +24,21 @@ export default function Home() {
     if (a.createdAt > b.createdAt) return -1;
     return 0;
   });
- 
-console.log("Sigue escuchando cambios de vercel")
+
+  const [followin, setFollowin] = useState({ array: [] })
+
+
+  // console.log(userPost)
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getMyProfile(user.uid)).then((res) => {
       console.log(res);
       const arrayIds = res.payload.followings.map((el) => el.autorId);
+      setFollowin({ array: arrayIds })
       dispatch(getPost(arrayIds.concat(user.uid))).catch((err) =>
         console.log(err)
       );
-    }).catch(err=>console.log(err));
+    }).catch(err => console.log(err));
   }, []);
 
   function parcheValidador(id) {
@@ -53,9 +57,9 @@ console.log("Sigue escuchando cambios de vercel")
       <div className={styles.container}>
         {userPost?.map((el) =>
           parcheValidador(el.autorId) ? (
-            <LazyLoad height={488} offset={5}>
+            <LazyLoad height={488} offset={5} key={el.id}>
               <Card
-              locate="home"
+                locate="home"
                 id={el.id}
                 key={el.id}
                 photo={el.photo}
@@ -64,12 +68,18 @@ console.log("Sigue escuchando cambios de vercel")
                 likes={el.likes}
                 createdAt={el.createdAt}
               />
-             </LazyLoad> 
+            </LazyLoad>
           ) : (
             false
           )
         )}
       </div>
+      {followin.array.length > 0 ? true :
+        <div className={styles.noneFollowins}>
+          <h1>No sigues a nadie todavia!</h1>
+          <h3>Empieza a seguir gente para poder ver sus publicaciones en el inicio</h3>
+        </div>}
+
     </div>
   );
 }

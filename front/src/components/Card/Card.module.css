@@ -1,30 +1,363 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+.load {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.load img {
+  height: 2rem;
+}
+
 .body {
   padding: 0;
   margin: 0;
 }
 
+.cabeza {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 95%;
+}
+
+.commentBox {
+  height: 100%;
+  width: 95%;
+  margin: 0.5rem 0;
+}
+
+.commentBox .photoNameBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.commentBox .photoNameBox .imgBox {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.commentBox .photoNameBox .imgBox img {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  margin-right: 0.3rem;
+}
+
+.commentBox .photoNameBox .commentTextBox {
+  border-radius: 5px;
+  width: 100%;
+}
+
+.commentBox .photoNameBox .commentTextBox p {
+  font-weight: 400;
+  text-align: left;
+  font-size: 0.8rem;
+  padding-right: 2rem;
+  padding-left: 0.5rem;
+}
+
+.commentBox .photoNameBox .commentTextBox .name {
+  font-size: 0.9rem;
+  text-align: left;
+  font-weight: 500;
+  padding-left: 0;
+}
+
+.commentBox .comentario {
+  width: 100%;
+  text-align: start;
+  font-size: 0.8rem;
+}
+
 .cardbody {
-  position: relative;
-  z-index: 1;
   background-color: white;
   border: solid;
-  border-width: 0.5px;
+  border-width: 1px;
   border-color: rgba(128, 128, 128, 0.336);
+  border-radius: 5px;
   max-width: inherit;
-  max-height: inherit;
-  height: 29rem;
+  width: 30rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 1.5rem 0;
 }
 
-.img {
+.cardbody .cardData {
   width: 100%;
-  height: 22em;
+}
+
+.cardbody .datePosted {
+  color: gray;
+  font-size: 0.75rem;
+  text-align: start;
+  padding-left: 0.5rem;
+  margin: 0.3rem 0;
+}
+
+.cardbody .inputCommentBox {
+  width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0.3rem 0;
+  height: 2rem;
+}
+
+.cardbody .inputCommentBox input {
+  width: inherit;
+  background: transparent;
+  border: none;
+}
+
+.cardbody .inputCommentBox button {
+  color: #00aeff;
+  font-size: 0.8rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.cardbody .inputCommentBox .btnCommentDisabled {
+  color: gray;
+}
+
+.cardbody .editBox {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cardbody .editBox .card {
+  background-color: rgba(255, 0, 0, 0.445);
+  height: 50%;
+  width: 40rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(255, 255, 255, 0.664);
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px black;
+          box-shadow: 0px 0px 10px black;
+}
+
+.cardbody .editBox .card .head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.cardbody .editBox .card .head .buttonClose {
+  height: 1rem;
+  width: 1rem;
+  text-align: center;
+  font-size: 0.6rem;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin: 0.5rem;
+}
+
+.cardbody .editBox .card .bodycardnoedit {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cardbody .editBox .card .bodycardnoedit .cancelar {
+  background-color: red;
+}
+
+.cardbody .editBox .card .bodycardnoedit button {
+  border: none;
+  padding: 2rem;
+  border-radius: 5px;
+  background-color: #24c8e1;
+  color: white;
+  -webkit-box-shadow: 1px 1px 5px black;
+          box-shadow: 1px 1px 5px black;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.cardbody .editBox .card .bodycard {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.cardbody .editBox .card .bodycard .btnBox,
+.cardbody .editBox .card .bodycard .inputBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cardbody .editBox .card .bodycard .btnBox {
+  height: 20%;
+}
+
+.cardbody .editBox .card .bodycard .btnBox button {
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  background-color: #24c8e1;
+  color: white;
+  -webkit-box-shadow: 1px 1px 5px black;
+          box-shadow: 1px 1px 5px black;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.cardbody .editBox .card .bodycard .btnBox .cancelar {
+  background-color: red;
+}
+
+.cardbody .editBox .card .bodycard .inputBox {
+  height: inherit;
+}
+
+.cardbody .editBox .card .bodycard .inputBox textarea {
+  height: 80%;
+  width: 80%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  resize: none;
+  -webkit-box-shadow: 0px 0px 5px black;
+          box-shadow: 0px 0px 5px black;
+}
+
+.cardbody .editBox .card .bodycard .inputBox textarea:focus {
+  outline: none;
+}
+
+.cardbody .btnVerComBox {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.cardbody .btnVerComBox button {
+  background: transparent;
+  font-size: 0.7rem;
+  margin: 0.5rem 0;
+  border: none;
+}
+
+.cardbody .btnVerComBox .btnVerMas {
+  color: #00aeff;
+}
+
+.cardbody .btnVerComBox .btnVerMenos {
+  color: gray;
+}
+
+.cardData {
+  width: 100%;
+}
+
+.cardData .img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  padding: 0.5rem 1rem;
 }
 
 .btn {
-  position: absolute;
-  z-index: 3;
   right: 20px;
   top: 20px;
   font-size: 20px;
@@ -47,81 +380,120 @@
 .profilePhoto img {
   width: 2rem;
   height: 2rem;
-  border: solid 2px grey;
+  -webkit-box-shadow: 0px 0px 5px black;
+          box-shadow: 0px 0px 5px black;
   border-radius: 50%;
 }
 
-.btnLike, .btnShare, .btnCommit {
-  position: absolute;
-  z-index: 3;
-  bottom: 55px;
-  right: 20px;
+.btnLike {
+  -webkit-transition: 0s;
+  transition: 0s;
+}
+
+.btnLike,
+.btnShare,
+.btnCommit {
   border-radius: 10px;
   border: none;
   font-size: 25px;
   background-color: white;
+  color: black;
   cursor: pointer;
 }
 
-.btnCommit {
-  right: 65px;
+.colorLike {
+  color: rgba(255, 0, 0, 0.747);
 }
 
-.btnLike {
-  right: 110px;
+.btnBar button {
+  margin: 0 0.3rem;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .btnBar button:hover {
-  color: grey;
-}
-
-.btnBar button.active {
-  color: red;
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 .cardProfile {
-  position: absolute;
+  width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  height: 3rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: left;
-  padding: 10px 0;
+  margin: 0.7rem 0;
 }
 
 .profilePhoto {
-  margin-left: 10px;
-  position: absolute;
+  margin: 0 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none;
 }
 
-.profileName {
-  position: absolute;
-  left: 50px;
-  bottom: 8px;
-  width: 15rem;
-  font-size: 1rem;
+.profileName h4 {
+  font-weight: 600;
 }
 
 .likes {
-  position: absolute;
-  left: 15px;
-  bottom: 35px;
+  width: 93%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.description {
-  position: absolute;
-  left: 15px;
-  bottom: 10px;
+.likes button {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  margin-left: 0.3em;
+  cursor: pointer;
+}
+
+section .closeLike {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+}
+
+.input:focus {
+  outline: none;
 }
 
 /** -------------------------------------------------------------------------------------------------------------------- */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
   .cardbody {
     margin: 1rem 0;
+    width: 100vw;
   }
   .img {
     width: 100%;
+  }
+  .btnComment {
+    right: 25px;
   }
 }
 /*# sourceMappingURL=Card.module.css.map */

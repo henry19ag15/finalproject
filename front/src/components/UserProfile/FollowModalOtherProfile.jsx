@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
+import noimg from "../../sass/noimg.png"
 
 export default function FollowModalOtherProfile({
   setFollowActive,
@@ -25,10 +26,8 @@ export default function FollowModalOtherProfile({
     user.filter((el) => el.id === e.autorId)
   );
 
-  console.log("followers ", followers);
-  console.log("following ", following);
-
-
+  // console.log("followers ", followers);
+  // console.log("following ", following);
 
   const [followView, setFollowView] = useState(followActive.type);
 
@@ -49,8 +48,8 @@ export default function FollowModalOtherProfile({
         <div className={style.FollowBox}>
           {followers.map((e) =>
             e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
+              <button  key={e[0].id} onClick={() => handleSelect(e[0].id)}>
+                <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt=""></img>
                 <p>{e[0].username}</p>
               </button>
             ) : (
@@ -64,8 +63,8 @@ export default function FollowModalOtherProfile({
         <div className={style.FollowBox}>
           {following.map((e) =>
             e.length > 0 ? (
-              <button onClick={() => handleSelect(e[0].id)}>
-                <img src={e[0].profilephoto} alt=""></img>
+              <button  key={e[0].id} onClick={() => handleSelect(e[0].id)}>
+                <img src={e[0].profilephoto ? e[0].profilephoto : noimg} alt=""></img>
                 <p>{e[0].username}</p>
               </button>
             ) : (

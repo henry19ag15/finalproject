@@ -71,6 +71,25 @@
           }
         }
       }
+      .btnPremiumView {
+        position: absolute;
+        font-size: 1.8rem;
+        color:yellow;
+        filter: drop-shadow(1px 1px 5px black);
+        transform: rotate(-45deg);
+
+  
+      }
+
+      .iconStar {
+        position: absolute;
+        padding-right: 1rem;
+        top: -0.2rem;
+        right: -0.2rem;
+        color: rgba(255, 255, 0, 0.9);
+        filter: drop-shadow(0px 0px 2px black);
+        font-size: 1.3rem;
+      }
     }
     .nameConfigBox {
       width: 95%;
@@ -157,7 +176,7 @@
       }
     }
   }
-  body {
+  .body {
     // height: 50vh;
     width: 100%;
 
@@ -343,7 +362,7 @@
         }
       }
     }
-    body {
+    .body {
       .menuConfig {
         width: 18em;
       }

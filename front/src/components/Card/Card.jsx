@@ -13,10 +13,12 @@ import noimg from "../../sass/noimg.png";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {
+  getMyProfile,
   getPost,
   getPostMyProfile,
   getPostUserProfile,
 } from "../../Redux/02-actions";
+import LikesModal from "../LikesModal/LikesModal";
 // const img =  "https://static.eldiario.es/clip/71d118ff-5ef2-449c-be8a-6c321304fa70_16-9-aspect-ratio_default_0.jpg";
 
 export default function Card({
@@ -28,6 +30,7 @@ export default function Card({
   createdAt,
   locate,
 }) {
+
   const auth = getAuth();
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.allUser);
@@ -46,6 +49,11 @@ export default function Card({
     detail: detail,
   });
   const [load, setLoad] = useState(false);
+  const [openLike, setOpenLike] = useState(false);
+  
+  const closeLike = () => {
+    setOpenLike(false)
+  }
 
   function linkInPhoto() {
     if (creator === auth.currentUser.uid) {
@@ -69,7 +77,7 @@ export default function Card({
   function handleVerMas() {
     setIndexComment(indexComment + 2);
 
-    console.log(commentSorted.length, " es menor a ", indexComment);
+    // console.log(commentSorted.length, " es menor a ", indexComment);
   }
 
   function handleVerMenos() {
@@ -113,14 +121,14 @@ export default function Card({
         detail: inputComment,
       })
       .then((res) => {
-        console.log("res 1", res);
+        // console.log("res 1", res);
         setInputComment("");
         axios
           .get(
             `https://pruebaconbackreal-pg15.herokuapp.com/comment/bringscomments/${id}`
           )
           .then((res) => {
-            console.log("res 2", res);
+            // console.log("res 2", res);
             setComment({ comment: res.data });
           });
 
@@ -144,12 +152,16 @@ export default function Card({
         <div className={styles.imgBox}>
           {userFromComment[0]?.profilephoto ? (
             <img src={userFromComment[0].profilephoto} alt="" />
-          ) :(<img src={noimg} alt=""></img>)}
+          ) : (
+            <img src={noimg} alt=""></img>
+          )}
         </div>
         <div className={styles.commentTextBox}>
-          {userFromComment[0]?.username?(
+          {userFromComment[0]?.username ? (
             <p className={styles.name}>{userFromComment[0].username}</p>
-          ):<p className={styles.name}>Nombre no encontrado</p>}
+          ) : (
+            <p className={styles.name}>Nombre no encontrado</p>
+          )}
           <p>{Comment}</p>
         </div>
       </div>
@@ -177,8 +189,11 @@ export default function Card({
             if (locate === "home") {
               const post = myProfile.followings.map((user) => user.autorId);
               dispatch(getPost(post.concat(auth.currentUser.uid)));
+              dispatch(getMyProfile(auth.currentUser.uid))
+           
             } else if (locate === "myProfile") {
               dispatch(getPostMyProfile([auth.currentUser.uid]));
+              dispatch(getMyProfile(auth.currentUser.uid));
             }
           });
       } else {
@@ -219,8 +234,10 @@ export default function Card({
               if (locate === "home") {
                 const post = myProfile.followings.map((user) => user.autorId);
                 dispatch(getPost(post.concat(auth.currentUser.uid)));
+                dispatch(getMyProfile(auth.currentUser.uid));
               } else if (locate === "myProfile") {
                 dispatch(getPostMyProfile([auth.currentUser.uid]));
+                dispatch(getMyProfile(auth.currentUser.uid));
               }
             });
         } else {
@@ -305,7 +322,7 @@ export default function Card({
       })
       .then((res) => {
         checkLocateCard();
-        console.log("res de likes: ", res);
+        // console.log("res de likes: ", res);
       })
       .catch((error) => {
         console.log("Funcion like error", error);
@@ -345,7 +362,11 @@ export default function Card({
         </Link>
         <div className={styles.profileName}>
           {" "}
-          {useUser[0]?.username ? <h4>{useUser[0].username}</h4> : <h2>User</h2>}
+          {useUser[0]?.username ? (
+            <h4>{useUser[0].username}</h4>
+          ) : (
+            <h2>User</h2>
+          )}
         </div>
       </header>
 
@@ -387,7 +408,10 @@ export default function Card({
         </section>
       </div>
 
-      <section className={styles.likes}>{likes.length} Me gusta </section>
+      <section className= {styles.likes}>
+      <button  onClick={() => setOpenLike(true)}>{likes.length} Me gusta</button>
+        {openLike ? <LikesModal  setOpenLike={setOpenLike} likes={likes}/> : ''}
+      </section>
 
       <section className={styles.description}> {detail} </section>
 
@@ -427,7 +451,6 @@ export default function Card({
       {load === true ? (
         <div className={styles.load}>
           <img src={loading} alt="" />
-         
         </div>
       ) : (
         false

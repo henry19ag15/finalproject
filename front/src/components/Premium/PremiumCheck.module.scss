@@ -1,0 +1,67 @@
+.allPremium {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    position: absolute;
+    background-color: white;
+    background-image: url("../../sass/hojas.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //   justify-content: space-between;
+    //   z-index: 3000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px black;
+    width: 20rem;
+    height: 30rem;
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
+    .btnCLoseBox {
+      width: 98%;
+      //   background: red;
+      display: flex;
+      justify-content: flex-end;
+      button {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        background: transparent;
+        border: none;
+        color: red;
+        margin: 0.3rem 0;
+        filter: drop-shadow(0px 0px 1px black);
+        transition: 0.2s;
+      }
+      button:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .descripcionBox {
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      .text1 {
+        color: green;
+        font-size: 8rem;
+        filter: drop-shadow(1px 1px 5px black);
+      }
+      .text2 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px gray;  
+    }
+    }
+  }
+}

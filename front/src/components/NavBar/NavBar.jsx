@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
-import { RiVipCrownLine } from "react-icons/ri";
+import { RiVipCrownLine, RiVipCrownFill } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { BsPatchCheckFill } from "react-icons/bs";
+
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
 import noimg from "../../sass/noimg.png";
@@ -17,6 +19,7 @@ import Post from "../Post/Post";
 import Notificaiones from "../Notificaciones/Notificaciones";
 import axios from "axios";
 import Premium from "../Premium/Premium";
+import PremiumCheck from "../Premium/PremiumCheck";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -37,14 +40,14 @@ const NavBar = () => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    console.log(auth.currentUser.uid);
+    // console.log(auth.currentUser.uid);
     axios
       .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
         uid: auth.currentUser.uid,
       })
       .then((res) => {
         setData(res.data);
-        console.info("Contenido de data:", res);
+        // console.info("Contenido de data:", res);
       })
       .catch((err) => console.log("se rompio"));
   }, []);
@@ -66,8 +69,6 @@ const NavBar = () => {
     }
   }, [aux]);
   */
-
-
 
   ///////////////////////////////////////////////////
 
@@ -143,7 +144,7 @@ const NavBar = () => {
       })
       .then((res) => {
         dispatch(getMyProfile(auth.currentUser.uid));
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => console.log(err));
 
@@ -154,6 +155,7 @@ const NavBar = () => {
 
   ////////////// LOGICA DE PREMIUM //////////////
   const [premiumModalView, setPremiumModalView] = useState(false);
+  const premiumValidate = myProfile && myProfile?.orders?.length>0;
 
   function handleViewPremium(e) {
     setPremiumModalView(!premiumModalView);
@@ -193,17 +195,17 @@ const NavBar = () => {
             <ul>
               {inputSearch.length > 1
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUserResp(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUserResp(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </div>
@@ -241,17 +243,17 @@ const NavBar = () => {
             <ul className={styles.renderSearched}>
               {showSearch && inputSearch.length > 0
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUser(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUser(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </li>
@@ -272,17 +274,31 @@ const NavBar = () => {
 
           <li>
             <button
-              className={styles.btnPremiumView}
+              className={
+                premiumValidate
+                  ? `${styles.btnPremiumView} ${styles.btnPremiumViewCheck}`
+                  : styles.btnPremiumView
+              }
               onClick={(e) => handleViewPremium(e)}
             >
-              <div className={styles.iconStar}>
-                <AiFillStar />
+              <div
+                className={premiumValidate ? styles.iconCheck : styles.iconStar}
+              >
+                {premiumValidate ? <BsPatchCheckFill /> : <AiFillStar />}
               </div>
-              <RiVipCrownLine />
+              {premiumValidate ? <RiVipCrownFill /> : <RiVipCrownLine />}
             </button>
 
             {premiumModalView ? (
-              <Premium setPremiumModalView={setPremiumModalView} data={data} />
+              premiumValidate ? (
+                <PremiumCheck setPremiumModalView={setPremiumModalView}/>
+              ) : (
+                <Premium
+                  setPremiumModalView={setPremiumModalView}
+                  data={data}
+                  premiumValidate={premiumValidate}
+                />
+              )
             ) : (
               false
             )}
@@ -291,8 +307,7 @@ const NavBar = () => {
           {/* ////////////////////////////////////////////////// */}
 
           <li className={styles.menuItem}>
-            {" "}
-            <buttom
+            <button
               className={styles.btnNotifi}
               onClick={() => handleNotificationView()}
             >
@@ -301,8 +316,8 @@ const NavBar = () => {
               ) : (
                 false
               )}
-              <IoMdNotificationsOutline />{" "}
-            </buttom>
+              <IoMdNotificationsOutline />
+            </button>
             {notiView ? <Notificaiones /> : false}
           </li>
           <li className={styles.add}>

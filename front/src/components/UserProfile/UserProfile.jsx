@@ -10,7 +10,11 @@ import {
   updateProfile,
   updatePassword,
 } from "firebase/auth";
-import { getMyProfile, getPostUserProfile, getUserProfile } from "../../Redux/02-actions";
+import {
+  getMyProfile,
+  getPostUserProfile,
+  getUserProfile,
+} from "../../Redux/02-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AiFillSetting } from "react-icons/ai";
@@ -20,6 +24,8 @@ import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Error404 from "../Error404/Error404";
+import { AiFillStar } from 'react-icons/ai'
+import { RiVipCrownLine } from "react-icons/ri";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -38,9 +44,6 @@ export default function UserProfile() {
   var URLactual = window.location.pathname;
   const newStr = URLactual.slice(6, URLactual.length);
 
-
-
-
   useEffect(() => {
     if (newStr === auth.currentUser.uid) {
       history.push("/profile");
@@ -48,9 +51,9 @@ export default function UserProfile() {
   }, []);
 
   useEffect(() => {
-    dispatch(getMyProfile(auth.currentUser.uid))
+    dispatch(getMyProfile(auth.currentUser.uid));
     dispatch(getUserProfile(newStr)).then((res) => {
-      console.log("esto es res", res);
+      // console.log("esto es res", res);
 
       if (res.payload.active === true) {
         setLoad(1);
@@ -83,7 +86,7 @@ export default function UserProfile() {
     const areFollow =
       perfil.followers &&
       perfil.followers.filter((follow) => follow.autorId === user.uid);
-    console.log(areFollow);
+    // console.log(areFollow);
     if (areFollow && areFollow.length > 0) {
       return false;
     } else {
@@ -113,6 +116,13 @@ export default function UserProfile() {
       <div className={style.allMyPerfil}>
         <header className={style.cabeza}>
           <div className={style.imgFollBox}>
+            {perfil.orders.length ?
+              <div className={style.btnPremiumView}>
+                <div className={style.iconStar}>
+                  <AiFillStar />
+                </div>
+                <RiVipCrownLine />
+              </div> : false}
             {perfil.profilephoto ? (
               <img
                 className={style.photoProfile}
@@ -174,7 +184,7 @@ export default function UserProfile() {
           </div>
         </header>
 
-        <body>
+        <div className={style.body}>
           <span>
             {userPost.length > 0 ? (
               userPost.map((el) => (
@@ -195,7 +205,7 @@ export default function UserProfile() {
               </div>
             )}
           </span>
-        </body>
+        </div>
 
         {followActive.view === true ? (
           <FollowModalOtherProfile

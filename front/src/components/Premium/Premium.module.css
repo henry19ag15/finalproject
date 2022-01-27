@@ -1,0 +1,115 @@
+.allPremium {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.formPremium {
+  position: absolute;
+  background-color: white;
+  background-image: url("../../sass/hojas.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 1px 10px black;
+          box-shadow: 1px 1px 10px black;
+  width: 20rem;
+  height: 30rem;
+  padding: 0.5rem 0.5rem 2rem 0.5rem;
+}
+
+.formPremium .btnCLoseBox {
+  width: 98%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.formPremium .btnCLoseBox button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: red;
+  margin: 0.3rem 0;
+  -webkit-filter: drop-shadow(0px 0px 1px black);
+          filter: drop-shadow(0px 0px 1px black);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.formPremium .btnCLoseBox button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.formPremium .imgBox img {
+  height: 5rem;
+}
+
+.formPremium .imgBox .textPremium {
+  position: absolute;
+  font-size: 1.3rem;
+  top: 5rem;
+  color: yellow;
+  text-shadow: 0px 0px 5px black, 0px 0px 5px black, 0px 0px 5px black;
+  left: 11rem;
+}
+
+.formPremium .descripcionBox {
+  margin: 1.5rem 0;
+  height: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.formPremium .descripcionBox .text2 {
+  font-size: 1.5rem;
+}
+
+.formPremium .descripcionBox .text3 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+/*# sourceMappingURL=Premium.module.css.map */
