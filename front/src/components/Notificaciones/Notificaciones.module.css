@@ -73,4 +73,12 @@
 .todoNotificaciones ul li .cadaNotificaion:hover .textBox h4 {
   letter-spacing: 1px;
 }
+
+@media screen and (max-width: 768px) {
+  .todoNotificaciones {
+    position: absolute;
+    width: 100%;
+    top: 27vh;
+  }
+}
 /*# sourceMappingURL=Notificaciones.module.css.map */

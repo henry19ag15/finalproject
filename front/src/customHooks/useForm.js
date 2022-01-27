@@ -2,10 +2,6 @@ import { useState } from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
-//El nombre solo puede contener letras 
-//El apellido solo puede contener letras 
-//La contraseña tiene que ser de 6 a 14 dígitos.
-//El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.
 
 
 export const validateForm = (form) => {
@@ -16,7 +12,7 @@ export const validateForm = (form) => {
 
     const expresiones = {
         nombre: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/, // Letras y espacios, pueden llevar acentos.
-        password: /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/, // 6 a 14 digitos.
+        password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, // 
         email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     }
 
@@ -26,26 +22,20 @@ export const validateForm = (form) => {
     }
 
      if (!expresiones.email.test(form.email.trim())) {
-        errors.displayError = "Debe ser un correo valido y solo puede contener letras, numeros, puntos, guiones y guion bajo";
+        errors.displayError = "Debe ingresar un correo valido";
     }
 
     if (!expresiones.password.test(form.password.trim())) {
-        errors.displayError = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
+        errors.displayError = "Contraseña ingresada incorrectamente";
       }
 
     if (!expresiones.email.test(form.email.trim())) {
         errors.email = "Debe ser un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo";
     }
 
-    if (!expresiones.password.test(form.password.trim())) {
-        errors.password = "La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial";
-    }
-
     if(form.password.trim() !== form.repeatPassword.trim()){
-        errors.displayError = "La contraseña ingresada debe ser igal en los dos casilleros"
+        errors.displayError = "La contraseña ingresada debe ser igual en los dos casilleros"
     }
-
-
 
     return errors
 }
@@ -118,20 +108,13 @@ export const useForm = (initialState) => {
             }
     }
 
-    const handleClickShowPassword = () => {
-        setForm({
-            ...form,
-            showPassword: !form.showPassword,
-        });
-    };
 
     return {
         form,
         errors,
         handleBlur,
         handleSubmit,
-        handleChange,
-        handleClickShowPassword
+        handleChange
     }
 
 }

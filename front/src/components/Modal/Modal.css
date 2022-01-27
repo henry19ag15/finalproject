@@ -22,30 +22,25 @@
 }
 
 .close {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  right: 0;
-  width: 3.5%;
-  height: 4%;
-  font-size: 40px;
-  cursor: pointer;
-  margin-left: 90%;
-  margin-top: -5%;
-  margin-bottom: 5%;
-  background: transparent;
+  background-color: red;
+  width: 1.8em;
+  font-size: 1.2em;
+  height: 1.8em;
+  border-radius: 50%;
   border: none;
-  color: #fff;
-  opacity: 0.5;
+  color: #f1f1f1;
+  font-weight: bold;
+  margin: 0 1% 1% 0;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .close:hover {
-  -webkit-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
-  opacity: 1;
+  -webkit-box-shadow: 1px 1px 2px gray;
+          box-shadow: 1px 1px 2px gray;
+  -webkit-transform: scale3d(-1.1, 1.1, 1.1);
+          transform: scale3d(-1.1, 1.1, 1.1);
 }
 
 @-webkit-keyframes popup {
@@ -236,7 +231,7 @@
 
 .form-post .descripcion textarea {
   width: 100%;
-  height: 60%;
+  height: 90%;
   font-size: 18px;
   padding: 8px;
   resize: none;
@@ -345,13 +340,16 @@
 
 @media (max-width: 950px) {
   .post-container {
-    width: 90%;
+    width: 25em;
   }
 }
 
 @media (max-width: 750px) {
   .header-post h2 {
     font-size: 14px;
+  }
+  .post-container {
+    width: 20em;
   }
   .form-wrapper {
     display: -webkit-box;
@@ -371,9 +369,8 @@
     height: 100%;
   }
   .form-wrapper .img-container {
-    width: 40%;
-    height: 40%;
-    margin-top: 5%;
+    width: 60%;
+    height: 60%;
   }
   .form-wrapper .descripcion {
     width: 100%;
@@ -383,22 +380,34 @@
     padding: 1% 2.5%;
     height: 50%;
   }
-  .form-wrapper .descripcion select {
-    height: 20%;
-  }
-  .form-wrapper .descripcion select :focus {
-    outline: 0px;
-    border: none;
-    width: 80%;
-  }
-  .form-wrapper .descripcion select :active {
-    outline: 0px;
-    border: none;
-    width: 80%;
-  }
   .form-wrapper .descripcion button {
     width: 80%;
     height: 20%;
+  }
+}
+
+@media (max-width: 605px) {
+  .post-container {
+    width: 15em;
+  }
+  .descripcion {
+    width: 100%;
+  }
+  .descripcion textarea {
+    margin-top: 3em;
+    width: 100%;
+    padding: 1% 2.5%;
+    height: 50%;
+  }
+  .descripcion button {
+    width: 80%;
+    height: 20%;
+  }
+}
+
+@media (max-width: 460px) {
+  .post-container {
+    width: 12em;
   }
 }
 /*# sourceMappingURL=Modal.css.map */

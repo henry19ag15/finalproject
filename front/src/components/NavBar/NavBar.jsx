@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./NavBar.module.scss";
 import { BiSearchAlt, BiMessageRoundedDetail } from "react-icons/bi";
+import { AiFillStar } from "react-icons/ai";
+import { RiVipCrownLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { getAllUser, getMyProfile } from "../../Redux/02-actions/index";
 import logo from "../../assets/logo3.png";
@@ -13,7 +15,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../Redux/02-actions";
 import Post from "../Post/Post";
 import Notificaiones from "../Notificaciones/Notificaciones";
-import axios from 'axios';
+import axios from "axios";
+import Premium from "../Premium/Premium";
 
 const NavBar = () => {
   const auth = getAuth();
@@ -22,7 +25,6 @@ const NavBar = () => {
   const user = auth.currentUser;
   const allUser = useSelector((state) => state.allUser);
   const myProfile = useSelector((state) => state.myProfile);
-
   const [navActive, setNavActive] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -30,6 +32,44 @@ const NavBar = () => {
   const [notiView, setNotiView] = useState(false);
   // console.log(allUser);
   const [searchResponsActive, setSearchResponsActive] = useState(false);
+
+  ///////////// LLAMADA A MERCADO PAGO /////////////
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    console.log(auth.currentUser.uid);
+    axios
+      .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
+        uid: auth.currentUser.uid,
+      })
+      .then((res) => {
+        setData(res.data);
+        console.info("Contenido de data:", res);
+      })
+      .catch((err) => console.log("se rompio"));
+  }, []);
+
+  /* 
+  useEffect(() => {
+    if (aux !== 0) {
+      axios
+        .post("https://pruebaconbackreal-pg15.herokuapp.com/mercadopago", {
+          uid: auth.currentUser.uid,
+        })
+        .then((res) => {
+          // setData(res.data)
+          console.info("Contenido de data:", res);
+        })
+        .catch((err) => console.log("se rompio"));
+    } else {
+      console.log("es igual a undefined");
+    }
+  }, [aux]);
+  */
+
+
+
+  ///////////////////////////////////////////////////
 
   useEffect(() => {
     dispatch(getAllUser());
@@ -96,27 +136,27 @@ const NavBar = () => {
     return validate?.length;
   }
 
-
-
-
-
-
   function handleNotificationView() {
-
     axios
-    .put(
-      "https://pruebaconbackreal-pg15.herokuapp.com/notification/viewed",
-      {
+      .put("https://pruebaconbackreal-pg15.herokuapp.com/notification/viewed", {
         id: auth.currentUser.uid,
-      }
-    )
-    .then((res) => {
-      dispatch(getMyProfile(auth.currentUser.uid))
-      console.log(res)})
-    .catch((err) => console.log(err));
-  
-  
-    setNotiView(!notiView)
+      })
+      .then((res) => {
+        dispatch(getMyProfile(auth.currentUser.uid));
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+
+    setNotiView(!notiView);
+  }
+
+  //////////////////////////////////////////////
+
+  ////////////// LOGICA DE PREMIUM //////////////
+  const [premiumModalView, setPremiumModalView] = useState(false);
+
+  function handleViewPremium(e) {
+    setPremiumModalView(!premiumModalView);
   }
 
   //////////////////////////////////////////////
@@ -216,14 +256,39 @@ const NavBar = () => {
             </ul>
           </li>
 
-<li >
-  <button onClick={()=>setSearchResponsActive(true)} className={styles.btnOpenSearchInNavResp}>
-  <BiSearchAlt />
-  </button>
-</li>
+          <li>
+            <button
+              onClick={() => {
+                setSearchResponsActive(true);
+                setNavActive(false);
+              }}
+              className={styles.btnOpenSearchInNavResp}
+            >
+              <BiSearchAlt />
+            </button>
+          </li>
 
+          {/* //////////////////// PREMIUM //////////////////// */}
 
+          <li>
+            <button
+              className={styles.btnPremiumView}
+              onClick={(e) => handleViewPremium(e)}
+            >
+              <div className={styles.iconStar}>
+                <AiFillStar />
+              </div>
+              <RiVipCrownLine />
+            </button>
 
+            {premiumModalView ? (
+              <Premium setPremiumModalView={setPremiumModalView} data={data} />
+            ) : (
+              false
+            )}
+          </li>
+
+          {/* ////////////////////////////////////////////////// */}
 
           <li className={styles.menuItem}>
             {" "}
@@ -231,7 +296,11 @@ const NavBar = () => {
               className={styles.btnNotifi}
               onClick={() => handleNotificationView()}
             >
-              {validateNotification() !== 0 ? <p>{validateNotification()}</p>:false}
+              {validateNotification() !== 0 ? (
+                <p className={styles.numAlert}>{validateNotification()}</p>
+              ) : (
+                false
+              )}
               <IoMdNotificationsOutline />{" "}
             </buttom>
             {notiView ? <Notificaiones /> : false}
@@ -264,7 +333,7 @@ const NavBar = () => {
         </ul>
         <button
           className={styles.btn_toogle}
-          onClick={() => setNavActive(!navActive)}
+          onClick={() => setNotiView(false)}
         >
           <Hamburger size={30} toggled={navActive} toggle={setNavActive} />
         </button>

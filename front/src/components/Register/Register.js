@@ -94,7 +94,7 @@ const Register = () =>{
                     <ul>
                         <li>El campo 'Nombre' sólo acepta letras y espacios en blanco.</li>
                         <li>Debe ingresar un correo valida y solo puede contener letras, numeros, puntos, guiones y guion bajo.</li>
-                        <li>La contraseña debe tener mínimo ocho caracteres, al menos una letra mayúscula, un número y un carácter especial.</li>
+                        <li>La contraseña debe tener mínimo ocho caracteres, al menos una letra y un número.</li>
                     </ul>
                 </div>
             </div>

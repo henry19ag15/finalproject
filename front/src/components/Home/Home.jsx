@@ -24,7 +24,8 @@ export default function Home() {
     if (a.createdAt > b.createdAt) return -1;
     return 0;
   });
-console.log(userPost)
+ 
+console.log("Sigue escuchando cambios de vercel")
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getMyProfile(user.uid)).then((res) => {

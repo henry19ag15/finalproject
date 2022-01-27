@@ -27,6 +27,7 @@ const Post = () =>{
                     <div className={fileUrl ? 'header-post' : 'noBack'}>
                         <spam className='back-btn' onClick={() => back()}><FaArrowLeft /></spam>
                         <h2>Crear Publicación</h2>
+                        <button className='close' onClick={closeModal}>X</button>
                     </div>
                         <form className={fileUrl ? 'form-post' : 'without-button'} onSubmit={handleSubmit}>
                             <div className={fileUrl ? 'form-wrapper' : 'form-noimage'}>
