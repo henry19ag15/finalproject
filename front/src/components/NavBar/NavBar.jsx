@@ -195,17 +195,17 @@ const NavBar = () => {
             <ul>
               {inputSearch.length > 1
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUserResp(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUserResp(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </div>
@@ -243,17 +243,17 @@ const NavBar = () => {
             <ul className={styles.renderSearched}>
               {showSearch && inputSearch.length > 0
                 ? searchToRender.map((user) => (
-                    <li key={user.id}>
-                      <button onClick={(e) => handleSelectUser(e, user.id)}>
-                        {user.profilephoto ? (
-                          <img src={user.profilephoto} alt="" />
-                        ) : (
-                          <img src={noimg} alt="" />
-                        )}
-                        {user.username}
-                      </button>
-                    </li>
-                  ))
+                  <li key={user.id}>
+                    <button onClick={(e) => handleSelectUser(e, user.id)}>
+                      {user.profilephoto ? (
+                        <img src={user.profilephoto} alt="" />
+                      ) : (
+                        <img src={noimg} alt="" />
+                      )}
+                      {user.username}
+                    </button>
+                  </li>
+                ))
                 : false}
             </ul>
           </li>

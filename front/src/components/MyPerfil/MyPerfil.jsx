@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./MyPerfil.module.scss";
 import noImg from "../../sass/noimg.png";
+import loading from "../../sass/loading.gif";
 import axios from "axios";
 import { app } from "../../firebase/firebaseConfig";
 import {
@@ -22,6 +23,8 @@ import FollowModal from "./FollowModal";
 import LazyLoad from "react-lazyload";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Error404 from "../Error404/Error404";
+import { AiFillStar } from 'react-icons/ai'
+import { RiVipCrownFill } from "react-icons/ri";
 
 export default function MyPerfil() {
   const dispatch = useDispatch();
@@ -47,6 +50,7 @@ export default function MyPerfil() {
     type: "",
   });
   const [load, setLoad] = useState(0);
+  const [loadForOptions, setLoadForOptions] = useState(false);
 
   useEffect(() => {
     dispatch(getMyProfile(auth.currentUser.uid)).then((res) => {
@@ -159,7 +163,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { detail: inputsConfig.details } },
             }
@@ -222,7 +226,7 @@ export default function MyPerfil() {
         axios
           .put(
             "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-              user.uid,
+            user.uid,
             {
               payload: { user: { displayname: inputsConfig.displayName } },
             }
@@ -262,6 +266,7 @@ export default function MyPerfil() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        setLoadForOptions(true);
         const change = async () => {
           const storageRef = await app
             .storage()
@@ -271,9 +276,10 @@ export default function MyPerfil() {
           await updateProfile(auth.currentUser, {
             photoURL: url,
           }).then(() => {
+            setLoadForOptions(false);
             axios.put(
               "https://pruebaconbackreal-pg15.herokuapp.com/user/setting/" +
-                user.uid,
+              user.uid,
               {
                 payload: { user: { profilephoto: user.photoURL } },
               }
@@ -421,6 +427,16 @@ export default function MyPerfil() {
       <div className={style.allMyPerfil}>
         <header className={style.cabeza}>
           <div className={style.imgFollBox}>
+
+          {myProfile.orders.length ?
+            <div className={style.btnPremiumView}>
+              <div className={style.iconStar}>
+                <AiFillStar />
+              </div>
+              <RiVipCrownFill />
+            </div>
+            : false}
+
             {user.photoURL ? (
               <img className={style.photoProfile} src={user.photoURL} alt="" />
             ) : (

@@ -24,6 +24,8 @@ import Card from "../Card/Card";
 import FollowModalOtherProfile from "./FollowModalOtherProfile";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Error404 from "../Error404/Error404";
+import { AiFillStar } from 'react-icons/ai'
+import { RiVipCrownLine } from "react-icons/ri";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -114,6 +116,13 @@ export default function UserProfile() {
       <div className={style.allMyPerfil}>
         <header className={style.cabeza}>
           <div className={style.imgFollBox}>
+            {perfil.orders.length ?
+              <div className={style.btnPremiumView}>
+                <div className={style.iconStar}>
+                  <AiFillStar />
+                </div>
+                <RiVipCrownLine />
+              </div> : false}
             {perfil.profilephoto ? (
               <img
                 className={style.photoProfile}

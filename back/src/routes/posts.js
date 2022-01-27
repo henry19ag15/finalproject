@@ -1,16 +1,16 @@
 const server = require('express').Router();
-const { Post, User, Comment,Like } = require('../db.js')
+const { Post, User, Comment, Like } = require('../db.js')
 const sequelize = require("sequelize")
 
 //crear post 
 server.post('/', async function (req, res) {
     try {
-        const { photoURL, creator, detail,private } = req.body
+        const { photoURL, creator, detail, private } = req.body
         await Post.create({
             photo: photoURL,
             detail: detail,
             autorId: creator,
-            private:private
+            private: private
         })
         res.status(200).send("se creo el post")
 
@@ -30,8 +30,11 @@ server.post('/getbyusers', async function (req, res) {
         posts = await Post.findAll({
             where: {
                 autorId: req.body.payload.map(e => e)
-            }
+            },
+            include: [
+                { model: Like }
 
+            ]
         })
 
         console.log(posts)
@@ -50,7 +53,12 @@ server.get('/getAll', async function (req, res) {
 
 
     try {
-        let posts = await Post.findAll();
+        let posts = await Post.findAll({
+            include: [
+                { model: Like }
+
+            ]
+        });
         res.send(posts);
     } catch (error) {
         console.log(error)
@@ -60,24 +68,52 @@ server.get('/getAll', async function (req, res) {
 // dar like
 server.post("/likes", async function (req, res) {
 
-    try {
-        const {
-            idUser,
-            idPost,
+    const {
+        idUser,
+        idPost,
 
-        } = req.body;
+    } = req.body;
 
-        await Like.create({
+    let findLike = await Like.findOne({
+        where: {
             userId: idUser,
-            postId: idPost,
+            postId: idPost
+        }
+    })
+    console.log(findLike)
 
-        })
-        res.status(200).send("comentario")
+    if (!findLike) {
+        try {
+            await Like.create({
+                userId: idUser,
+                postId: idPost,
 
-    } catch (error) {
-        console.log(error)
+            })
+            res.status(200).send("like dado")
 
+        } catch (error) {
+            console.log(error)
+
+        }
     }
+    else {
+        try {
+            await Like.destroy({
+                where: {
+                    userId: idUser,
+                    postId: idPost,
+                }
+            })
+            send.status(200).send("like borrado")
+
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+
+
 })
 
 //borrar post
